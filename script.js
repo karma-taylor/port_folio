@@ -26,6 +26,7 @@ const setupProjectFocusOverlay = () => {
   const closeButton = document.getElementById("focusClose");
   const focusImage = document.getElementById("focusImage");
   const focusTitle = document.getElementById("focusTitle");
+  const focusPrompt = document.getElementById("focusPrompt");
   const focusPromptText = document.getElementById("focusPromptText");
   const focusDesc = document.getElementById("focusDesc");
   const focusLinks = document.getElementById("focusLinks");
@@ -36,6 +37,7 @@ const setupProjectFocusOverlay = () => {
     !closeButton ||
     !focusImage ||
     !focusTitle ||
+    !focusPrompt ||
     !focusPromptText ||
     !focusDesc ||
     !focusLinks ||
@@ -76,8 +78,39 @@ const setupProjectFocusOverlay = () => {
       focusTitle.textContent = title.textContent || "";
       focusPromptText.textContent =
         prompt?.textContent?.trim() || "Prompt：突出产品定位与核心使用场景。";
+      focusPrompt.classList.remove("is-visible");
+      focusPrompt.setAttribute("hidden", "");
       focusDesc.textContent = desc?.textContent?.trim() || "";
       focusLinks.innerHTML = "";
+
+      const promptButton = document.createElement("button");
+      promptButton.type = "button";
+      promptButton.className = "focus-menu-btn";
+      promptButton.setAttribute("aria-expanded", "false");
+      promptButton.innerHTML = `
+        <span class="prompt-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false">
+            <path d="M11.24 2.54a.8.8 0 0 1 1.52 0l1.01 3.31a2.6 2.6 0 0 0 1.73 1.73l3.31 1.01a.8.8 0 0 1 0 1.52l-3.31 1.01a2.6 2.6 0 0 0-1.73 1.73l-1.01 3.31a.8.8 0 0 1-1.52 0l-1.01-3.31A2.6 2.6 0 0 0 8.5 11.12L5.2 10.11a.8.8 0 0 1 0-1.52L8.5 7.58a2.6 2.6 0 0 0 1.73-1.73l1.01-3.31Zm8.07 12.18a.8.8 0 0 1 .76.57l.45 1.47a1.3 1.3 0 0 0 .86.86l1.47.45a.8.8 0 0 1 0 1.52l-1.47.45a1.3 1.3 0 0 0-.86.86l-.45 1.47a.8.8 0 0 1-1.52 0l-.45-1.47a1.3 1.3 0 0 0-.86-.86l-1.47-.45a.8.8 0 0 1 0-1.52l1.47-.45a1.3 1.3 0 0 0 .86-.86l.45-1.47a.8.8 0 0 1 .76-.57Z"></path>
+          </svg>
+        </span>
+        Prompt
+      `;
+      promptButton.addEventListener("click", () => {
+        const shouldOpen = focusPrompt.hasAttribute("hidden");
+        if (shouldOpen) {
+          focusPrompt.removeAttribute("hidden");
+          requestAnimationFrame(() => {
+            focusPrompt.classList.add("is-visible");
+          });
+          promptButton.setAttribute("aria-expanded", "true");
+        } else {
+          focusPrompt.classList.remove("is-visible");
+          focusPrompt.setAttribute("hidden", "");
+          promptButton.setAttribute("aria-expanded", "false");
+        }
+      });
+      focusLinks.appendChild(promptButton);
+
       sourceLinks.forEach((link) => {
         focusLinks.appendChild(link.cloneNode(true));
       });

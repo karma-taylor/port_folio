@@ -427,6 +427,15 @@ body.is-true-fullscreen .hero::before {
     transform 0.3s ease;
 }
 
+.focus-prompt[hidden] {
+  display: none;
+}
+
+.focus-prompt.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .prompt-icon {
   width: 0.92rem;
   height: 0.92rem;
@@ -437,6 +446,18 @@ body.is-true-fullscreen .hero::before {
   width: 100%;
   height: 100%;
   fill: currentColor;
+}
+
+.focus-menu-btn {
+  color: var(--deep-blue);
+  border: 1px solid rgba(2, 89, 221, 0.35);
+  background: rgba(132, 175, 251, 0.2);
+  cursor: pointer;
+}
+
+.focus-menu-btn:hover {
+  background: rgba(132, 175, 251, 0.34);
+  border-color: rgba(2, 89, 221, 0.5);
 }
 
 .focus-meta {
@@ -472,12 +493,6 @@ body.is-true-fullscreen .hero::before {
   opacity: 1;
   transform: translateY(0);
   transition-delay: 70ms;
-}
-
-.focus-overlay.menu-ready .focus-prompt {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 100ms;
 }
 
 .focus-overlay.menu-ready .focus-links {
