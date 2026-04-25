@@ -145,18 +145,11 @@ body.is-true-fullscreen .hero::before {
 
 .projects-section {
   width: min(1200px, 92%);
-  margin: -0.35rem auto 4rem;
-  padding: 1.35rem;
-  background:
-    linear-gradient(
-      to bottom,
-      rgba(246, 225, 219, 0.98) 0%,
-      rgba(255, 228, 219, 0.94) 22%,
-      var(--section-bg) 70%
-    );
-  border-radius: var(--radius-lg);
-  border: 1px solid rgba(2, 89, 221, 0.08);
-  box-shadow: 0 8px 24px rgba(2, 89, 221, 0.05);
+  margin: 0 auto 4rem;
+  padding: 0.95rem 0 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
   position: relative;
   z-index: 1;
 }
