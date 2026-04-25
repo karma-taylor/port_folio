@@ -26,7 +26,7 @@ const setupProjectFocusOverlay = () => {
   const closeButton = document.getElementById("focusClose");
   const focusImage = document.getElementById("focusImage");
   const focusTitle = document.getElementById("focusTitle");
-  const focusPrompt = document.getElementById("focusPrompt");
+  const focusPromptCard = document.getElementById("focusPromptCard");
   const focusPromptText = document.getElementById("focusPromptText");
   const focusDesc = document.getElementById("focusDesc");
   const focusLinks = document.getElementById("focusLinks");
@@ -37,7 +37,7 @@ const setupProjectFocusOverlay = () => {
     !closeButton ||
     !focusImage ||
     !focusTitle ||
-    !focusPrompt ||
+    !focusPromptCard ||
     !focusPromptText ||
     !focusDesc ||
     !focusLinks ||
@@ -54,6 +54,8 @@ const setupProjectFocusOverlay = () => {
     overlay.classList.remove("menu-ready");
     overlay.setAttribute("aria-hidden", "true");
     document.body.classList.remove("overlay-open");
+    focusPromptCard.classList.remove("is-open");
+    focusPromptCard.setAttribute("aria-hidden", "true");
     if (activeTrigger) {
       activeTrigger.setAttribute("aria-expanded", "false");
       activeTrigger.focus();
@@ -78,8 +80,8 @@ const setupProjectFocusOverlay = () => {
       focusTitle.textContent = title.textContent || "";
       focusPromptText.textContent =
         prompt?.textContent?.trim() || "Prompt：突出产品定位与核心使用场景。";
-      focusPrompt.classList.remove("is-visible");
-      focusPrompt.setAttribute("hidden", "");
+      focusPromptCard.classList.remove("is-open");
+      focusPromptCard.setAttribute("aria-hidden", "true");
       focusDesc.textContent = desc?.textContent?.trim() || "";
       focusLinks.innerHTML = "";
 
@@ -96,17 +98,17 @@ const setupProjectFocusOverlay = () => {
         Prompt
       `;
       promptButton.addEventListener("click", () => {
-        const shouldOpen = focusPrompt.hasAttribute("hidden");
+        const shouldOpen = !focusPromptCard.classList.contains("is-open");
         if (shouldOpen) {
-          focusPrompt.removeAttribute("hidden");
-          requestAnimationFrame(() => {
-            focusPrompt.classList.add("is-visible");
-          });
+          focusPromptCard.classList.add("is-open");
+          focusPromptCard.setAttribute("aria-hidden", "false");
           promptButton.setAttribute("aria-expanded", "true");
+          promptButton.classList.add("is-active");
         } else {
-          focusPrompt.classList.remove("is-visible");
-          focusPrompt.setAttribute("hidden", "");
+          focusPromptCard.classList.remove("is-open");
+          focusPromptCard.setAttribute("aria-hidden", "true");
           promptButton.setAttribute("aria-expanded", "false");
+          promptButton.classList.remove("is-active");
         }
       });
       focusLinks.appendChild(promptButton);

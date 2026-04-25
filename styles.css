@@ -265,7 +265,8 @@ body.is-true-fullscreen .hero::before {
   flex-wrap: wrap;
 }
 
-.project-links a {
+.project-links a,
+.project-links button {
   color: var(--accent);
   text-decoration: none;
   border: 1px solid rgba(255, 104, 72, 0.55);
@@ -276,13 +277,16 @@ body.is-true-fullscreen .hero::before {
   align-items: center;
   gap: 0.35rem;
   background: #fff2ed;
+  font-family: inherit;
+  line-height: 1.2;
   transition:
     background 0.18s ease,
     transform 0.18s ease,
     border-color 0.18s ease;
 }
 
-.project-links a:hover {
+.project-links a:hover,
+.project-links button:hover {
   background: var(--accent-soft);
   transform: translateY(-1px);
   border-color: rgba(255, 104, 72, 0.75);
@@ -295,6 +299,18 @@ body.is-true-fullscreen .hero::before {
 }
 
 .github-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+.live-icon {
+  width: 1rem;
+  height: 1rem;
+  display: inline-flex;
+}
+
+.live-icon svg {
   width: 100%;
   height: 100%;
   fill: currentColor;
@@ -408,32 +424,46 @@ body.is-true-fullscreen .hero::before {
     transform 0.3s ease;
 }
 
-.focus-prompt {
-  margin: 0.55rem 0 0.7rem;
+.focus-prompt-card {
+  position: absolute;
+  right: 1rem;
+  top: calc(100% + 0.4rem);
+  width: min(360px, calc(100% - 2rem));
+  background: rgba(255, 245, 239, 0.98);
+  border: 1px solid rgba(2, 89, 221, 0.24);
+  border-radius: 12px;
+  padding: 0.75rem 0.85rem;
+  box-shadow: 0 16px 30px rgba(2, 89, 221, 0.18);
+  opacity: 0;
+  transform: translateY(8px) scale(0.98);
+  pointer-events: none;
+  z-index: 8;
+  transition:
+    opacity 0.24s ease,
+    transform 0.24s ease;
+}
+
+.focus-prompt-card.is-open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.focus-prompt-title {
+  margin: 0;
   display: inline-flex;
   align-items: center;
   gap: 0.38rem;
   color: var(--deep-blue);
   font-size: 0.92rem;
   font-weight: 600;
-  background: rgba(132, 175, 251, 0.18);
-  border: 1px solid rgba(2, 89, 221, 0.2);
-  border-radius: 999px;
-  padding: 0.28rem 0.62rem;
-  opacity: 0;
-  transform: translateY(8px);
-  transition:
-    opacity 0.3s ease,
-    transform 0.3s ease;
 }
 
-.focus-prompt[hidden] {
-  display: none;
-}
-
-.focus-prompt.is-visible {
-  opacity: 1;
-  transform: translateY(0);
+.focus-prompt-body {
+  margin: 0.55rem 0 0;
+  color: var(--muted-text);
+  line-height: 1.68;
+  font-size: 0.9rem;
 }
 
 .prompt-icon {
@@ -453,6 +483,12 @@ body.is-true-fullscreen .hero::before {
   border: 1px solid rgba(2, 89, 221, 0.35);
   background: rgba(132, 175, 251, 0.2);
   cursor: pointer;
+  appearance: none;
+}
+
+.focus-menu-btn.is-active {
+  background: rgba(2, 89, 221, 0.2);
+  border-color: rgba(2, 89, 221, 0.55);
 }
 
 .focus-menu-btn:hover {
@@ -546,6 +582,12 @@ body.is-true-fullscreen .hero::before {
 
   .focus-meta {
     flex-direction: column;
+  }
+
+  .focus-prompt-card {
+    left: 1rem;
+    right: 1rem;
+    width: auto;
   }
 
   .focus-links {
