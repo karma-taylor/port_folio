@@ -50,12 +50,14 @@ body.overlay-open {
   left: 0;
   right: 0;
   bottom: -1px;
-  height: clamp(90px, 14vw, 160px);
+  height: clamp(120px, 16vw, 190px);
   background: linear-gradient(
     to bottom,
-    rgba(132, 175, 251, 0) 0%,
-    rgba(167, 194, 238, 0.34) 52%,
-    rgba(214, 207, 201, 0.72) 100%
+    rgba(61, 104, 140, 0) 0%,
+    rgba(94, 137, 170, 0.35) 28%,
+    rgba(160, 170, 191, 0.52) 54%,
+    rgba(229, 207, 202, 0.74) 76%,
+    rgba(255, 225, 215, 0.92) 100%
   );
   pointer-events: none;
 }
@@ -143,10 +145,15 @@ body.is-true-fullscreen .hero::before {
 
 .projects-section {
   width: min(1200px, 92%);
-  margin: -1.1rem auto 4rem;
+  margin: -0.35rem auto 4rem;
   padding: 1.35rem;
   background:
-    linear-gradient(to bottom, rgba(255, 236, 228, 0.9), var(--section-bg) 72%);
+    linear-gradient(
+      to bottom,
+      rgba(246, 225, 219, 0.98) 0%,
+      rgba(255, 228, 219, 0.94) 22%,
+      var(--section-bg) 70%
+    );
   border-radius: var(--radius-lg);
   border: 1px solid rgba(2, 89, 221, 0.2);
   box-shadow: 0 8px 24px rgba(2, 89, 221, 0.08);
