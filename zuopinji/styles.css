@@ -39,7 +39,7 @@ body.overlay-open {
   position: relative;
   background-image:
     linear-gradient(rgba(2, 89, 221, 0.42), rgba(2, 89, 221, 0.42)),
-    url("./background.jpg");
+    url("./background2.png");
   background-size: cover;
   background-position: 72% center;
 }
