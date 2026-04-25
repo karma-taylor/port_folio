@@ -26,11 +26,21 @@ const setupProjectFocusOverlay = () => {
   const closeButton = document.getElementById("focusClose");
   const focusImage = document.getElementById("focusImage");
   const focusTitle = document.getElementById("focusTitle");
+  const focusPromptText = document.getElementById("focusPromptText");
   const focusDesc = document.getElementById("focusDesc");
   const focusLinks = document.getElementById("focusLinks");
   const focusPanel = overlay?.querySelector(".focus-panel");
 
-  if (!overlay || !closeButton || !focusImage || !focusTitle || !focusDesc || !focusLinks || !focusPanel) {
+  if (
+    !overlay ||
+    !closeButton ||
+    !focusImage ||
+    !focusTitle ||
+    !focusPromptText ||
+    !focusDesc ||
+    !focusLinks ||
+    !focusPanel
+  ) {
     return;
   }
 
@@ -56,6 +66,7 @@ const setupProjectFocusOverlay = () => {
       const card = trigger.closest(".project-card");
       const img = trigger.querySelector("img");
       const title = trigger.querySelector(".project-name-tag");
+      const prompt = card?.querySelector(".project-prompt");
       const desc = card?.querySelector(".project-summary");
       const sourceLinks = card?.querySelectorAll(".project-links a");
       if (!card || !img || !title || !sourceLinks?.length) return;
@@ -63,6 +74,8 @@ const setupProjectFocusOverlay = () => {
       focusImage.src = img.src;
       focusImage.alt = img.alt;
       focusTitle.textContent = title.textContent || "";
+      focusPromptText.textContent =
+        prompt?.textContent?.trim() || "Prompt：突出产品定位与核心使用场景。";
       focusDesc.textContent = desc?.textContent?.trim() || "";
       focusLinks.innerHTML = "";
       sourceLinks.forEach((link) => {
