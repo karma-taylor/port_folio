@@ -61,7 +61,7 @@ body.overlay-open {
 }
 
 body.is-true-fullscreen .hero {
-  background-position: 76% 42%;
+  background-position: 76% 50%;
 }
 
 body.is-true-fullscreen .hero::before {
