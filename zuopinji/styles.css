@@ -155,8 +155,8 @@ body.is-true-fullscreen .hero::before {
       var(--section-bg) 70%
     );
   border-radius: var(--radius-lg);
-  border: 1px solid rgba(2, 89, 221, 0.2);
-  box-shadow: 0 8px 24px rgba(2, 89, 221, 0.08);
+  border: 1px solid rgba(2, 89, 221, 0.08);
+  box-shadow: 0 8px 24px rgba(2, 89, 221, 0.05);
   position: relative;
   z-index: 1;
 }
@@ -178,7 +178,7 @@ body.is-true-fullscreen .hero::before {
 .project-card {
   background: var(--card-bg);
   border-radius: var(--radius-md);
-  border: 1px solid rgba(2, 89, 221, 0.22);
+  border: 1px solid rgba(2, 89, 221, 0.1);
   overflow: hidden;
   transform: translateY(16px);
   transition:
@@ -197,8 +197,8 @@ body.is-true-fullscreen .hero::before {
 
 .project-card:hover {
   transform: translateY(-4px);
-  box-shadow: var(--shadow-soft-hover);
-  border-color: rgba(2, 89, 221, 0.34);
+  box-shadow: 0 16px 36px rgba(2, 89, 221, 0.14);
+  border-color: rgba(2, 89, 221, 0.18);
 }
 
 .project-card:hover img {
@@ -246,7 +246,7 @@ body.is-true-fullscreen .hero::before {
 
 .project-content {
   padding: 1rem;
-  border-top: 1px solid rgba(2, 89, 221, 0.16);
+  border-top: 0;
   background: #ffe1d7;
 }
 
@@ -363,8 +363,8 @@ body.is-true-fullscreen .hero::before {
   border-radius: var(--radius-lg);
   padding: 1rem 1rem 1.1rem;
   background: rgba(255, 225, 215, 0.97);
-  border: 1px solid rgba(2, 89, 221, 0.22);
-  box-shadow: 0 16px 40px rgba(2, 89, 221, 0.28);
+  border: 1px solid rgba(2, 89, 221, 0.12);
+  box-shadow: 0 16px 40px rgba(2, 89, 221, 0.18);
   opacity: 0;
   overflow: visible;
   transition: opacity 0.24s ease;
