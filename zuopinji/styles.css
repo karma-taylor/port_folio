@@ -39,8 +39,7 @@ body.overlay-open {
   position: relative;
   background-image:
     linear-gradient(rgba(2, 89, 221, 0.42), rgba(2, 89, 221, 0.42)),
-    url("https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1800&q=80");
-  /* 把上面的 url(...) 换成你的个人照片链接 */
+    url("./background.jpg");
   background-size: cover;
   background-position: 72% center;
 }
