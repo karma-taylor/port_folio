@@ -35,7 +35,7 @@
           </button>
           <div class="project-content" hidden>
             <p class="project-summary">面向业务场景的汇率换算 Web 工具，支持多银行参考、固定汇率、防呆纠偏与弱网可用。</p>
-            <p class="project-prompt">Prompt：我主导了汇率工具从需求到上线的全流程，重点通过 Prompt 工程将业务规则（方向防呆、离线回退、验收口径）结构化，结合 AI Agent 完成代码定位、实现验证与文档沉淀，显著提升迭代效率与交付稳定性。</p>
+            <p class="project-prompt">Prompt：你是一个汇率换算助手。任务：根据用户输入的 base、target、amount 和 rate（可选），返回换算后的数字结果。规则：1) 固定汇率模式：converted = amount * rate，rate 表示 1 base = rate target。2) 若为网络模式，使用提供的实时 rate 计算。3) 若币种方向互换（A/B -> B/A），rate 需取倒数后再计算。4) 输出仅包含：换算结果数字、使用汇率、币种单位。5) 不输出业务分析、PRD术语或空泛描述。输出格式：- converted: &lt;number&gt; - rate_used: "1 &lt;base&gt; = &lt;x&gt; &lt;target&gt;" - note: "&lt;网络汇率/固定汇率/缓存汇率&gt;"</p>
             <div class="project-links">
               <a href="https://github.com/karma-taylor/weather-fx-agent" target="_blank" rel="noopener noreferrer">
                 <span class="github-icon" aria-hidden="true">
@@ -107,7 +107,7 @@
           </button>
           <div class="project-content" hidden>
             <p class="project-summary">面向施工与运维排班场景的可视化日历工具，支持项目占用展示、人员分配、冲突校验与云端持久化。</p>
-            <p class="project-prompt">Prompt：请帮我开发一个项目排班日历工具：支持月视图展示项目占用长线、创建项目并选择管理人员/工人、同一人同时间不可被分配到两个项目、支持删除工单；人员名单从 Excel 指定 sheet（江都、省建、科林、CSI）读取，C 列姓名、F 列岗位；支持“锁定本地名单文件”与自动更新检测；项目与名单需支持本地缓存与 Supabase 免费云端同步，最终可部署到 Cloudflare Pages 并通过固定网址访问。</p>
+            <p class="project-prompt">Prompt：你是一个施工计划与资源统筹专家，同时也是资深前端工程师。请为我开发一个“施工/运维排班日历系统（Work Calendar）”，用于项目排期、人员分配与冲突管控。请严格按以下要求实现：【业务目标】以月历形式展示工单占用周期（长线条可视化）。支持创建工单并分配管理人员与工人。支持同一工单内“多拨人分段参与”，而非默认全程参与。严格限制：同一人同一时间不得被分配到两个工单。支持 Excel 名单导入、锁定、自动更新检测。支持本地缓存与云端持久化，避免数据丢失。【功能需求】A. 日历与工单：月视图，支持上/下月切换。每个工单按起止日期显示横向长线，占用可跨周，视觉连续。点击工单查看详情弹窗。增加“删除模式”开关：开启后点击工单可删除（需确认）。B. 新建工单：字段：工单名称、开始日期、结束日期。保留“管理人员/工人”基础选择。重点：新增“人员分段安排”表单（可多行）：人员、角色（管理/工人）、分段开始日期、分段结束日期、备注（可选）。每行支持“复制一行”“删除一行”。分段日期必须落在工单总日期范围内。C. 冲突校验（强约束）：冲突判定粒度为“人员分段”，不是工单全程。判定规则：若同一人两条分段时间有交集（aStart <= bEnd 且 bStart <= aEnd），禁止保存。冲突提示应给出：冲突人员 + 冲突工单名。D. Excel 人员名单导入规则：只读取 sheet：江都、省建、科林。额外：CSI/CSIsheet 也读取，且其人员一律归管理人员。从第 3 行开始读取。C 列为姓名，F 列为岗位。岗位包含“工”归工人，否则归管理。同名不合并，展示时用“姓名(公司/来源sheet)”区分。E. 名单锁定与自动更新：提供“锁定人员名单文件”能力（File System Access API）。刷新后尽量自动恢复锁定；若权限失效，保留缓存名单并提示“需重新关联”。文件内容变更后自动重新解析并更新名单。F. 数据持久化：本地：localStorage 作为兜底。云端：Supabase 免费方案（云端优先 + 本地兜底）。云端存储至少覆盖：工单、人员名单状态。提供必要的建表 SQL 与环境变量说明。【技术约束】前端：React + Vite。可使用 xlsx 解析 Excel。可使用 @supabase/supabase-js。代码结构清晰，避免一次性写在单个超大函数。对关键逻辑添加简洁注释。【交付要求】给出可运行代码。给出关键数据结构定义（Project、Assignment、Staff）。给出冲突校验核心函数。给出 Supabase 建表 SQL、RLS/策略示例。给出 Cloudflare Pages 部署步骤与环境变量清单。给出最小验收清单（创建工单、分段冲突、导入锁定、刷新恢复、云端同步）。请按“先核心可用、再增强”的顺序实现，并确保最终可部署到公网固定地址使用。</p>
             <div class="project-links">
               <a href="https://github.com/karma-taylor/work_calendar" target="_blank" rel="noopener noreferrer">
                 <span class="github-icon" aria-hidden="true">
