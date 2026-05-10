@@ -1,13 +1,13 @@
 :root {
   --bg-color: #84affb;
-  --section-bg: #ffe1d7;
-  --card-bg: #ffece5;
-  --text-color: #1247a8;
-  --muted-text: #2f61c1;
-  --accent: #ff6848;
-  --accent-soft: #ffd6cc;
+  --section-bg: #eaf1ff;
+  --card-bg: #f4f8ff;
+  --text-color: #113b90;
+  --muted-text: #2957ac;
+  --accent: #0b6fff;
+  --accent-soft: #dce9ff;
   --deep-blue: #0259dd;
-  --tag-bg: rgba(2, 89, 221, 0.86);
+  --tag-bg: rgba(8, 67, 166, 0.86);
   --overlay-tint: rgba(132, 175, 251, 0.45);
   --radius-lg: 16px;
   --radius-md: 14px;
@@ -157,7 +157,7 @@ body.is-true-fullscreen .hero::before {
   font-size: clamp(1.5rem, 3vw, 2rem);
   letter-spacing: 0.01em;
   font-weight: 600;
-  color: #f3f7ff;
+  color: #eef4ff;
   text-shadow: 0 1px 3px rgba(16, 52, 118, 0.28);
 }
 
@@ -171,7 +171,7 @@ body.is-true-fullscreen .hero::before {
 .project-card {
   background: var(--card-bg);
   border-radius: var(--radius-md);
-  border: 1px solid rgba(2, 89, 221, 0.1);
+  border: 1px solid rgba(20, 80, 184, 0.16);
   overflow: hidden;
   transform: translateY(16px);
   transition:
@@ -180,7 +180,7 @@ body.is-true-fullscreen .hero::before {
     box-shadow 0.35s ease,
     border-color 0.28s ease;
   opacity: 0;
-  box-shadow: var(--shadow-soft);
+  box-shadow: 0 14px 34px rgba(15, 66, 156, 0.14);
 }
 
 .project-card.is-visible {
@@ -190,8 +190,8 @@ body.is-true-fullscreen .hero::before {
 
 .project-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 16px 36px rgba(2, 89, 221, 0.14);
-  border-color: rgba(2, 89, 221, 0.18);
+  box-shadow: 0 18px 40px rgba(15, 66, 156, 0.2);
+  border-color: rgba(20, 80, 184, 0.28);
 }
 
 .project-card:hover img {
@@ -209,6 +209,21 @@ body.is-true-fullscreen .hero::before {
   cursor: pointer;
 }
 
+.project-trigger::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to top,
+      rgba(8, 54, 137, 0.62) 0%,
+      rgba(8, 54, 137, 0.2) 34%,
+      rgba(8, 54, 137, 0.08) 58%,
+      rgba(8, 54, 137, 0) 100%
+    );
+  pointer-events: none;
+}
+
 .project-card img {
   width: 100%;
   aspect-ratio: 1.618 / 1;
@@ -217,11 +232,11 @@ body.is-true-fullscreen .hero::before {
   transition:
     transform 0.35s ease,
     filter 0.35s ease;
-  filter: saturate(0.92) contrast(1.04);
+  filter: saturate(0.86) contrast(1.03) brightness(0.96);
 }
 
 .project-card:hover img {
-  filter: saturate(1) contrast(1.08);
+  filter: saturate(0.94) contrast(1.06) brightness(1);
 }
 
 .project-name-tag {
@@ -230,17 +245,22 @@ body.is-true-fullscreen .hero::before {
   bottom: 0.8rem;
   background: var(--tag-bg);
   color: #ffffff;
-  padding: 0.35rem 0.65rem;
+  padding: 0.38rem 0.72rem;
   border-radius: 999px;
-  font-size: 0.88rem;
+  font-size: 0.84rem;
   letter-spacing: 0.01em;
   font-weight: 600;
+  max-width: calc(100% - 1.6rem);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-shadow: 0 8px 20px rgba(2, 45, 122, 0.26);
 }
 
 .project-content {
   padding: 1rem;
   border-top: 0;
-  background: #ffe1d7;
+  background: var(--section-bg);
 }
 
 .project-summary {
@@ -248,6 +268,11 @@ body.is-true-fullscreen .hero::before {
   color: var(--muted-text);
   line-height: 1.65;
   font-size: 0.95rem;
+  min-height: 4.8em;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .project-prompt {
@@ -268,14 +293,14 @@ body.is-true-fullscreen .hero::before {
 .project-links button {
   color: var(--accent);
   text-decoration: none;
-  border: 1px solid rgba(255, 104, 72, 0.55);
+  border: 1px solid rgba(11, 111, 255, 0.36);
   border-radius: 999px;
   padding: 0.36rem 0.75rem;
   font-size: 0.92rem;
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  background: #fff2ed;
+  background: #f7faff;
   font-family: inherit;
   line-height: 1.2;
   transition:
@@ -288,7 +313,7 @@ body.is-true-fullscreen .hero::before {
 .project-links button:hover {
   background: var(--accent-soft);
   transform: translateY(-1px);
-  border-color: rgba(255, 104, 72, 0.75);
+  border-color: rgba(11, 111, 255, 0.56);
 }
 
 .github-icon {
