@@ -385,29 +385,34 @@ body.overlay-open {
   grid-row: span 2;
 }
 
-.project-card[data-size="featured"] .project-trigger {
+.project-card > .project-trigger {
+  flex: 1 1 auto;
+  min-height: 200px;
   display: flex;
   flex-direction: column;
-  min-height: 280px;
+  overflow: hidden;
   background: var(--card-bg);
 }
 
-.project-card[data-size="featured"] .project-trigger img {
+.project-card > .project-trigger img {
   flex: 1 1 auto;
-  min-height: 220px;
+  min-height: 150px;
   height: auto;
   width: 100%;
   object-fit: cover;
 }
 
-.project-flow {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: none;
+.project-card[data-size="featured"] > .project-trigger {
+  min-height: 320px;
 }
 
-.project-card[data-size="featured"] .project-flow {
+.project-card[data-size="featured"] > .project-trigger img {
+  min-height: 240px;
+}
+
+.project-flow {
+  margin: 0;
+  list-style: none;
   flex: 0 0 auto;
   display: flex;
   flex-direction: row;
@@ -415,18 +420,18 @@ body.overlay-open {
   justify-content: space-between;
   gap: 0;
   width: 100%;
-  padding: 0.85rem 0.75rem 0.95rem;
+  padding: 0.85rem 0.6rem 0.9rem;
   background: var(--card-bg);
   border-top: 1px solid rgba(255, 255, 255, 0.06);
   position: relative;
 }
 
-.project-card[data-size="featured"] .project-flow::before {
+.project-flow::before {
   content: "";
   position: absolute;
-  top: calc(0.85rem + 12px);
-  left: 14%;
-  right: 14%;
+  top: calc(0.85rem + 11px);
+  left: 12%;
+  right: 12%;
   height: 1px;
   background: repeating-linear-gradient(
     to right,
@@ -439,7 +444,7 @@ body.overlay-open {
   pointer-events: none;
 }
 
-.project-card[data-size="featured"] .project-flow .flow-step {
+.project-flow .flow-step {
   flex: 1 1 0;
   min-width: 0;
   display: flex;
@@ -450,73 +455,12 @@ body.overlay-open {
   padding: 0;
   background: transparent;
   border: 0;
+  border-radius: 0;
   position: relative;
   z-index: 1;
 }
 
-.project-card[data-size="featured"] .project-flow .flow-step::after {
-  display: none;
-}
-
-.project-card[data-size="featured"] .project-flow .flow-step-idx {
-  min-width: 26px;
-  padding: 0.22rem 0.45rem;
-  background: var(--card-bg);
-  position: relative;
-  z-index: 2;
-}
-
-.project-card[data-size="featured"] .project-flow .flow-step-body {
-  align-items: center;
-  text-align: center;
-  gap: 0.06rem;
-}
-
-.project-card[data-size="featured"] .project-flow .flow-step-body strong {
-  font-size: 0.78rem;
-  line-height: 1.25;
-  white-space: nowrap;
-}
-
-.project-card[data-size="featured"] .project-flow .flow-step-body small {
-  display: none;
-}
-
-.project-card[data-size="featured"] .project-flow .flow-step--accent .flow-step-idx {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #ffffff;
-}
-
-.project-flow .flow-step {
-  position: relative;
-  display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: center;
-  gap: 0.7rem;
-  padding: 0.55rem 0.75rem;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 10px;
-}
-
 .project-flow .flow-step::after {
-  content: "";
-  position: absolute;
-  left: calc(0.75rem + 11px);
-  bottom: -0.5rem;
-  width: 1px;
-  height: 0.5rem;
-  background: repeating-linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0.22) 0,
-    rgba(255, 255, 255, 0.22) 2px,
-    transparent 2px,
-    transparent 4px
-  );
-}
-
-.project-flow .flow-step:last-child::after {
   display: none;
 }
 
@@ -526,40 +470,38 @@ body.overlay-open {
   font-weight: 600;
   letter-spacing: 0.1em;
   color: var(--accent);
-  background: rgba(94, 106, 210, 0.12);
-  padding: 0.2rem 0.42rem;
+  background: var(--card-bg);
+  padding: 0.22rem 0.45rem;
   border-radius: 6px;
   border: 1px solid rgba(94, 106, 210, 0.28);
   line-height: 1;
-  min-width: 22px;
+  min-width: 26px;
   text-align: center;
+  position: relative;
+  z-index: 2;
 }
 
 .project-flow .flow-step-body {
   display: flex;
   flex-direction: column;
-  gap: 0.1rem;
+  align-items: center;
+  text-align: center;
+  gap: 0.06rem;
   min-width: 0;
 }
 
 .project-flow .flow-step-body strong {
   font-family: "Inter", "Noto Sans SC", "PingFang SC", system-ui, sans-serif;
-  font-size: 0.86rem;
+  font-size: 0.78rem;
   font-weight: 600;
   color: var(--text-color);
   letter-spacing: 0.01em;
-  line-height: 1.2;
+  line-height: 1.25;
+  white-space: nowrap;
 }
 
 .project-flow .flow-step-body small {
-  font-size: 0.7rem;
-  color: rgba(255, 255, 255, 0.5);
-  line-height: 1.3;
-}
-
-.project-flow .flow-step--accent {
-  background: rgba(94, 106, 210, 0.1);
-  border-color: rgba(94, 106, 210, 0.3);
+  display: none;
 }
 
 .project-flow .flow-step--accent .flow-step-idx {
@@ -584,13 +526,6 @@ body.overlay-open {
   display: flex;
   flex-direction: column;
   min-width: 0;
-}
-
-.project-card > .project-trigger {
-  flex: 1 1 auto;
-  min-height: 140px;
-  display: block;
-  overflow: hidden;
 }
 
 .project-card > .project-meta {
@@ -1278,9 +1213,17 @@ body.overlay-open {
     grid-row: span 1;
   }
 
-  .project-card img {
+  .project-card > .project-trigger,
+  .project-card[data-size="featured"] > .project-trigger {
+    min-height: 0;
+  }
+
+  .project-card > .project-trigger img,
+  .project-card[data-size="featured"] > .project-trigger img {
+    flex: 0 0 auto;
     aspect-ratio: 1.618 / 1;
     height: auto;
+    min-height: auto;
   }
 
   .focus-meta {
