@@ -272,20 +272,6 @@ body.overlay-open {
   cursor: pointer;
 }
 
-.project-trigger::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(
-      to top,
-      rgba(61, 116, 182, 0.62) 0%,
-      rgba(61, 116, 182, 0.2) 34%,
-      rgba(61, 116, 182, 0.08) 58%,
-      rgba(61, 116, 182, 0) 100%
-    );
-  pointer-events: none;
-}
 
 .project-card img {
   width: 100%;
