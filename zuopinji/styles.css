@@ -49,6 +49,7 @@ body.overlay-open {
   grid-template-rows: auto auto;
   gap: 1.4rem;
   min-height: 0;
+  padding-left: 2rem;
   position: sticky;
   top: 1.2rem;
 }
