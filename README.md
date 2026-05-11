@@ -38,7 +38,7 @@ AI 产品经理 / Agent 应用 / 数据型工具 / Web 前端
 | HamHome Daily Digest（资讯日报订阅系统） | 基于 AIAgent + RAG 思路的资讯订阅平台 | https://github.com/karma-taylor/Daily_digest | https://hamhome-digest-web.pages.dev/digest |
 | 工作日历（Work Calendar） | 施工/运维排班可视化日历工具 | https://github.com/karma-taylor/work_calendar | https://work-calendar-52c.pages.dev |
 | 企业业务日报自动化生成引擎 | 用 Python 取代日结手工搬数：多维数据自动清洗、复杂表单秒级生成，结算效率提升约 90%（pandas + openpyxl + Streamlit） | https://github.com/karma-taylor/Daily_report | 暂未上线 |
-| 薪酬配钞工具（Money Classify） | 按面额贪心拆分的薪酬配钞工具，支持 Excel 批量 | https://github.com/karma-taylor/money_classify | https://karma-taylor.github.io/money_classify/ |
+| 基于逻辑算法的薪资分配策略工具 (Money Distribute AI) | 贪心算法按可用面额自动拆分张数与余数，网页 + 微信小程序双形态 | https://github.com/karma-taylor/money_classify | https://karma-taylor.github.io/money_classify/ |
 
 ## 项目结构
 
