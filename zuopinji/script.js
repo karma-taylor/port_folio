@@ -1,3 +1,47 @@
+(function bootLoader() {
+  const loader = document.getElementById("bootLoader");
+  if (!loader) return;
+
+  const SESSION_KEY = "pf_boot_shown";
+  const skipped = document.documentElement.classList.contains("boot-skipped");
+
+  if (skipped) {
+    loader.classList.add("is-gone");
+    return;
+  }
+
+  const lines = loader.querySelectorAll(".boot-loader__lines span");
+  if (!lines.length) {
+    loader.classList.add("is-gone");
+    return;
+  }
+
+  document.body.classList.add("boot-active");
+
+  try {
+    sessionStorage.setItem(SESSION_KEY, "1");
+  } catch (e) {}
+
+  const stepDelay = 250;
+  const lineTimers = [];
+  lines.forEach((line, idx) => {
+    lineTimers.push(
+      setTimeout(() => line.classList.add("is-shown"), idx * stepDelay)
+    );
+  });
+
+  const revealFooterAt = lines.length * stepDelay + 60;
+  const hideAt = 1400;
+  const removeAt = 1820;
+
+  setTimeout(() => loader.classList.add("has-revealed"), revealFooterAt);
+  setTimeout(() => loader.classList.add("is-hiding"), hideAt);
+  setTimeout(() => {
+    loader.classList.add("is-gone");
+    document.body.classList.remove("boot-active");
+  }, removeAt);
+})();
+
 const revealCards = () => {
   const cards = document.querySelectorAll(".reveal");
   const observer = new IntersectionObserver(

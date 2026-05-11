@@ -12,9 +12,29 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css?v=20260511-cta" />
+    <link rel="stylesheet" href="./styles.css?v=20260511-boot" />
+    <script>
+      (function () {
+        try {
+          if (sessionStorage.getItem("pf_boot_shown")) {
+            document.documentElement.classList.add("boot-skipped");
+          }
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
+    <div class="boot-loader" id="bootLoader" role="status" aria-live="polite">
+      <div class="boot-loader__inner">
+        <div class="boot-loader__lines" id="bootLoaderLines">
+          <span data-step="01">initializing portfolio&hellip;</span>
+          <span data-step="02">loading agents&hellip;</span>
+          <span data-step="03">fetching projects&hellip;</span>
+          <span data-step="04" class="boot-loader__ready">welcome, 郭伟南.</span>
+        </div>
+        <div class="boot-loader__footer">karma-taylor · portfolio · 2026</div>
+      </div>
+    </div>
     <main class="page-shell" id="home">
       <div class="home-layout">
         <div class="home-left">
@@ -548,6 +568,6 @@
       </div>
     </div>
 
-    <script src="./script.js?v=20260511-cta"></script>
+    <script src="./script.js?v=20260511-boot"></script>
   </body>
 </html>

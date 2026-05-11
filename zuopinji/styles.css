@@ -1,3 +1,145 @@
+.boot-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #0a0a0a;
+  display: grid;
+  place-items: center;
+  font-family: "JetBrains Mono", "Inter", "Noto Sans SC", monospace;
+  color: rgba(255, 255, 255, 0.82);
+  pointer-events: auto;
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s cubic-bezier(0.22, 0.7, 0.2, 1);
+}
+
+.boot-loader::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.16 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.5;
+  mix-blend-mode: screen;
+}
+
+.boot-loader__inner {
+  position: relative;
+  z-index: 1;
+  width: min(540px, 84%);
+  padding: 0 0.5rem;
+}
+
+.boot-loader__lines {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-family: "JetBrains Mono", "Inter", monospace;
+  font-size: clamp(0.85rem, 1.1vw, 0.95rem);
+  letter-spacing: 0.04em;
+  line-height: 1.55;
+}
+
+.boot-loader__lines span {
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 0.28s ease,
+    transform 0.28s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.boot-loader__lines span.is-shown {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.boot-loader__lines span::before {
+  content: "▸";
+  display: inline-block;
+  margin-right: 0.55rem;
+  color: rgba(94, 106, 210, 0.85);
+  font-weight: 600;
+}
+
+.boot-loader__lines span.boot-loader__ready {
+  color: #7DE0A6;
+}
+
+.boot-loader__lines span.boot-loader__ready::before {
+  color: #45B26B;
+}
+
+.boot-loader__lines span.boot-loader__ready.is-shown::after {
+  content: "▌";
+  display: inline-block;
+  margin-left: 0.45rem;
+  color: rgba(255, 255, 255, 0.8);
+  animation: boot-cursor 0.9s steps(2) infinite;
+}
+
+@keyframes boot-cursor {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.boot-loader__footer {
+  margin-top: 1.4rem;
+  font-family: "JetBrains Mono", "Inter", monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.28);
+  opacity: 0;
+  transition: opacity 0.4s ease 0.5s;
+}
+
+.boot-loader.has-revealed .boot-loader__footer {
+  opacity: 1;
+}
+
+.boot-loader.is-hiding {
+  opacity: 0;
+  transform: translateY(-28px);
+  pointer-events: none;
+}
+
+html.boot-skipped .boot-loader,
+.boot-loader.is-gone {
+  display: none;
+}
+
+body.boot-active {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .boot-loader {
+    transition: opacity 0.2s ease;
+  }
+  .boot-loader.is-hiding {
+    transform: none;
+  }
+  .boot-loader__lines span {
+    transition: opacity 0.15s ease;
+    transform: none;
+  }
+  .boot-loader__lines span.boot-loader__ready.is-shown::after {
+    animation: none;
+  }
+}
+
 :root {
   --bg-color: #0B0C0E;
   --section-bg: #1B1D21;
