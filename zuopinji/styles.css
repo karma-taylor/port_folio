@@ -39,7 +39,7 @@ body.overlay-open {
 .home-layout {
   display: grid;
   grid-template-columns: 3fr 7fr;
-  gap: 1.6rem;
+  gap: 2.4rem;
   align-items: start;
 }
 
@@ -57,13 +57,10 @@ body.overlay-open {
   position: relative;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  background-image:
-    linear-gradient(135deg, rgba(2, 89, 221, 0.58), rgba(2, 89, 221, 0.42)),
-    url("./background2.png");
-  background-size: cover;
-  background-position: 60% center;
+  background: var(--card-bg);
+  border: 1px solid rgba(20, 80, 184, 0.16);
   box-shadow: 0 14px 34px rgba(15, 66, 156, 0.18);
-  color: #fff6f1;
+  color: var(--text-color);
   display: flex;
   align-items: stretch;
 }
@@ -75,68 +72,49 @@ body.overlay-open {
   pointer-events: none;
   background: linear-gradient(
     180deg,
-    rgba(8, 54, 137, 0) 40%,
-    rgba(8, 54, 137, 0.35) 100%
+    rgba(11, 111, 255, 0.04) 0%,
+    rgba(11, 111, 255, 0) 60%
   );
 }
 
 .profile-card-inner {
   position: relative;
   z-index: 1;
-  padding: 1.5rem 1.6rem;
+  padding: 1.6rem 1.4rem 1.4rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 0.65rem;
+  width: 100%;
 }
 
-.profile-kicker {
-  margin: 0 0 0.55rem;
-  color: rgba(255, 241, 234, 0.96);
-  font-size: 0.78rem;
-  letter-spacing: 0.22em;
-  font-weight: 600;
+.profile-avatar {
+  width: clamp(96px, 9vw, 128px);
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background-image: url("./background2.png");
+  background-size: cover;
+  background-position: 50% 35%;
+  border: 3px solid #ffffff;
+  box-shadow:
+    0 8px 22px rgba(15, 66, 156, 0.28),
+    0 0 0 4px rgba(11, 111, 255, 0.12);
 }
 
-.profile-title {
-  position: relative;
+.profile-name {
+  margin: 0.35rem 0 0;
+  font-size: clamp(1.35rem, 1.8vw, 1.7rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--text-color);
+}
+
+.profile-role {
   margin: 0;
-  padding-left: 0.85rem;
-  color: #fff6f1;
-  font-size: clamp(1.4rem, 1.6vw, 1.85rem);
-  line-height: 1.18;
-  font-weight: 600;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
-}
-
-.profile-title::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.15em;
-  width: 3px;
-  height: calc(100% - 0.3em);
-  border-radius: 999px;
-  background: rgba(255, 225, 215, 0.88);
-}
-
-.profile-title-line {
-  display: block;
-}
-
-.profile-title-line + .profile-title-line {
-  margin-top: 0.25rem;
-}
-
-.profile-highlight {
-  color: #ffd3c9;
-}
-
-.profile-intro {
-  margin: 0.85rem 0 0;
-  color: #fff3ee;
-  font-size: 0.95rem;
-  line-height: 1.7;
-  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.32);
+  font-size: 0.92rem;
+  color: var(--muted-text);
+  letter-spacing: 0.04em;
 }
 
 .bio-card {
