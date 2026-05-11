@@ -46,9 +46,8 @@ body.overlay-open {
 
 .home-left {
   display: grid;
-  grid-template-rows: 4fr 6fr;
+  grid-template-rows: auto auto;
   gap: 1.4rem;
-  height: calc(100vh - 6rem);
   min-height: 0;
   position: sticky;
   top: 1.2rem;
