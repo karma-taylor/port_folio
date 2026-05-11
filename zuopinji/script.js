@@ -182,17 +182,3 @@ const setupProjectFocusOverlay = () => {
 };
 
 setupProjectFocusOverlay();
-
-const setupTrueFullscreenHeroStyle = () => {
-  const applyState = () => {
-    const isFullscreen =
-      Boolean(document.fullscreenElement) || Boolean(document.webkitFullscreenElement);
-    document.body.classList.toggle("is-true-fullscreen", isFullscreen);
-  };
-
-  document.addEventListener("fullscreenchange", applyState);
-  document.addEventListener("webkitfullscreenchange", applyState);
-  applyState();
-};
-
-setupTrueFullscreenHeroStyle();

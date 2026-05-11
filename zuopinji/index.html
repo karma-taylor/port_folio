@@ -4,27 +4,62 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>郭伟南的作品集</title>
-    <link rel="stylesheet" href="./styles.css?v=20260510-3col" />
+    <link rel="stylesheet" href="./styles.css?v=20260511-3to7" />
   </head>
   <body>
-    <header class="hero">
-      <div class="hero-overlay">
-        <p class="hero-kicker">PORTFOLIO</p>
-        <h1 class="hero-title">
-          <span class="hero-title-line">欢迎来到</span>
-          <span class="hero-title-line">
-            郭伟南的<span class="hero-highlight">作品集</span>
-          </span>
-        </h1>
-        <p class="intro-text">
-          我是郭伟南，专注于把创意变成易用、稳定且有质感的产品体验。
-        </p>
-      </div>
-    </header>
+    <main class="page-shell" id="home">
+      <div class="home-layout">
+        <div class="home-left">
+          <aside class="profile-card">
+            <div class="profile-card-inner">
+              <p class="profile-kicker">PORTFOLIO</p>
+              <h1 class="profile-title">
+                <span class="profile-title-line">欢迎来到</span>
+                <span class="profile-title-line">
+                  郭伟南的<span class="profile-highlight">作品集</span>
+                </span>
+              </h1>
+              <p class="profile-intro">
+                我是郭伟南，专注于把创意变成易用、稳定且有质感的产品体验。
+              </p>
+            </div>
+          </aside>
 
-    <main class="projects-section" id="projects">
-      <h2>项目展示</h2>
-      <section class="projects-grid">
+          <section class="bio-card" aria-label="教育背景与就业方向">
+            <div class="bio-block">
+              <h3 class="bio-title">教育背景</h3>
+              <ul class="bio-list">
+                <li>
+                  <span class="bio-period">2018 — 2022</span>
+                  <span class="bio-main">本科 · 燕山大学</span>
+                </li>
+                <li>
+                  <span class="bio-period">2022 — 2025</span>
+                  <span class="bio-main">硕士 · 重庆大学</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="bio-divider" aria-hidden="true"></div>
+
+            <div class="bio-block">
+              <h3 class="bio-title">就业方向</h3>
+              <ul class="bio-tags">
+                <li>AI 产品经理</li>
+                <li>Agent 应用</li>
+                <li>数据型工具</li>
+                <li>Web 前端</li>
+              </ul>
+              <p class="bio-note">
+                关注以 AI 提升业务效率的落地场景，偏好从真实需求出发的产品打磨。
+              </p>
+            </div>
+          </section>
+        </div>
+
+        <section class="projects-section" id="projects" aria-label="项目展示">
+          <h2>项目展示</h2>
+          <section class="projects-grid">
         <article class="project-card reveal">
           <button class="project-trigger" type="button" aria-expanded="false">
             <img
@@ -204,7 +239,9 @@
             </div>
           </div>
         </article>
-      </section>
+          </section>
+        </section>
+      </div>
     </main>
 
     <div class="focus-overlay" id="focusOverlay" aria-hidden="true">
