@@ -822,6 +822,9 @@ body.overlay-open {
 
   .home-left {
     grid-template-rows: auto auto;
+    position: static;
+    top: auto;
+    padding-left: 0;
   }
 
   .profile-card {
