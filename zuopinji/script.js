@@ -69,7 +69,7 @@ const setupProjectFocusOverlay = () => {
 
       const card = trigger.closest(".project-card");
       const img = trigger.querySelector("img");
-      const title = trigger.querySelector(".project-name-tag");
+      const title = card?.querySelector(".project-title");
       const prompt = card?.querySelector(".project-prompt");
       const desc = card?.querySelector(".project-summary");
       const sourceLinks = card?.querySelectorAll(".project-links a");

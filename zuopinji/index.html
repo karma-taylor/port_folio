@@ -4,7 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>郭伟南的作品集</title>
-    <link rel="stylesheet" href="./styles.css?v=20260511-avtaruploaded" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css?v=20260511-premium" />
   </head>
   <body>
     <main class="page-shell" id="home">
@@ -14,7 +20,32 @@
             <div class="profile-card-inner">
               <div class="profile-avatar" role="img" aria-label="郭伟南的头像"></div>
               <h1 class="profile-name">郭伟南</h1>
-              <p class="profile-role">AI 产品经理</p>
+              <p class="profile-role">AI 产品经理 · Agent 应用</p>
+              <p class="profile-meta">
+                <span class="profile-meta-item">
+                  <svg class="meta-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7Zm0 9.6a2.6 2.6 0 1 1 0-5.2 2.6 2.6 0 0 1 0 5.2Z" />
+                  </svg>
+                  重庆
+                </span>
+                <span class="profile-meta-dot" aria-hidden="true"></span>
+                <span class="profile-meta-item profile-meta-status">
+                  <span class="status-pulse" aria-hidden="true"></span>
+                  Open to work
+                </span>
+              </p>
+              <div class="profile-contacts">
+                <a class="contact-link" href="https://github.com/karma-taylor" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.85 10.91.57.11.78-.24.78-.55 0-.27-.01-1.16-.02-2.11-3.19.69-3.86-1.35-3.86-1.35-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.34.96.1-.74.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.14 1.18a10.88 10.88 0 0 1 5.72 0c2.18-1.49 3.14-1.18 3.14-1.18.62 1.59.23 2.76.11 3.05.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.39-5.25 5.67.41.36.77 1.07.77 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.2.67.79.55A11.51 11.51 0 0 0 23.5 12c0-6.35-5.15-11.5-11.5-11.5Z" />
+                  </svg>
+                </a>
+                <a class="contact-link" href="mailto:karma.taylor@example.com" aria-label="邮箱">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm9 8.2L4.4 7H19.6L12 13.2ZM4 8.5V18h16V8.5l-7.45 6.1a1 1 0 0 1-1.1 0L4 8.5Z" />
+                  </svg>
+                </a>
+              </div>
             </div>
           </aside>
 
@@ -52,14 +83,21 @@
 
         <section class="projects-section" id="projects" aria-label="项目展示">
           <section class="projects-grid">
-        <article class="project-card reveal">
+        <article class="project-card reveal" data-status="live">
           <button class="project-trigger" type="button" aria-expanded="false">
             <img
               src="./fx-cover.jpg"
               alt="weather-fx-agent 项目展示图"
             />
-            <span class="project-name-tag">weather-fx-agent（汇率换算 Agent）</span>
           </button>
+          <div class="project-meta">
+            <span class="project-index">01</span>
+            <h3 class="project-title">weather-fx-agent（汇率换算 Agent）</h3>
+            <span class="project-status project-status--live">
+              <span class="status-dot" aria-hidden="true"></span>
+              已上线
+            </span>
+          </div>
           <div class="project-content" hidden>
             <p class="project-summary">面向业务场景的汇率换算 Web 工具，支持多银行参考、固定汇率、防呆纠偏与弱网可用。</p>
             <p class="project-prompt">Prompt：你是一个汇率换算助手。任务：根据用户输入的 base、target、amount 和 rate（可选），返回换算后的数字结果。规则：1) 固定汇率模式：converted = amount * rate，rate 表示 1 base = rate target。2) 若为网络模式，使用提供的实时 rate 计算。3) 若币种方向互换（A/B -> B/A），rate 需取倒数后再计算。4) 输出仅包含：换算结果数字、使用汇率、币种单位。5) 不输出业务分析、PRD术语或空泛描述。输出格式：- converted: &lt;number&gt; - rate_used: "1 &lt;base&gt; = &lt;x&gt; &lt;target&gt;" - note: "&lt;网络汇率/固定汇率/缓存汇率&gt;"</p>
@@ -88,14 +126,21 @@
           </div>
         </article>
 
-        <article class="project-card reveal">
+        <article class="project-card reveal" data-status="live">
           <button class="project-trigger" type="button" aria-expanded="false">
             <img
               src="./digest-cover.png"
               alt="HamHome Daily Digest 项目展示图"
             />
-            <span class="project-name-tag">HamHome Daily Digest（资讯日报订阅系统）</span>
           </button>
+          <div class="project-meta">
+            <span class="project-index">02</span>
+            <h3 class="project-title">HamHome Daily Digest（资讯日报订阅系统）</h3>
+            <span class="project-status project-status--live">
+              <span class="status-dot" aria-hidden="true"></span>
+              已上线
+            </span>
+          </div>
           <div class="project-content" hidden>
             <p class="project-summary">基于 AIAgent + RAG 思路的自动化资讯订阅平台，支持多源抓取、主题分桶、结构化摘要，并按时区定时邮件推送。</p>
             <p class="project-prompt">Prompt：你是专业新闻编辑。请基于输入的多条资讯摘录，按指定主题输出结构化 JSON（仅 JSON，不要 Markdown），每个主题提供一句话综述和若干要点；要求客观、去重、不编造事实，并确保内容聚焦订阅时区“当日”信息。</p>
@@ -124,14 +169,21 @@
           </div>
         </article>
 
-        <article class="project-card reveal">
+        <article class="project-card reveal" data-status="live">
           <button class="project-trigger" type="button" aria-expanded="false">
             <img
               src="./calendar-cover.jpg"
               alt="工作日历（Work Calendar）项目展示图"
             />
-            <span class="project-name-tag">工作日历（Work Calendar）</span>
           </button>
+          <div class="project-meta">
+            <span class="project-index">03</span>
+            <h3 class="project-title">工作日历（Work Calendar）</h3>
+            <span class="project-status project-status--live">
+              <span class="status-dot" aria-hidden="true"></span>
+              已上线
+            </span>
+          </div>
           <div class="project-content" hidden>
             <p class="project-summary">面向施工与运维排班场景的可视化日历工具，支持项目占用展示、人员分配、冲突校验与云端持久化。</p>
             <p class="project-prompt">Prompt：你是一个施工计划与资源统筹专家，同时也是资深前端工程师。请为我开发一个“施工/运维排班日历系统（Work Calendar）”，用于项目排期、人员分配与冲突管控。请严格按以下要求实现：【业务目标】以月历形式展示工单占用周期（长线条可视化）。支持创建工单并分配管理人员与工人。支持同一工单内“多拨人分段参与”，而非默认全程参与。严格限制：同一人同一时间不得被分配到两个工单。支持 Excel 名单导入、锁定、自动更新检测。支持本地缓存与云端持久化，避免数据丢失。【功能需求】A. 日历与工单：月视图，支持上/下月切换。每个工单按起止日期显示横向长线，占用可跨周，视觉连续。点击工单查看详情弹窗。增加“删除模式”开关：开启后点击工单可删除（需确认）。B. 新建工单：字段：工单名称、开始日期、结束日期。保留“管理人员/工人”基础选择。重点：新增“人员分段安排”表单（可多行）：人员、角色（管理/工人）、分段开始日期、分段结束日期、备注（可选）。每行支持“复制一行”“删除一行”。分段日期必须落在工单总日期范围内。C. 冲突校验（强约束）：冲突判定粒度为“人员分段”，不是工单全程。判定规则：若同一人两条分段时间有交集（aStart <= bEnd 且 bStart <= aEnd），禁止保存。冲突提示应给出：冲突人员 + 冲突工单名。D. Excel 人员名单导入规则：只读取 sheet：江都、省建、科林。额外：CSI/CSIsheet 也读取，且其人员一律归管理人员。从第 3 行开始读取。C 列为姓名，F 列为岗位。岗位包含“工”归工人，否则归管理。同名不合并，展示时用“姓名(公司/来源sheet)”区分。E. 名单锁定与自动更新：提供“锁定人员名单文件”能力（File System Access API）。刷新后尽量自动恢复锁定；若权限失效，保留缓存名单并提示“需重新关联”。文件内容变更后自动重新解析并更新名单。F. 数据持久化：本地：localStorage 作为兜底。云端：Supabase 免费方案（云端优先 + 本地兜底）。云端存储至少覆盖：工单、人员名单状态。提供必要的建表 SQL 与环境变量说明。【技术约束】前端：React + Vite。可使用 xlsx 解析 Excel。可使用 @supabase/supabase-js。代码结构清晰，避免一次性写在单个超大函数。对关键逻辑添加简洁注释。【交付要求】给出可运行代码。给出关键数据结构定义（Project、Assignment、Staff）。给出冲突校验核心函数。给出 Supabase 建表 SQL、RLS/策略示例。给出 Cloudflare Pages 部署步骤与环境变量清单。给出最小验收清单（创建工单、分段冲突、导入锁定、刷新恢复、云端同步）。请按“先核心可用、再增强”的顺序实现，并确保最终可部署到公网固定地址使用。</p>
@@ -160,14 +212,21 @@
           </div>
         </article>
 
-        <article class="project-card reveal">
+        <article class="project-card reveal" data-status="wip">
           <button class="project-trigger" type="button" aria-expanded="false">
             <img
               src="./report-cover.png"
               alt="营地维护日报自动生成系统项目展示图"
             />
-            <span class="project-name-tag">营地维护日报自动生成系统（Daily Report Automation）</span>
           </button>
+          <div class="project-meta">
+            <span class="project-index">04</span>
+            <h3 class="project-title">营地维护日报自动生成系统（Daily Report Automation）</h3>
+            <span class="project-status project-status--wip">
+              <span class="status-dot" aria-hidden="true"></span>
+              待部署
+            </span>
+          </div>
           <div class="project-content" hidden>
             <p class="project-summary">基于 Python + pandas + openpyxl + Streamlit 的 A→B→C→D 报表自动化工具，可按业务规则自动生成日报、材料记录与台账并输出异常清单。</p>
             <p class="project-prompt">Prompt：你是一个“营地维护日报自动化”专家。请根据输入的 A 表数据和历史模板（B/C/D 表），按既定业务规则自动生成当日 B 日报、C 材料记录、D 台账，并输出异常清单。你需要确保：1）固定区复制与材料顺序正确；2）盐行规则、495/494 合并规则严格执行；3）单价匹配与累计计算准确；4）输出文件保持原模板格式（合并、边框、底色、字体、对齐）；5）结果可追溯、可复核、可直接交付。</p>
@@ -196,14 +255,21 @@
           </div>
         </article>
 
-        <article class="project-card reveal">
+        <article class="project-card reveal" data-status="live">
           <button class="project-trigger" type="button" aria-expanded="false">
             <img
               src="./money-cover.png"
               alt="薪酬配钞工具项目展示图"
             />
-            <span class="project-name-tag">薪酬配钞工具（Money Classify）</span>
           </button>
+          <div class="project-meta">
+            <span class="project-index">05</span>
+            <h3 class="project-title">薪酬配钞工具（Money Classify）</h3>
+            <span class="project-status project-status--live">
+              <span class="status-dot" aria-hidden="true"></span>
+              已上线
+            </span>
+          </div>
           <div class="project-content" hidden>
             <p class="project-summary">一个用于薪酬配钞的工具项目，支持按可选面额（50000/25000/10000/5000/1000）进行从大到小贪心拆分。提供网页端单笔计算与 Excel 批量导入导出；并已准备微信小程序版本（单笔配钞 + 批量处理）。</p>
             <p class="project-prompt">Prompt：你是一个银行柜员，需要根据当天可用纸币面额为员工薪酬进行现金配钞。请按“从大到小优先”的贪心策略计算每种面额张数，并返回余数。任务要求：可用面额支持 50000、25000、10000、5000、1000（可按实际情况勾选启用/禁用）。对每笔金额先使用最大可用面额尽可能多张，再对余数继续使用下一档面额，直到最小面额处理完成。输出字段包括姓名（如有）、薪水金额、各面额张数（50000、25000、10000、5000、1000）与余数。批量模式导入规则：A 列姓名、B 列薪水，其余列可忽略并重新计算；导出固定列顺序：姓名、薪水、50000、25000、10000、5000、1000。校验规则：金额必须为非负数；无法解析的金额行需标记为错误并跳过；当未选择任何面额时，返回明确提示。</p>
