@@ -388,14 +388,14 @@ body.overlay-open {
 .project-card[data-size="featured"] .project-trigger {
   display: flex;
   flex-direction: column;
-  min-height: 0;
+  min-height: 280px;
   background: var(--card-bg);
 }
 
 .project-card[data-size="featured"] .project-trigger img {
-  flex: 0 0 auto;
-  height: clamp(96px, 14vw, 132px);
-  min-height: 96px;
+  flex: 1 1 auto;
+  min-height: 220px;
+  height: auto;
   width: 100%;
   object-fit: cover;
 }
@@ -408,16 +408,84 @@ body.overlay-open {
 }
 
 .project-card[data-size="featured"] .project-flow {
-  flex: 1 1 auto;
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0;
+  width: 100%;
+  padding: 0.85rem 0.75rem 0.95rem;
+  background: var(--card-bg);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  position: relative;
+}
+
+.project-card[data-size="featured"] .project-flow::before {
+  content: "";
+  position: absolute;
+  top: calc(0.85rem + 12px);
+  left: 14%;
+  right: 14%;
+  height: 1px;
+  background: repeating-linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.24) 0,
+    rgba(255, 255, 255, 0.24) 3px,
+    transparent 3px,
+    transparent 6px
+  );
+  z-index: 0;
+  pointer-events: none;
+}
+
+.project-card[data-size="featured"] .project-flow .flow-step {
+  flex: 1 1 0;
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.45rem;
-  width: 100%;
-  padding: 1rem 1.1rem 0.7rem;
+  align-items: center;
+  text-align: center;
+  gap: 0.4rem;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.project-card[data-size="featured"] .project-flow .flow-step::after {
+  display: none;
+}
+
+.project-card[data-size="featured"] .project-flow .flow-step-idx {
+  min-width: 26px;
+  padding: 0.22rem 0.45rem;
   background: var(--card-bg);
-  min-height: 0;
-  align-items: stretch;
-  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+
+.project-card[data-size="featured"] .project-flow .flow-step-body {
+  align-items: center;
+  text-align: center;
+  gap: 0.06rem;
+}
+
+.project-card[data-size="featured"] .project-flow .flow-step-body strong {
+  font-size: 0.78rem;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+.project-card[data-size="featured"] .project-flow .flow-step-body small {
+  display: none;
+}
+
+.project-card[data-size="featured"] .project-flow .flow-step--accent .flow-step-idx {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #ffffff;
 }
 
 .project-flow .flow-step {
