@@ -219,15 +219,6 @@ body.overlay-open {
   min-width: 0;
 }
 
-.projects-section h2 {
-  margin: 0 0 1.1rem;
-  font-size: clamp(1.3rem, 2vw, 1.7rem);
-  letter-spacing: 0.01em;
-  font-weight: 600;
-  color: #eef4ff;
-  text-shadow: 0 1px 3px rgba(16, 52, 118, 0.28);
-}
-
 .projects-grid {
   display: grid;
   grid-template-columns: minmax(0, 680px);
