@@ -94,9 +94,9 @@ body.overlay-open {
   width: clamp(96px, 9vw, 128px);
   aspect-ratio: 1 / 1;
   border-radius: 50%;
-  background-image: url("./background2.png");
+  background-image: url("./avatar.png");
   background-size: cover;
-  background-position: 50% 35%;
+  background-position: 50% 25%;
   border: 3px solid #ffffff;
   box-shadow:
     0 8px 22px rgba(61, 116, 182, 0.28),
