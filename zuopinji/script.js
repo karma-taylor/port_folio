@@ -78,6 +78,170 @@ const setupHoverOverlays = () => {
 
 setupHoverOverlays();
 
+const setupMagneticTargets = () => {
+  const targets = Array.from(document.querySelectorAll("[data-magnetic]"));
+  if (!targets.length) return;
+
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+  const isCoarsePointer = window.matchMedia("(hover: none)").matches;
+  if (reduceMotion || isCoarsePointer) return;
+
+  const activationRadius = 110;
+  let pending = false;
+  let pointer = { x: -9999, y: -9999, active: false };
+  const cache = [];
+
+  const measure = () => {
+    cache.length = 0;
+    targets.forEach((el) => {
+      const rect = el.getBoundingClientRect();
+      cache.push({
+        el,
+        cx: rect.left + rect.width / 2,
+        cy: rect.top + rect.height / 2,
+        strength: parseFloat(el.dataset.magneticStrength) || 0.3,
+      });
+    });
+  };
+
+  const apply = () => {
+    pending = false;
+    cache.forEach((item) => {
+      if (!pointer.active) {
+        item.el.style.setProperty("--mag-x", "0px");
+        item.el.style.setProperty("--mag-y", "0px");
+        return;
+      }
+      const dx = pointer.x - item.cx;
+      const dy = pointer.y - item.cy;
+      const dist = Math.hypot(dx, dy);
+      if (dist > activationRadius) {
+        item.el.style.setProperty("--mag-x", "0px");
+        item.el.style.setProperty("--mag-y", "0px");
+        return;
+      }
+      const falloff = 1 - dist / activationRadius;
+      const tx = dx * item.strength * falloff;
+      const ty = dy * item.strength * falloff;
+      item.el.style.setProperty("--mag-x", `${tx.toFixed(2)}px`);
+      item.el.style.setProperty("--mag-y", `${ty.toFixed(2)}px`);
+    });
+  };
+
+  const schedule = () => {
+    if (pending) return;
+    pending = true;
+    requestAnimationFrame(apply);
+  };
+
+  measure();
+
+  window.addEventListener(
+    "mousemove",
+    (e) => {
+      pointer.x = e.clientX;
+      pointer.y = e.clientY;
+      pointer.active = true;
+      schedule();
+    },
+    { passive: true }
+  );
+
+  document.addEventListener(
+    "mouseleave",
+    () => {
+      pointer.active = false;
+      schedule();
+    },
+    { passive: true }
+  );
+
+  let resizeRaf = null;
+  const onResizeOrScroll = () => {
+    if (resizeRaf) cancelAnimationFrame(resizeRaf);
+    resizeRaf = requestAnimationFrame(() => {
+      measure();
+      schedule();
+    });
+  };
+  window.addEventListener("resize", onResizeOrScroll, { passive: true });
+  window.addEventListener("scroll", onResizeOrScroll, { passive: true });
+};
+
+setupMagneticTargets();
+
+const setupTitleScramble = () => {
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+  if (reduceMotion) return;
+
+  const titles = document.querySelectorAll(".project-title");
+  if (!titles.length) return;
+
+  const pool = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*?<>/\\|";
+  const SCRAMBLE_LATIN = /[A-Za-z0-9]/;
+
+  titles.forEach((el) => {
+    const card = el.closest(".project-card");
+    const trigger = card ? card.querySelector(".project-trigger") : null;
+    let running = false;
+    let frame = 0;
+    let timer = null;
+    const original = el.textContent;
+
+    const stop = () => {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+      running = false;
+      el.textContent = original;
+      el.classList.remove("is-scrambling");
+    };
+
+    const start = () => {
+      if (running) return;
+      running = true;
+      frame = 0;
+      el.classList.add("is-scrambling");
+      const chars = original.split("");
+      const totalReveal = chars.length + 4;
+
+      timer = setInterval(() => {
+        frame += 1;
+        el.textContent = chars
+          .map((c, idx) => {
+            if (frame >= idx + 4) return original[idx];
+            if (!SCRAMBLE_LATIN.test(c)) return c;
+            return pool[Math.floor(Math.random() * pool.length)];
+          })
+          .join("");
+        if (frame >= totalReveal + 2) {
+          stop();
+        }
+      }, 32);
+    };
+
+    const enterTargets = [el];
+    if (trigger) enterTargets.push(trigger);
+    enterTargets.forEach((node) => {
+      node.addEventListener("mouseenter", start);
+      node.addEventListener("focus", start, true);
+    });
+
+    el.addEventListener("mouseleave", () => {
+      setTimeout(() => {
+        if (running) stop();
+      }, 200);
+    });
+  });
+};
+
+setupTitleScramble();
+
 const setupProjectFocusOverlay = () => {
   const triggers = document.querySelectorAll(".project-trigger");
   const overlay = document.getElementById("focusOverlay");
