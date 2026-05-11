@@ -20,6 +20,20 @@ const revealCards = () => {
 
 revealCards();
 
+const setupHoverOverlays = () => {
+  document.querySelectorAll(".project-card").forEach((card) => {
+    const target = card.querySelector(".project-hover-overlay .hover-tech");
+    const source = card.querySelector(".project-meta .project-tech");
+    if (!target || !source) return;
+    target.innerHTML = "";
+    source.querySelectorAll("li").forEach((li) => {
+      target.appendChild(li.cloneNode(true));
+    });
+  });
+};
+
+setupHoverOverlays();
+
 const setupProjectFocusOverlay = () => {
   const triggers = document.querySelectorAll(".project-trigger");
   const overlay = document.getElementById("focusOverlay");
