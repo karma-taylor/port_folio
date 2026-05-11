@@ -1,3 +1,37 @@
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 9998;
+  pointer-events: none;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.scroll-progress__bar {
+  height: 100%;
+  width: 100%;
+  transform-origin: left center;
+  transform: scaleX(0);
+  background: linear-gradient(
+    90deg,
+    rgba(94, 106, 210, 0.95),
+    rgba(167, 139, 250, 1) 60%,
+    rgba(125, 224, 166, 0.95)
+  );
+  box-shadow:
+    0 0 6px rgba(94, 106, 210, 0.55),
+    0 0 14px rgba(167, 139, 250, 0.35);
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-progress__bar {
+    box-shadow: none;
+  }
+}
+
 .boot-loader {
   position: fixed;
   inset: 0;

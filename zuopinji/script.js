@@ -78,6 +78,32 @@ const setupHoverOverlays = () => {
 
 setupHoverOverlays();
 
+const setupScrollProgress = () => {
+  const bar = document.querySelector(".scroll-progress__bar");
+  if (!bar) return;
+
+  let ticking = false;
+  const update = () => {
+    const doc = document.documentElement;
+    const max = doc.scrollHeight - doc.clientHeight;
+    const progress = max > 0 ? Math.min(Math.max(doc.scrollTop / max, 0), 1) : 0;
+    bar.style.transform = `scaleX(${progress.toFixed(4)})`;
+    ticking = false;
+  };
+
+  const schedule = () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(update);
+  };
+
+  window.addEventListener("scroll", schedule, { passive: true });
+  window.addEventListener("resize", schedule, { passive: true });
+  update();
+};
+
+setupScrollProgress();
+
 const setupMagneticTargets = () => {
   const targets = Array.from(document.querySelectorAll("[data-magnetic]"));
   if (!targets.length) return;
