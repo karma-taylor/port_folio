@@ -40,15 +40,17 @@ body.overlay-open {
   display: grid;
   grid-template-columns: 3fr 7fr;
   gap: 1.6rem;
-  align-items: stretch;
-  min-height: calc(100vh - 6rem);
+  align-items: start;
 }
 
 .home-left {
   display: grid;
   grid-template-rows: 4fr 6fr;
   gap: 1.4rem;
+  height: calc(100vh - 6rem);
   min-height: 0;
+  position: sticky;
+  top: 1.2rem;
 }
 
 .profile-card {
