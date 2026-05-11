@@ -12,7 +12,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css?v=20260511-linear-dark" />
+    <link rel="stylesheet" href="./styles.css?v=20260511-bento" />
   </head>
   <body>
     <main class="page-shell" id="home">
@@ -85,12 +85,42 @@
 
         <section class="projects-section" id="projects" aria-label="项目展示">
           <section class="projects-grid">
-        <article class="project-card reveal" data-status="live">
+        <article class="project-card reveal" data-status="live" data-size="featured">
           <button class="project-trigger" type="button" aria-expanded="false">
             <img
               src="./fx-cover.jpg"
               alt="weather-fx-agent 项目展示图"
             />
+            <ol class="project-flow" aria-label="汇率换算 Agent 业务流程">
+              <li class="flow-step">
+                <span class="flow-step-idx">01</span>
+                <div class="flow-step-body">
+                  <strong>输入金额</strong>
+                  <small>Base · Target · Amount</small>
+                </div>
+              </li>
+              <li class="flow-step">
+                <span class="flow-step-idx">02</span>
+                <div class="flow-step-body">
+                  <strong>多银行汇率</strong>
+                  <small>实时 · 固定 · 缓存</small>
+                </div>
+              </li>
+              <li class="flow-step">
+                <span class="flow-step-idx">03</span>
+                <div class="flow-step-body">
+                  <strong>防呆纠偏</strong>
+                  <small>方向 · 极值 · 弱网</small>
+                </div>
+              </li>
+              <li class="flow-step flow-step--accent">
+                <span class="flow-step-idx">04</span>
+                <div class="flow-step-body">
+                  <strong>换算输出</strong>
+                  <small>数字 · 使用汇率</small>
+                </div>
+              </li>
+            </ol>
           </button>
           <div class="project-meta">
             <span class="project-index">01</span>
@@ -99,6 +129,12 @@
               <span class="status-dot" aria-hidden="true"></span>
               已上线
             </span>
+            <ul class="project-tech" aria-label="weather-fx-agent 技术栈">
+              <li data-tech-type="lang">JavaScript</li>
+              <li data-tech-type="lang">HTML / CSS</li>
+              <li data-tech-type="tool">汇率 API</li>
+              <li data-tech-type="ai">Cursor</li>
+            </ul>
           </div>
           <div class="project-content" hidden>
             <p class="project-summary">面向业务场景的汇率换算 Web 工具，支持多银行参考、固定汇率、防呆纠偏与弱网可用。</p>
@@ -128,7 +164,7 @@
           </div>
         </article>
 
-        <article class="project-card reveal" data-status="live">
+        <article class="project-card reveal" data-status="live" data-size="wide">
           <button class="project-trigger" type="button" aria-expanded="false">
             <img
               src="./digest-cover.png"
@@ -142,6 +178,13 @@
               <span class="status-dot" aria-hidden="true"></span>
               已上线
             </span>
+            <ul class="project-tech" aria-label="HamHome Daily Digest 技术栈">
+              <li data-tech-type="lang">Python</li>
+              <li data-tech-type="framework">RAG</li>
+              <li data-tech-type="tool">定时任务</li>
+              <li data-tech-type="ai">Cursor</li>
+              <li data-tech-type="deploy">Cloudflare Pages</li>
+            </ul>
           </div>
           <div class="project-content" hidden>
             <p class="project-summary">基于 AIAgent + RAG 思路的自动化资讯订阅平台，支持多源抓取、主题分桶、结构化摘要，并按时区定时邮件推送。</p>
@@ -171,7 +214,7 @@
           </div>
         </article>
 
-        <article class="project-card reveal" data-status="live">
+        <article class="project-card reveal" data-status="live" data-size="tall">
           <button class="project-trigger" type="button" aria-expanded="false">
             <img
               src="./calendar-cover.jpg"
@@ -185,6 +228,13 @@
               <span class="status-dot" aria-hidden="true"></span>
               已上线
             </span>
+            <ul class="project-tech" aria-label="工作日历 技术栈">
+              <li data-tech-type="framework">React</li>
+              <li data-tech-type="framework">Vite</li>
+              <li data-tech-type="tool">Supabase</li>
+              <li data-tech-type="ai">Cursor</li>
+              <li data-tech-type="deploy">Cloudflare Pages</li>
+            </ul>
           </div>
           <div class="project-content" hidden>
             <p class="project-summary">面向施工与运维排班场景的可视化日历工具，支持项目占用展示、人员分配、冲突校验与云端持久化。</p>
@@ -214,7 +264,7 @@
           </div>
         </article>
 
-        <article class="project-card reveal" data-status="wip">
+        <article class="project-card reveal" data-status="wip" data-size="tall">
           <button class="project-trigger" type="button" aria-expanded="false">
             <img
               src="./report-cover.png"
@@ -228,6 +278,13 @@
               <span class="status-dot" aria-hidden="true"></span>
               待部署
             </span>
+            <ul class="project-tech" aria-label="营地维护日报 技术栈">
+              <li data-tech-type="lang">Python</li>
+              <li data-tech-type="framework">pandas</li>
+              <li data-tech-type="framework">openpyxl</li>
+              <li data-tech-type="framework">Streamlit</li>
+              <li data-tech-type="ai">Cursor</li>
+            </ul>
           </div>
           <div class="project-content" hidden>
             <p class="project-summary">基于 Python + pandas + openpyxl + Streamlit 的 A→B→C→D 报表自动化工具，可按业务规则自动生成日报、材料记录与台账并输出异常清单。</p>
@@ -257,7 +314,7 @@
           </div>
         </article>
 
-        <article class="project-card reveal" data-status="live">
+        <article class="project-card reveal" data-status="live" data-size="wide">
           <button class="project-trigger" type="button" aria-expanded="false">
             <img
               src="./money-cover.png"
@@ -271,6 +328,13 @@
               <span class="status-dot" aria-hidden="true"></span>
               已上线
             </span>
+            <ul class="project-tech" aria-label="薪酬配钞工具 技术栈">
+              <li data-tech-type="lang">JavaScript</li>
+              <li data-tech-type="tool">Excel 导入导出</li>
+              <li data-tech-type="framework">WeChat 小程序</li>
+              <li data-tech-type="ai">Cursor</li>
+              <li data-tech-type="deploy">GitHub Pages</li>
+            </ul>
           </div>
           <div class="project-content" hidden>
             <p class="project-summary">一个用于薪酬配钞的工具项目，支持按可选面额（50000/25000/10000/5000/1000）进行从大到小贪心拆分。提供网页端单笔计算与 Excel 批量导入导出；并已准备微信小程序版本（单笔配钞 + 批量处理）。</p>
@@ -332,6 +396,6 @@
       </div>
     </div>
 
-    <script src="./script.js?v=20260511-linear-dark"></script>
+    <script src="./script.js?v=20260511-bento"></script>
   </body>
 </html>
