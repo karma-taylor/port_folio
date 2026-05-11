@@ -39,7 +39,7 @@ body.overlay-open {
 .home-layout {
   display: grid;
   grid-template-columns: 3fr 7fr;
-  gap: 3.2rem;
+  gap: 4.8rem;
   align-items: start;
 }
 
