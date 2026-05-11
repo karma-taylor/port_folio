@@ -252,7 +252,7 @@ body.overlay-open {
 
 .projects-grid {
   display: grid;
-  grid-template-columns: minmax(0, 520px);
+  grid-template-columns: minmax(0, 680px);
   justify-content: center;
   row-gap: 1.4rem;
 }
