@@ -609,7 +609,7 @@ body.overlay-open {
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.7fr) minmax(0, 1.15fr);
   grid-auto-rows: auto;
   grid-auto-flow: row dense;
   gap: 24px;
