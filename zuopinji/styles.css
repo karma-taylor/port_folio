@@ -626,7 +626,7 @@ body.overlay-open {
 }
 
 .project-card[data-size="wide"] {
-  grid-column: span 2;
+  grid-column: 2 / 4;
   grid-row: span 1;
 }
 
@@ -638,6 +638,10 @@ body.overlay-open {
 .project-card[data-size="small"] {
   grid-column: span 1;
   grid-row: span 1;
+}
+
+.project-card[data-status="wip"] {
+  grid-column: 1 / 2;
 }
 
 .project-card > .project-trigger {
@@ -696,7 +700,7 @@ body.overlay-open {
   justify-content: space-between;
   gap: 0;
   width: 100%;
-  padding: 0.85rem 0.6rem 0.9rem;
+  padding: 0.6rem 0.6rem 0.65rem;
   background: var(--card-bg);
   border-top: 1px solid rgba(255, 255, 255, 0.06);
   position: relative;
@@ -807,6 +811,7 @@ body.overlay-open {
   display: flex;
   flex-direction: column;
   min-width: 0;
+  align-self: start;
 }
 
 .project-card > .project-meta {
