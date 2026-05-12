@@ -674,11 +674,10 @@ body.overlay-open {
   grid-row: span 1;
 }
 
-.projects-grid .project-card:nth-of-type(1) { order: 3; }
-.projects-grid .project-card:nth-of-type(2) { order: 2; }
-.projects-grid .project-card:nth-of-type(3) { order: 4; }
-.projects-grid .project-card:nth-of-type(4) { order: 5; }
-.projects-grid .project-card:nth-of-type(5) { order: 1; }
+/* 数据顺序 = DOM 顺序 = 视觉顺序。
+   原先这里有 5 行 :nth-of-type(N) { order: M }
+   把视觉位置绑死到 DOM 序号；2026-05-12 重构后由
+   data/projects.js 数组顺序唯一决定，CSS 不再参与排序。 */
 
 .project-card > .project-trigger {
   flex: 1 1 auto;

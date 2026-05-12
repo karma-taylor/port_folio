@@ -5,14 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0B0C0E" />
     <meta name="color-scheme" content="dark" />
-    <title>郭伟南的作品集</title>
+    <title>郭伟南 · AI 产品经理作品集</title>
+    <meta name="description" content="郭伟南的个人作品集：Agent 应用、数据型工具、Web 前端。包含汇率换算 Agent、HamHome 资讯日报、薪资分配策略工具等 5 个落地项目。" />
+
+    <meta property="og:type" content="profile" />
+    <meta property="og:title" content="郭伟南 · AI 产品经理作品集" />
+    <meta property="og:description" content="Agent 应用 / 数据型工具 / Web 前端 — 5 个真实落地项目。" />
+    <meta property="og:url" content="https://karma-taylor.github.io/port_folio/zuopinji/" />
+    <meta property="og:image" content="https://karma-taylor.github.io/port_folio/zuopinji/fx-cover.jpg" />
+    <meta property="og:locale" content="zh_CN" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="郭伟南 · AI 产品经理作品集" />
+    <meta name="twitter:description" content="Agent 应用 / 数据型工具 / Web 前端 — 5 个真实落地项目。" />
+    <meta name="twitter:image" content="https://karma-taylor.github.io/port_folio/zuopinji/fx-cover.jpg" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css?v=20260512-silkyhover" />
+    <link rel="stylesheet" href="./styles.css?v=20260512-modular" />
+
     <script>
       (function () {
         try {
@@ -21,6 +36,50 @@
           }
         } catch (e) {}
       })();
+    </script>
+
+    <script id="structuredData" type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "郭伟南",
+        "alternateName": "Guo Weinan",
+        "url": "https://karma-taylor.github.io/port_folio/",
+        "jobTitle": "AI 产品经理",
+        "sameAs": ["https://github.com/karma-taylor"],
+        "hasPart": [
+          {
+            "@type": "CreativeWork",
+            "name": "基于逻辑算法的薪资分配策略工具（Money Distribute AI）",
+            "url": "https://karma-taylor.github.io/money_classify/",
+            "description": "贪心算法按可用面额自动拆分薪资现金张数与余数，网页 + 微信小程序双形态"
+          },
+          {
+            "@type": "CreativeWork",
+            "name": "HamHome Daily Digest（资讯日报订阅系统）",
+            "url": "https://hamhome-digest-web.pages.dev/digest",
+            "description": "基于 AIAgent + RAG 思路的自动化资讯订阅平台"
+          },
+          {
+            "@type": "CreativeWork",
+            "name": "weather-fx-agent（汇率换算 Agent）",
+            "url": "https://karmacat-weather-fx-agent.hf.space",
+            "description": "面向业务场景的汇率换算 Web 工具"
+          },
+          {
+            "@type": "CreativeWork",
+            "name": "工作日历（Work Calendar）",
+            "url": "https://work-calendar-52c.pages.dev",
+            "description": "施工/运维排班可视化日历工具"
+          },
+          {
+            "@type": "CreativeWork",
+            "name": "企业业务日报自动化生成引擎（Business Daily Report Engine）",
+            "url": "https://github.com/karma-taylor/Daily_report",
+            "description": "Python 自动化日报，结算效率提升约 90%"
+          }
+        ]
+      }
     </script>
   </head>
   <body>
@@ -111,416 +170,7 @@
         </div>
 
         <section class="projects-section" id="projects" aria-label="项目展示">
-          <section class="projects-grid">
-        <article class="project-card reveal" data-status="live" data-size="featured">
-          <button class="project-trigger" type="button" aria-expanded="false">
-            <div class="project-cover" style="--cover-url: url(./fx-cover.jpg?v=20260512-darkfx);">
-              <img src="./fx-cover.jpg?v=20260512-darkfx" alt="weather-fx-agent 项目展示图" />
-            </div>
-            <div class="project-hover-overlay" aria-hidden="true">
-              <p class="hover-value">把“今天哪家汇率？”瞬间变成可执行的换算结果，多银行参考、防呆纠偏、弱网可用。</p>
-            </div>
-          </button>
-          <a class="hover-cta" href="https://karmacat-weather-fx-agent.hf.space" target="_blank" rel="noopener noreferrer" aria-label="访问 weather-fx-agent 演示">
-            <span class="hover-cta-text">访问演示</span>
-            <span class="hover-cta-arrow" aria-hidden="true">↗</span>
-          </a>
-          <div class="project-meta">
-            <span class="project-index">03</span>
-            <h3 class="project-title">weather-fx-agent（汇率换算 Agent）</h3>
-            <span class="project-status project-status--live">
-              <span class="status-dot" aria-hidden="true"></span>
-              已上线
-            </span>
-            <ul class="project-tech" aria-label="weather-fx-agent 技术栈">
-              <li data-tech-type="lang">JavaScript</li>
-              <li data-tech-type="lang">HTML / CSS</li>
-              <li data-tech-type="tool">汇率 API</li>
-              <li data-tech-type="ai">Cursor</li>
-            </ul>
-          </div>
-          <ol class="project-flow" aria-label="汇率换算 Agent 业务流程">
-            <li class="flow-step">
-              <span class="flow-step-idx">01</span>
-              <span class="flow-step-label">输入金额</span>
-            </li>
-            <li class="flow-step">
-              <span class="flow-step-idx">02</span>
-              <span class="flow-step-label">多银行汇率</span>
-            </li>
-            <li class="flow-step">
-              <span class="flow-step-idx">03</span>
-              <span class="flow-step-label">防呆纠偏</span>
-            </li>
-            <li class="flow-step flow-step--accent">
-              <span class="flow-step-idx">04</span>
-              <span class="flow-step-label">换算输出</span>
-            </li>
-          </ol>
-          <a class="github-cta" data-magnetic data-magnetic-strength="0.25" href="https://github.com/karma-taylor/weather-fx-agent" target="_blank" rel="noopener noreferrer">
-            <span class="github-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" focusable="false">
-                <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.85 10.91.57.11.78-.24.78-.55 0-.27-.01-1.16-.02-2.11-3.19.69-3.86-1.35-3.86-1.35-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.34.96.1-.74.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.14 1.18a10.88 10.88 0 0 1 5.72 0c2.18-1.49 3.14-1.18 3.14-1.18.62 1.59.23 2.76.11 3.05.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.39-5.25 5.67.41.36.77 1.07.77 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.2.67.79.55A11.51 11.51 0 0 0 23.5 12c0-6.35-5.15-11.5-11.5-11.5Z" />
-              </svg>
-            </span>
-            <span>Star on GitHub</span>
-          </a>
-          <div class="project-content" hidden>
-            <p class="project-summary">面向业务场景的汇率换算 Web 工具，支持多银行参考、固定汇率、防呆纠偏与弱网可用。</p>
-            <p class="project-prompt">Prompt：你是一个汇率换算助手。任务：根据用户输入的 base、target、amount 和 rate（可选），返回换算后的数字结果。规则：1) 固定汇率模式：converted = amount * rate，rate 表示 1 base = rate target。2) 若为网络模式，使用提供的实时 rate 计算。3) 若币种方向互换（A/B -> B/A），rate 需取倒数后再计算。4) 输出仅包含：换算结果数字、使用汇率、币种单位。5) 不输出业务分析、PRD术语或空泛描述。输出格式：- converted: &lt;number&gt; - rate_used: "1 &lt;base&gt; = &lt;x&gt; &lt;target&gt;" - note: "&lt;网络汇率/固定汇率/缓存汇率&gt;"</p>
-            <div class="project-links">
-              <a href="https://github.com/karma-taylor/weather-fx-agent" target="_blank" rel="noopener noreferrer">
-                <span class="github-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" focusable="false">
-                    <path
-                      d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.85 10.91.57.11.78-.24.78-.55 0-.27-.01-1.16-.02-2.11-3.19.69-3.86-1.35-3.86-1.35-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.34.96.1-.74.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.14 1.18a10.88 10.88 0 0 1 5.72 0c2.18-1.49 3.14-1.18 3.14-1.18.62 1.59.23 2.76.11 3.05.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.39-5.25 5.67.41.36.77 1.07.77 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.2.67.79.55A11.51 11.51 0 0 0 23.5 12c0-6.35-5.15-11.5-11.5-11.5Z"
-                    />
-                  </svg>
-                </span>
-                GitHub 链接
-              </a>
-              <a href="https://karmacat-weather-fx-agent.hf.space" target="_blank" rel="noopener noreferrer">
-                <span class="live-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" focusable="false">
-                    <path
-                      d="M14.5 3a.9.9 0 0 0 0 1.8h3.43l-5.02 5.02a.9.9 0 1 0 1.28 1.27l5.01-5.01v3.43a.9.9 0 1 0 1.8 0V3.9a.9.9 0 0 0-.9-.9H14.5ZM5.6 5A2.6 2.6 0 0 0 3 7.6v10.8A2.6 2.6 0 0 0 5.6 21h10.8a2.6 2.6 0 0 0 2.6-2.6V12.9a.9.9 0 1 0-1.8 0v5.5c0 .44-.36.8-.8.8H5.6a.8.8 0 0 1-.8-.8V7.6c0-.44.36-.8.8-.8h5.5a.9.9 0 0 0 0-1.8H5.6Z"
-                    />
-                  </svg>
-                </span>
-                上线链接
-              </a>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card reveal" data-status="live" data-size="tall">
-          <button class="project-trigger" type="button" aria-expanded="false">
-            <div class="project-cover" style="--cover-url: url(./digest-cover.png);">
-              <img src="./digest-cover.png" alt="HamHome Daily Digest 项目展示图" />
-            </div>
-            <div class="project-hover-overlay" aria-hidden="true">
-              <p class="hover-value">把分散资讯主动整理成定时送达的结构化每日简报，AIAgent + RAG 自动分桶摘要。</p>
-            </div>
-          </button>
-          <a class="hover-cta" href="https://hamhome-digest-web.pages.dev/digest" target="_blank" rel="noopener noreferrer" aria-label="访问 HamHome Daily Digest 演示">
-            <span class="hover-cta-text">访问演示</span>
-            <span class="hover-cta-arrow" aria-hidden="true">↗</span>
-          </a>
-          <div class="project-meta">
-            <span class="project-index">02</span>
-            <h3 class="project-title">HamHome Daily Digest（资讯日报订阅系统）</h3>
-            <span class="project-status project-status--live">
-              <span class="status-dot" aria-hidden="true"></span>
-              已上线
-            </span>
-            <ul class="project-tech" aria-label="HamHome Daily Digest 技术栈">
-              <li data-tech-type="lang">Python</li>
-              <li data-tech-type="framework">RAG</li>
-              <li data-tech-type="tool">定时任务</li>
-              <li data-tech-type="ai">Cursor</li>
-              <li data-tech-type="deploy">Cloudflare Pages</li>
-            </ul>
-          </div>
-          <ol class="project-flow" aria-label="HamHome Daily Digest 业务流程">
-            <li class="flow-step">
-              <span class="flow-step-idx">01</span>
-              <span class="flow-step-label">多源抓取</span>
-            </li>
-            <li class="flow-step">
-              <span class="flow-step-idx">02</span>
-              <span class="flow-step-label">主题分桶</span>
-            </li>
-            <li class="flow-step">
-              <span class="flow-step-idx">03</span>
-              <span class="flow-step-label">结构化摘要</span>
-            </li>
-            <li class="flow-step flow-step--accent">
-              <span class="flow-step-idx">04</span>
-              <span class="flow-step-label">邮件推送</span>
-            </li>
-          </ol>
-          <a class="github-cta" data-magnetic data-magnetic-strength="0.25" href="https://github.com/karma-taylor/Daily_digest" target="_blank" rel="noopener noreferrer">
-            <span class="github-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" focusable="false">
-                <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.85 10.91.57.11.78-.24.78-.55 0-.27-.01-1.16-.02-2.11-3.19.69-3.86-1.35-3.86-1.35-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.34.96.1-.74.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.14 1.18a10.88 10.88 0 0 1 5.72 0c2.18-1.49 3.14-1.18 3.14-1.18.62 1.59.23 2.76.11 3.05.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.39-5.25 5.67.41.36.77 1.07.77 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.2.67.79.55A11.51 11.51 0 0 0 23.5 12c0-6.35-5.15-11.5-11.5-11.5Z" />
-              </svg>
-            </span>
-            <span>Star on GitHub</span>
-          </a>
-          <div class="project-content" hidden>
-            <p class="project-summary">基于 AIAgent + RAG 思路的自动化资讯订阅平台，支持多源抓取、主题分桶、结构化摘要，并按时区定时邮件推送。</p>
-            <p class="project-prompt">Prompt：你是专业新闻编辑。请基于输入的多条资讯摘录，按指定主题输出结构化 JSON（仅 JSON，不要 Markdown），每个主题提供一句话综述和若干要点；要求客观、去重、不编造事实，并确保内容聚焦订阅时区“当日”信息。</p>
-            <div class="project-links">
-              <a href="https://github.com/karma-taylor/Daily_digest" target="_blank" rel="noopener noreferrer">
-                <span class="github-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" focusable="false">
-                    <path
-                      d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.85 10.91.57.11.78-.24.78-.55 0-.27-.01-1.16-.02-2.11-3.19.69-3.86-1.35-3.86-1.35-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.34.96.1-.74.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.14 1.18a10.88 10.88 0 0 1 5.72 0c2.18-1.49 3.14-1.18 3.14-1.18.62 1.59.23 2.76.11 3.05.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.39-5.25 5.67.41.36.77 1.07.77 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.2.67.79.55A11.51 11.51 0 0 0 23.5 12c0-6.35-5.15-11.5-11.5-11.5Z"
-                    />
-                  </svg>
-                </span>
-                GitHub 链接
-              </a>
-              <a href="https://hamhome-digest-web.pages.dev/digest" target="_blank" rel="noopener noreferrer">
-                <span class="live-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" focusable="false">
-                    <path
-                      d="M14.5 3a.9.9 0 0 0 0 1.8h3.43l-5.02 5.02a.9.9 0 1 0 1.28 1.27l5.01-5.01v3.43a.9.9 0 1 0 1.8 0V3.9a.9.9 0 0 0-.9-.9H14.5ZM5.6 5A2.6 2.6 0 0 0 3 7.6v10.8A2.6 2.6 0 0 0 5.6 21h10.8a2.6 2.6 0 0 0 2.6-2.6V12.9a.9.9 0 1 0-1.8 0v5.5c0 .44-.36.8-.8.8H5.6a.8.8 0 0 1-.8-.8V7.6c0-.44.36-.8.8-.8h5.5a.9.9 0 0 0 0-1.8H5.6Z"
-                    />
-                  </svg>
-                </span>
-                上线链接
-              </a>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card reveal" data-status="live" data-size="wide">
-          <button class="project-trigger" type="button" aria-expanded="false">
-            <div class="project-cover" style="--cover-url: url(./calendar-cover.jpg?v=20260512-darkcal);">
-              <img src="./calendar-cover.jpg?v=20260512-darkcal" alt="工作日历（Work Calendar）项目展示图" />
-            </div>
-            <div class="project-hover-overlay" aria-hidden="true">
-              <p class="hover-value">排班冲突在保存前就被卡住，分段安排、Excel 名单锁定、云端持久化，不丢数据。</p>
-            </div>
-          </button>
-          <a class="hover-cta" href="https://work-calendar-52c.pages.dev" target="_blank" rel="noopener noreferrer" aria-label="访问工作日历演示">
-            <span class="hover-cta-text">访问演示</span>
-            <span class="hover-cta-arrow" aria-hidden="true">↗</span>
-          </a>
-          <div class="project-meta">
-            <span class="project-index">04</span>
-            <h3 class="project-title">工作日历（Work Calendar）</h3>
-            <span class="project-status project-status--live">
-              <span class="status-dot" aria-hidden="true"></span>
-              已上线
-            </span>
-            <ul class="project-tech" aria-label="工作日历 技术栈">
-              <li data-tech-type="framework">React</li>
-              <li data-tech-type="framework">Vite</li>
-              <li data-tech-type="tool">Supabase</li>
-              <li data-tech-type="ai">Cursor</li>
-              <li data-tech-type="deploy">Cloudflare Pages</li>
-            </ul>
-          </div>
-          <ol class="project-flow" aria-label="工作日历 业务流程">
-            <li class="flow-step">
-              <span class="flow-step-idx">01</span>
-              <span class="flow-step-label">名单导入</span>
-            </li>
-            <li class="flow-step">
-              <span class="flow-step-idx">02</span>
-              <span class="flow-step-label">分段排期</span>
-            </li>
-            <li class="flow-step">
-              <span class="flow-step-idx">03</span>
-              <span class="flow-step-label">冲突校验</span>
-            </li>
-            <li class="flow-step flow-step--accent">
-              <span class="flow-step-idx">04</span>
-              <span class="flow-step-label">云端同步</span>
-            </li>
-          </ol>
-          <a class="github-cta" data-magnetic data-magnetic-strength="0.25" href="https://github.com/karma-taylor/work_calendar" target="_blank" rel="noopener noreferrer">
-            <span class="github-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" focusable="false">
-                <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.85 10.91.57.11.78-.24.78-.55 0-.27-.01-1.16-.02-2.11-3.19.69-3.86-1.35-3.86-1.35-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.34.96.1-.74.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.14 1.18a10.88 10.88 0 0 1 5.72 0c2.18-1.49 3.14-1.18 3.14-1.18.62 1.59.23 2.76.11 3.05.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.39-5.25 5.67.41.36.77 1.07.77 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.2.67.79.55A11.51 11.51 0 0 0 23.5 12c0-6.35-5.15-11.5-11.5-11.5Z" />
-              </svg>
-            </span>
-            <span>Star on GitHub</span>
-          </a>
-          <div class="project-content" hidden>
-            <p class="project-summary">面向施工与运维排班场景的可视化日历工具，支持项目占用展示、人员分配、冲突校验与云端持久化。</p>
-            <p class="project-prompt">Prompt：你是一个施工计划与资源统筹专家，同时也是资深前端工程师。请为我开发一个“施工/运维排班日历系统（Work Calendar）”，用于项目排期、人员分配与冲突管控。请严格按以下要求实现：【业务目标】以月历形式展示工单占用周期（长线条可视化）。支持创建工单并分配管理人员与工人。支持同一工单内“多拨人分段参与”，而非默认全程参与。严格限制：同一人同一时间不得被分配到两个工单。支持 Excel 名单导入、锁定、自动更新检测。支持本地缓存与云端持久化，避免数据丢失。【功能需求】A. 日历与工单：月视图，支持上/下月切换。每个工单按起止日期显示横向长线，占用可跨周，视觉连续。点击工单查看详情弹窗。增加“删除模式”开关：开启后点击工单可删除（需确认）。B. 新建工单：字段：工单名称、开始日期、结束日期。保留“管理人员/工人”基础选择。重点：新增“人员分段安排”表单（可多行）：人员、角色（管理/工人）、分段开始日期、分段结束日期、备注（可选）。每行支持“复制一行”“删除一行”。分段日期必须落在工单总日期范围内。C. 冲突校验（强约束）：冲突判定粒度为“人员分段”，不是工单全程。判定规则：若同一人两条分段时间有交集（aStart <= bEnd 且 bStart <= aEnd），禁止保存。冲突提示应给出：冲突人员 + 冲突工单名。D. Excel 人员名单导入规则：只读取 sheet：江都、省建、科林。额外：CSI/CSIsheet 也读取，且其人员一律归管理人员。从第 3 行开始读取。C 列为姓名，F 列为岗位。岗位包含“工”归工人，否则归管理。同名不合并，展示时用“姓名(公司/来源sheet)”区分。E. 名单锁定与自动更新：提供“锁定人员名单文件”能力（File System Access API）。刷新后尽量自动恢复锁定；若权限失效，保留缓存名单并提示“需重新关联”。文件内容变更后自动重新解析并更新名单。F. 数据持久化：本地：localStorage 作为兜底。云端：Supabase 免费方案（云端优先 + 本地兜底）。云端存储至少覆盖：工单、人员名单状态。提供必要的建表 SQL 与环境变量说明。【技术约束】前端：React + Vite。可使用 xlsx 解析 Excel。可使用 @supabase/supabase-js。代码结构清晰，避免一次性写在单个超大函数。对关键逻辑添加简洁注释。【交付要求】给出可运行代码。给出关键数据结构定义（Project、Assignment、Staff）。给出冲突校验核心函数。给出 Supabase 建表 SQL、RLS/策略示例。给出 Cloudflare Pages 部署步骤与环境变量清单。给出最小验收清单（创建工单、分段冲突、导入锁定、刷新恢复、云端同步）。请按“先核心可用、再增强”的顺序实现，并确保最终可部署到公网固定地址使用。</p>
-            <div class="project-links">
-              <a href="https://github.com/karma-taylor/work_calendar" target="_blank" rel="noopener noreferrer">
-                <span class="github-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" focusable="false">
-                    <path
-                      d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.85 10.91.57.11.78-.24.78-.55 0-.27-.01-1.16-.02-2.11-3.19.69-3.86-1.35-3.86-1.35-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.34.96.1-.74.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.14 1.18a10.88 10.88 0 0 1 5.72 0c2.18-1.49 3.14-1.18 3.14-1.18.62 1.59.23 2.76.11 3.05.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.39-5.25 5.67.41.36.77 1.07.77 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.2.67.79.55A11.51 11.51 0 0 0 23.5 12c0-6.35-5.15-11.5-11.5-11.5Z"
-                    />
-                  </svg>
-                </span>
-                GitHub 链接
-              </a>
-              <a href="https://work-calendar-52c.pages.dev" target="_blank" rel="noopener noreferrer">
-                <span class="live-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" focusable="false">
-                    <path
-                      d="M14.5 3a.9.9 0 0 0 0 1.8h3.43l-5.02 5.02a.9.9 0 1 0 1.28 1.27l5.01-5.01v3.43a.9.9 0 1 0 1.8 0V3.9a.9.9 0 0 0-.9-.9H14.5ZM5.6 5A2.6 2.6 0 0 0 3 7.6v10.8A2.6 2.6 0 0 0 5.6 21h10.8a2.6 2.6 0 0 0 2.6-2.6V12.9a.9.9 0 1 0-1.8 0v5.5c0 .44-.36.8-.8.8H5.6a.8.8 0 0 1-.8-.8V7.6c0-.44.36-.8.8-.8h5.5a.9.9 0 0 0 0-1.8H5.6Z"
-                    />
-                  </svg>
-                </span>
-                上线链接
-              </a>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card reveal" data-status="wip" data-size="small">
-          <button class="project-trigger" type="button" aria-expanded="false">
-            <div class="project-cover" style="--cover-url: url(./report-cover.png?v=20260512-darkrep);">
-              <img src="./report-cover.png?v=20260512-darkrep" alt="企业业务日报自动化生成引擎项目展示图" />
-            </div>
-            <div class="project-hover-overlay" aria-hidden="true">
-              <p class="hover-value">用 Python 脚本取代日结的手工搬数与排版：多维业务数据自动清洗、复杂表单秒级生成与分发，单次日结结算的人工统计时间降低约 90%。</p>
-            </div>
-          </button>
-          <a class="hover-cta" href="https://github.com/karma-taylor/Daily_report" target="_blank" rel="noopener noreferrer" aria-label="查看企业业务日报自动化生成引擎源码">
-            <span class="hover-cta-text">查看代码</span>
-            <span class="hover-cta-arrow" aria-hidden="true">↗</span>
-          </a>
-          <div class="project-meta">
-            <span class="project-index">05</span>
-            <h3 class="project-title">企业业务日报自动化生成引擎（Business Daily Report Engine）</h3>
-            <span class="project-status project-status--wip">
-              <span class="status-dot" aria-hidden="true"></span>
-              待部署
-            </span>
-            <ul class="project-tech" aria-label="企业业务日报自动化生成引擎 技术栈">
-              <li data-tech-type="lang">Python</li>
-              <li data-tech-type="framework">pandas</li>
-              <li data-tech-type="framework">openpyxl</li>
-              <li data-tech-type="framework">Streamlit</li>
-              <li data-tech-type="ai">Cursor</li>
-            </ul>
-          </div>
-          <ol class="project-flow" aria-label="企业业务日报自动化生成引擎 业务流程">
-            <li class="flow-step">
-              <span class="flow-step-idx">01</span>
-              <span class="flow-step-label">数据采集</span>
-            </li>
-            <li class="flow-step">
-              <span class="flow-step-idx">02</span>
-              <span class="flow-step-label">业务清洗</span>
-            </li>
-            <li class="flow-step">
-              <span class="flow-step-idx">03</span>
-              <span class="flow-step-label">模板渲染</span>
-            </li>
-            <li class="flow-step flow-step--accent">
-              <span class="flow-step-idx">04</span>
-              <span class="flow-step-label">异常勘误</span>
-            </li>
-          </ol>
-          <a class="github-cta" data-magnetic data-magnetic-strength="0.25" href="https://github.com/karma-taylor/Daily_report" target="_blank" rel="noopener noreferrer">
-            <span class="github-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" focusable="false">
-                <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.85 10.91.57.11.78-.24.78-.55 0-.27-.01-1.16-.02-2.11-3.19.69-3.86-1.35-3.86-1.35-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.34.96.1-.74.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.14 1.18a10.88 10.88 0 0 1 5.72 0c2.18-1.49 3.14-1.18 3.14-1.18.62 1.59.23 2.76.11 3.05.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.39-5.25 5.67.41.36.77 1.07.77 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.2.67.79.55A11.51 11.51 0 0 0 23.5 12c0-6.35-5.15-11.5-11.5-11.5Z" />
-              </svg>
-            </span>
-            <span>Star on GitHub</span>
-          </a>
-          <div class="project-content" hidden>
-            <p class="project-summary">面向企业业务结算场景的日报自动化引擎：用 Python 脚本取代日结的手工搬数与排版，基于 pandas + openpyxl + Streamlit 对多维业务数据自动清洗、合并与勘误，按既定模板秒级生成 B 日报、C 材料记录与 D 台账并输出异常清单，把单次日结的人工统计时间从约 2 小时压到 10 分钟以内（降低约 90%）。</p>
-            <p class="project-prompt">Prompt：你是一个“企业业务日报自动化”专家。请根据输入的 A 表数据和历史模板（B/C/D 表），按既定业务规则自动生成当日 B 日报、C 材料记录、D 台账，并输出异常清单。你需要确保：1）固定区复制与材料顺序正确；2）盐行规则、495/494 合并规则严格执行；3）单价匹配与累计计算准确；4）输出文件保持原模板格式（合并、边框、底色、字体、对齐）；5）结果可追溯、可复核、可直接交付。</p>
-            <div class="project-links">
-              <a href="https://github.com/karma-taylor/Daily_report" target="_blank" rel="noopener noreferrer">
-                <span class="github-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" focusable="false">
-                    <path
-                      d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.85 10.91.57.11.78-.24.78-.55 0-.27-.01-1.16-.02-2.11-3.19.69-3.86-1.35-3.86-1.35-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.34.96.1-.74.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.14 1.18a10.88 10.88 0 0 1 5.72 0c2.18-1.49 3.14-1.18 3.14-1.18.62 1.59.23 2.76.11 3.05.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.39-5.25 5.67.41.36.77 1.07.77 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.2.67.79.55A11.51 11.51 0 0 0 23.5 12c0-6.35-5.15-11.5-11.5-11.5Z"
-                    />
-                  </svg>
-                </span>
-                GitHub 链接
-              </a>
-              <a href="https://example.com/" target="_blank" rel="noopener noreferrer">
-                <span class="live-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" focusable="false">
-                    <path
-                      d="M14.5 3a.9.9 0 0 0 0 1.8h3.43l-5.02 5.02a.9.9 0 1 0 1.28 1.27l5.01-5.01v3.43a.9.9 0 1 0 1.8 0V3.9a.9.9 0 0 0-.9-.9H14.5ZM5.6 5A2.6 2.6 0 0 0 3 7.6v10.8A2.6 2.6 0 0 0 5.6 21h10.8a2.6 2.6 0 0 0 2.6-2.6V12.9a.9.9 0 1 0-1.8 0v5.5c0 .44-.36.8-.8.8H5.6a.8.8 0 0 1-.8-.8V7.6c0-.44.36-.8.8-.8h5.5a.9.9 0 0 0 0-1.8H5.6Z"
-                    />
-                  </svg>
-                </span>
-                暂未上线（待部署）
-              </a>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card reveal" data-status="live" data-size="tall">
-          <button class="project-trigger" type="button" aria-expanded="false">
-            <div class="project-cover" style="--cover-url: url(./money-cover.png?v=20260512-darkmoney);">
-              <img src="./money-cover.png?v=20260512-darkmoney" alt="基于逻辑算法的薪资分配策略工具项目展示图" />
-            </div>
-            <div class="project-hover-overlay" aria-hidden="true">
-              <p class="hover-value">基于贪心算法的薪资现金分配策略：按可用面额自动拆分张数与余数，单笔即时计算 + Excel 批量导入导出，小程序版同步在路上。</p>
-            </div>
-          </button>
-          <a class="hover-cta" href="https://karma-taylor.github.io/money_classify/" target="_blank" rel="noopener noreferrer" aria-label="访问薪资分配策略工具演示">
-            <span class="hover-cta-text">访问演示</span>
-            <span class="hover-cta-arrow" aria-hidden="true">↗</span>
-          </a>
-          <div class="project-meta">
-            <span class="project-index">01</span>
-            <h3 class="project-title">基于逻辑算法的薪资分配策略工具（Money Distribute AI）</h3>
-            <span class="project-status project-status--live">
-              <span class="status-dot" aria-hidden="true"></span>
-              已上线
-            </span>
-            <ul class="project-tech" aria-label="薪资分配策略工具 技术栈">
-              <li data-tech-type="lang">JavaScript</li>
-              <li data-tech-type="tool">Excel 导入导出</li>
-              <li data-tech-type="framework">WeChat 小程序</li>
-              <li data-tech-type="ai">Cursor</li>
-              <li data-tech-type="deploy">GitHub Pages</li>
-            </ul>
-          </div>
-          <ol class="project-flow" aria-label="薪资分配策略工具 业务流程">
-            <li class="flow-step">
-              <span class="flow-step-idx">01</span>
-              <span class="flow-step-label">选定面额</span>
-            </li>
-            <li class="flow-step">
-              <span class="flow-step-idx">02</span>
-              <span class="flow-step-label">贪心拆分</span>
-            </li>
-            <li class="flow-step">
-              <span class="flow-step-idx">03</span>
-              <span class="flow-step-label">余数校验</span>
-            </li>
-            <li class="flow-step flow-step--accent">
-              <span class="flow-step-idx">04</span>
-              <span class="flow-step-label">批量导出</span>
-            </li>
-          </ol>
-          <a class="github-cta" data-magnetic data-magnetic-strength="0.25" href="https://github.com/karma-taylor/money_classify" target="_blank" rel="noopener noreferrer">
-            <span class="github-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" focusable="false">
-                <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.85 10.91.57.11.78-.24.78-.55 0-.27-.01-1.16-.02-2.11-3.19.69-3.86-1.35-3.86-1.35-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.34.96.1-.74.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.14 1.18a10.88 10.88 0 0 1 5.72 0c2.18-1.49 3.14-1.18 3.14-1.18.62 1.59.23 2.76.11 3.05.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.39-5.25 5.67.41.36.77 1.07.77 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.2.67.79.55A11.51 11.51 0 0 0 23.5 12c0-6.35-5.15-11.5-11.5-11.5Z" />
-              </svg>
-            </span>
-            <span>Star on GitHub</span>
-          </a>
-          <div class="project-content" hidden>
-            <p class="project-summary">一款基于贪心算法的薪资分配策略工具，按可用面额（50000/25000/10000/5000/1000）从大到小自动拆分张数与余数。提供网页端单笔计算与 Excel 批量导入导出；并已准备微信小程序版本（单笔配钞 + 批量处理）。</p>
-            <p class="project-prompt">Prompt：你是一个银行柜员，需要根据当天可用纸币面额为员工薪酬进行现金配钞。请按“从大到小优先”的贪心策略计算每种面额张数，并返回余数。任务要求：可用面额支持 50000、25000、10000、5000、1000（可按实际情况勾选启用/禁用）。对每笔金额先使用最大可用面额尽可能多张，再对余数继续使用下一档面额，直到最小面额处理完成。输出字段包括姓名（如有）、薪水金额、各面额张数（50000、25000、10000、5000、1000）与余数。批量模式导入规则：A 列姓名、B 列薪水，其余列可忽略并重新计算；导出固定列顺序：姓名、薪水、50000、25000、10000、5000、1000。校验规则：金额必须为非负数；无法解析的金额行需标记为错误并跳过；当未选择任何面额时，返回明确提示。</p>
-            <div class="project-links">
-              <a href="https://github.com/karma-taylor/money_classify.git" target="_blank" rel="noopener noreferrer">
-                <span class="github-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" focusable="false">
-                    <path
-                      d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.85 10.91.57.11.78-.24.78-.55 0-.27-.01-1.16-.02-2.11-3.19.69-3.86-1.35-3.86-1.35-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.34.96.1-.74.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.14 1.18a10.88 10.88 0 0 1 5.72 0c2.18-1.49 3.14-1.18 3.14-1.18.62 1.59.23 2.76.11 3.05.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.39-5.25 5.67.41.36.77 1.07.77 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.2.67.79.55A11.51 11.51 0 0 0 23.5 12c0-6.35-5.15-11.5-11.5-11.5Z"
-                    />
-                  </svg>
-                </span>
-                GitHub 链接
-              </a>
-              <a href="https://karma-taylor.github.io/money_classify/" target="_blank" rel="noopener noreferrer">
-                <span class="live-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" focusable="false">
-                    <path
-                      d="M14.5 3a.9.9 0 0 0 0 1.8h3.43l-5.02 5.02a.9.9 0 1 0 1.28 1.27l5.01-5.01v3.43a.9.9 0 1 0 1.8 0V3.9a.9.9 0 0 0-.9-.9H14.5ZM5.6 5A2.6 2.6 0 0 0 3 7.6v10.8A2.6 2.6 0 0 0 5.6 21h10.8a2.6 2.6 0 0 0 2.6-2.6V12.9a.9.9 0 1 0-1.8 0v5.5c0 .44-.36.8-.8.8H5.6a.8.8 0 0 1-.8-.8V7.6c0-.44.36-.8.8-.8h5.5a.9.9 0 0 0 0-1.8H5.6Z"
-                    />
-                  </svg>
-                </span>
-                上线链接
-              </a>
-            </div>
-          </div>
-        </article>
-          </section>
+          <section class="projects-grid" id="projectsGrid"></section>
         </section>
       </div>
     </main>
@@ -553,6 +203,95 @@
       </div>
     </div>
 
-    <script src="./script.js?v=20260512-darkcal"></script>
+    <!-- ============================================================
+         模板定义（被 render/project-card.js 引用，不要修改类名 / data-slot 名称）
+         ============================================================ -->
+
+    <template id="projectCardTemplate">
+      <article class="project-card reveal">
+        <button class="project-trigger" type="button" aria-expanded="false">
+          <div class="project-cover" data-slot="cover-bg">
+            <img data-slot="cover-img" />
+          </div>
+          <div class="project-hover-overlay" aria-hidden="true">
+            <p class="hover-value" data-slot="hover-value"></p>
+          </div>
+        </button>
+        <a class="hover-cta" data-slot="hover-cta" target="_blank" rel="noopener noreferrer">
+          <span class="hover-cta-text" data-slot="hover-cta-label"></span>
+          <span class="hover-cta-arrow" aria-hidden="true">↗</span>
+        </a>
+        <div class="project-meta">
+          <span class="project-index" data-slot="index"></span>
+          <h3 class="project-title" data-slot="title"></h3>
+          <span class="project-status" data-slot="status">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span data-slot="status-label"></span>
+          </span>
+          <ul class="project-tech" data-slot="tech-list"></ul>
+        </div>
+        <ol class="project-flow" data-slot="flow-list"></ol>
+        <a class="github-cta" data-slot="github-cta" data-magnetic data-magnetic-strength="0.25" target="_blank" rel="noopener noreferrer">
+          <span class="github-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false">
+              <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.85 10.91.57.11.78-.24.78-.55 0-.27-.01-1.16-.02-2.11-3.19.69-3.86-1.35-3.86-1.35-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.34.96.1-.74.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.14 1.18a10.88 10.88 0 0 1 5.72 0c2.18-1.49 3.14-1.18 3.14-1.18.62 1.59.23 2.76.11 3.05.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.39-5.25 5.67.41.36.77 1.07.77 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.2.67.79.55A11.51 11.51 0 0 0 23.5 12c0-6.35-5.15-11.5-11.5-11.5Z" />
+            </svg>
+          </span>
+          <span>Star on GitHub</span>
+        </a>
+        <div class="project-content" hidden>
+          <p class="project-summary" data-slot="summary"></p>
+          <p class="project-prompt" data-slot="prompt"></p>
+          <div class="project-links" data-slot="detail-links"></div>
+        </div>
+      </article>
+    </template>
+
+    <template id="techBadgeTemplate">
+      <li></li>
+    </template>
+
+    <template id="flowStepTemplate">
+      <li class="flow-step">
+        <span class="flow-step-idx" data-slot="flow-idx"></span>
+        <span class="flow-step-label" data-slot="flow-label"></span>
+      </li>
+    </template>
+
+    <template id="detailLinkTemplate">
+      <a target="_blank" rel="noopener noreferrer">
+        <span class="github-icon" data-icon-for="github" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false">
+            <path
+              d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.85 10.91.57.11.78-.24.78-.55 0-.27-.01-1.16-.02-2.11-3.19.69-3.86-1.35-3.86-1.35-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.34.96.1-.74.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.14 1.18a10.88 10.88 0 0 1 5.72 0c2.18-1.49 3.14-1.18 3.14-1.18.62 1.59.23 2.76.11 3.05.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.39-5.25 5.67.41.36.77 1.07.77 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.2.67.79.55A11.51 11.51 0 0 0 23.5 12c0-6.35-5.15-11.5-11.5-11.5Z"
+            />
+          </svg>
+        </span>
+        <span class="live-icon" data-icon-for="live" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false">
+            <path
+              d="M14.5 3a.9.9 0 0 0 0 1.8h3.43l-5.02 5.02a.9.9 0 1 0 1.28 1.27l5.01-5.01v3.43a.9.9 0 1 0 1.8 0V3.9a.9.9 0 0 0-.9-.9H14.5ZM5.6 5A2.6 2.6 0 0 0 3 7.6v10.8A2.6 2.6 0 0 0 5.6 21h10.8a2.6 2.6 0 0 0 2.6-2.6V12.9a.9.9 0 1 0-1.8 0v5.5c0 .44-.36.8-.8.8H5.6a.8.8 0 0 1-.8-.8V7.6c0-.44.36-.8.8-.8h5.5a.9.9 0 0 0 0-1.8H5.6Z"
+            />
+          </svg>
+        </span>
+        <span data-slot="link-label"></span>
+      </a>
+    </template>
+
+    <noscript>
+      <section class="noscript-fallback">
+        <h2>作品集（精简版）</h2>
+        <p>请开启 JavaScript 以获得完整体验。以下是项目清单的精简文本：</p>
+        <ol>
+          <li><strong>基于逻辑算法的薪资分配策略工具（Money Distribute AI）</strong> — 贪心算法按可用面额自动拆分薪资现金张数与余数，网页 + 微信小程序双形态 — <a href="https://karma-taylor.github.io/money_classify/">演示</a> · <a href="https://github.com/karma-taylor/money_classify">GitHub</a></li>
+          <li><strong>HamHome Daily Digest（资讯日报订阅系统）</strong> — 基于 AIAgent + RAG 思路的自动化资讯订阅平台 — <a href="https://hamhome-digest-web.pages.dev/digest">演示</a> · <a href="https://github.com/karma-taylor/Daily_digest">GitHub</a></li>
+          <li><strong>weather-fx-agent（汇率换算 Agent）</strong> — 面向业务场景的汇率换算 Web 工具 — <a href="https://karmacat-weather-fx-agent.hf.space">演示</a> · <a href="https://github.com/karma-taylor/weather-fx-agent">GitHub</a></li>
+          <li><strong>工作日历（Work Calendar）</strong> — 施工/运维排班可视化日历工具 — <a href="https://work-calendar-52c.pages.dev">演示</a> · <a href="https://github.com/karma-taylor/work_calendar">GitHub</a></li>
+          <li><strong>企业业务日报自动化生成引擎（Business Daily Report Engine）</strong> — Python 自动化日报，结算效率提升约 90% — <a href="https://github.com/karma-taylor/Daily_report">GitHub</a></li>
+        </ol>
+      </section>
+    </noscript>
+
+    <script type="module" src="./main.js?v=20260512-modular"></script>
   </body>
 </html>

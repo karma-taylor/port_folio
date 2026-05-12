@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Portfolio · 单元测试</title>
+    <style>
+      :root {
+        color-scheme: dark;
+      }
+      body {
+        margin: 0;
+        padding: 2rem;
+        font-family: "JetBrains Mono", "Inter", system-ui, sans-serif;
+        background: #0b0c0e;
+        color: #e6e8eb;
+      }
+      h1 {
+        margin: 0 0 1rem;
+        font-size: 1.25rem;
+        letter-spacing: 0.04em;
+      }
+      .test-summary {
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+      .test-summary--ok {
+        background: rgba(69, 178, 107, 0.18);
+        color: #6ed59a;
+        border: 1px solid rgba(69, 178, 107, 0.45);
+      }
+      .test-summary--bad {
+        background: rgba(220, 80, 90, 0.18);
+        color: #ff8a93;
+        border: 1px solid rgba(220, 80, 90, 0.45);
+      }
+      .test-group {
+        margin: 1.2rem 0;
+        padding: 0.75rem 1rem;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      .test-group h2 {
+        margin: 0 0 0.5rem;
+        font-size: 0.95rem;
+        color: #aab5c5;
+      }
+      .test-row {
+        display: grid;
+        grid-template-columns: 1.5rem 1fr;
+        align-items: start;
+        gap: 0.5rem;
+        padding: 0.18rem 0;
+        font-size: 0.84rem;
+      }
+      .test-row--pass .test-status {
+        color: #6ed59a;
+      }
+      .test-row--fail .test-status {
+        color: #ff8a93;
+      }
+      .test-status {
+        font-weight: 700;
+      }
+      .test-name {
+        word-break: break-word;
+      }
+      .test-detail {
+        grid-column: 2;
+        margin: 0.3rem 0 0;
+        padding: 0.6rem 0.8rem;
+        background: rgba(255, 60, 70, 0.12);
+        border: 1px solid rgba(255, 60, 70, 0.3);
+        color: #ff8a93;
+        font-size: 0.72rem;
+        line-height: 1.5;
+        white-space: pre-wrap;
+        word-break: break-word;
+        border-radius: 6px;
+      }
+      .toolbar {
+        margin-bottom: 1rem;
+      }
+      button.run-btn {
+        font: inherit;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        background: #2a2d36;
+        border: 1px solid #444955;
+        color: inherit;
+        cursor: pointer;
+      }
+      button.run-btn:hover {
+        background: #353944;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Portfolio · 单元测试</h1>
+    <div class="toolbar">
+      <button class="run-btn" id="runBtn">重新运行</button>
+    </div>
+    <main id="testResults"></main>
+
+    <script type="module">
+      import { run } from "./runner.js";
+      // 顺序导入会触发所有 describe() 注册
+      import "./data.test.js";
+      import "./seo.test.js";
+      import "./interactions.test.js";
+      import "./render.test.js"; // render 依赖 loadProductionTemplates() 异步加载，放最后
+
+      const container = document.getElementById("testResults");
+      const runBtn = document.getElementById("runBtn");
+
+      async function execute() {
+        runBtn.disabled = true;
+        const result = await run(container);
+        runBtn.disabled = false;
+        document.title = `${result.fail === 0 ? "✓" : "✗"} ${result.pass}/${result.total} · Portfolio Tests`;
+      }
+
+      runBtn.addEventListener("click", execute);
+      execute();
+    </script>
+  </body>
+</html>
