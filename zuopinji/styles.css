@@ -658,26 +658,11 @@ body.overlay-open {
   flex: 0 0 auto;
 }
 
-.project-cover::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: var(--cover-url);
-  background-size: cover;
-  background-position: center;
-  filter: blur(48px) brightness(0.55) saturate(0.85);
-  transform: scale(1.25);
-  z-index: 0;
-  pointer-events: none;
-}
-
 .project-cover img {
-  position: relative;
-  z-index: 1;
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  object-position: center;
+  object-fit: cover;
+  object-position: top center;
   display: block;
 }
 
