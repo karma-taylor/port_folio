@@ -678,6 +678,10 @@ body.overlay-open {
   aspect-ratio: 4 / 5;
 }
 
+.project-card[data-size="tall"] .project-cover img {
+  object-position: top left;
+}
+
 .project-card[data-size="small"] .project-cover {
   aspect-ratio: 4 / 3;
 }
