@@ -780,7 +780,6 @@ body.overlay-open {
   line-height: 1;
   min-width: 0;
   text-align: center;
-  opacity: 0.7;
 }
 
 .project-flow .flow-step-label {
@@ -833,9 +832,14 @@ body.overlay-open {
 }
 
 .project-card:hover {
-  transform: translateY(-6px) scale(1.015);
-  border-color: rgba(94, 106, 210, 0.32);
-  animation: card-breathe 2.8s ease-in-out infinite;
+  transform: translateY(-4px);
+  border-color: rgba(94, 106, 210, 0.28);
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(94, 106, 210, 0.22),
+    0 0 32px rgba(94, 106, 210, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    inset 0 -22px 44px rgba(0, 0, 0, 0.3);
   z-index: 2;
 }
 
@@ -867,13 +871,13 @@ body.overlay-open {
 
 @media (prefers-reduced-motion: reduce) {
   .project-card:hover {
+    transform: none;
+  }
+  .project-card:hover img {
+    transform: none;
+  }
+  .project-status--live .status-dot {
     animation: none;
-    box-shadow:
-      0 1px 2px rgba(0, 0, 0, 0.6),
-      0 24px 50px rgba(0, 0, 0, 0.6),
-      0 0 0 1px rgba(94, 106, 210, 0.3),
-      inset 0 1px 0 rgba(255, 255, 255, 0.08),
-      inset 0 -22px 44px rgba(0, 0, 0, 0.3);
   }
 }
 
@@ -1256,14 +1260,32 @@ body.overlay-open {
 
 .project-status--live .status-dot {
   background: var(--success);
-  box-shadow: 0 0 0 0 rgba(69, 178, 107, 0.55);
-  animation: status-pulse-green 2.4s ease-out infinite;
+  box-shadow:
+    0 0 0 0 rgba(69, 178, 107, 0.55),
+    0 0 0 1px rgba(69, 178, 107, 0.18),
+    0 0 6px rgba(69, 178, 107, 0.6);
+  animation: status-pulse-green 2.2s ease-in-out infinite;
+  transform-origin: center;
+  will-change: transform, box-shadow, opacity;
 }
 
 @keyframes status-pulse-green {
-  0% { box-shadow: 0 0 0 0 rgba(69, 178, 107, 0.55); }
-  60% { box-shadow: 0 0 0 6px rgba(69, 178, 107, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(69, 178, 107, 0); }
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.9;
+    box-shadow:
+      0 0 0 0 rgba(69, 178, 107, 0.55),
+      0 0 0 1px rgba(69, 178, 107, 0.18),
+      0 0 6px rgba(69, 178, 107, 0.55);
+  }
+  50% {
+    transform: scale(1.25);
+    opacity: 1;
+    box-shadow:
+      0 0 0 5px rgba(69, 178, 107, 0),
+      0 0 0 1px rgba(69, 178, 107, 0.35),
+      0 0 12px rgba(69, 178, 107, 0.95);
+  }
 }
 
 .project-content {
