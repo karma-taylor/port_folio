@@ -543,8 +543,13 @@ body.overlay-open {
 }
 
 .contact-link--wechat {
-  position: relative;
+  position: static;
   border: 0;
+}
+
+.contact-wechat {
+  position: relative;
+  display: inline-flex;
 }
 
 .wechat-qr-popover {
@@ -552,13 +557,15 @@ body.overlay-open {
   left: 50%;
   top: calc(100% + 10px);
   transform: translateX(-50%) translateY(8px);
-  width: 190px;
+  width: 210px;
+  height: 210px;
   padding: 7px;
   border-radius: 12px;
   background: rgba(15, 16, 19, 0.98);
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 14px 35px rgba(0, 0, 0, 0.5);
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
   transition: opacity 0.22s ease, transform 0.22s ease;
   z-index: 8;
@@ -579,16 +586,18 @@ body.overlay-open {
 
 .wechat-qr-popover img {
   width: 100%;
-  height: auto;
+  height: 100%;
   border-radius: 8px;
   display: block;
   background: #fff;
+  object-fit: cover;
+  object-position: center 63%;
 }
 
-.contact-link--wechat:hover .wechat-qr-popover,
-.contact-link--wechat:focus-visible .wechat-qr-popover,
-.contact-link--wechat:focus-within .wechat-qr-popover {
+.contact-wechat:hover .wechat-qr-popover,
+.contact-wechat:focus-within .wechat-qr-popover {
   opacity: 1;
+  visibility: visible;
   transform: translateX(-50%) translateY(0);
 }
 
