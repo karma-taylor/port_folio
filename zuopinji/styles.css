@@ -917,6 +917,8 @@ body.overlay-open {
   flex: 0 0 auto;
   padding: 16px;
   box-sizing: border-box;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .project-cover img {
@@ -1342,11 +1344,11 @@ body.overlay-open {
   transition:
     transform 0.35s ease,
     filter 0.35s ease;
-  filter: saturate(0.92) contrast(1.04) brightness(0.98);
+  filter: brightness(1.08) contrast(1.05) saturate(1.04);
 }
 
 .project-card:hover img {
-  filter: saturate(0.94) contrast(1.06) brightness(1);
+  filter: brightness(1.1) contrast(1.06) saturate(1.06);
 }
 
 .project-meta {
