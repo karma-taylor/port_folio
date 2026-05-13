@@ -81,7 +81,10 @@ function extractCardData(trigger) {
 
   return {
     img,
-    title: titleEl.textContent || "",
+    title:
+      (card.dataset.titleLong && card.dataset.titleLong.trim()) ||
+      titleEl.textContent ||
+      "",
     prompt: promptEl?.textContent?.trim() || PROMPT_FALLBACK,
     desc: descEl?.textContent?.trim() || "",
     links,

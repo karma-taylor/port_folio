@@ -56,16 +56,30 @@ function fillHover(card, data) {
 function fillMeta(card, data) {
   setSlotText(card, "index", data.index);
   setSlotText(card, "title", data.title);
+  card.dataset.titleLong = data.titleLong || data.title;
 
   const status = getSlot(card, "status");
   if (status) status.classList.add(`project-status--${data.status}`);
   setSlotText(card, "status-label", data.statusLabel);
 }
 
+function fillOutcomes(card, data) {
+  const list = getSlot(card, "outcomes-list");
+  if (!list) return;
+  const labelBase = data.titleLong || data.title;
+  list.setAttribute("aria-label", `${labelBase} 关键成果`);
+  list.replaceChildren();
+  (data.outcomes || []).forEach((text) => {
+    const li = document.createElement("li");
+    li.textContent = text;
+    list.appendChild(li);
+  });
+}
+
 function fillTech(card, data) {
   const list = getSlot(card, "tech-list");
   if (!list) return;
-  list.setAttribute("aria-label", `${data.title} 技术栈`);
+  list.setAttribute("aria-label", `${data.titleLong || data.title} 技术栈`);
 
   data.tech.forEach((t) => {
     const li = cloneTemplate(TECH_TPL);
@@ -142,6 +156,7 @@ export function renderProjectCard(data) {
   fillHover(card, data);
   fillMeta(card, data);
   fillTech(card, data);
+  fillOutcomes(card, data);
   fillFlow(card, data);
   fillGithubCta(card, data);
   fillDetail(card, data);

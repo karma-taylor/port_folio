@@ -28,7 +28,7 @@ function pickProjectUrl(project) {
 export function projectToCreativeWork(project) {
   return {
     "@type": "CreativeWork",
-    name: project.title,
+    name: project.titleLong || project.title,
     url: pickProjectUrl(project),
     description: project.detail?.summary || project.hoverValue || "",
   };

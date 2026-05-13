@@ -416,6 +416,15 @@ body.overlay-open {
   text-transform: none;
 }
 
+.profile-pitch {
+  margin: 0.55rem 0 0;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: rgba(230, 232, 235, 0.92);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
 .profile-meta {
   margin: 0.1rem 0 0;
   display: flex;
@@ -630,7 +639,7 @@ body.overlay-open {
   grid-row: span 1;
   display: grid;
   grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-  grid-template-rows: auto auto auto;
+  grid-template-rows: auto auto auto auto;
   align-items: stretch;
 }
 
@@ -652,15 +661,21 @@ body.overlay-open {
   align-self: end;
 }
 
-.project-card[data-size="wide"] > .project-flow {
+.project-card[data-size="wide"] > .project-outcomes {
   grid-column: 2;
   grid-row: 2;
   align-self: center;
 }
 
-.project-card[data-size="wide"] > .github-cta {
+.project-card[data-size="wide"] > .project-flow {
   grid-column: 2;
   grid-row: 3;
+  align-self: center;
+}
+
+.project-card[data-size="wide"] > .github-cta {
+  grid-column: 2;
+  grid-row: 4;
   align-self: end;
 }
 
@@ -1163,9 +1178,9 @@ body.overlay-open {
   font-weight: 600;
   letter-spacing: 0.05em;
   color: var(--text-color);
-  line-height: 1.4;
+  line-height: 1.45;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -1236,6 +1251,38 @@ body.overlay-open {
   color: #ECEDF1;
   border-color: rgba(255, 255, 255, 0.22);
   background: rgba(255, 255, 255, 0.08);
+}
+
+.project-outcomes {
+  margin: 0;
+  padding: 0.45rem 1.1rem 0.55rem;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.28rem;
+  background: rgba(0, 0, 0, 0.22);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.project-outcomes li {
+  position: relative;
+  padding-left: 0.85rem;
+  font-size: 0.74rem;
+  line-height: 1.5;
+  color: rgba(203, 213, 225, 0.95);
+  letter-spacing: 0.02em;
+}
+
+.project-outcomes li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(129, 140, 248, 0.85);
+  box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.2);
 }
 
 .project-status--live {
@@ -1664,6 +1711,7 @@ body.overlay-open {
 
   .project-card[data-size="wide"] > .project-trigger,
   .project-card[data-size="wide"] > .project-meta,
+  .project-card[data-size="wide"] > .project-outcomes,
   .project-card[data-size="wide"] > .project-flow,
   .project-card[data-size="wide"] > .github-cta {
     grid-column: auto;

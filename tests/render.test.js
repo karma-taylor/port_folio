@@ -84,6 +84,7 @@ describe("renderProjectCard · DOM 结构", () => {
   it("meta · index / title / status / status-label", () => {
     assertEqual(node.querySelector('[data-slot="index"]').textContent, sample.index);
     assertEqual(node.querySelector('[data-slot="title"]').textContent, sample.title);
+    assertEqual(node.dataset.titleLong, sample.titleLong);
 
     const status = node.querySelector('[data-slot="status"]');
     assert(status.classList.contains(`project-status--${sample.status}`));
@@ -91,6 +92,14 @@ describe("renderProjectCard · DOM 结构", () => {
       node.querySelector('[data-slot="status-label"]').textContent,
       sample.statusLabel
     );
+  });
+
+  it("outcomes 列表与数据一致", () => {
+    const items = node.querySelectorAll('[data-slot="outcomes-list"] li');
+    assertEqual(items.length, sample.outcomes.length);
+    items.forEach((li, i) => {
+      assertEqual(li.textContent, sample.outcomes[i]);
+    });
   });
 
   it("tech 列表条数 = 数据条数，data-tech-type 正确", () => {

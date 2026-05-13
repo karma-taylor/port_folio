@@ -67,6 +67,15 @@ describe("PROJECTS · 字段必填与枚举", () => {
       assert(p.github?.href, "github.href 缺失");
       assert(p.detail?.summary, "detail.summary 缺失");
       assert(Array.isArray(p.detail?.links) && p.detail.links.length, "detail.links 为空");
+      assert(p.titleLong, "titleLong 缺失");
+      assert(Array.isArray(p.outcomes), "outcomes 须为数组");
+      assert(
+        p.outcomes.length >= 1 && p.outcomes.length <= 2,
+        `outcomes 应为 1–2 条，实为 ${p.outcomes.length}`
+      );
+      p.outcomes.forEach((line, j) => {
+        assert(typeof line === "string" && line.trim(), `outcomes[${j}] 须为非空字符串`);
+      });
     });
 
     it(`[${p.id}] size 在枚举内`, () => {

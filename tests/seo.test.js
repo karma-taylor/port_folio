@@ -27,7 +27,7 @@ describe("structured-data · projectToCreativeWork", () => {
     const money = PROJECTS.find((p) => p.id === "money");
     const work = projectToCreativeWork(money);
     assertEqual(work["@type"], "CreativeWork");
-    assertEqual(work.name, money.title);
+    assertEqual(work.name, money.titleLong);
     assertEqual(work.url, "https://karma-taylor.github.io/money_classify/");
   });
 
@@ -69,7 +69,7 @@ describe("structured-data · buildPersonJsonLd", () => {
 
   it("hasPart 顺序与 PROJECTS 顺序一致", () => {
     PROJECTS.forEach((p, i) => {
-      assertEqual(ld.hasPart[i].name, p.title);
+      assertEqual(ld.hasPart[i].name, p.titleLong || p.title);
     });
   });
 });

@@ -36,11 +36,11 @@ AI 产品经理 / Agent 应用 / 数据型工具 / Web 前端
 
 | # | 项目 | 描述 | GitHub | 上线 |
 | --- | --- | --- | --- | --- |
-| 01 | 基于逻辑算法的薪资分配策略工具 (Money Distribute AI) | 贪心算法按可用面额自动拆分张数与余数，网页 + 微信小程序双形态 | https://github.com/karma-taylor/money_classify | https://karma-taylor.github.io/money_classify/ |
-| 02 | HamHome Daily Digest（资讯日报订阅系统） | 基于 AIAgent + RAG 思路的资讯订阅平台 | https://github.com/karma-taylor/Daily_digest | https://hamhome-digest-web.pages.dev/digest |
-| 03 | weather-fx-agent（汇率换算 Agent） | 面向业务场景的汇率换算 Web 工具 | https://github.com/karma-taylor/weather-fx-agent | https://karmacat-weather-fx-agent.hf.space |
-| 04 | 工作日历（Work Calendar） | 施工/运维排班可视化日历工具 | https://github.com/karma-taylor/work_calendar | https://work-calendar-52c.pages.dev |
-| 05 | 企业业务日报自动化生成引擎 | 用 Python 取代日结手工搬数：多维数据自动清洗、复杂表单秒级生成，结算效率提升约 90%（pandas + openpyxl + Streamlit） | https://github.com/karma-taylor/Daily_report | 暂未上线 |
+| 01 | 薪资分配策略工具（Money Distribute AI） | 贪心配钞、Excel 批量；典型场景压缩人工核对时间 | https://github.com/karma-taylor/money_classify | https://karma-taylor.github.io/money_classify/ |
+| 02 | HamHome Daily Digest | 多源资讯 + RAG 分桶摘要 + 定时邮件 | https://github.com/karma-taylor/Daily_digest | https://hamhome-digest-web.pages.dev/digest |
+| 03 | 汇率换算 Agent（weather-fx-agent） | 多银行参考、防呆纠偏、弱网可用 | https://github.com/karma-taylor/weather-fx-agent | https://karmacat-weather-fx-agent.hf.space |
+| 04 | 工作日历排班系统（Work Calendar） | 分段排班、冲突校验、Supabase 同步 | https://github.com/karma-taylor/work_calendar | https://work-calendar-52c.pages.dev |
+| 05 | 日报自动化生成引擎 | Python 自动化日报，结算效率提升约 90% | https://github.com/karma-taylor/Daily_report | 暂未上线 |
 
 ## 项目结构
 
