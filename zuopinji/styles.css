@@ -351,10 +351,7 @@ body.overlay-open {
   width: min(1240px, 94vw);
   margin: 2.5rem auto 0;
   padding: 0;
-  display: grid;
-  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
-  gap: 24px;
-  align-items: start;
+  display: block;
 }
 
 .home-left {
@@ -511,6 +508,7 @@ body.overlay-open {
   margin-top: 0.65rem;
   display: flex;
   gap: 0.45rem;
+  position: relative;
 }
 
 .contact-link {
@@ -542,6 +540,56 @@ body.overlay-open {
   width: 16px;
   height: 16px;
   fill: currentColor;
+}
+
+.contact-link--wechat {
+  position: relative;
+  border: 0;
+}
+
+.wechat-qr-popover {
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 10px);
+  transform: translateX(-50%) translateY(8px);
+  width: 190px;
+  padding: 7px;
+  border-radius: 12px;
+  background: rgba(15, 16, 19, 0.98);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+  z-index: 8;
+}
+
+.wechat-qr-popover::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: calc(50% - 6px);
+  width: 12px;
+  height: 12px;
+  background: rgba(15, 16, 19, 0.98);
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  transform: rotate(45deg);
+}
+
+.wechat-qr-popover img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+  background: #fff;
+}
+
+.contact-link--wechat:hover .wechat-qr-popover,
+.contact-link--wechat:focus-visible .wechat-qr-popover,
+.contact-link--wechat:focus-within .wechat-qr-popover {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
 .profile-resume {
@@ -583,61 +631,21 @@ body.overlay-open {
   opacity: 0.95;
 }
 
-.profile-channels {
-  margin-top: 0.65rem;
-  padding-top: 0.65rem;
+.profile-education {
+  margin-top: 0.85rem;
+  width: 100%;
+  padding-top: 0.8rem;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   flex-direction: column;
-  gap: 0.38rem;
+  gap: 0.85rem;
 }
 
-.profile-channel-row {
-  margin: 0;
-  display: grid;
-  grid-template-columns: 2.6rem minmax(0, 1fr);
-  gap: 0.35rem 0.5rem;
-  align-items: baseline;
-  font-size: 0.82rem;
-  line-height: 1.45;
-}
-
-.profile-channel-label {
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--faint-text);
-}
-
-.profile-channel-value {
-  color: var(--accent);
-  text-decoration: none;
-  font-weight: 500;
-  word-break: break-all;
-}
-
-.profile-channel-value:hover {
-  text-decoration: underline;
-}
-
-.profile-channel-value--link {
-  font-size: 0.8rem;
-  font-weight: 500;
-}
-
-.profile-wechat-id {
-  cursor: text;
-  user-select: all;
-  font-family: "JetBrains Mono", ui-monospace, monospace;
-  font-size: 0.84rem;
-  letter-spacing: 0.02em;
-}
-
-.profile-wechat-id:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-  border-radius: 4px;
+.profile-education--inline {
+  margin-top: 0.5rem;
+  padding-top: 0;
+  border-top: 0;
+  gap: 0.55rem;
 }
 
 .bio-card {
@@ -2195,9 +2203,7 @@ body.overlay-open {
 
 @media (max-width: 980px) {
   .home-below {
-    grid-template-columns: 1fr;
     width: min(1240px, 94vw);
     margin-top: 2rem;
-    gap: 1.25rem;
   }
 }
