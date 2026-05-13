@@ -2135,8 +2135,8 @@ body.overlay-open {
   gap: 0.5rem 0.65rem;
   padding: 0.65rem 1rem 0.85rem;
   margin-top: auto;
-  border-top: 1px solid rgba(255, 255, 255, 0.025);
-  background: rgba(0, 0, 0, 0.12);
+  border-top: 0;
+  background: rgba(0, 0, 0, 0.08);
 }
 
 .project-card-actions[hidden] {
