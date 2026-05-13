@@ -2196,6 +2196,10 @@ body.overlay-open {
   display: none !important;
 }
 
+[data-slot="outcomes-list"]:empty {
+  display: none !important;
+}
+
 [data-slot="github-cta"][hidden] {
   display: none !important;
 }

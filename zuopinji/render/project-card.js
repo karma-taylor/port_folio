@@ -118,37 +118,14 @@ function fillLede(card, data, layout) {
 
 function fillCardActions(card, data, layout) {
   const wrap = getSlot(card, "card-actions");
-  const demo = getSlot(card, "action-demo");
-  if (!wrap || !demo) return;
-
-  if (layout === "compact" || layout === "hero") {
-    wrap.removeAttribute("hidden");
-    demo.href = data.hoverCta.href;
-    demo.textContent = "访问演示";
-    demo.setAttribute(
-      "aria-label",
-      data.hoverCta.aria || "访问演示"
-    );
-  } else {
-    wrap.setAttribute("hidden", "");
-  }
+  if (!wrap) return;
+  wrap.setAttribute("hidden", "");
 }
 
 function fillOutcomes(card, data, layout) {
   const list = getSlot(card, "outcomes-list");
   if (!list) return;
-  const labelBase = data.titleLong || data.title;
-  list.setAttribute("aria-label", `${labelBase} 关键成果`);
   list.replaceChildren();
-
-  const outcomes =
-    layout === "full" ? (data.outcomes || []) : (data.outcomes || []).slice(0, 2);
-
-  outcomes.forEach((text) => {
-    const li = document.createElement("li");
-    li.textContent = text;
-    list.appendChild(li);
-  });
 }
 
 function fillTech(card, data, layout) {
