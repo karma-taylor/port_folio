@@ -255,33 +255,51 @@
         <div class="project-content" hidden>
           <div class="project-focus-export" data-slot="focus-export">
             <p class="focus-export-lede" data-slot="focus-tagline"></p>
-            <section class="focus-export-block">
-              <h4 class="focus-export-h">解决的问题 / 使用场景</h4>
-              <p class="focus-export-p" data-slot="focus-problem"></p>
-            </section>
-            <section class="focus-export-block">
-              <h4 class="focus-export-h">核心流程</h4>
-              <p class="focus-export-p" data-slot="focus-flow"></p>
-            </section>
-            <section class="focus-export-highlights">
-              <h4 class="focus-export-h">关键成果</h4>
-              <ul class="focus-export-ul" data-slot="focus-highlights"></ul>
-            </section>
-            <section class="focus-export-block focus-export-prompt">
-              <h4 class="focus-export-h">Prompt 设计</h4>
-              <dl class="focus-pd-dl">
-                <dt>目标</dt>
-                <dd data-slot="focus-pd-goal"></dd>
-                <dt>输入</dt>
-                <dd data-slot="focus-pd-inputs"></dd>
-                <dt>规则</dt>
-                <dd data-slot="focus-pd-rules"></dd>
-                <dt>输出</dt>
-                <dd data-slot="focus-pd-output"></dd>
-              </dl>
-              <p class="focus-excerpt-label">脱敏节选</p>
-              <pre class="focus-excerpt-pre" data-slot="focus-excerpt"></pre>
-            </section>
+            <div class="focus-export-grid">
+              <div class="focus-export-col">
+                <section class="focus-export-block">
+                  <h4 class="focus-export-h">解决的问题</h4>
+                  <p class="focus-export-p" data-slot="focus-problem"></p>
+                </section>
+                <section class="focus-export-block">
+                  <h4 class="focus-export-h">我的负责</h4>
+                  <p class="focus-export-p" data-slot="focus-ownership"></p>
+                </section>
+                <section class="focus-export-block">
+                  <h4 class="focus-export-h">核心流程</h4>
+                  <p class="focus-export-p" data-slot="focus-flow"></p>
+                </section>
+                <section class="focus-export-highlights">
+                  <h4 class="focus-export-h">关键成果</h4>
+                  <ul class="focus-export-ul" data-slot="focus-highlights"></ul>
+                </section>
+              </div>
+              <div class="focus-export-col">
+                <section class="focus-export-block">
+                  <h4 class="focus-export-h">产品判断</h4>
+                  <p class="focus-export-p" data-slot="focus-judgment"></p>
+                </section>
+                <section class="focus-export-block focus-export-prompt">
+                  <h4 class="focus-export-h">Prompt 设计</h4>
+                  <dl class="focus-pd-dl">
+                    <dt>目标</dt>
+                    <dd data-slot="focus-pd-goal"></dd>
+                    <dt>输入</dt>
+                    <dd data-slot="focus-pd-inputs"></dd>
+                    <dt>规则</dt>
+                    <dd data-slot="focus-pd-rules"></dd>
+                    <dt>输出</dt>
+                    <dd data-slot="focus-pd-output"></dd>
+                    <dt>防错</dt>
+                    <dd data-slot="focus-pd-safeguards"></dd>
+                  </dl>
+                </section>
+                <section class="focus-export-block">
+                  <p class="focus-excerpt-label">脱敏节选</p>
+                  <pre class="focus-excerpt-pre" data-slot="focus-excerpt"></pre>
+                </section>
+              </div>
+            </div>
           </div>
           <p class="project-summary" data-slot="summary"></p>
           <p class="project-prompt" data-slot="prompt" hidden></p>

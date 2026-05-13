@@ -210,11 +210,14 @@ function fillFocusExport(card, data) {
 
   setSlotText(root, "focus-tagline", f.tagline || "");
   setSlotText(root, "focus-problem", f.problem || "");
+  setSlotText(root, "focus-ownership", f.ownership || "");
   setSlotText(root, "focus-flow", f.flowSummary || "");
+  setSlotText(root, "focus-judgment", f.productJudgment || "");
   setSlotText(root, "focus-pd-goal", pd.goal || "");
   setSlotText(root, "focus-pd-inputs", pd.inputs || "");
   setSlotText(root, "focus-pd-rules", pd.rules || "");
   setSlotText(root, "focus-pd-output", pd.output || "");
+  setSlotText(root, "focus-pd-safeguards", pd.safeguards || "");
 
   const pre = getSlot(root, "focus-excerpt");
   if (pre) {

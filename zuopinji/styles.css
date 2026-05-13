@@ -1714,7 +1714,8 @@ body.overlay-open {
 
 .focus-image {
   width: 100%;
-  aspect-ratio: 1.618 / 1;
+  aspect-ratio: 16 / 9;
+  max-height: 360px;
   object-fit: cover;
   border-radius: 12px;
   display: block;
@@ -1735,7 +1736,7 @@ body.overlay-open {
 
 .focus-body-scroll {
   margin: 0;
-  padding: 0 0.15rem 0 0;
+  padding: 0 0.15rem 0.65rem 0;
   max-height: min(52vh, 420px);
   overflow-y: auto;
   overflow-x: hidden;
@@ -1759,6 +1760,16 @@ body.overlay-open {
 .project-focus-export,
 .focus-body-scroll .project-focus-export {
   display: block;
+}
+
+.focus-export-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0.75rem 0.95rem;
+}
+
+.focus-export-col {
+  min-width: 0;
 }
 
 .focus-export-lede {
@@ -1863,6 +1874,18 @@ body.overlay-open {
   gap: 0.5rem;
   justify-content: flex-start;
   align-items: stretch;
+  margin-top: auto;
+  padding: 0.65rem 0.1rem 0.05rem;
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+  background: linear-gradient(
+    to top,
+    rgba(22, 23, 26, 0.98) 72%,
+    rgba(22, 23, 26, 0.78) 88%,
+    rgba(22, 23, 26, 0) 100%
+  );
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
   opacity: 0;
   transform: translateY(10px);
   pointer-events: none;
@@ -1992,6 +2015,11 @@ body.overlay-open {
 }
 
 @media (max-width: 860px) {
+  .focus-export-grid {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+
   .projects-grid {
     grid-template-columns: 1fr;
   }
