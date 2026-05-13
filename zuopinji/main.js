@@ -47,8 +47,45 @@ function bindInteractions() {
   setupScrollProgress();
   setupMagneticTargets();
   setupProjectFocusOverlay();
+  setupWechatQrHover();
   const shell = document.getElementById("home");
   if (shell) bindProjectCardDetailButtons(shell);
+}
+
+/**
+ * 微信二维码：仅在悬停微信图标时显示，浮层挂在页面层级（不在侧栏容器内）。
+ */
+function setupWechatQrHover() {
+  const icon = document.getElementById("wechatIcon");
+  const floating = document.getElementById("wechatQrFloating");
+  if (!(icon instanceof HTMLElement) || !(floating instanceof HTMLElement)) return;
+
+  const floatingWidth = 210;
+  const offsetY = 10;
+
+  const show = () => {
+    const rect = icon.getBoundingClientRect();
+    const rawLeft = rect.left + rect.width / 2 - floatingWidth / 2;
+    const maxLeft = window.innerWidth - floatingWidth - 12;
+    const left = Math.min(Math.max(12, rawLeft), maxLeft);
+    const top = rect.bottom + offsetY;
+
+    floating.style.left = `${left}px`;
+    floating.style.top = `${top}px`;
+    floating.style.transform = "translate3d(0, 0, 0)";
+    floating.classList.add("is-visible");
+  };
+
+  const hide = () => {
+    floating.classList.remove("is-visible");
+    floating.style.transform = "translate3d(-9999px, -9999px, 0)";
+  };
+
+  icon.addEventListener("mouseenter", show);
+  icon.addEventListener("mouseleave", hide);
+  icon.addEventListener("blur", hide);
+  window.addEventListener("scroll", hide, { passive: true });
+  window.addEventListener("resize", hide);
 }
 
 /**
