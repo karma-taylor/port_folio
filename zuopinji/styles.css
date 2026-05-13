@@ -2089,7 +2089,6 @@ body.overlay-open {
 }
 
 .project-lede {
-  grid-area: lede;
   margin: 0;
   font-size: 0.82rem;
   line-height: 1.5;
@@ -2099,6 +2098,11 @@ body.overlay-open {
 
 .project-lede[hidden] {
   display: none !important;
+}
+
+.project-card[data-layout="compact"] .project-lede,
+.project-card[data-layout="hero"] .project-lede {
+  grid-area: lede;
 }
 
 .project-card[data-layout="compact"] .project-meta,
