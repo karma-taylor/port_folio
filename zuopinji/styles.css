@@ -347,13 +347,6 @@ body.overlay-open {
   gap: 24px;
 }
 
-.home-below {
-  width: min(1240px, 94vw);
-  margin: 2.5rem auto 0;
-  padding: 0;
-  display: block;
-}
-
 .home-left {
   display: grid;
   gap: 1.4rem;
@@ -2188,9 +2181,3 @@ body.overlay-open {
   min-width: 0;
 }
 
-@media (max-width: 980px) {
-  .home-below {
-    width: min(1240px, 94vw);
-    margin-top: 2rem;
-  }
-}
