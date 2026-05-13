@@ -60,7 +60,7 @@ function setupWechatQrHover() {
   const floating = document.getElementById("wechatQrFloating");
   if (!(icon instanceof HTMLElement) || !(floating instanceof HTMLElement)) return;
 
-  const floatingWidth = 210;
+  const floatingWidth = 260;
   const offsetY = 10;
 
   const show = () => {
