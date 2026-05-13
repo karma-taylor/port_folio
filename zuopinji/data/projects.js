@@ -56,6 +56,8 @@ export const PROJECTS = [
       magneticStrength: 0.25,
     },
     detail: {
+      heroTeaser:
+        "把排班冲突校验、名单导入、云端同步和规则持久化整合成一个可上线工具。",
       focus: {
         tagline: "让「谁在哪段工期、有没有撞期」在保存前就被系统拦住，减少群里反复确认。",
         problem:

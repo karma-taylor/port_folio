@@ -239,3 +239,40 @@ describe("renderAllProjects", () => {
     });
   });
 });
+
+describe("renderProjectCard · compact 布局", () => {
+  const sample = PROJECTS.find((p) => p.id === "money");
+  let node;
+
+  it("data-size 固定为 uniform，data-layout=compact", () => {
+    node = renderProjectCard(sample, { layout: "compact" });
+    assertEqual(node.dataset.size, "uniform");
+    assertEqual(node.dataset.layout, "compact");
+  });
+
+  it("技术栈最多 4 条；flow 为空；github-cta 隐藏且无 href", () => {
+    const tech = node.querySelectorAll('[data-slot="tech-list"] li');
+    assertEqual(tech.length, Math.min(4, sample.tech.length));
+    const flow = node.querySelectorAll('[data-slot="flow-list"] li');
+    assertEqual(flow.length, 0);
+    const gh = node.querySelector('[data-slot="github-cta"]');
+    assert(gh.hasAttribute("hidden"));
+    assertEqual(gh.getAttribute("href"), null);
+  });
+
+  it("lede 使用 focus.tagline；卡片操作区可见", () => {
+    const lede = node.querySelector('[data-slot="lede"]');
+    assertEqual(lede.textContent, sample.detail.focus.tagline);
+    assert(!lede.hasAttribute("hidden"));
+    const actions = node.querySelector('[data-slot="card-actions"]');
+    assert(!actions.hasAttribute("hidden"));
+    assert(node.querySelector(".project-action--detail"), "应有查看详情按钮");
+  });
+
+  it("index 清空且 aria-hidden；status 隐藏", () => {
+    const idx = node.querySelector('[data-slot="index"]');
+    assertEqual(idx.textContent, "");
+    assertEqual(idx.getAttribute("aria-hidden"), "true");
+    assert(node.querySelector('[data-slot="status"]').hasAttribute("hidden"));
+  });
+});

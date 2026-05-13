@@ -3,33 +3,40 @@
  *
  * 执行顺序约束（参考 ARCHITECTURE_GUIDE.md §8）：
  *   1. boot loader 立即开始（盖屏，独立于卡片渲染）
- *   2. 等 DOMContentLoaded：渲染所有项目卡到 #projectsGrid
- *   3. 渲染完毕后绑定 reveal / scroll progress / magnetic / focus overlay
+ *   2. 等 DOMContentLoaded：精选项目 + 其余项目卡渲染
+ *   3. 渲染完毕后绑定 reveal / scroll progress / magnetic / focus overlay / 卡片按钮
  *   4. 同步刷新 SEO JSON-LD（用 PROJECTS 当唯一数据源）
  */
 
 import { PROJECTS, PROFILE } from "./data/projects.js";
-import { renderAllProjects } from "./render/project-card.js";
+import {
+  renderAllProjects,
+  renderFeaturedProject,
+} from "./render/project-card.js";
 import { runBootLoader } from "./interactions/boot-loader.js";
 import { revealCards } from "./interactions/reveal.js";
 import { setupScrollProgress } from "./interactions/scroll-progress.js";
 import { setupMagneticTargets } from "./interactions/magnetic.js";
 import { setupProjectFocusOverlay } from "./interactions/focus-overlay.js";
+import { bindProjectCardDetailButtons } from "./interactions/project-card-actions.js";
 import {
   buildPersonJsonLd,
   injectJsonLd,
 } from "./seo/structured-data.js";
 
 /**
- * 渲染所有项目卡片到挂载点。
- * @param {Element | null} mountEl
+ * 渲染精选区 + 项目网格。
  */
-function renderProjects(mountEl) {
-  if (!mountEl) {
-    console.warn("[main] #projectsGrid 未找到，跳过项目渲染");
+function renderProjects() {
+  const grid = document.getElementById("projectsGrid");
+  const hero = document.getElementById("featuredHero");
+  if (!grid || !hero) {
+    console.warn("[main] #projectsGrid 或 #featuredHero 未找到，跳过项目渲染");
     return;
   }
-  renderAllProjects(PROJECTS, mountEl);
+  const [featured, ...rest] = PROJECTS;
+  renderFeaturedProject(hero, featured);
+  renderAllProjects(rest, grid, { layout: "compact" });
 }
 
 /**
@@ -40,6 +47,8 @@ function bindInteractions() {
   setupScrollProgress();
   setupMagneticTargets();
   setupProjectFocusOverlay();
+  const shell = document.getElementById("home");
+  if (shell) bindProjectCardDetailButtons(shell);
 }
 
 /**
@@ -54,7 +63,7 @@ function refreshStructuredData() {
  * 主初始化：项目渲染 → 交互绑定 → SEO 注入。
  */
 function init() {
-  renderProjects(document.getElementById("projectsGrid"));
+  renderProjects();
   bindInteractions();
   refreshStructuredData();
 }
