@@ -2117,6 +2117,14 @@ body.overlay-open {
   -webkit-line-clamp: 2;
 }
 
+.project-card[data-layout="compact"] .project-lede,
+.project-card[data-layout="hero"] .project-lede {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 .project-card-actions {
   display: flex;
   flex-wrap: wrap;
@@ -2124,7 +2132,7 @@ body.overlay-open {
   gap: 0.5rem 0.65rem;
   padding: 0.65rem 1rem 0.85rem;
   margin-top: auto;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid rgba(255, 255, 255, 0.025);
   background: rgba(0, 0, 0, 0.12);
 }
 

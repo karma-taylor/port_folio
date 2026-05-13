@@ -134,13 +134,17 @@ function fillCardActions(card, data, layout) {
   }
 }
 
-function fillOutcomes(card, data) {
+function fillOutcomes(card, data, layout) {
   const list = getSlot(card, "outcomes-list");
   if (!list) return;
   const labelBase = data.titleLong || data.title;
   list.setAttribute("aria-label", `${labelBase} 关键成果`);
   list.replaceChildren();
-  (data.outcomes || []).forEach((text) => {
+
+  const outcomes =
+    layout === "full" ? (data.outcomes || []) : (data.outcomes || []).slice(0, 2);
+
+  outcomes.forEach((text) => {
     const li = document.createElement("li");
     li.textContent = text;
     list.appendChild(li);
@@ -297,7 +301,7 @@ export function renderProjectCard(data, options = {}) {
   fillMeta(card, data, layout);
   fillLede(card, data, layout);
   fillTech(card, data, layout);
-  fillOutcomes(card, data);
+  fillOutcomes(card, data, layout);
   fillCardActions(card, data, layout);
   fillFlow(card, data, layout);
   fillGithubCta(card, data, layout);
