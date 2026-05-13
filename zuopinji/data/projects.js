@@ -138,7 +138,7 @@ export const PROJECTS = [
     },
     detail: {
       focus: {
-        tagline: "把分散资讯收敛成「按时送达」的结构化日报，减少每天刷群和摘抄。",
+        tagline: "多源资讯抓取、主题分桶，并定时生成结构化日报。",
         problem:
           "谁在用：需要跟踪多源信息的产品/运营/研究。痛点：信息源碎、重复阅读成本高，且要按时区对齐「当日」要点。",
         flowSummary:
@@ -218,8 +218,7 @@ export const PROJECTS = [
     },
     detail: {
       focus: {
-        tagline:
-          "把「按面额发薪配钞」做成可批量跑、可校验的在线工具，减少 Excel 来回和人工复读。",
+        tagline: "批量计算发薪配钞方案，自动校验余额与贪心拆分。",
         problem:
           "谁在用：人力、财务或协同发薪岗位。痛点：多档面额组合、余数不能硬圆、批量名单纠错成本高，还要和既有 Excel 习惯衔接。",
         flowSummary:
@@ -298,7 +297,7 @@ export const PROJECTS = [
     },
     detail: {
       focus: {
-        tagline: "把「今天用哪家汇率」变成可复核的数字结果，减少口头对账和二次计算。",
+        tagline: "多银行汇率参考与防呆纠偏，输出可复核换算结果。",
         problem:
           "谁在用：有跨境结算、差旅报销或柜台询价的人。痛点：多源汇率不一致、手算易错、弱网下还要能出数。",
         flowSummary:
@@ -378,7 +377,7 @@ export const PROJECTS = [
     },
     detail: {
       focus: {
-        tagline: "把日结里「搬数、对齐模板、出异常清单」交给脚本，让人只做复核与拍板。",
+        tagline: "日报数据自动汇总、对齐模板，并秒级输出异常清单。",
         problem:
           "谁在用：结算 / 运营做日报与台账的团队。痛点：多维表合并、规则多、模板格式不能丢，人肉耗时长且易返工。",
         flowSummary:
