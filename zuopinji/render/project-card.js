@@ -66,10 +66,11 @@ function fillHover(card, data) {
 
   const hoverCta = getSlot(card, "hover-cta");
   if (hoverCta) {
-    hoverCta.href = data.hoverCta.href;
-    hoverCta.setAttribute("aria-label", data.hoverCta.aria);
+    hoverCta.removeAttribute("href");
+    hoverCta.setAttribute("hidden", "");
+    hoverCta.setAttribute("aria-hidden", "true");
   }
-  setSlotText(card, "hover-cta-label", data.hoverCta.label);
+  setSlotText(card, "hover-cta-label", "");
 }
 
 function fillMeta(card, data, layout) {

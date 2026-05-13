@@ -1209,6 +1209,7 @@ body.overlay-open {
 }
 
 .hover-cta {
+  display: none !important;
   position: absolute;
   top: 0.85rem;
   right: 0.9rem;
