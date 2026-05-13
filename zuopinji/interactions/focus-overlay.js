@@ -2,7 +2,8 @@
  * 项目详情弹层 (focus overlay)
  *
  * 点击 .project-trigger → 弹出全屏弹层，展示项目封面（带 FLIP 飞入动画）、标题、
- * 描述、Prompt 切换按钮和原始链接。Escape / 点背景 / 关闭按钮均可关闭。
+ * 结构化正文（克隆自卡片内 .project-focus-export）、上线与 GitHub 链接。
+ * Escape / 点背景 / 关闭按钮均可关闭。
  *
  * 状态机：
  *   - is-open       overlay 已展开
@@ -11,15 +12,7 @@
  *   - overlay-open  body 上的类，用于锁滚动
  */
 
-const PROMPT_FALLBACK = "Prompt：突出产品定位与核心使用场景。";
-
-const PROMPT_ICON_SVG = `
-  <span class="prompt-icon" aria-hidden="true">
-    <svg viewBox="0 0 24 24" focusable="false">
-      <path d="M11.24 2.54a.8.8 0 0 1 1.52 0l1.01 3.31a2.6 2.6 0 0 0 1.73 1.73l3.31 1.01a.8.8 0 0 1 0 1.52l-3.31 1.01a2.6 2.6 0 0 0-1.73 1.73l-1.01 3.31a.8.8 0 0 1-1.52 0l-1.01-3.31A2.6 2.6 0 0 0 8.5 11.12L5.2 10.11a.8.8 0 0 1 0-1.52L8.5 7.58a2.6 2.6 0 0 0 1.73-1.73l1.01-3.31Zm8.07 12.18a.8.8 0 0 1 .76.57l.45 1.47a1.3 1.3 0 0 0 .86.86l1.47.45a.8.8 0 0 1 0 1.52l-1.47.45a1.3 1.3 0 0 0-.86.86l-.45 1.47a.8.8 0 0 1-1.52 0l-.45-1.47a1.3 1.3 0 0 0-.86-.86l-1.47-.45a.8.8 0 0 1 0-1.52l1.47-.45a1.3 1.3 0 0 0 .86-.86l.45-1.47a.8.8 0 0 1 .76-.57Z"></path>
-    </svg>
-  </span>
-`;
+import { getSlot } from "../render/dom-helpers.js";
 
 /* -------------------------------------------------------------------------- */
 /*  DOM refs                                                                  */
@@ -36,9 +29,7 @@ function queryOverlayRefs() {
     closeButton: document.getElementById("focusClose"),
     image: document.getElementById("focusImage"),
     title: document.getElementById("focusTitle"),
-    promptCard: document.getElementById("focusPromptCard"),
-    promptText: document.getElementById("focusPromptText"),
-    desc: document.getElementById("focusDesc"),
+    focusBodyScroll: document.getElementById("focusBodyScroll"),
     links: document.getElementById("focusLinks"),
   };
   refs.panel = refs.overlay?.querySelector(".focus-panel") || null;
@@ -48,9 +39,7 @@ function queryOverlayRefs() {
     "closeButton",
     "image",
     "title",
-    "promptCard",
-    "promptText",
-    "desc",
+    "focusBodyScroll",
     "links",
     "panel",
   ];
@@ -67,17 +56,16 @@ function queryOverlayRefs() {
 /**
  * 从触发它的 .project-trigger 抽出弹层所需数据。
  * @param {Element} trigger
- * @returns {null | { img: HTMLImageElement, title: string, prompt: string, desc: string, links: NodeListOf<HTMLAnchorElement> }}
+ * @returns {null | { img: HTMLImageElement, title: string, exportClone: HTMLElement, links: NodeListOf<HTMLAnchorElement> }}
  */
 function extractCardData(trigger) {
   const card = trigger.closest(".project-card");
   const img = trigger.querySelector("img");
   const titleEl = card?.querySelector(".project-title");
-  const promptEl = card?.querySelector(".project-prompt");
-  const descEl = card?.querySelector(".project-summary");
+  const exportRoot = card ? getSlot(card, "focus-export") : null;
   const links = card?.querySelectorAll(".project-links a");
 
-  if (!card || !img || !titleEl || !links?.length) return null;
+  if (!card || !img || !titleEl || !exportRoot || !links?.length) return null;
 
   return {
     img,
@@ -85,37 +73,9 @@ function extractCardData(trigger) {
       (card.dataset.titleLong && card.dataset.titleLong.trim()) ||
       titleEl.textContent ||
       "",
-    prompt: promptEl?.textContent?.trim() || PROMPT_FALLBACK,
-    desc: descEl?.textContent?.trim() || "",
+    exportClone: /** @type {HTMLElement} */ (exportRoot.cloneNode(true)),
     links,
   };
-}
-
-/* -------------------------------------------------------------------------- */
-/*  Prompt button                                                             */
-/* -------------------------------------------------------------------------- */
-
-/**
- * 构造 Prompt 切换按钮，绑定切换 promptCard 显示/隐藏。
- * @param {HTMLElement} promptCard
- * @returns {HTMLButtonElement}
- */
-function createPromptButton(promptCard) {
-  const btn = document.createElement("button");
-  btn.type = "button";
-  btn.className = "focus-menu-btn";
-  btn.setAttribute("aria-expanded", "false");
-  btn.innerHTML = `${PROMPT_ICON_SVG} Prompt`;
-
-  btn.addEventListener("click", () => {
-    const opening = !promptCard.classList.contains("is-open");
-    promptCard.classList.toggle("is-open", opening);
-    promptCard.setAttribute("aria-hidden", opening ? "false" : "true");
-    btn.setAttribute("aria-expanded", opening ? "true" : "false");
-    btn.classList.toggle("is-active", opening);
-  });
-
-  return btn;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -131,14 +91,11 @@ function fillOverlay(refs, cardData) {
   refs.image.src = cardData.img.src;
   refs.image.alt = cardData.img.alt;
   refs.title.textContent = cardData.title;
-  refs.promptText.textContent = cardData.prompt;
-  refs.desc.textContent = cardData.desc;
 
-  refs.promptCard.classList.remove("is-open");
-  refs.promptCard.setAttribute("aria-hidden", "true");
+  refs.focusBodyScroll.innerHTML = "";
+  refs.focusBodyScroll.appendChild(cardData.exportClone);
 
   refs.links.innerHTML = "";
-  refs.links.appendChild(createPromptButton(refs.promptCard));
   cardData.links.forEach((link) => refs.links.appendChild(link.cloneNode(true)));
 }
 
@@ -227,9 +184,6 @@ function closeOverlay(refs, state) {
   refs.overlay.classList.remove("is-open", "is-animating", "menu-ready");
   refs.overlay.setAttribute("aria-hidden", "true");
   document.body.classList.remove("overlay-open");
-
-  refs.promptCard.classList.remove("is-open");
-  refs.promptCard.setAttribute("aria-hidden", "true");
 
   if (state.trigger) {
     state.trigger.setAttribute("aria-expanded", "false");

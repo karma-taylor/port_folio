@@ -342,7 +342,6 @@ body.overlay-open {
 
 .home-left {
   display: grid;
-  grid-template-rows: auto auto;
   gap: 1.4rem;
   min-height: 0;
   padding-left: 2rem;
@@ -425,8 +424,24 @@ body.overlay-open {
   letter-spacing: 0.02em;
 }
 
+.profile-card-inner .bio-tags.profile-target-tags {
+  margin: 0.55rem 0 0;
+}
+
+.profile-availability {
+  margin: 0.45rem 0 0;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--muted-text);
+}
+
+.profile-availability strong {
+  color: rgba(240, 242, 248, 0.94);
+  font-weight: 600;
+}
+
 .profile-meta {
-  margin: 0.1rem 0 0;
+  margin: 0.55rem 0 0;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -510,6 +525,102 @@ body.overlay-open {
   width: 16px;
   height: 16px;
   fill: currentColor;
+}
+
+.profile-resume {
+  margin-top: 0.7rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  width: 100%;
+  padding: 0.48rem 0.75rem;
+  border-radius: 10px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--text-color);
+  text-decoration: none;
+  background: rgba(94, 106, 210, 0.18);
+  border: 1px solid rgba(94, 106, 210, 0.45);
+  translate: var(--mag-x, 0px) var(--mag-y, 0px);
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    translate 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: translate;
+}
+
+.profile-resume:hover {
+  background: rgba(94, 106, 210, 0.28);
+  border-color: rgba(120, 130, 230, 0.55);
+  color: #fff;
+}
+
+.profile-resume__icon {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  fill: currentColor;
+  opacity: 0.95;
+}
+
+.profile-channels {
+  margin-top: 0.65rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 0.38rem;
+}
+
+.profile-channel-row {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 2.6rem minmax(0, 1fr);
+  gap: 0.35rem 0.5rem;
+  align-items: baseline;
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.profile-channel-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--faint-text);
+}
+
+.profile-channel-value {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  word-break: break-all;
+}
+
+.profile-channel-value:hover {
+  text-decoration: underline;
+}
+
+.profile-channel-value--link {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.profile-wechat-id {
+  cursor: text;
+  user-select: all;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.84rem;
+  letter-spacing: 0.02em;
+}
+
+.profile-wechat-id:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 .bio-card {
@@ -605,6 +716,92 @@ body.overlay-open {
   color: var(--muted-text);
   font-size: 0.88rem;
   line-height: 1.7;
+}
+
+.bio-note--standalone {
+  margin: 0;
+  padding-top: 0.1rem;
+}
+
+.method-card {
+  background: var(--card-bg);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  padding: 1.25rem 1.35rem 1.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  min-height: 0;
+}
+
+.method-card__title {
+  margin: 0;
+  font-family: "Inter", "Noto Sans SC", "PingFang SC", system-ui, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text-color);
+}
+
+.method-card__lead {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.62;
+  color: var(--muted-text);
+}
+
+.method-steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.method-step {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.55rem 0.65rem;
+  align-items: start;
+  padding: 0.45rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.method-step:first-of-type {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.method-step__idx {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--deep-blue);
+  line-height: 1.45;
+  padding-top: 0.12rem;
+}
+
+.method-step__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.method-step__name {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--text-color);
+  letter-spacing: 0.02em;
+}
+
+.method-step__note {
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--muted-text);
 }
 
 .projects-section {
@@ -1458,14 +1655,18 @@ body.overlay-open {
 
 .focus-panel {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
   width: min(720px, 92vw);
+  max-height: min(92vh, 880px);
   border-radius: var(--radius-lg);
   padding: 1rem 1rem 1.1rem;
   background: rgba(22, 23, 26, 0.98);
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 24px 50px rgba(0, 0, 0, 0.6);
   opacity: 0;
-  overflow: visible;
+  overflow: hidden;
   transition: opacity 0.24s ease;
 }
 
@@ -1521,110 +1722,136 @@ body.overlay-open {
     transform 0.3s ease;
 }
 
-.focus-desc {
+.focus-body-scroll {
   margin: 0;
+  padding: 0 0.15rem 0 0;
+  max-height: min(52vh, 420px);
+  overflow-y: auto;
+  overflow-x: hidden;
   color: var(--muted-text);
-  line-height: 1.72;
+  line-height: 1.65;
+  font-size: 0.9rem;
   opacity: 0;
   transform: translateY(8px);
   transition:
     opacity 0.3s ease,
     transform 0.3s ease;
+  scrollbar-gutter: stable;
 }
 
-.focus-prompt-card {
-  position: absolute;
-  right: 1rem;
-  top: 4.2rem;
-  width: min(360px, calc(100% - 2rem));
-  background: rgba(22, 23, 26, 0.98);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  padding: 0.75rem 0.85rem;
-  box-shadow: var(--shadow-soft-hover);
-  opacity: 0;
-  transform: translateY(8px) scale(0.98);
-  pointer-events: none;
-  z-index: 8;
-  transition:
-    opacity 0.24s ease,
-    transform 0.24s ease;
+.focus-body-scroll:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
-.focus-prompt-card.is-open {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  pointer-events: auto;
+/* 弹层与卡片隐藏区共用的「焦点导出」正文 */
+.project-focus-export,
+.focus-body-scroll .project-focus-export {
+  display: block;
 }
 
-.focus-prompt-title {
-  margin: 0;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.38rem;
-  color: var(--deep-blue);
-  font-size: 0.92rem;
+.focus-export-lede {
+  margin: 0 0 0.75rem;
+  font-size: clamp(0.95rem, 1.8vw, 1.05rem);
   font-weight: 600;
+  color: var(--text-color);
+  line-height: 1.55;
 }
 
-.focus-prompt-body {
-  margin: 0.55rem 0 0;
+.focus-export-block {
+  margin: 0 0 0.65rem;
+}
+
+.focus-export-h {
+  margin: 0 0 0.28rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--deep-blue);
+}
+
+.focus-export-p {
+  margin: 0;
   color: var(--muted-text);
   line-height: 1.68;
-  font-size: 0.9rem;
 }
 
-.prompt-icon {
-  width: 0.92rem;
-  height: 0.92rem;
-  display: inline-flex;
+.focus-export-highlights {
+  margin: 0 0 0.65rem;
 }
 
-.prompt-icon svg {
-  width: 100%;
-  height: 100%;
-  fill: currentColor;
+.focus-export-highlights[hidden] {
+  display: none !important;
 }
 
-.focus-menu-btn {
+.focus-export-ul {
+  margin: 0.25rem 0 0;
+  padding-left: 1.1rem;
+  color: var(--muted-text);
+  line-height: 1.55;
+}
+
+.focus-export-ul li {
+  margin: 0.15rem 0;
+}
+
+.focus-pd-dl {
+  margin: 0.35rem 0 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.35rem 0.65rem;
+  align-items: start;
+}
+
+.focus-pd-dl dt {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 600;
   color: var(--text-color);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.04);
-  cursor: pointer;
-  appearance: none;
+  white-space: nowrap;
 }
 
-.focus-menu-btn.is-active {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #ffffff;
+.focus-pd-dl dd {
+  margin: 0;
+  font-size: 0.86rem;
+  color: var(--muted-text);
+  line-height: 1.55;
 }
 
-.focus-menu-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.18);
+.focus-excerpt-label {
+  margin: 0.55rem 0 0.2rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--deep-blue);
 }
 
-.focus-menu-btn.is-active:hover {
-  background: var(--accent);
-  border-color: var(--accent);
+.focus-excerpt-pre {
+  margin: 0;
+  padding: 0.55rem 0.65rem;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-family: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, monospace;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: rgba(230, 232, 240, 0.92);
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
-.focus-meta {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-}
-
-.focus-meta .focus-desc {
-  flex: 1;
+.focus-excerpt-pre[hidden] {
+  display: none !important;
 }
 
 .focus-links {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.5rem;
   justify-content: flex-start;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  min-width: 156px;
+  align-items: stretch;
   opacity: 0;
   transform: translateY(10px);
   pointer-events: none;
@@ -1639,7 +1866,7 @@ body.overlay-open {
   transition-delay: 20ms;
 }
 
-.focus-overlay.menu-ready .focus-desc {
+.focus-overlay.menu-ready .focus-body-scroll {
   opacity: 1;
   transform: translateY(0);
   transition-delay: 70ms;
@@ -1653,12 +1880,6 @@ body.overlay-open {
 }
 
 .focus-links a {
-  justify-content: center;
-  white-space: nowrap;
-  min-width: 148px;
-}
-
-.focus-links button {
   justify-content: center;
   white-space: nowrap;
   min-width: 148px;
@@ -1749,7 +1970,6 @@ body.overlay-open {
   }
 
   .home-left {
-    grid-template-rows: auto auto;
     position: static;
     top: auto;
     padding-left: 0;
@@ -1780,27 +2000,12 @@ body.overlay-open {
     aspect-ratio: 16 / 9;
   }
 
-  .focus-meta {
-    flex-direction: column;
-  }
-
-  .focus-prompt-card {
-    top: 4rem;
-    left: 1rem;
-    right: 1rem;
-    width: auto;
-  }
-
   .focus-links {
     width: 100%;
     min-width: 0;
   }
 
   .focus-links a {
-    justify-content: flex-start;
-  }
-
-  .focus-links button {
     justify-content: flex-start;
   }
 }

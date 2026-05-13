@@ -115,6 +115,23 @@ describe("PROJECTS · 字段必填与枚举", () => {
   });
 });
 
+describe("PROJECTS · detail.focus", () => {
+  PROJECTS.forEach((p) => {
+    it(`[${p.id}] focus 与 promptDesign 字段齐全`, () => {
+      const f = p.detail.focus;
+      assert(f?.tagline, "focus.tagline 缺失");
+      assert(f?.problem, "focus.problem 缺失");
+      assert(f?.flowSummary, "focus.flowSummary 缺失");
+      const pd = f.promptDesign;
+      assert(pd?.goal, "promptDesign.goal 缺失");
+      assert(pd?.inputs, "promptDesign.inputs 缺失");
+      assert(pd?.rules, "promptDesign.rules 缺失");
+      assert(pd?.output, "promptDesign.output 缺失");
+      assert(pd?.excerpt, "promptDesign.excerpt 缺失");
+    });
+  });
+});
+
 describe("PROJECTS · 状态一致性", () => {
   PROJECTS.forEach((p) => {
     it(`[${p.id}] status=live 时 statusLabel="已上线"`, () => {

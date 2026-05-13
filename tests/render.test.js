@@ -20,10 +20,22 @@ import {
   renderProjectCard,
   renderAllProjects,
   buildCoverUrl,
+  sortDetailLinks,
 } from "../zuopinji/render/project-card.js";
 import { loadProductionTemplates } from "./test-setup.js";
 
 await loadProductionTemplates();
+
+describe("sortDetailLinks", () => {
+  it("live 排在 github 之前", () => {
+    const sorted = sortDetailLinks([
+      { type: "github", href: "https://g.example", label: "G" },
+      { type: "live", href: "https://l.example", label: "L" },
+    ]);
+    assertEqual(sorted[0].type, "live");
+    assertEqual(sorted[1].type, "github");
+  });
+});
 
 describe("buildCoverUrl", () => {
   it("带 version 时拼出 ?v= 参数", () => {
@@ -135,25 +147,39 @@ describe("renderProjectCard · DOM 结构", () => {
     }
   });
 
-  it("detail · summary / prompt / links 已填", () => {
+  it("detail · summary / focus-export / links（上线在前）", () => {
     assertEqual(
       node.querySelector('[data-slot="summary"]').textContent,
       sample.detail.summary
     );
-    if (sample.detail.prompt) {
-      assertEqual(
-        node.querySelector('[data-slot="prompt"]').textContent,
-        sample.detail.prompt
-      );
-    }
+    const prompt = node.querySelector('[data-slot="prompt"]');
+    assertEqual(prompt.textContent, "");
+    assert(prompt.hasAttribute("hidden"));
+
+    const exp = node.querySelector('[data-slot="focus-export"]');
+    assert(exp, "应有 focus-export 根节点");
+    assertEqual(
+      exp.querySelector('[data-slot="focus-tagline"]').textContent,
+      sample.detail.focus.tagline
+    );
+    assertEqual(
+      exp.querySelector('[data-slot="focus-problem"]').textContent,
+      sample.detail.focus.problem
+    );
+
+    const sorted = sortDetailLinks(sample.detail.links);
     const links = node.querySelectorAll('[data-slot="detail-links"] a');
-    assertEqual(links.length, sample.detail.links.length);
+    assertEqual(links.length, sorted.length);
+    links.forEach((a, i) => {
+      assertEqual(a.getAttribute("href"), sorted[i].href);
+    });
   });
 
   it("detail link 图标按 type 留 / 去除", () => {
+    const sorted = sortDetailLinks(sample.detail.links);
     const links = node.querySelectorAll('[data-slot="detail-links"] a');
     links.forEach((a, i) => {
-      const type = sample.detail.links[i].type;
+      const type = sorted[i].type;
       const githubIcon = a.querySelector('[data-icon-for="github"]');
       const liveIcon = a.querySelector('[data-icon-for="live"]');
       if (type === "github") {

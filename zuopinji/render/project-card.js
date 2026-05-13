@@ -31,6 +31,15 @@ export function buildCoverUrl(cover) {
   return cover.version ? `${cover.src}?v=${cover.version}` : cover.src;
 }
 
+/**
+ * 详情链接排序：上线在前，GitHub 在后。
+ * @param {Array<{ type: string }>} links
+ */
+export function sortDetailLinks(links) {
+  const rank = (l) => (l.type === "live" ? 0 : l.type === "github" ? 1 : 2);
+  return [...links].sort((a, b) => rank(a) - rank(b));
+}
+
 function fillCover(card, data) {
   const wrap = getSlot(card, "cover-bg");
   const img = getSlot(card, "cover-img");
@@ -127,15 +136,63 @@ function fillDetailLink(linkNode, linkData) {
   if (label) label.textContent = linkData.label;
 }
 
-function fillDetail(card, data) {
-  setSlotText(card, "summary", data.detail.summary);
-  if (data.detail.prompt) {
-    setSlotText(card, "prompt", data.detail.prompt);
+/**
+ * 填充弹层克隆用的「焦点导出」区块（与 overlay 结构一致）。
+ * @param {HTMLElement} card
+ * @param {object} data
+ */
+function fillFocusExport(card, data) {
+  const root = getSlot(card, "focus-export");
+  if (!root || !data.detail?.focus) return;
+
+  const f = data.detail.focus;
+  const pd = f.promptDesign || {};
+
+  setSlotText(root, "focus-tagline", f.tagline || "");
+  setSlotText(root, "focus-problem", f.problem || "");
+  setSlotText(root, "focus-flow", f.flowSummary || "");
+  setSlotText(root, "focus-pd-goal", pd.goal || "");
+  setSlotText(root, "focus-pd-inputs", pd.inputs || "");
+  setSlotText(root, "focus-pd-rules", pd.rules || "");
+  setSlotText(root, "focus-pd-output", pd.output || "");
+
+  const pre = getSlot(root, "focus-excerpt");
+  if (pre) {
+    const ex = pd.excerpt || "";
+    pre.textContent = ex;
+    if (!ex.trim()) pre.setAttribute("hidden", "");
+    else pre.removeAttribute("hidden");
   }
+
+  const ul = getSlot(root, "focus-highlights");
+  const hiSection = root.querySelector(".focus-export-highlights");
+  if (ul) {
+    ul.replaceChildren();
+    (data.outcomes || []).forEach((text) => {
+      const li = document.createElement("li");
+      li.textContent = text;
+      ul.appendChild(li);
+    });
+    if (hiSection) {
+      hiSection.hidden = !data.outcomes?.length;
+    }
+  }
+}
+
+function fillDetail(card, data) {
+  fillFocusExport(card, data);
+  setSlotText(card, "summary", data.detail.summary);
+
+  const promptEl = getSlot(card, "prompt");
+  if (promptEl) {
+    promptEl.textContent = "";
+    promptEl.setAttribute("hidden", "");
+  }
+
   const linksHolder = getSlot(card, "detail-links");
   if (!linksHolder) return;
 
-  data.detail.links.forEach((l) => {
+  sortDetailLinks(data.detail.links).forEach((l) => {
     const a = cloneTemplate(LINK_TPL);
     fillDetailLink(a, l);
     linksHolder.appendChild(a);
