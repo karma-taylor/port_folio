@@ -134,8 +134,12 @@ function fillTech(card, data, layout) {
   if (!list) return;
   list.setAttribute("aria-label", `${data.titleLong || data.title} 技术栈`);
 
-  const techs =
-    layout === "full" ? data.tech : (data.tech || []).slice(0, 4);
+  let techs = data.tech || [];
+  if (layout !== "full") {
+    const aiTechs = techs.filter((t) => t.type === "ai");
+    const otherTechs = techs.filter((t) => t.type !== "ai");
+    techs = [...aiTechs, ...otherTechs].slice(0, 4);
+  }
 
   techs.forEach((t) => {
     const li = cloneTemplate(TECH_TPL);
