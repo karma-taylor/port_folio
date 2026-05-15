@@ -133,6 +133,7 @@ function fillTech(card, data, layout) {
   const list = getSlot(card, "tech-list");
   if (!list) return;
   list.setAttribute("aria-label", `${data.titleLong || data.title} 技术栈`);
+  list.replaceChildren();
 
   let techs = data.tech || [];
   if (layout !== "full") {

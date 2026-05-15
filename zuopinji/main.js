@@ -8,21 +8,21 @@
  *   4. 同步刷新 SEO JSON-LD（用 PROJECTS 当唯一数据源）
  */
 
-import { PROJECTS, PROFILE } from "./data/projects.js";
+import { PROJECTS, PROFILE } from "./data/projects.js?v=20260515-codex-fix";
 import {
   renderAllProjects,
   renderFeaturedProject,
-} from "./render/project-card.js";
-import { runBootLoader } from "./interactions/boot-loader.js";
-import { revealCards } from "./interactions/reveal.js";
-import { setupScrollProgress } from "./interactions/scroll-progress.js";
-import { setupMagneticTargets } from "./interactions/magnetic.js";
-import { setupProjectFocusOverlay } from "./interactions/focus-overlay.js";
-import { bindProjectCardDetailButtons } from "./interactions/project-card-actions.js";
+} from "./render/project-card.js?v=20260515-codex-fix";
+import { runBootLoader } from "./interactions/boot-loader.js?v=20260515-codex-fix";
+import { revealCards } from "./interactions/reveal.js?v=20260515-codex-fix";
+import { setupScrollProgress } from "./interactions/scroll-progress.js?v=20260515-codex-fix";
+import { setupMagneticTargets } from "./interactions/magnetic.js?v=20260515-codex-fix";
+import { setupProjectFocusOverlay } from "./interactions/focus-overlay.js?v=20260515-codex-fix";
+import { bindProjectCardDetailButtons } from "./interactions/project-card-actions.js?v=20260515-codex-fix";
 import {
   buildPersonJsonLd,
   injectJsonLd,
-} from "./seo/structured-data.js";
+} from "./seo/structured-data.js?v=20260515-codex-fix";
 
 const CONTACT_CTA = [
   { type: "resume", label: "简历 PDF", href: "./resume.pdf", download: "郭伟南-简历.pdf" },
