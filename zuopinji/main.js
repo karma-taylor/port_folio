@@ -8,21 +8,21 @@
  *   4. 同步刷新 SEO JSON-LD（用 PROJECTS 当唯一数据源）
  */
 
-import { PROJECTS, PROFILE } from "./data/projects.js?v=20260515-codex-fix";
+import { PROJECTS, PROFILE } from "./data/projects.js?v=20260515-final-pass";
 import {
   renderAllProjects,
   renderFeaturedProject,
-} from "./render/project-card.js?v=20260515-codex-fix";
-import { runBootLoader } from "./interactions/boot-loader.js?v=20260515-codex-fix";
-import { revealCards } from "./interactions/reveal.js?v=20260515-codex-fix";
-import { setupScrollProgress } from "./interactions/scroll-progress.js?v=20260515-codex-fix";
-import { setupMagneticTargets } from "./interactions/magnetic.js?v=20260515-codex-fix";
-import { setupProjectFocusOverlay } from "./interactions/focus-overlay.js?v=20260515-codex-fix";
-import { bindProjectCardDetailButtons } from "./interactions/project-card-actions.js?v=20260515-codex-fix";
+} from "./render/project-card.js?v=20260515-final-pass";
+import { runBootLoader } from "./interactions/boot-loader.js?v=20260515-final-pass";
+import { revealCards } from "./interactions/reveal.js?v=20260515-final-pass";
+import { setupScrollProgress } from "./interactions/scroll-progress.js?v=20260515-final-pass";
+import { setupMagneticTargets } from "./interactions/magnetic.js?v=20260515-final-pass";
+import { setupProjectFocusOverlay } from "./interactions/focus-overlay.js?v=20260515-final-pass";
+import { bindProjectCardDetailButtons } from "./interactions/project-card-actions.js?v=20260515-final-pass";
 import {
   buildPersonJsonLd,
   injectJsonLd,
-} from "./seo/structured-data.js?v=20260515-codex-fix";
+} from "./seo/structured-data.js?v=20260515-final-pass";
 
 const CONTACT_CTA = [
   { type: "resume", label: "简历 PDF", href: "./resume.pdf", download: "郭伟南-简历.pdf" },
@@ -41,12 +41,12 @@ const CASE_ENHANCEMENTS = {
     solution:
       "采用月历视图承载工单占用，用“人员分段”而不是整单参与做排班粒度；先做强校验和持久化，再补充编辑效率与导入能力。",
     results: [
-      { label: "交付形态", value: "React + Supabase 在线工具" },
-      { label: "验证方式", value: "真实排班场景试跑" },
-      { label: "效率变化", value: "减少撞期返工与反复确认" },
-      { label: "质量口径", value: "保存前即拦截冲突" },
+      { label: "交付形态", value: "React + Supabase 工具" },
       { label: "当前状态", value: "已上线" },
-      { label: "结果说明", value: "定性：降低沟通成本" },
+      { label: "效率变化", value: "减少撞期返工" },
+      { label: "质量口径", value: "保存前拦截冲突" },
+      { label: "结果说明", value: "定性：减少沟通成本" },
+      { label: "验证方式", value: "真实场景试跑" },
     ],
     risks:
       "多人并发编辑与权限分层还可以继续细化；移动端体验和更复杂的排班规则尚未展开。",
@@ -64,11 +64,11 @@ const CASE_ENHANCEMENTS = {
       "先做多源抓取、去重和主题分桶，再用 JSON 约束摘要结构；取舍上优先保证稳定送达与可消费格式，而不是一次性长文总结。",
     results: [
       { label: "交付形态", value: "定时资讯订阅工具" },
-      { label: "验证方式", value: "订阅链路按时区试跑" },
-      { label: "效率变化", value: "减少重复浏览与摘抄" },
-      { label: "质量口径", value: "主题分桶 + 来源可追溯" },
       { label: "当前状态", value: "已上线" },
+      { label: "效率变化", value: "减少重复浏览" },
+      { label: "质量口径", value: "主题分桶可追溯" },
       { label: "结果说明", value: "定性：稳定按时送达" },
+      { label: "验证方式", value: "订阅链路试跑" },
     ],
     risks:
       "资讯源波动和抓取异常仍需要监控告警；更细粒度的个性化订阅与反馈闭环暂未展开。",
@@ -85,12 +85,12 @@ const CASE_ENHANCEMENTS = {
     solution:
       "用从大到小的贪心策略完成拆分，统一网页端与小程序端的核心口径；取舍上优先保证导入导出链路和复核稳定性，而不是复杂交互装饰。",
     results: [
-      { label: "交付形态", value: "网页工具 + 微信小程序「轻松配钞」" },
-      { label: "验证方式", value: "单笔与批量名单试跑" },
-      { label: "效率变化", value: "约 30 分钟压到 3 分钟级" },
-      { label: "质量口径", value: "余数与异常行可复核" },
+      { label: "交付形态", value: "网页 + 小程序" },
       { label: "当前状态", value: "已上线" },
-      { label: "结果说明", value: "网页端 + 小程序端均已上线" },
+      { label: "效率变化", value: "30 分钟 → 3 分钟级" },
+      { label: "质量口径", value: "余数与异常可复核" },
+      { label: "结果说明", value: "「轻松配钞」已上线" },
+      { label: "验证方式", value: "单笔 + 批量试跑" },
     ],
     risks:
       "当前策略以固定面额组为主，更复杂的库存约束与多轮调拨还没纳入；小程序端的批量处理链路仍可继续打磨。",
@@ -108,11 +108,11 @@ const CASE_ENHANCEMENTS = {
       "在输入后先校验方向和金额，再展示所用汇率口径；取舍上优先保证来源清楚和结果可审计，而不是只追求“秒出答案”。",
     results: [
       { label: "交付形态", value: "Web 汇率换算工具" },
-      { label: "验证方式", value: "多源汇率交叉比对" },
-      { label: "效率变化", value: "快速出具可复核结果" },
-      { label: "质量口径", value: "方向纠偏 + 弱网降级" },
       { label: "当前状态", value: "已上线" },
+      { label: "效率变化", value: "快速出具结果" },
+      { label: "质量口径", value: "方向纠偏 + 弱网降级" },
       { label: "结果说明", value: "定性：柜台场景更稳" },
+      { label: "验证方式", value: "多源交叉比对" },
     ],
     risks:
       "汇率接口稳定性与多源口径差异仍需持续观察；更完整的历史记录与审计留痕暂未展开。",
@@ -130,11 +130,11 @@ const CASE_ENHANCEMENTS = {
       "用 pandas 清洗与勾稽规则做数据底座，再用 openpyxl 保持模板格式；取舍上先保证可复核和格式一致，再追求更高自动化深度。",
     results: [
       { label: "交付形态", value: "Python 自动化引擎" },
-      { label: "验证方式", value: "历史模板回放" },
-      { label: "效率变化", value: "约 2 小时压到 10 分钟内" },
-      { label: "质量口径", value: "异常清单可追溯" },
       { label: "当前状态", value: "待部署" },
-      { label: "结果说明", value: "人工统计时间约降 90%" },
+      { label: "效率变化", value: "2 小时 → 10 分钟内" },
+      { label: "质量口径", value: "异常清单可追溯" },
+      { label: "结果说明", value: "人工统计约降 90%" },
+      { label: "验证方式", value: "历史模板回放" },
     ],
     risks:
       "规则变更时仍依赖维护映射与模板更新；更通用的配置化规则管理还没有做成产品层能力。",

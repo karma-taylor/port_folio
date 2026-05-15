@@ -16,8 +16,8 @@ export const PROJECTS = [
     size: "wide",
     status: "live",
     statusLabel: "已上线",
-    title: "工作日历排班系统",
-    titleLong: "工作日历（Work Calendar）",
+    title: "工作日历排班系统（Work Calendar）",
+    titleLong: "工作日历排班系统（Work Calendar）",
     outcomes: [
       "保存前冲突校验，显著减少排班撞期与返工沟通",
       "Excel 名单锁定 + 云端同步，名单与工单不易丢",
@@ -104,8 +104,8 @@ export const PROJECTS = [
     size: "tall",
     status: "live",
     statusLabel: "已上线",
-    title: "资讯日报订阅系统",
-    titleLong: "资讯日报订阅系统",
+    title: "资讯日报订阅系统（HamHome Daily Digest）",
+    titleLong: "资讯日报订阅系统（HamHome Daily Digest）",
     outcomes: [
       "自动抓取多源资讯并按时区定时推送",
       "RAG 分桶 + 结构化摘要，降低重复浏览与摘抄成本",
@@ -191,7 +191,7 @@ export const PROJECTS = [
     status: "live",
     statusLabel: "已上线",
     title: "薪资分配策略工具（Money Distribute AI）",
-    titleLong: "基于逻辑算法的薪资分配策略工具（Money Distribute AI）",
+    titleLong: "薪资分配策略工具（Money Distribute AI）",
     outcomes: [
       "批量配钞：典型场景下人工拆分与核对约从 30 分钟压到 3 分钟级",
       "支持 Excel 批量导入导出，单笔网页秒级计算",
@@ -276,8 +276,8 @@ export const PROJECTS = [
     size: "featured",
     status: "live",
     statusLabel: "已上线",
-    title: "汇率换算 Agent",
-    titleLong: "weather-fx-agent（汇率换算 Agent）",
+    title: "汇率换算 Agent（Weather FX Agent）",
+    titleLong: "汇率换算 Agent（Weather FX Agent）",
     outcomes: [
       "多银行参考 + 防呆纠偏，换算结果可复核、可交付",
       "弱网/缓存策略，柜台与出差场景仍可快速出数",
@@ -362,8 +362,8 @@ export const PROJECTS = [
     size: "small",
     status: "wip",
     statusLabel: "待部署",
-    title: "日报自动化生成引擎",
-    titleLong: "企业业务日报自动化生成引擎（Business Daily Report Engine）",
+    title: "日报自动化生成引擎（Business Daily Report Engine）",
+    titleLong: "日报自动化生成引擎（Business Daily Report Engine）",
     outcomes: [
       "单次日结统计从约 2 小时压到约 10 分钟（人工约 ↓90%）",
       "多维数据自动清洗并按模板秒级生成日报 / 台账 / 异常清单",
