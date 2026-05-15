@@ -39,6 +39,7 @@ export const PROJECTS = [
       { type: "framework", label: "Vite" },
       { type: "tool", label: "Supabase" },
       { type: "ai", label: "Cursor" },
+      { type: "ai", label: "Codex" },
       { type: "deploy", label: "Cloudflare Pages" },
     ],
     flow: {
@@ -125,6 +126,7 @@ export const PROJECTS = [
       { type: "framework", label: "RAG" },
       { type: "tool", label: "定时任务" },
       { type: "ai", label: "Cursor" },
+      { type: "ai", label: "Codex" },
       { type: "deploy", label: "Cloudflare Pages" },
     ],
     flow: {
@@ -199,7 +201,7 @@ export const PROJECTS = [
       alt: "基于逻辑算法的薪资分配策略工具项目展示图",
     },
     hoverValue:
-      "基于贪心算法的薪资现金分配策略：按可用面额自动拆分张数与余数，单笔即时计算 + Excel 批量导入导出，小程序版同步在路上。",
+      "基于贪心算法的薪资现金分配策略：按可用面额自动拆分张数与余数，单笔即时计算 + Excel 批量导入导出，微信小程序「轻松配钞」已上线。",
     hoverCta: {
       href: "https://karma-taylor.github.io/money_classify/",
       label: "访问演示",
@@ -210,6 +212,7 @@ export const PROJECTS = [
       { type: "tool", label: "Excel 导入导出" },
       { type: "framework", label: "WeChat 小程序" },
       { type: "ai", label: "Cursor" },
+      { type: "ai", label: "Codex" },
       { type: "deploy", label: "GitHub Pages" },
     ],
     flow: {
@@ -248,7 +251,7 @@ export const PROJECTS = [
         },
       },
       summary:
-        "一款基于贪心算法的薪资分配策略工具，按可用面额（50000/25000/10000/5000/1000）从大到小自动拆分张数与余数。提供网页端单笔计算与 Excel 批量导入导出；并已准备微信小程序版本（单笔配钞 + 批量处理）。",
+        "一款基于贪心算法的薪资分配策略工具，按可用面额（50000/25000/10000/5000/1000）从大到小自动拆分张数与余数。提供网页端单笔计算与 Excel 批量导入导出；微信小程序「轻松配钞」也已上线，覆盖单笔配钞场景。",
       prompt:
         "Prompt：你是一个银行柜员，需要根据当天可用纸币面额为员工薪酬进行现金配钞。请按“从大到小优先”的贪心策略计算每种面额张数，并返回余数。任务要求：可用面额支持 50000、25000、10000、5000、1000（可按实际情况勾选启用/禁用）。对每笔金额先使用最大可用面额尽可能多张，再对余数继续使用下一档面额，直到最小面额处理完成。输出字段包括姓名（如有）、薪水金额、各面额张数（50000、25000、10000、5000、1000）与余数。批量模式导入规则：A 列姓名、B 列薪水，其余列可忽略并重新计算；导出固定列顺序：姓名、薪水、50000、25000、10000、5000、1000。校验规则：金额必须为非负数；无法解析的金额行需标记为错误并跳过；当未选择任何面额时，返回明确提示。",
       links: [
@@ -295,6 +298,7 @@ export const PROJECTS = [
       { type: "lang", label: "HTML / CSS" },
       { type: "tool", label: "汇率 API" },
       { type: "ai", label: "Cursor" },
+      { type: "ai", label: "Codex" },
     ],
     flow: {
       ariaLabel: "汇率换算 Agent 业务流程",
@@ -378,8 +382,9 @@ export const PROJECTS = [
       { type: "lang", label: "Python" },
       { type: "framework", label: "pandas" },
       { type: "framework", label: "openpyxl" },
-      { type: "framework", label: "Streamlit" },
       { type: "ai", label: "Cursor" },
+      { type: "ai", label: "Codex" },
+      { type: "framework", label: "Streamlit" },
     ],
     flow: {
       ariaLabel: "企业业务日报自动化生成引擎 业务流程",
