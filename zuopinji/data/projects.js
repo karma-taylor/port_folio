@@ -103,8 +103,8 @@ export const PROJECTS = [
     size: "tall",
     status: "live",
     statusLabel: "已上线",
-    title: "HamHome Daily Digest",
-    titleLong: "HamHome Daily Digest（资讯日报订阅系统）",
+    title: "资讯日报订阅系统",
+    titleLong: "资讯日报订阅系统",
     outcomes: [
       "自动抓取多源资讯并按时区定时推送",
       "RAG 分桶 + 结构化摘要，降低重复浏览与摘抄成本",

@@ -194,11 +194,100 @@ function fillGithubCta(card, data, layout) {
 
 function fillDetailLink(linkNode, linkData) {
   linkNode.href = linkData.href;
+  if (linkData.download) {
+    linkNode.setAttribute("download", linkData.download);
+  } else {
+    linkNode.removeAttribute("download");
+  }
   linkNode.querySelectorAll("[data-icon-for]").forEach((icon) => {
     if (icon.dataset.iconFor !== linkData.type) icon.remove();
   });
   const label = linkNode.querySelector('[data-slot="link-label"]');
   if (label) label.textContent = linkData.label;
+}
+
+function renderResultCard(results = []) {
+  const grid = document.createElement("div");
+  grid.className = "focus-result-grid";
+
+  results.forEach((item) => {
+    const cell = document.createElement("div");
+    cell.className = "focus-result-cell";
+
+    const label = document.createElement("p");
+    label.className = "focus-result-label";
+    label.textContent = item.label;
+
+    const value = document.createElement("p");
+    value.className = "focus-result-value";
+    value.textContent = item.value;
+
+    cell.append(label, value);
+    grid.appendChild(cell);
+  });
+
+  return grid;
+}
+
+function buildFocusSection(title, content, className = "focus-export-block") {
+  const section = document.createElement("section");
+  section.className = className;
+
+  const heading = document.createElement("h4");
+  heading.className = "focus-export-h";
+  heading.textContent = title;
+
+  const paragraph = document.createElement("p");
+  paragraph.className = "focus-export-p";
+  paragraph.textContent = content || "待补充";
+
+  section.append(heading, paragraph);
+  return section;
+}
+
+function buildPromptSection(promptDesign = {}) {
+  const section = document.createElement("section");
+  section.className = "focus-export-block focus-export-prompt";
+
+  const heading = document.createElement("h4");
+  heading.className = "focus-export-h";
+  heading.textContent = "Prompt 设计";
+
+  const dl = document.createElement("dl");
+  dl.className = "focus-pd-dl";
+
+  [
+    ["目标", promptDesign.goal],
+    ["输入", promptDesign.inputs],
+    ["规则", promptDesign.rules],
+    ["输出", promptDesign.output],
+    ["防错", promptDesign.safeguards],
+  ].forEach(([labelText, valueText]) => {
+    const dt = document.createElement("dt");
+    dt.textContent = labelText;
+    const dd = document.createElement("dd");
+    dd.textContent = valueText || "待补充";
+    dl.append(dt, dd);
+  });
+
+  section.append(heading, dl);
+  return section;
+}
+
+function buildExcerptSection(excerpt = "") {
+  const section = document.createElement("section");
+  section.className = "focus-export-block";
+
+  const label = document.createElement("p");
+  label.className = "focus-excerpt-label";
+  label.textContent = "脱敏节选";
+
+  const pre = document.createElement("pre");
+  pre.className = "focus-excerpt-pre";
+  pre.textContent = excerpt || "待补充";
+
+  section.append(label, pre);
+  return section;
 }
 
 function fillFocusExport(card, data) {
@@ -207,39 +296,50 @@ function fillFocusExport(card, data) {
 
   const f = data.detail.focus;
   const pd = f.promptDesign || {};
+  const recruiting = data.detail?.recruiting || {};
 
-  setSlotText(root, "focus-tagline", f.tagline || "");
-  setSlotText(root, "focus-problem", f.problem || "");
-  setSlotText(root, "focus-ownership", f.ownership || "");
-  setSlotText(root, "focus-flow", f.flowSummary || "");
-  setSlotText(root, "focus-judgment", f.productJudgment || "");
-  setSlotText(root, "focus-pd-goal", pd.goal || "");
-  setSlotText(root, "focus-pd-inputs", pd.inputs || "");
-  setSlotText(root, "focus-pd-rules", pd.rules || "");
-  setSlotText(root, "focus-pd-output", pd.output || "");
-  setSlotText(root, "focus-pd-safeguards", pd.safeguards || "");
+  root.replaceChildren();
 
-  const pre = getSlot(root, "focus-excerpt");
-  if (pre) {
-    const ex = pd.excerpt || "";
-    pre.textContent = ex;
-    if (!ex.trim()) pre.setAttribute("hidden", "");
-    else pre.removeAttribute("hidden");
-  }
+  const lede = document.createElement("p");
+  lede.className = "focus-export-lede";
+  lede.textContent = f.tagline || recruiting.background || data.detail.summary || "";
+  root.appendChild(lede);
 
-  const ul = getSlot(root, "focus-highlights");
-  const hiSection = root.querySelector(".focus-export-highlights");
-  if (ul) {
-    ul.replaceChildren();
-    (data.outcomes || []).forEach((text) => {
-      const li = document.createElement("li");
-      li.textContent = text;
-      ul.appendChild(li);
-    });
-    if (hiSection) {
-      hiSection.hidden = !data.outcomes?.length;
-    }
-  }
+  const resultsSection = document.createElement("section");
+  resultsSection.className = "focus-export-results";
+  const resultsHeading = document.createElement("h4");
+  resultsHeading.className = "focus-export-h";
+  resultsHeading.textContent = "结果卡";
+  resultsSection.append(resultsHeading, renderResultCard(recruiting.results || []));
+  root.appendChild(resultsSection);
+
+  const grid = document.createElement("div");
+  grid.className = "focus-export-grid";
+  const leftCol = document.createElement("div");
+  leftCol.className = "focus-export-col";
+  const rightCol = document.createElement("div");
+  rightCol.className = "focus-export-col";
+
+  leftCol.append(
+    buildFocusSection("背景", recruiting.background || data.detail.summary || ""),
+    buildFocusSection("用户与场景", recruiting.usersScene || f.problem || ""),
+    buildFocusSection("目标与约束", recruiting.goals || ""),
+    buildFocusSection(
+      "方案与取舍",
+      recruiting.solution || [f.flowSummary, f.productJudgment].filter(Boolean).join(" ")
+    )
+  );
+
+  rightCol.append(
+    buildFocusSection("我的负责", f.ownership || ""),
+    buildPromptSection(pd),
+    buildFocusSection("风险与未做", recruiting.risks || "待补充"),
+    buildFocusSection("复盘", recruiting.retro || "待补充"),
+    buildExcerptSection(pd.excerpt || "")
+  );
+
+  grid.append(leftCol, rightCol);
+  root.appendChild(grid);
 }
 
 function fillDetail(card, data) {
@@ -255,11 +355,46 @@ function fillDetail(card, data) {
   const linksHolder = getSlot(card, "detail-links");
   if (!linksHolder) return;
 
+  linksHolder.replaceChildren();
+
   sortDetailLinks(data.detail.links).forEach((l) => {
     const a = cloneTemplate(LINK_TPL);
     fillDetailLink(a, l);
     linksHolder.appendChild(a);
   });
+
+  const content = card.querySelector(".project-content");
+  const existingCta = content?.querySelector(".project-contact-cta");
+  if (existingCta) existingCta.remove();
+
+  const ctaLinks = data.detail?.recruiting?.contactCta || [];
+  if (!content || !ctaLinks.length) return;
+
+  const contactWrap = document.createElement("div");
+  contactWrap.className = "project-contact-cta";
+
+  const contactHeading = document.createElement("p");
+  contactHeading.className = "project-contact-cta__title";
+  contactHeading.textContent = "继续沟通";
+
+  const contactList = document.createElement("div");
+  contactList.className = "project-contact-cta__links";
+
+  ctaLinks.forEach((link) => {
+    const a = document.createElement("a");
+    a.className = "project-contact-link";
+    a.href = link.href;
+    a.textContent = link.label;
+    if (link.download) a.setAttribute("download", link.download);
+    if (link.target === "_blank") {
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+    }
+    contactList.appendChild(a);
+  });
+
+  contactWrap.append(contactHeading, contactList);
+  content.appendChild(contactWrap);
 }
 
 /**

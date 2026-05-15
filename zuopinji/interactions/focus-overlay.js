@@ -56,7 +56,7 @@ function queryOverlayRefs() {
 /**
  * 从触发它的 .project-trigger 抽出弹层所需数据。
  * @param {Element} trigger
- * @returns {null | { img: HTMLImageElement, title: string, exportClone: HTMLElement, links: NodeListOf<HTMLAnchorElement> }}
+ * @returns {null | { img: HTMLImageElement, title: string, exportClone: HTMLElement, links: NodeListOf<HTMLAnchorElement>, contactClone: HTMLElement | null }}
  */
 function extractCardData(trigger) {
   const card = trigger.closest(".project-card");
@@ -64,6 +64,7 @@ function extractCardData(trigger) {
   const titleEl = card?.querySelector(".project-title");
   const exportRoot = card ? getSlot(card, "focus-export") : null;
   const links = card?.querySelectorAll(".project-links a");
+  const contactRoot = card?.querySelector(".project-contact-cta");
 
   if (!card || !img || !titleEl || !exportRoot || !links?.length) return null;
 
@@ -75,6 +76,7 @@ function extractCardData(trigger) {
       "",
     exportClone: /** @type {HTMLElement} */ (exportRoot.cloneNode(true)),
     links,
+    contactClone: contactRoot ? /** @type {HTMLElement} */ (contactRoot.cloneNode(true)) : null,
   };
 }
 
@@ -94,6 +96,9 @@ function fillOverlay(refs, cardData) {
 
   refs.focusBodyScroll.innerHTML = "";
   refs.focusBodyScroll.appendChild(cardData.exportClone);
+  if (cardData.contactClone) {
+    refs.focusBodyScroll.appendChild(cardData.contactClone);
+  }
 
   refs.links.innerHTML = "";
   cardData.links.forEach((link) => refs.links.appendChild(link.cloneNode(true)));
