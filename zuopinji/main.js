@@ -8,21 +8,21 @@
  *   4. 同步刷新 SEO JSON-LD（用 PROJECTS 当唯一数据源）
  */
 
-import { PROJECTS, PROFILE } from "./data/projects.js?v=20260516-layout-fix";
+import { PROJECTS, PROFILE } from "./data/projects.js?v=20260516-product-wrap";
 import {
   renderAllProjects,
   renderFeaturedProject,
-} from "./render/project-card.js?v=20260516-layout-fix";
-import { runBootLoader } from "./interactions/boot-loader.js?v=20260516-layout-fix";
-import { revealCards } from "./interactions/reveal.js?v=20260516-layout-fix";
-import { setupScrollProgress } from "./interactions/scroll-progress.js?v=20260516-layout-fix";
-import { setupMagneticTargets } from "./interactions/magnetic.js?v=20260516-layout-fix";
-import { setupProjectFocusOverlay } from "./interactions/focus-overlay.js?v=20260516-layout-fix";
-import { bindProjectCardDetailButtons } from "./interactions/project-card-actions.js?v=20260516-layout-fix";
+} from "./render/project-card.js?v=20260516-product-wrap";
+import { runBootLoader } from "./interactions/boot-loader.js?v=20260516-product-wrap";
+import { revealCards } from "./interactions/reveal.js?v=20260516-product-wrap";
+import { setupScrollProgress } from "./interactions/scroll-progress.js?v=20260516-product-wrap";
+import { setupMagneticTargets } from "./interactions/magnetic.js?v=20260516-product-wrap";
+import { setupProjectFocusOverlay } from "./interactions/focus-overlay.js?v=20260516-product-wrap";
+import { bindProjectCardDetailButtons } from "./interactions/project-card-actions.js?v=20260516-product-wrap";
 import {
   buildPersonJsonLd,
   injectJsonLd,
-} from "./seo/structured-data.js?v=20260516-layout-fix";
+} from "./seo/structured-data.js?v=20260516-product-wrap";
 
 const CONTACT_CTA = [
   { type: "resume", label: "简历 PDF", href: "./resume.pdf", download: "郭伟南-简历.pdf" },
@@ -33,19 +33,15 @@ const CONTACT_CTA = [
 const CASE_ENHANCEMENTS = {
   calendar: {
     background:
-      "面向施工与运维排班场景，把工单、人员分段和冲突校验整合到一个可上线工具里，替代高频 Excel 协调。",
+      "把原本依赖 Excel 和人工确认的排班流程，产品化为一个有规则约束、能真实落地的系统。",
     usersScene:
       "施工排班、运维统筹与项目协同角色会同时使用。典型场景是跨周工单安排、多角色参与、临时调班与名单变更。",
-    goals:
-      "目标是让冲突在保存前暴露、让名单与工单保持一致，并支持云端同步。约束是分段安排必须落在工单区间内，同人不可时间重叠。",
-    solution:
-      "采用月历视图承载工单占用，用“人员分段”而不是整单参与做排班粒度；先做强校验和持久化，再补充编辑效率与导入能力。",
+    coreProblem:
+      "原来的问题不只是“排班麻烦”，而是人、工期、角色、分段参与和冲突规则交织在一起，人工对齐时间窗既低效又容易漏错。",
     results: [
-      { label: "交付形态", value: "React + Supabase 工具" },
-      { label: "当前状态", value: "已上线" },
-      { label: "效率变化", value: "减少撞期返工" },
-      { label: "质量口径", value: "保存前拦截冲突" },
-      { label: "结果说明", value: "定性：减少沟通成本" },
+      { label: "结果 01", value: "把分段冲突前置到保存前" },
+      { label: "结果 02", value: "让名单与工单状态跨设备恢复" },
+      { label: "结果 03", value: "用分段参与替代整单参与" },
       { label: "验证方式", value: "真实场景试跑" },
     ],
     risks:
@@ -55,19 +51,15 @@ const CASE_ENHANCEMENTS = {
   },
   digest: {
     background:
-      "面向需要持续跟踪行业信息的角色，把分散资讯收敛成按时送达的结构化日报，减少重复浏览与手工摘抄。",
+      "把原本分散在多个信息源里的内容，加工成能按时送达、可直接消费的结构化日报。",
     usersScene:
       "产品、运营与研究类角色需要关注多源资讯。典型场景是每天固定时间收到重点主题摘要，而不是反复切换渠道。",
-    goals:
-      "目标是按时区稳定生成结构化日报，并保留主题分桶与来源追溯。约束是不编造事实、要可复用到邮件模板与前端页面。",
-    solution:
-      "先做多源抓取、去重和主题分桶，再用 JSON 约束摘要结构；取舍上优先保证稳定送达与可消费格式，而不是一次性长文总结。",
+    coreProblem:
+      "真正的痛点不是“信息多”，而是用户要自己切换渠道、重复阅读、再二次整理；如果不先做主题分桶和时区对齐，订阅内容就很难稳定可用。",
     results: [
-      { label: "交付形态", value: "定时资讯订阅工具" },
-      { label: "当前状态", value: "已上线" },
-      { label: "效率变化", value: "减少重复浏览" },
-      { label: "质量口径", value: "主题分桶可追溯" },
-      { label: "结果说明", value: "定性：稳定按时送达" },
+      { label: "结果 01", value: "减少用户二次整理成本" },
+      { label: "结果 02", value: "让结构化摘要可复用到邮件与前端" },
+      { label: "结果 03", value: "让订阅内容按时区稳定送达" },
       { label: "验证方式", value: "订阅链路试跑" },
     ],
     risks:
@@ -77,19 +69,15 @@ const CASE_ENHANCEMENTS = {
   },
   money: {
     background:
-      "面向薪酬配钞与批量现金分发场景，把单笔计算和 Excel 批处理合并到同一套工具中，减少人工拆分与复核。",
+      "把规则明确、重复频繁、又容易出错的薪资配钞流程，做成网页和小程序双端工具。",
     usersScene:
       "财务、人力或协助发薪的运营角色会使用。典型场景是批量导入名单后快速得到各面额张数和剩余金额。",
-    goals:
-      "目标是算得对、导得出、便于复核。约束是面额组合固定、导出列顺序必须稳定、异常行不能阻塞整批处理。",
-    solution:
-      "用从大到小的贪心策略完成拆分，统一网页端与小程序端的核心口径；取舍上优先保证导入导出链路和复核稳定性，而不是复杂交互装饰。",
+    coreProblem:
+      "问题不在算法本身，而在高频发薪场景里，人工拆分、核对、导出和异常处理都很琐碎；如果口径不一致，结果就不可复核。",
     results: [
-      { label: "交付形态", value: "网页 + 小程序" },
-      { label: "当前状态", value: "已上线" },
-      { label: "效率变化", value: "30 分钟 → 3 分钟级" },
-      { label: "质量口径", value: "余数与异常可复核" },
-      { label: "结果说明", value: "「轻松配钞」已上线" },
+      { label: "结果 01", value: "把人工核对压到 3 分钟级" },
+      { label: "结果 02", value: "让双端拆分口径保持一致" },
+      { label: "结果 03", value: "让导入导出与异常校验可复核" },
       { label: "验证方式", value: "单笔 + 批量试跑" },
     ],
     risks:
@@ -102,16 +90,12 @@ const CASE_ENHANCEMENTS = {
       "面向跨币种换算与报价辅助场景，把多银行参考汇率、防呆校验和弱网策略做成可直接使用的换算工具。",
     usersScene:
       "柜台、差旅报销、跨境结算或业务报价场景都可能用到。典型诉求是快速得到可复核的换算结果，而不是黑盒答案。",
-    goals:
-      "目标是输出可复核、可交付的换算结果。约束是 base / target 方向不能错、汇率来源要可说明、弱网下也要有可降级结果。",
-    solution:
-      "在输入后先校验方向和金额，再展示所用汇率口径；取舍上优先保证来源清楚和结果可审计，而不是只追求“秒出答案”。",
+    coreProblem:
+      "核心问题不是出一个数字，而是要让用户知道“按什么口径算出来”，同时避免方向输错、汇率缺失或弱网场景下结果失真。",
     results: [
-      { label: "交付形态", value: "Web 汇率换算工具" },
-      { label: "当前状态", value: "已上线" },
-      { label: "效率变化", value: "快速出具结果" },
-      { label: "质量口径", value: "方向纠偏 + 弱网降级" },
-      { label: "结果说明", value: "定性：柜台场景更稳" },
+      { label: "结果 01", value: "让换算口径可解释、可复核" },
+      { label: "结果 02", value: "把方向纠偏前置到输入阶段" },
+      { label: "结果 03", value: "让弱网场景仍可快速出数" },
       { label: "验证方式", value: "多源交叉比对" },
     ],
     risks:
@@ -124,16 +108,12 @@ const CASE_ENHANCEMENTS = {
       "面向企业业务日结场景，用脚本把多表清洗、模板渲染和异常勾稽串成自动化流程，替代重复手工搬数。",
     usersScene:
       "结算、运营和做日报台账的角色会用到。典型场景是按固定模板产出 B/C/D 表，并把异常项单独拉出来复核。",
-    goals:
-      "目标是缩短日结耗时并保持模板口径一致。约束是格式不能丢、规则不能漂移、异常必须可追溯。",
-    solution:
-      "用 pandas 清洗与勾稽规则做数据底座，再用 openpyxl 保持模板格式；取舍上先保证可复核和格式一致，再追求更高自动化深度。",
+    coreProblem:
+      "真正难点不是生成报表，而是既要保持模板格式不变，又要把多表清洗、规则勾稽和异常留痕串成一条可复核链路。",
     results: [
-      { label: "交付形态", value: "Python 自动化引擎" },
-      { label: "当前状态", value: "待部署" },
-      { label: "效率变化", value: "2 小时 → 10 分钟内" },
-      { label: "质量口径", value: "异常清单可追溯" },
-      { label: "结果说明", value: "人工统计约降 90%" },
+      { label: "结果 01", value: "把日结耗时压到 10 分钟内" },
+      { label: "结果 02", value: "让异常清单可追溯" },
+      { label: "结果 03", value: "保证模板口径稳定输出" },
       { label: "验证方式", value: "历史模板回放" },
     ],
     risks:

@@ -314,7 +314,7 @@ function fillFocusExport(card, data) {
   resultsSection.className = "focus-export-results";
   const resultsHeading = document.createElement("h4");
   resultsHeading.className = "focus-export-h";
-  resultsHeading.textContent = "结果卡";
+  resultsHeading.textContent = "结果与验证";
   resultsSection.append(resultsHeading, renderResultCard(recruiting.results || []));
   root.appendChild(resultsSection);
 
@@ -326,20 +326,16 @@ function fillFocusExport(card, data) {
   rightCol.className = "focus-export-col";
 
   leftCol.append(
-    buildFocusSection("背景", recruiting.background || data.detail.summary || ""),
-    buildFocusSection("用户与场景", recruiting.usersScene || f.problem || ""),
-    buildFocusSection("目标与约束", recruiting.goals || ""),
-    buildFocusSection(
-      "方案与取舍",
-      recruiting.solution || [f.flowSummary, f.productJudgment].filter(Boolean).join(" ")
-    )
+    buildFocusSection("业务背景", recruiting.background || data.detail.summary || ""),
+    buildFocusSection("谁在用 / 典型场景", recruiting.usersScene || ""),
+    buildFocusSection("核心问题", recruiting.coreProblem || f.problem || "")
   );
 
   rightCol.append(
     buildFocusSection("我的负责", f.ownership || ""),
+    buildFocusSection("关键产品判断", f.productJudgment || ""),
     buildPromptSection(pd),
     buildFocusSection("风险与未做", recruiting.risks || "待补充"),
-    buildFocusSection("复盘", recruiting.retro || "待补充"),
     buildExcerptSection(pd.excerpt || "")
   );
 

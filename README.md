@@ -1,6 +1,6 @@
 # port_folio
 
-郭伟南的个人作品集静态网站。
+郭伟南的 AI 产品经理作品集静态网站，聚焦真实业务场景中的规则抽象、 AI 工作流设计与产品落地。
 
 ## 在线访问
 
@@ -8,7 +8,7 @@
 
 ## 关于我
 
-我是郭伟南，专注于把创意变成易用、稳定且有质感的产品体验。
+我是郭伟南，专注于把复杂业务流程拆成能上线、能复用、能验证结果的 AI 工具。
 
 ### 教育背景
 
@@ -17,30 +17,33 @@
 
 ### 就业方向
 
-AI 产品经理 / Agent 应用 / 数据型工具 / Web 前端
+AI 产品经理 / AI 工作流 / Agent 应用 / 真实业务落地案例
 
 ## 主页布局
 
 桌面端采用 3:7 两列布局：
 
 - 左列（约 30%）：
-  - 上：个人情况（PORTFOLIO 主标题 + 一句话介绍）
-  - 下：教育背景 + 就业方向
-- 右列（约 70%）：Bento Box 网格 — 顶部三张 tall 卡片（薪资 · 资讯日报 · 汇率 Agent）并排，底部一张 wide 工作日历 + 一张 small 日报引擎
+  - 个人信息、目标岗位、联系方式
+- 右列（约 70%）：
+  - `Case Overview`：概括 3 类核心能力
+  - `精选项目`：主案例 `Work Calendar`
+  - `核心案例`：`Daily Digest` + `Money Distribute AI`
+  - `补充案例`：`Weather FX Agent` + `Daily Report Engine`
 
-窄屏自动堆叠为单列：个人 → 教育/就业 → 项目（按 01 → 05 编号顺序展示）。
+窄屏自动堆叠为单列：个人信息 → 案例概览 → 精选项目 → 核心案例 → 补充案例。
 
 ## 作品集
 
-按主页 Bento 视觉顺序（左→右、上→下）编号：
+按当前作品集对外展示顺序（从强主案例到补充案例）：
 
 | # | 项目 | 描述 | GitHub | 上线 |
 | --- | --- | --- | --- | --- |
-| 01 | 薪资分配策略工具（Money Distribute AI） | 贪心配钞、Excel 批量；典型场景压缩人工核对时间 | https://github.com/karma-taylor/money_classify | https://karma-taylor.github.io/money_classify/ |
-| 02 | HamHome Daily Digest | 多源资讯 + RAG 分桶摘要 + 定时邮件 | https://github.com/karma-taylor/Daily_digest | https://hamhome-digest-web.pages.dev/digest |
-| 03 | 汇率换算 Agent（weather-fx-agent） | 多银行参考、防呆纠偏、弱网可用 | https://github.com/karma-taylor/weather-fx-agent | https://karmacat-weather-fx-agent.hf.space |
-| 04 | 工作日历排班系统（Work Calendar） | 分段排班、冲突校验、Supabase 同步 | https://github.com/karma-taylor/work_calendar | https://work-calendar-52c.pages.dev |
-| 05 | 日报自动化生成引擎 | Python 自动化日报，结算效率提升约 90% | https://github.com/karma-taylor/Daily_report | 暂未上线 |
+| 01 | 工作日历排班系统（Work Calendar） | 复杂业务规则产品化；分段排班、冲突校验、状态恢复 | https://github.com/karma-taylor/work_calendar | https://work-calendar-52c.pages.dev |
+| 02 | HamHome Daily Digest | AI 工作流设计；多源信息加工为可订阅结构化日报 | https://github.com/karma-taylor/Daily_digest | https://hamhome-digest-web.pages.dev/digest |
+| 03 | 薪资分配策略工具（Money Distribute AI） | 高频规则型双端工具；批量配钞与导入导出可复核 | https://github.com/karma-taylor/money_classify | https://karma-taylor.github.io/money_classify/ |
+| 04 | 汇率换算 Agent（weather-fx-agent） | 结果可信度设计；多银行参考、防呆纠偏、弱网可用 | https://github.com/karma-taylor/weather-fx-agent | https://karmacat-weather-fx-agent.hf.space |
+| 05 | 日报自动化生成引擎 | 自动化效率提升；模板一致、异常可追溯 | https://github.com/karma-taylor/Daily_report | 暂未上线 |
 
 ## 项目结构
 
