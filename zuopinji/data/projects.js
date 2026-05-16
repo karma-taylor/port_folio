@@ -58,7 +58,7 @@ export const PROJECTS = [
     },
     detail: {
       heroTeaser:
-        "把 Excel 协调型排班，做成有规则约束的可上线系统。",
+        "把 Excel 协调型排班，产品化为可上线的规则系统。",
       focus: {
         tagline: "让“谁在哪段工期、有没有撞期”在保存前就被系统拦住，减少群里反复确认。",
         problem:
