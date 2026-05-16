@@ -431,6 +431,13 @@ body.overlay-open {
   letter-spacing: 0.02em;
 }
 
+.profile-proof {
+  margin: 0.5rem 0 0;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.62);
+}
+
 .profile-card-inner .bio-tags.profile-target-tags {
   margin: 0.55rem 0 0;
 }
@@ -819,6 +826,63 @@ body.overlay-open {
   display: flex;
   flex-direction: column;
   gap: 24px;
+}
+
+.projects-intro {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding: 1.1rem 1.2rem;
+  border: 1px solid var(--border-soft);
+  border-radius: 14px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.015)),
+    rgba(17, 18, 22, 0.72);
+  box-shadow: var(--shadow-soft);
+}
+
+.projects-intro__eyebrow {
+  margin: 0;
+  font-family: "JetBrains Mono", "Inter", monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.projects-intro__title {
+  margin: 0;
+  font-size: clamp(1.15rem, 2vw, 1.45rem);
+  line-height: 1.3;
+  color: var(--text-color);
+}
+
+.projects-intro__desc {
+  margin: 0;
+  max-width: 900px;
+  font-size: 0.92rem;
+  line-height: 1.72;
+  color: var(--muted-text);
+}
+
+.projects-intro__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.projects-intro__pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: 0.38rem 0.72rem;
+  border-radius: 999px;
+  background: rgba(94, 106, 210, 0.14);
+  border: 1px solid rgba(94, 106, 210, 0.26);
+  color: rgba(237, 240, 247, 0.9);
+  font-size: 0.8rem;
+  line-height: 1.4;
 }
 
 .projects-grid {
