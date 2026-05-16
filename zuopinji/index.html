@@ -193,20 +193,47 @@
 
         <div class="home-main">
           <section class="projects-section" id="projects" aria-label="项目展示">
-            <div class="projects-intro" aria-label="作品集说明">
-              <p class="projects-intro__eyebrow">Case Selection</p>
-              <h2 class="projects-intro__title">围绕目标岗位排序，而不是按时间罗列</h2>
-              <p class="projects-intro__desc">
-                当前作品集共收录 5 个项目，按“AI 产品思维 + 真实业务价值 + 可上线程度”排序展示。
-                其中前 3 个作为主案例重点展开，后 2 个作为补充案例展示我在业务自动化与轻量工具方向的延展能力。
-              </p>
-              <div class="projects-intro__meta">
-                <span class="projects-intro__pill">主案例：Work Calendar / Daily Digest / Money Distribute AI</span>
-                <span class="projects-intro__pill">补充案例：Weather FX Agent / Daily Report Engine</span>
+            <div class="projects-masthead" aria-label="案例概览">
+              <div class="projects-masthead__main">
+                <p class="projects-masthead__eyebrow">Case Overview</p>
+                <h2 class="projects-masthead__title">AI 产品与业务落地案例</h2>
+                <p class="projects-masthead__desc">
+                  重点展示我在 AI 工作流、业务自动化与 Agent 应用上的代表项目。
+                </p>
+              </div>
+              <div class="projects-masthead__meta">
+                <span class="projects-masthead__pill">头牌案例 1 个</span>
+                <span class="projects-masthead__pill">核心案例 2 个</span>
+                <span class="projects-masthead__pill">补充案例 2 个</span>
               </div>
             </div>
-            <div id="featuredHero" class="featured-hero"></div>
-            <div class="projects-grid projects-grid--rest" id="projectsGrid"></div>
+
+            <section class="projects-group projects-group--featured" aria-labelledby="featuredGroupTitle">
+              <div class="projects-group__header">
+                <p class="projects-group__eyebrow">Featured Case</p>
+                <h3 class="projects-group__title" id="featuredGroupTitle">头牌案例</h3>
+                <p class="projects-group__desc">最能代表我做复杂业务抽象、规则设计与真实落地能力的项目。</p>
+              </div>
+              <div id="featuredHero" class="featured-hero"></div>
+            </section>
+
+            <section class="projects-group" aria-labelledby="coreGroupTitle">
+              <div class="projects-group__header">
+                <p class="projects-group__eyebrow">Core Cases</p>
+                <h3 class="projects-group__title" id="coreGroupTitle">核心案例</h3>
+                <p class="projects-group__desc">继续展开我在 AI 工作流设计、规则型产品与双端落地上的能力。</p>
+              </div>
+              <div class="projects-grid projects-grid--core" id="coreProjectsGrid"></div>
+            </section>
+
+            <section class="projects-group" aria-labelledby="supportGroupTitle">
+              <div class="projects-group__header">
+                <p class="projects-group__eyebrow">Supporting Cases</p>
+                <h3 class="projects-group__title" id="supportGroupTitle">补充案例</h3>
+                <p class="projects-group__desc">补充我在工具细节打磨、自动化效率提升与不同业务场景中的延展能力。</p>
+              </div>
+              <div class="projects-grid projects-grid--support" id="supportProjectsGrid"></div>
+            </section>
           </section>
         </div>
       </div>

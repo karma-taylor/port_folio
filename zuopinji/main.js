@@ -161,15 +161,19 @@ applyRecruitingEnhancements(PROJECTS);
  * 渲染精选区 + 项目网格。
  */
 function renderProjects() {
-  const grid = document.getElementById("projectsGrid");
   const hero = document.getElementById("featuredHero");
-  if (!grid || !hero) {
-    console.warn("[main] #projectsGrid 或 #featuredHero 未找到，跳过项目渲染");
+  const coreGrid = document.getElementById("coreProjectsGrid");
+  const supportGrid = document.getElementById("supportProjectsGrid");
+  if (!hero || !coreGrid || !supportGrid) {
+    console.warn("[main] 项目分组挂载点缺失，跳过项目渲染");
     return;
   }
   const [featured, ...rest] = PROJECTS;
+  const coreCases = rest.slice(0, 2);
+  const supportCases = rest.slice(2);
   renderFeaturedProject(hero, featured);
-  renderAllProjects(rest, grid, { layout: "compact" });
+  renderAllProjects(coreCases, coreGrid, { layout: "compact" });
+  renderAllProjects(supportCases, supportGrid, { layout: "compact" });
 }
 
 /**
