@@ -8,21 +8,21 @@
  *   4. 同步刷新 SEO JSON-LD（用 PROJECTS 当唯一数据源）
  */
 
-import { PROJECTS, PROFILE } from "./data/projects.js?v=20260515-final-pass";
+import { PROJECTS, PROFILE } from "./data/projects.js?v=20260516-layout-fix";
 import {
   renderAllProjects,
   renderFeaturedProject,
-} from "./render/project-card.js?v=20260515-final-pass";
-import { runBootLoader } from "./interactions/boot-loader.js?v=20260515-final-pass";
-import { revealCards } from "./interactions/reveal.js?v=20260515-final-pass";
-import { setupScrollProgress } from "./interactions/scroll-progress.js?v=20260515-final-pass";
-import { setupMagneticTargets } from "./interactions/magnetic.js?v=20260515-final-pass";
-import { setupProjectFocusOverlay } from "./interactions/focus-overlay.js?v=20260515-final-pass";
-import { bindProjectCardDetailButtons } from "./interactions/project-card-actions.js?v=20260515-final-pass";
+} from "./render/project-card.js?v=20260516-layout-fix";
+import { runBootLoader } from "./interactions/boot-loader.js?v=20260516-layout-fix";
+import { revealCards } from "./interactions/reveal.js?v=20260516-layout-fix";
+import { setupScrollProgress } from "./interactions/scroll-progress.js?v=20260516-layout-fix";
+import { setupMagneticTargets } from "./interactions/magnetic.js?v=20260516-layout-fix";
+import { setupProjectFocusOverlay } from "./interactions/focus-overlay.js?v=20260516-layout-fix";
+import { bindProjectCardDetailButtons } from "./interactions/project-card-actions.js?v=20260516-layout-fix";
 import {
   buildPersonJsonLd,
   injectJsonLd,
-} from "./seo/structured-data.js?v=20260515-final-pass";
+} from "./seo/structured-data.js?v=20260516-layout-fix";
 
 const CONTACT_CTA = [
   { type: "resume", label: "简历 PDF", href: "./resume.pdf", download: "郭伟南-简历.pdf" },
