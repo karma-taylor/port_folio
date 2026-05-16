@@ -409,6 +409,7 @@ export function renderProjectCard(data, options = {}) {
   const layout = normalizeLayout(options);
 
   const card = cloneTemplate(CARD_TPL);
+  card.dataset.projectId = data.id;
   card.dataset.status = data.status;
   card.dataset.layout = layout;
   card.dataset.size = layout === "full" ? data.size : "uniform";
