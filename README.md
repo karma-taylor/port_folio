@@ -53,7 +53,7 @@ port_folio/
 ├─ README.md                 本文件
 ├─ ARCHITECTURE_GUIDE.md     架构指南（必读）
 ├─ zuopinji/                 作品集主站
-│  ├─ index.html             含 <head> meta + <template> 骨架 + #projectsGrid 挂载点 + <noscript>
+│  ├─ index.html             含 <head> meta + <template> 骨架 + featured/core/support 挂载点 + <noscript>
 │  ├─ styles.css             全部样式
 │  ├─ main.js                ES Module 入口
 │  ├─ data/projects.js       PROJECTS 数据中心（唯一权威）
