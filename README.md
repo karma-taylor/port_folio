@@ -39,7 +39,7 @@ AI 产品经理 / AI 工作流 / Agent 应用 / 真实业务落地案例
 
 | # | 项目 | 描述 | GitHub | 上线 |
 | --- | --- | --- | --- | --- |
-| 01 | 工作日历排班系统（Work Calendar） | 复杂业务规则产品化；分段排班、冲突校验、状态恢复 | https://github.com/karma-taylor/work_calendar | https://work-calendar-52c.pages.dev |
+| 01 | 工作日历协同系统（Work Calendar） | 复杂业务规则产品化；分段排期、冲突校验、状态恢复 | https://github.com/karma-taylor/work_calendar | https://work-calendar-52c.pages.dev |
 | 02 | HamHome Daily Digest | AI 工作流设计；多源信息加工为可订阅结构化日报 | https://github.com/karma-taylor/Daily_digest | https://hamhome-digest-web.pages.dev/digest |
 | 03 | 薪资分配策略工具（Money Distribute AI） | 高频规则型双端工具；批量配钞与导入导出可复核 | https://github.com/karma-taylor/money_classify | https://karma-taylor.github.io/money_classify/ |
 | 04 | 汇率换算 Agent（weather-fx-agent） | 结果可信度设计；多银行参考、防呆纠偏、弱网可用 | https://github.com/karma-taylor/weather-fx-agent | https://karmacat-weather-fx-agent.hf.space |

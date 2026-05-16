@@ -8,21 +8,21 @@
  *   4. 同步刷新 SEO JSON-LD（用 PROJECTS 当唯一数据源）
  */
 
-import { PROJECTS, PROFILE } from "./data/projects.js?v=20260516-product-wrap";
+import { PROJECTS, PROFILE } from "./data/projects.js?v=20260517-decivilize";
 import {
   renderAllProjects,
   renderFeaturedProject,
-} from "./render/project-card.js?v=20260516-product-wrap";
-import { runBootLoader } from "./interactions/boot-loader.js?v=20260516-product-wrap";
-import { revealCards } from "./interactions/reveal.js?v=20260516-product-wrap";
-import { setupScrollProgress } from "./interactions/scroll-progress.js?v=20260516-product-wrap";
-import { setupMagneticTargets } from "./interactions/magnetic.js?v=20260516-product-wrap";
-import { setupProjectFocusOverlay } from "./interactions/focus-overlay.js?v=20260516-product-wrap";
-import { bindProjectCardDetailButtons } from "./interactions/project-card-actions.js?v=20260516-product-wrap";
+} from "./render/project-card.js?v=20260517-decivilize";
+import { runBootLoader } from "./interactions/boot-loader.js?v=20260517-decivilize";
+import { revealCards } from "./interactions/reveal.js?v=20260517-decivilize";
+import { setupScrollProgress } from "./interactions/scroll-progress.js?v=20260517-decivilize";
+import { setupMagneticTargets } from "./interactions/magnetic.js?v=20260517-decivilize";
+import { setupProjectFocusOverlay } from "./interactions/focus-overlay.js?v=20260517-decivilize";
+import { bindProjectCardDetailButtons } from "./interactions/project-card-actions.js?v=20260517-decivilize";
 import {
   buildPersonJsonLd,
   injectJsonLd,
-} from "./seo/structured-data.js?v=20260516-product-wrap";
+} from "./seo/structured-data.js?v=20260517-decivilize";
 
 const CONTACT_CTA = [
   { type: "resume", label: "简历 PDF", href: "./resume.pdf", download: "郭伟南-简历.pdf" },
@@ -33,19 +33,19 @@ const CONTACT_CTA = [
 const CASE_ENHANCEMENTS = {
   calendar: {
     background:
-      "把原本依赖 Excel 和人工确认的排班流程，产品化为一个有规则约束、能真实落地的系统。",
+      "把原本依赖 Excel 和人工确认的协同排期流程，产品化为一个有规则约束、能真实落地的系统。",
     usersScene:
-      "施工排班、运维统筹与项目协同角色会同时使用。典型场景是跨周工单安排、多角色参与、临时调班与名单变更。",
+      "需要多人协同排期、资源分配与任务统筹的角色会同时使用。典型场景是跨周任务安排、多角色参与、临时调整与名单变更。",
     coreProblem:
-      "原来的问题不只是“排班麻烦”，而是人、工期、角色、分段参与和冲突规则交织在一起，人工对齐时间窗既低效又容易漏错。",
+      "原来的问题不只是“排期麻烦”，而是人员、时间窗、角色、分段参与和冲突规则交织在一起，人工对齐既低效又容易漏错。",
     results: [
       { label: "结果 01", value: "把分段冲突前置到保存前" },
-      { label: "结果 02", value: "让名单与工单状态跨设备恢复" },
-      { label: "结果 03", value: "用分段参与替代整单参与" },
+      { label: "结果 02", value: "让名单与任务状态跨设备恢复" },
+      { label: "结果 03", value: "用分段参与替代整段默认参与" },
       { label: "验证方式", value: "真实场景试跑" },
     ],
     risks:
-      "多人并发编辑与权限分层还可以继续细化；移动端体验和更复杂的排班规则尚未展开。",
+      "多人并发编辑与权限分层还可以继续细化；移动端体验和更复杂的排期规则尚未展开。",
     retro:
       "这类工具优先级最高的是正确性和可追溯，而不是编辑自由度。先锁定规则边界，后续再补效率优化会更稳。",
   },
