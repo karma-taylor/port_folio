@@ -359,29 +359,21 @@ function fillFocusExport(card, data) {
   resultsSection.append(resultsHeading, renderResultCard(recruiting.results || []));
   root.appendChild(resultsSection);
 
-  const grid = document.createElement("div");
-  grid.className = "focus-export-grid";
-  const leftCol = document.createElement("div");
-  leftCol.className = "focus-export-col";
-  const rightCol = document.createElement("div");
-  rightCol.className = "focus-export-col";
+  const flow = document.createElement("div");
+  flow.className = "focus-export-flow";
 
-  leftCol.append(
+  flow.append(
     buildFocusSection("业务背景", recruiting.background || data.detail.summary || ""),
     buildFocusSection("谁在用 / 典型场景", recruiting.usersScene || ""),
-    buildFocusSection("核心问题", recruiting.coreProblem || f.problem || "")
-  );
-
-  rightCol.append(
+    buildFocusSection("核心问题", recruiting.coreProblem || f.problem || ""),
     buildFocusSection("我的负责", f.ownership || ""),
     buildFocusSection("关键产品判断", f.productJudgment || ""),
-    buildPromptSection(pd),
     buildFocusSection("风险与未做", recruiting.risks || "待补充"),
+    buildPromptSection(pd),
     buildExcerptSection(pd.excerpt || "")
   );
 
-  grid.append(leftCol, rightCol);
-  root.appendChild(grid);
+  root.appendChild(flow);
 }
 
 function fillDetail(card, data) {
