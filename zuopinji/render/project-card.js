@@ -295,6 +295,42 @@ function buildExcerptSection(excerpt = "") {
   return section;
 }
 
+function buildCaseStudyHero(caseStudy = {}) {
+  const section = document.createElement("section");
+  section.className = "focus-case-hero";
+
+  const eyebrow = document.createElement("p");
+  eyebrow.className = "focus-case-hero__eyebrow";
+  eyebrow.textContent = caseStudy.eyebrow || "代表作拆解";
+
+  const title = document.createElement("h4");
+  title.className = "focus-case-hero__title";
+  title.textContent = caseStudy.title || "复杂规则系统产品化";
+
+  const intro = document.createElement("p");
+  intro.className = "focus-case-hero__intro";
+  intro.textContent = caseStudy.intro || "待补充";
+
+  section.append(eyebrow, title, intro);
+
+  const bullets = Array.isArray(caseStudy.bullets) ? caseStudy.bullets : [];
+  if (bullets.length) {
+    const list = document.createElement("ul");
+    list.className = "focus-case-hero__bullets";
+
+    bullets.forEach((item) => {
+      const li = document.createElement("li");
+      li.className = "focus-case-hero__bullet";
+      li.textContent = item;
+      list.appendChild(li);
+    });
+
+    section.appendChild(list);
+  }
+
+  return section;
+}
+
 function fillFocusExport(card, data) {
   const root = getSlot(card, "focus-export");
   if (!root || !data.detail?.focus) return;
@@ -302,8 +338,13 @@ function fillFocusExport(card, data) {
   const f = data.detail.focus;
   const pd = f.promptDesign || {};
   const recruiting = data.detail?.recruiting || {};
+  const caseStudy = data.detail?.caseStudy;
 
   root.replaceChildren();
+
+  if (caseStudy) {
+    root.appendChild(buildCaseStudyHero(caseStudy));
+  }
 
   const lede = document.createElement("p");
   lede.className = "focus-export-lede";

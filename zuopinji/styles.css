@@ -2017,6 +2017,59 @@ body.overlay-open {
   line-height: 1.55;
 }
 
+.focus-case-hero {
+  margin: 0 0 1rem;
+  padding: 1rem 1rem 1.05rem;
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02)),
+    radial-gradient(circle at 88% 16%, rgba(94, 106, 210, 0.14), transparent 30%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.focus-case-hero__eyebrow {
+  margin: 0 0 0.35rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.focus-case-hero__title {
+  margin: 0;
+  font-size: clamp(1.18rem, 2.2vw, 1.65rem);
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: var(--text-color);
+}
+
+.focus-case-hero__intro {
+  margin: 0.55rem 0 0;
+  font-size: 0.9rem;
+  line-height: 1.62;
+  color: rgba(255, 255, 255, 0.66);
+}
+
+.focus-case-hero__bullets {
+  margin: 0.8rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.focus-case-hero__bullet {
+  padding: 0.42rem 0.72rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.78rem;
+  line-height: 1.25;
+}
+
 .focus-export-results {
   margin: 0 0 0.95rem;
 }
@@ -2334,6 +2387,23 @@ body.overlay-open {
   .focus-export-grid {
     grid-template-columns: 1fr;
     gap: 0.2rem;
+  }
+
+  .focus-case-hero {
+    padding: 0.9rem 0.9rem 0.95rem;
+  }
+
+  .focus-case-hero__intro {
+    font-size: 0.86rem;
+  }
+
+  .focus-case-hero__bullets {
+    gap: 0.36rem;
+  }
+
+  .focus-case-hero__bullet {
+    font-size: 0.74rem;
+    padding: 0.34rem 0.62rem;
   }
 
   .focus-result-grid {
