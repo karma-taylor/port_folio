@@ -8,21 +8,21 @@
  *   4. 同步刷新 SEO JSON-LD（用 PROJECTS 当唯一数据源）
  */
 
-import { PROJECTS, PROFILE } from "./data/projects.js?v=20260517-decivilize";
+import { PROJECTS, PROFILE } from "./data/projects.js?v=20260517-hero-refine";
 import {
   renderAllProjects,
   renderFeaturedProject,
-} from "./render/project-card.js?v=20260517-decivilize";
-import { runBootLoader } from "./interactions/boot-loader.js?v=20260517-decivilize";
-import { revealCards } from "./interactions/reveal.js?v=20260517-decivilize";
-import { setupScrollProgress } from "./interactions/scroll-progress.js?v=20260517-decivilize";
-import { setupMagneticTargets } from "./interactions/magnetic.js?v=20260517-decivilize";
-import { setupProjectFocusOverlay } from "./interactions/focus-overlay.js?v=20260517-decivilize";
-import { bindProjectCardDetailButtons } from "./interactions/project-card-actions.js?v=20260517-decivilize";
+} from "./render/project-card.js?v=20260517-hero-refine";
+import { runBootLoader } from "./interactions/boot-loader.js?v=20260517-hero-refine";
+import { revealCards } from "./interactions/reveal.js?v=20260517-hero-refine";
+import { setupScrollProgress } from "./interactions/scroll-progress.js?v=20260517-hero-refine";
+import { setupMagneticTargets } from "./interactions/magnetic.js?v=20260517-hero-refine";
+import { setupProjectFocusOverlay } from "./interactions/focus-overlay.js?v=20260517-hero-refine";
+import { bindProjectCardDetailButtons } from "./interactions/project-card-actions.js?v=20260517-hero-refine";
 import {
   buildPersonJsonLd,
   injectJsonLd,
-} from "./seo/structured-data.js?v=20260517-decivilize";
+} from "./seo/structured-data.js?v=20260517-hero-refine";
 
 const CONTACT_CTA = [
   { type: "resume", label: "简历 PDF", href: "./resume.pdf", download: "郭伟南-简历.pdf" },

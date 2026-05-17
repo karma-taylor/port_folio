@@ -19,8 +19,9 @@ export const PROJECTS = [
     title: "工作日历协同系统（Work Calendar）",
     titleLong: "工作日历协同系统（Work Calendar）",
     outcomes: [
-      "把分段冲突前置到保存前，减少任务撞期与反复沟通",
-      "让名单与任务状态跨设备恢复，降低换电脑或清缓存带来的中断",
+      "冲突在保存前暴露",
+      "任务状态跨设备恢复",
+      "分段参与替代整段默认参与",
     ],
     cover: {
       src: "./calendar-cover.jpg",
@@ -58,7 +59,7 @@ export const PROJECTS = [
     },
     detail: {
       heroTeaser:
-        "把 Excel 协调型排期，产品化为可上线的规则系统。",
+        "把 Excel 协调型排期，做成可验证、可协同、可上线的规则系统。",
       focus: {
         tagline: "让“谁在什么时间参与、有没有撞期”在保存前就被系统拦住，减少反复确认。",
         problem:

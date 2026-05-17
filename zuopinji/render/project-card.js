@@ -455,6 +455,22 @@ export function renderFeaturedProject(mountEl, data) {
     inner.appendChild(p);
   }
 
+  const heroHighlights = (data.outcomes || []).slice(0, 3);
+  if (heroHighlights.length) {
+    const list = document.createElement("ul");
+    list.className = "featured-hero__highlights";
+    list.setAttribute("aria-label", `${data.title} 代表作结果`);
+
+    heroHighlights.forEach((item) => {
+      const li = document.createElement("li");
+      li.className = "featured-hero__highlight";
+      li.textContent = item;
+      list.appendChild(li);
+    });
+
+    inner.appendChild(list);
+  }
+
   inner.appendChild(renderProjectCard(data, { layout: "hero" }));
   mountEl.appendChild(inner);
   mountEl.setAttribute("aria-labelledby", "featured-hero-label");
