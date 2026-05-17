@@ -59,7 +59,7 @@ export const PROJECTS = [
     },
     detail: {
       heroTeaser:
-        "把 Excel 协调型排期，做成可验证、可协同、可上线的规则系统。",
+        "把 Excel 协调型排期，产品化为可上线的规则系统。",
       focus: {
         tagline: "让“谁在什么时间参与、有没有撞期”在保存前就被系统拦住，减少反复确认。",
         problem:

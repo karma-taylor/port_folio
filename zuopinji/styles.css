@@ -859,7 +859,7 @@ body.overlay-open {
 
 .projects-masthead__title {
   margin: 0;
-  max-width: 10ch;
+  max-width: 12ch;
   font-size: clamp(2.25rem, 5vw, 4rem);
   line-height: 1.02;
   letter-spacing: -0.05em;
@@ -2404,8 +2404,8 @@ body.overlay-open {
 
 .featured-hero__teaser {
   margin: -0.25rem 0 0.2rem;
-  max-width: 36ch;
-  font-size: 1.12rem;
+  max-width: 28ch;
+  font-size: 1.08rem;
   line-height: 1.42;
   letter-spacing: -0.02em;
   color: rgba(255, 255, 255, 0.92);
@@ -2740,6 +2740,7 @@ body.overlay-open {
   }
 
   .projects-masthead__title {
+    max-width: none;
     font-size: 1.22rem;
   }
 
