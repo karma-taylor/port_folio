@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0B0C0E" />
-    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#E9EDF2" />
+    <meta name="color-scheme" content="light" />
     <title>郭伟南 · AI 产品经理作品集</title>
     <meta name="description" content="郭伟南的 AI 产品经理作品集，聚焦真实业务场景中的规则抽象、AI 工作流设计与产品落地，包含工作日历协同、HamHome 资讯日报、薪资分配策略、汇率换算 Agent 与日报自动化案例。" />
 
@@ -23,10 +23,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles.css?v=20260517-case-study" />
+    <link rel="stylesheet" href="./redesign.css?v=20260623-product-file" />
 
     <script>
       (function () {
@@ -106,6 +107,7 @@
         <div class="home-left">
           <aside class="profile-card">
             <div class="profile-card-inner">
+              <p class="profile-kicker">Product file / 2026</p>
               <div class="profile-avatar" role="img" aria-label="郭伟南的头像"></div>
               <h1 class="profile-name">郭伟南</h1>
               <p class="profile-role">AI 产品经理 · AI 工作流 / Agent 应用</p>
@@ -195,18 +197,41 @@
           <section class="projects-section" id="projects" aria-label="项目展示">
             <div class="projects-masthead" aria-label="案例概览">
               <div class="projects-masthead__main">
-                <p class="projects-masthead__eyebrow">Case Overview</p>
-                <h2 class="projects-masthead__title">AI 产品与业务落地案例</h2>
+                <p class="projects-masthead__eyebrow">AI Product Portfolio · 2026</p>
+                <h2 class="projects-masthead__title">把业务规则，做成真正有人使用的 AI 产品。</h2>
                 <p class="projects-masthead__desc">
-                  我重点展示 3 类能力：复杂业务规则产品化、AI 工作流设计、自动化效率提升。
+                  从问题拆解、规则建模到上线验证。这里记录的不是概念 Demo，而是我如何在真实约束下做判断、交付产品并复盘结果。
                 </p>
               </div>
               <div class="projects-masthead__meta">
-                <span class="projects-masthead__pill">复杂业务产品化</span>
-                <span class="projects-masthead__pill">AI 工作流设计</span>
-                <span class="projects-masthead__pill">自动化效率提升</span>
+                <span class="projects-masthead__pill">05 个案例</span>
+                <span class="projects-masthead__pill">产品 / Agent / 自动化</span>
               </div>
             </div>
+
+            <section class="evidence-rail" aria-labelledby="evidenceRailTitle">
+              <div class="evidence-rail__intro">
+                <p class="evidence-rail__eyebrow">Verification log</p>
+                <h3 id="evidenceRailTitle">三个能力轴，一组可复核证据</h3>
+              </div>
+              <div class="evidence-rail__items">
+                <article class="evidence-item">
+                  <span class="evidence-item__code">RULE</span>
+                  <strong>复杂规则产品化</strong>
+                  <p>把多人排期与分段参与规则前置为保存校验。</p>
+                </article>
+                <article class="evidence-item">
+                  <span class="evidence-item__code">AGENT</span>
+                  <strong>AI 工作流设计</strong>
+                  <p>让检索、摘要、换算结果可解释、可回退、可复核。</p>
+                </article>
+                <article class="evidence-item">
+                  <span class="evidence-item__code">AUTO</span>
+                  <strong>自动化效率提升</strong>
+                  <p>企业日结由约 2 小时压缩至 10 分钟内。</p>
+                </article>
+              </div>
+            </section>
 
             <section class="projects-group projects-group--featured" aria-label="精选项目">
               <div id="featuredHero" class="featured-hero"></div>
