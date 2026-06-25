@@ -120,7 +120,31 @@ function fillLede(card, data, layout) {
 function fillCardActions(card, data, layout) {
   const wrap = getSlot(card, "card-actions");
   if (!wrap) return;
-  wrap.setAttribute("hidden", "");
+  wrap.replaceChildren();
+
+  if (layout === "full") {
+    wrap.setAttribute("hidden", "");
+    return;
+  }
+
+  const detailButton = document.createElement("button");
+  detailButton.className = "project-action project-action--detail";
+  detailButton.type = "button";
+  detailButton.textContent = "查看案例";
+  wrap.appendChild(detailButton);
+
+  const live = sortDetailLinks(data.detail?.links || []).find((link) => link.type === "live");
+  if (live) {
+    const liveLink = document.createElement("a");
+    liveLink.className = "project-action project-action--demo";
+    liveLink.href = live.href;
+    liveLink.target = "_blank";
+    liveLink.rel = "noopener noreferrer";
+    liveLink.textContent = "访问上线版本";
+    wrap.appendChild(liveLink);
+  }
+
+  wrap.removeAttribute("hidden");
 }
 
 function fillOutcomes(card, data, layout) {
@@ -139,7 +163,7 @@ function fillTech(card, data, layout) {
   if (layout !== "full") {
     const aiTechs = techs.filter((t) => t.type === "ai");
     const otherTechs = techs.filter((t) => t.type !== "ai");
-    techs = [...aiTechs, ...otherTechs].slice(0, 4);
+    techs = [...aiTechs, ...otherTechs].slice(0, 3);
   }
 
   techs.forEach((t) => {

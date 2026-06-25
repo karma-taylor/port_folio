@@ -24,8 +24,8 @@ export const PROJECTS = [
       "分段参与替代整段默认参与",
     ],
     cover: {
-      src: "./calendar-cover.jpg",
-      version: "20260512-darkcal",
+      src: "./calendar-cover-auto.png",
+      version: "20260625-live-capture",
       alt: "工作日历协同系统（Work Calendar）项目展示图",
     },
     hoverValue:
@@ -123,7 +123,8 @@ export const PROJECTS = [
       "让结构化摘要可直接复用到邮件模板与前端页面",
     ],
     cover: {
-      src: "./digest-cover.png",
+      src: "./digest-cover-auto.png",
+      version: "20260625-live-capture",
       alt: "HamHome Daily Digest 项目展示图",
     },
     hoverValue:
@@ -209,8 +210,8 @@ export const PROJECTS = [
       "让网页端与小程序端共用同一拆分口径，导入导出结果可复核",
     ],
     cover: {
-      src: "./money-cover.png",
-      version: "20260512-darkmoney",
+      src: "./money-cover-auto.png",
+      version: "20260625-live-capture",
       alt: "基于逻辑算法的薪资分配策略工具项目展示图",
     },
     hoverValue:
@@ -295,7 +296,8 @@ export const PROJECTS = [
       "弱网 / 缓存降级策略，柜台与出差场景仍可快速出数",
     ],
     cover: {
-      src: "./fx-cover.jpg",
+      src: "./fx-cover-auto.png",
+      version: "20260625-live-capture",
       version: "20260512-darkfx",
       alt: "weather-fx-agent 项目展示图",
     },
