@@ -1296,8 +1296,9 @@ body::before {
 .project-card-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 8px;
+  column-gap: 18px;
+  row-gap: 12px;
+  margin-top: 14px;
 }
 
 .project-card-actions[hidden] {
@@ -1307,8 +1308,10 @@ body::before {
 .project-action {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   min-height: 38px;
-  padding: 0 14px;
+  min-width: 124px;
+  padding: 0 18px;
   color: var(--showroom-ink);
   font: 700 0.78rem/1 "IBM Plex Sans", "Noto Sans SC", system-ui, sans-serif;
   letter-spacing: 0.02em;
@@ -1322,6 +1325,13 @@ body::before {
     background 0.18s ease,
     border-color 0.18s ease,
     transform 0.18s ease;
+}
+
+.project-action--detail {
+  color: #fff;
+  background: var(--showroom-ink);
+  border-color: var(--showroom-ink);
+  box-shadow: 0 10px 24px rgba(16, 28, 45, 0.12);
 }
 
 .project-action--detail::after {
@@ -1340,6 +1350,15 @@ body::before {
 
 .project-action--demo {
   color: var(--showroom-blue);
+  background: #fff;
+  border-color: rgba(49, 92, 255, 0.18);
+}
+
+.project-action--demo:hover,
+.project-action--demo:focus-visible {
+  color: #fff;
+  background: var(--showroom-blue);
+  border-color: var(--showroom-blue);
 }
 
 .project-card[data-project-id="calendar"] .project-cover img,
@@ -1525,10 +1544,12 @@ body::before {
 
   .project-card-actions {
     width: 100%;
+    column-gap: 12px;
+    row-gap: 10px;
   }
 
   .project-action {
-    flex: 1 1 auto;
+    flex: 1 1 145px;
     justify-content: center;
   }
 }
