@@ -27,7 +27,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles.css?v=20260517-case-study" />
-    <link rel="stylesheet" href="./redesign.css?v=20260627-avatar-nav-glow" />
+    <link rel="stylesheet" href="./redesign.css?v=20260627-centered-capsule-svg" />
 
     <script>
       (function () {
@@ -108,10 +108,10 @@
         <span class="os-mark__text">Karma Taylor</span>
       </a>
       <nav class="os-nav" aria-label="主导航">
-        <a href="#projects">作品</a>
-        <a href="#about">关于</a>
-        <a class="os-nav__extra" href="https://github.com/karma-taylor" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a class="os-nav__extra" href="./resume.pdf" download="郭伟南-简历.pdf">简历</a>
+        <a class="os-nav__item os-nav__side os-nav__side--left" href="https://github.com/karma-taylor" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a class="os-nav__item os-nav__primary" href="#projects">作品</a>
+        <a class="os-nav__item os-nav__side os-nav__side--right" href="#about">关于</a>
+        <a class="os-nav__item os-nav__side os-nav__side--right" href="./resume.pdf" download="郭伟南-简历.pdf">简历</a>
       </nav>
       <div class="os-status" aria-label="当前状态">
         <span>AI PM</span>
@@ -262,19 +262,76 @@
                     <span>AI PM</span>
                     <strong>ship rules<br />as products</strong>
                   </div>
-                  <div class="pm-person" data-workbench-person>
-                    <div class="pm-person__body">
-                      <span class="pm-person__arm pm-person__arm--left"></span>
-                      <span class="pm-person__arm pm-person__arm--right"></span>
-                    </div>
-                    <div class="pm-person__head" data-workbench-head>
-                      <span class="pm-person__hair"></span>
-                      <span class="pm-person__eye pm-person__eye--left"></span>
-                      <span class="pm-person__eye pm-person__eye--right"></span>
-                      <span class="pm-person__mouth"></span>
-                    </div>
-                    <span class="pm-person__neck"></span>
-                  </div>
+                  <svg class="pm-avatar" data-workbench-person viewBox="0 0 260 280" role="img" aria-label="坐在椅子上使用电脑的 AI 产品经理插画">
+                    <defs>
+                      <linearGradient id="avatarSkin" x1="0" x2="1" y1="0" y2="1">
+                        <stop offset="0" stop-color="#f0ad82" />
+                        <stop offset="1" stop-color="#bd6e54" />
+                      </linearGradient>
+                      <linearGradient id="avatarJacket" x1="0" x2="1" y1="0" y2="1">
+                        <stop offset="0" stop-color="#16a085" />
+                        <stop offset="0.52" stop-color="#0d6f65" />
+                        <stop offset="1" stop-color="#073b37" />
+                      </linearGradient>
+                      <linearGradient id="avatarLaptop" x1="0" x2="1" y1="0" y2="1">
+                        <stop offset="0" stop-color="#d9e2ef" />
+                        <stop offset="1" stop-color="#6c7a8c" />
+                      </linearGradient>
+                      <linearGradient id="avatarChair" x1="0" x2="1" y1="0" y2="1">
+                        <stop offset="0" stop-color="#263042" />
+                        <stop offset="1" stop-color="#111722" />
+                      </linearGradient>
+                    </defs>
+
+                    <g class="pm-avatar__chair">
+                      <path d="M76 116c0-35 25-60 55-60s55 25 55 60v74H76v-74Z" />
+                      <rect x="66" y="181" width="130" height="54" rx="28" />
+                      <path d="M108 225h10l-8 42H92l16-42Zm44 0h10l20 42h-19l-11-42Z" />
+                    </g>
+
+                    <g class="pm-avatar__legs">
+                      <path d="M93 206c20 3 36 3 52 0l-11 38H99l-6-38Z" />
+                      <path d="M143 207c15 2 28 2 42-1l10 38h-35l-17-37Z" />
+                    </g>
+
+                    <g class="pm-avatar__body">
+                      <path class="pm-avatar__torso" d="M76 126c12-21 31-31 55-31s43 10 55 31l11 72c-42 18-88 18-130 0l9-72Z" />
+                      <path class="pm-avatar__collar" d="M112 101h38l-19 28-19-28Z" />
+                      <path class="pm-avatar__accent" d="M102 124c17 14 41 15 59 0" />
+                    </g>
+
+                    <g class="pm-avatar__arms">
+                      <path d="M81 143c-24 8-37 22-38 41 0 8 7 13 15 10l42-20-19-31Z" />
+                      <path d="M178 143c24 8 38 22 39 41 0 8-7 13-15 10l-43-20 19-31Z" />
+                    </g>
+
+                    <g class="pm-avatar__laptop">
+                      <path d="M65 158h130c7 0 13 5 14 12l12 58H52l11-58c1-7 7-12 14-12Z" />
+                      <path d="M46 227h181c5 0 8 4 6 9l-2 7H42l-2-7c-2-5 1-9 6-9Z" />
+                      <circle cx="137" cy="193" r="6" />
+                    </g>
+
+                    <g class="pm-avatar__neck">
+                      <path d="M116 88h29v31c0 9-6 15-15 15s-14-6-14-15V88Z" />
+                    </g>
+
+                    <g class="pm-avatar__head" data-workbench-head>
+                      <path class="pm-avatar__face" d="M91 58c0-28 18-47 43-47 26 0 44 19 44 47v14c0 26-18 45-44 45-25 0-43-19-43-45V58Z" />
+                      <path class="pm-avatar__ear pm-avatar__ear--left" d="M86 65c-8-1-14 5-13 15 1 9 7 15 15 13l2-28Z" />
+                      <path class="pm-avatar__ear pm-avatar__ear--right" d="M180 65c8-1 14 5 13 15-1 9-7 15-15 13l-2-28Z" />
+                      <g class="pm-avatar__hair">
+                        <path d="M92 54c4-31 23-47 49-47 18 0 31 7 39 21-20-3-34 2-41 16-8 17-23 24-47 10Z" />
+                        <path class="pm-avatar__hair-accent" d="M117 9c16-8 34-7 48 4-23 3-39 12-48 27V9Z" />
+                        <path d="M166 33c14 9 17 24 12 43-4-13-10-21-20-25l8-18Z" />
+                      </g>
+                      <g class="pm-avatar__eyes">
+                        <circle cx="117" cy="70" r="4" />
+                        <circle cx="151" cy="70" r="4" />
+                      </g>
+                      <path class="pm-avatar__nose" d="M135 75c-2 8-1 13 5 15" />
+                      <path class="pm-avatar__mouth" d="M121 95c8 7 19 7 27 0" />
+                    </g>
+                  </svg>
                   <div class="pm-desk__surface"></div>
                 </div>
               </div>
@@ -531,6 +588,6 @@
       </section>
     </noscript>
 
-    <script type="module" src="./main.js?v=20260627-avatar-nav-glow"></script>
+    <script type="module" src="./main.js?v=20260627-centered-capsule-svg"></script>
   </body>
 </html>

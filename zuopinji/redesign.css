@@ -3480,3 +3480,306 @@ body::after,
     transition: none !important;
   }
 }
+
+/* 2026-06-27 centered single-item capsule + seated SVG avatar pass */
+
+.os-topbar {
+  grid-template-columns: 1fr auto 1fr;
+}
+
+.os-nav {
+  justify-self: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  width: 112px;
+  min-width: 112px;
+  max-width: min(430px, calc(100vw - 32px));
+  padding-inline: 6px;
+  overflow: visible;
+  transform: none;
+  transition:
+    width 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    min-width 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    padding 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.24s ease,
+    background 0.24s ease,
+    box-shadow 0.24s ease;
+}
+
+.os-topbar:hover .os-nav,
+.os-nav:hover,
+.os-nav:focus-within {
+  width: 430px;
+  min-width: 430px;
+  padding-inline: 10px;
+  transform: none;
+}
+
+.os-nav::after {
+  inset: -16px -20px;
+  transform: scaleX(0.72);
+}
+
+.os-topbar:hover .os-nav::after,
+.os-nav:hover::after,
+.os-nav:focus-within::after {
+  transform: scaleX(1);
+}
+
+.os-nav__item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 34px;
+  min-width: 0;
+  padding: 0;
+  color: var(--os-muted);
+  font: 800 0.9rem/1 "IBM Plex Mono", ui-monospace, monospace;
+  letter-spacing: -0.03em;
+  text-decoration: none;
+  border-radius: 999px;
+  white-space: nowrap;
+  transition:
+    max-width 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    padding 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.22s ease,
+    transform 0.42s cubic-bezier(0.16, 1, 0.3, 1),
+    color 0.22s ease,
+    background 0.22s ease;
+}
+
+.os-nav__primary {
+  max-width: 86px;
+  padding-inline: 26px;
+  color: rgba(245, 245, 247, 0.74);
+}
+
+.os-nav__side {
+  max-width: 0;
+  opacity: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.os-nav__side--left {
+  transform: translateX(20px) scale(0.92);
+}
+
+.os-nav__side--right {
+  transform: translateX(-20px) scale(0.92);
+}
+
+.os-topbar:hover .os-nav__side,
+.os-nav:hover .os-nav__side,
+.os-nav:focus-within .os-nav__side {
+  max-width: 106px;
+  padding-inline: 18px;
+  opacity: 1;
+  transform: translateX(0) scale(1);
+  pointer-events: auto;
+}
+
+.os-nav__item:hover,
+.os-nav__item:focus-visible {
+  color: var(--os-strong);
+  background: rgba(255, 255, 255, 0.08);
+  outline: none;
+}
+
+.pm-desk {
+  width: min(500px, 60vw);
+  height: 258px;
+}
+
+.pm-desk__monitor {
+  left: 64%;
+  top: 10px;
+  width: 190px;
+  height: 102px;
+  display: none;
+}
+
+.pm-desk__monitor strong {
+  font-size: 1.02rem;
+}
+
+.pm-avatar {
+  --head-rotate-x: 0deg;
+  --head-rotate-y: 0deg;
+  --head-shift-x: 0px;
+  --face-shift-x: 0px;
+  --eye-shift-x: 0px;
+  position: absolute;
+  z-index: 5;
+  left: 47%;
+  bottom: 15px;
+  width: 238px;
+  height: auto;
+  overflow: visible;
+  filter: drop-shadow(0 24px 34px rgba(0, 0, 0, 0.32));
+  transform: translateX(-50%);
+}
+
+.pm-avatar__chair path,
+.pm-avatar__chair rect {
+  fill: url("#avatarChair");
+}
+
+.pm-avatar__legs path {
+  fill: #151b27;
+}
+
+.pm-avatar__torso {
+  fill: url("#avatarJacket");
+}
+
+.pm-avatar__collar {
+  fill: #0b121b;
+}
+
+.pm-avatar__accent {
+  fill: none;
+  stroke: rgba(108, 255, 213, 0.32);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.pm-avatar__arms path,
+.pm-avatar__neck path,
+.pm-avatar__face,
+.pm-avatar__ear {
+  fill: url("#avatarSkin");
+}
+
+.pm-avatar__laptop path:first-child {
+  fill: url("#avatarLaptop");
+}
+
+.pm-avatar__laptop path:nth-child(2) {
+  fill: #c7d1df;
+}
+
+.pm-avatar__laptop circle {
+  fill: rgba(15, 23, 42, 0.34);
+}
+
+.pm-avatar__head {
+  transform-box: fill-box;
+  transform-origin: 50% 72%;
+  transform:
+    translateX(var(--head-shift-x))
+    rotateX(var(--head-rotate-x))
+    rotateY(var(--head-rotate-y))
+    rotateZ(calc(var(--head-rotate-y) * -0.16));
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.pm-avatar__hair path {
+  fill: #151d29;
+}
+
+.pm-avatar__hair .pm-avatar__hair-accent {
+  fill: #42e6c2;
+  opacity: 0.82;
+}
+
+.pm-avatar__eyes {
+  fill: #0b0d12;
+  transform: translateX(var(--eye-shift-x));
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pm-avatar__nose,
+.pm-avatar__mouth {
+  fill: none;
+  stroke: rgba(78, 32, 25, 0.62);
+  stroke-width: 3;
+  stroke-linecap: round;
+  transform: translateX(var(--face-shift-x));
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (max-width: 980px) {
+  .os-topbar {
+    grid-template-columns: 1fr auto 1fr;
+  }
+
+  .os-nav {
+    justify-self: center;
+  }
+
+  .os-topbar:hover .os-nav,
+  .os-nav:hover,
+  .os-nav:focus-within {
+    width: min(430px, calc(100vw - 34px));
+    min-width: min(430px, calc(100vw - 34px));
+  }
+
+  .pm-desk {
+    width: min(440px, 80vw);
+  }
+
+  .pm-avatar {
+    width: 220px;
+  }
+}
+
+@media (max-width: 640px) {
+  .os-nav {
+    width: 100px !important;
+    min-width: 100px;
+  }
+
+  .os-topbar:hover .os-nav,
+  .os-nav:hover,
+  .os-nav:focus-within {
+    width: calc(100vw - 28px) !important;
+    min-width: 0;
+    transform: none;
+  }
+
+  .os-topbar:hover .os-nav__side,
+  .os-nav:hover .os-nav__side,
+  .os-nav:focus-within .os-nav__side {
+    max-width: 88px;
+    padding-inline: 10px;
+  }
+
+  .os-nav__primary {
+    padding-inline: 24px;
+  }
+
+  .pm-desk {
+    width: min(370px, 90vw);
+    height: 240px;
+  }
+
+  .pm-desk__monitor {
+    left: 65%;
+    width: 160px;
+    height: 92px;
+  }
+
+  .pm-avatar {
+    left: 46%;
+    bottom: 18px;
+    width: 198px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .os-nav,
+  .os-nav__item,
+  .os-nav::before,
+  .os-nav::after,
+  .pm-avatar__head,
+  .pm-avatar__eyes,
+  .pm-avatar__nose,
+  .pm-avatar__mouth {
+    animation: none !important;
+    transition: none !important;
+  }
+}
