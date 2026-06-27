@@ -27,7 +27,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles.css?v=20260517-case-study" />
-    <link rel="stylesheet" href="./redesign.css?v=20260627-hero-toolbar" />
+    <link rel="stylesheet" href="./redesign.css?v=20260627-about-profile" />
 
     <script>
       (function () {
@@ -110,7 +110,6 @@
       <nav class="os-nav" aria-label="主导航">
         <a href="#projects">作品</a>
         <a href="#about">关于</a>
-        <a href="#experiments">实验</a>
         <a class="os-nav__extra" href="https://github.com/karma-taylor" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a class="os-nav__extra" href="./resume.pdf" download="郭伟南-简历.pdf">简历</a>
       </nav>
@@ -122,7 +121,7 @@
     <main class="page-shell" id="home">
       <div class="home-layout">
         <div class="home-left">
-          <aside class="profile-card" id="about">
+          <aside class="profile-card" id="legacyAbout">
             <div class="profile-card-inner">
               <p class="profile-kicker">Product file / 2026</p>
               <div class="profile-avatar" role="img" aria-label="郭伟南的头像"></div>
@@ -243,6 +242,47 @@
                 <span class="projects-masthead__pill">产品 / Agent / 自动化</span>
               </div>
             </div>
+
+            <section class="about-panel" id="about" aria-labelledby="aboutTitle">
+              <div class="about-panel__intro">
+                <p class="about-panel__eyebrow">ABOUT / PROFILE</p>
+                <h3 id="aboutTitle">我在做什么</h3>
+                <p>
+                  我是郭伟南，方向是 AI 产品经理 / Agent 产品经理。比起只做概念 Demo，我更关注怎样把真实业务里的规则、流程和约束转译成可上线、可验证、可复用的 AI 产品。
+                </p>
+              </div>
+              <dl class="about-facts" aria-label="个人情况">
+                <div>
+                  <dt>本科</dt>
+                  <dd>燕山大学 · 2018–2022</dd>
+                </div>
+                <div>
+                  <dt>硕士</dt>
+                  <dd>重庆大学 · 2022–2025</dd>
+                </div>
+                <div>
+                  <dt>目标方向</dt>
+                  <dd>AI 产品经理 / Agent 产品经理 / 数据产品经理</dd>
+                </div>
+              </dl>
+              <div class="about-strengths" aria-label="个人长处">
+                <article>
+                  <span>01</span>
+                  <strong>规则抽象</strong>
+                  <p>能把排期、分配、校验、检索这类复杂业务约束拆成系统可执行的判断链路。</p>
+                </article>
+                <article>
+                  <span>02</span>
+                  <strong>AI 工作流设计</strong>
+                  <p>关注可复核、可回退、可解释的 Agent / 自动化流程，而不是一次性输出。</p>
+                </article>
+                <article>
+                  <span>03</span>
+                  <strong>上线交付意识</strong>
+                  <p>习惯用真实链接、验收路径和结果复盘来证明产品，而不是只停留在原型层。</p>
+                </article>
+              </div>
+            </section>
 
             <section class="evidence-rail" aria-labelledby="evidenceRailTitle">
               <div class="evidence-rail__intro">
