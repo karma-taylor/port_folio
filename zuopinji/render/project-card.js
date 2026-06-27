@@ -152,6 +152,30 @@ function fillOutcomes(card, data, layout) {
   const list = getSlot(card, "outcomes-list");
   if (!list) return;
   list.replaceChildren();
+
+  const outcomes = Array.isArray(data.outcomes) ? data.outcomes.slice(0, 3) : [];
+  if (layout !== "hero" || outcomes.length === 0) {
+    list.setAttribute("hidden", "");
+    return;
+  }
+
+  outcomes.forEach((text, index) => {
+    const li = document.createElement("li");
+    li.className = "project-outcome";
+
+    const idx = document.createElement("span");
+    idx.className = "project-outcome__idx";
+    idx.textContent = String(index + 1).padStart(2, "0");
+
+    const label = document.createElement("span");
+    label.className = "project-outcome__text";
+    label.textContent = text;
+
+    li.append(idx, label);
+    list.appendChild(li);
+  });
+
+  list.removeAttribute("hidden");
 }
 
 function fillTech(card, data, layout) {
