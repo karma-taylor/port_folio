@@ -27,7 +27,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles.css?v=20260517-case-study" />
-    <link rel="stylesheet" href="./redesign.css?v=20260626-cta-spacing" />
+    <link rel="stylesheet" href="./redesign.css?v=20260627-williamle-os" />
 
     <script>
       (function () {
@@ -102,10 +102,25 @@
     <div class="scroll-progress" aria-hidden="true">
       <div class="scroll-progress__bar"></div>
     </div>
+    <header class="os-topbar" aria-label="作品集导航">
+      <a class="os-mark" href="#home" aria-label="回到首页">
+        <span class="os-mark__glyph" aria-hidden="true">K</span>
+        <span class="os-mark__text">Karma Taylor</span>
+      </a>
+      <nav class="os-nav" aria-label="主导航">
+        <a href="#projects">作品</a>
+        <a href="#about">关于</a>
+        <a href="#experiments">实验</a>
+      </nav>
+      <div class="os-status" aria-label="当前状态">
+        <span>AI PM</span>
+        <span>2026</span>
+      </div>
+    </header>
     <main class="page-shell" id="home">
       <div class="home-layout">
         <div class="home-left">
-          <aside class="profile-card">
+          <aside class="profile-card" id="about">
             <div class="profile-card-inner">
               <p class="profile-kicker">Product file / 2026</p>
               <div class="profile-avatar" role="img" aria-label="郭伟南的头像"></div>
@@ -246,7 +261,7 @@
               <div class="projects-grid projects-grid--core" id="coreProjectsGrid"></div>
             </section>
 
-            <section class="projects-group" aria-labelledby="supportGroupTitle">
+            <section class="projects-group" id="experiments" aria-labelledby="supportGroupTitle">
               <div class="projects-group__header">
                 <p class="projects-group__eyebrow">Supporting Cases</p>
                 <h3 class="projects-group__title" id="supportGroupTitle">补充案例</h3>

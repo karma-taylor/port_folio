@@ -90,16 +90,17 @@ function fillMeta(card, data, layout) {
     setSlotText(card, "status-label", data.statusLabel);
   } else {
     if (indexEl) {
-      indexEl.textContent = "";
-      indexEl.setAttribute("aria-hidden", "true");
+      indexEl.textContent = data.index;
+      indexEl.removeAttribute("aria-hidden");
     }
     if (status) {
-      status.setAttribute("hidden", "");
+      status.removeAttribute("hidden");
+      status.classList.add(`project-status--${data.status}`);
       status.classList.remove(
-        "project-status--live",
-        "project-status--wip"
+        data.status === "live" ? "project-status--wip" : "project-status--live"
       );
     }
+    setSlotText(card, "status-label", data.statusLabel);
   }
 }
 
