@@ -1,5 +1,7 @@
 const MAX_ROTATE_X = 8;
-const MAX_ROTATE_Y = 16;
+const MAX_ROTATE_Y = 10;
+const MAX_SHIFT_X = 7;
+const MAX_FACE_SHIFT_X = 5;
 
 function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
@@ -16,11 +18,15 @@ export function setupWorkbenchAvatar() {
   let frame = 0;
   let rotateX = 0;
   let rotateY = 0;
+  let shiftX = 0;
+  let faceShiftX = 0;
 
   const render = () => {
     frame = 0;
     head.style.setProperty("--head-rotate-x", `${rotateX.toFixed(2)}deg`);
     head.style.setProperty("--head-rotate-y", `${rotateY.toFixed(2)}deg`);
+    head.style.setProperty("--head-shift-x", `${shiftX.toFixed(2)}px`);
+    head.style.setProperty("--face-shift-x", `${faceShiftX.toFixed(2)}px`);
   };
 
   const update = (clientX, clientY) => {
@@ -32,6 +38,8 @@ export function setupWorkbenchAvatar() {
 
     rotateY = offsetX * MAX_ROTATE_Y;
     rotateX = offsetY * -MAX_ROTATE_X;
+    shiftX = offsetX * MAX_SHIFT_X;
+    faceShiftX = offsetX * MAX_FACE_SHIFT_X;
 
     if (!frame) frame = window.requestAnimationFrame(render);
   };
@@ -39,6 +47,8 @@ export function setupWorkbenchAvatar() {
   const reset = () => {
     rotateX = 0;
     rotateY = 0;
+    shiftX = 0;
+    faceShiftX = 0;
     if (!frame) frame = window.requestAnimationFrame(render);
   };
 
