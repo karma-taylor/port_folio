@@ -19,6 +19,7 @@ import { setupScrollProgress } from "./interactions/scroll-progress.js?v=2026051
 import { setupMagneticTargets } from "./interactions/magnetic.js?v=20260517-case-study";
 import { setupProjectFocusOverlay } from "./interactions/focus-overlay.js?v=20260517-case-study";
 import { bindProjectCardDetailButtons } from "./interactions/project-card-actions.js?v=20260517-case-study";
+import { setupWorkbenchAvatar } from "./interactions/workbench-avatar.js?v=20260627-workbench-avatar";
 import {
   buildPersonJsonLd,
   injectJsonLd,
@@ -164,6 +165,7 @@ function bindInteractions() {
   setupScrollProgress();
   setupMagneticTargets();
   setupProjectFocusOverlay();
+  setupWorkbenchAvatar();
   setupWechatQrHover();
   const shell = document.getElementById("home");
   if (shell) bindProjectCardDetailButtons(shell);

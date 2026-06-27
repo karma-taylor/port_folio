@@ -27,7 +27,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles.css?v=20260517-case-study" />
-    <link rel="stylesheet" href="./redesign.css?v=20260627-about-profile" />
+    <link rel="stylesheet" href="./redesign.css?v=20260627-workbench-avatar" />
 
     <script>
       (function () {
@@ -219,23 +219,64 @@
                   从问题拆解、规则建模到上线验证。这里记录的不是概念 Demo，而是我如何在真实约束下做判断、交付产品并复盘结果。
                 </p>
               </div>
-              <div class="hero-constellation" aria-label="AI 产品能力轨道">
-                <span class="hero-constellation__line" aria-hidden="true"></span>
-                <article class="hero-signal hero-signal--rule">
-                  <span class="hero-signal__code">01</span>
-                  <strong>规则建模</strong>
-                  <p>把业务约束变成可执行判断。</p>
-                </article>
-                <article class="hero-signal hero-signal--agent">
-                  <span class="hero-signal__code">02</span>
-                  <strong>Agent 工作流</strong>
-                  <p>让 AI 输出可复核、可回退。</p>
-                </article>
-                <article class="hero-signal hero-signal--ship">
-                  <span class="hero-signal__code">03</span>
-                  <strong>上线验证</strong>
-                  <p>用真实链接交付产品结果。</p>
-                </article>
+              <div class="pm-workbench" data-workbench aria-label="AI 产品经理工作台互动区">
+                <a class="pm-screen pm-screen--left" href="#coreProjectsGrid" aria-label="查看工作日历协同系统案例">
+                  <span class="pm-screen__toolbar">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                  </span>
+                  <img src="./calendar-cover-auto.png" alt="" loading="lazy" />
+                  <span class="pm-screen__label">
+                    <b>Work Calendar</b>
+                    <small>规则建模 / 冲突校验</small>
+                  </span>
+                </a>
+                <a class="pm-screen pm-screen--center" href="#featuredHero" aria-label="查看资讯日报订阅系统案例">
+                  <span class="pm-screen__toolbar">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                  </span>
+                  <img src="./digest-cover-auto.png" alt="" loading="lazy" />
+                  <span class="pm-screen__label">
+                    <b>Daily Digest</b>
+                    <small>LLM 摘要 / 订阅链路</small>
+                  </span>
+                </a>
+                <a class="pm-screen pm-screen--right" href="#coreProjectsGrid" aria-label="查看薪资分配策略工具案例">
+                  <span class="pm-screen__toolbar">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                  </span>
+                  <img src="./money-cover-auto.png" alt="" loading="lazy" />
+                  <span class="pm-screen__label">
+                    <b>Money Distribute</b>
+                    <small>批量导入 / 策略输出</small>
+                  </span>
+                </a>
+
+                <div class="pm-desk" aria-hidden="true">
+                  <div class="pm-desk__monitor">
+                    <span>AI PM</span>
+                    <strong>ship rules<br />as products</strong>
+                  </div>
+                  <div class="pm-person" data-workbench-person>
+                    <div class="pm-person__body">
+                      <span class="pm-person__arm pm-person__arm--left"></span>
+                      <span class="pm-person__arm pm-person__arm--right"></span>
+                    </div>
+                    <div class="pm-person__head" data-workbench-head>
+                      <span class="pm-person__hair"></span>
+                      <span class="pm-person__eye pm-person__eye--left"></span>
+                      <span class="pm-person__eye pm-person__eye--right"></span>
+                      <span class="pm-person__mouth"></span>
+                    </div>
+                    <span class="pm-person__neck"></span>
+                  </div>
+                  <div class="pm-desk__surface"></div>
+                </div>
               </div>
               <div class="projects-masthead__meta">
                 <span class="projects-masthead__pill">05 个案例</span>
@@ -490,6 +531,6 @@
       </section>
     </noscript>
 
-    <script type="module" src="./main.js?v=20260517-case-study"></script>
+    <script type="module" src="./main.js?v=20260627-workbench-avatar"></script>
   </body>
 </html>
