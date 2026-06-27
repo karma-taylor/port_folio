@@ -4380,3 +4380,91 @@ body::after,
     padding: 10px 12px;
   }
 }
+
+/* 2026-06-27: project lists single column + about contact */
+.projects-grid--core,
+.projects-grid--support {
+  grid-template-columns: 1fr !important;
+  gap: clamp(22px, 3vw, 34px);
+}
+
+.projects-grid--core .project-card,
+.projects-grid--support .project-card {
+  width: min(100%, 1180px);
+  margin-inline: auto;
+}
+
+.projects-grid--support .project-card {
+  min-height: clamp(360px, 34vw, 500px);
+}
+
+.about-contact {
+  grid-column: 2;
+  display: grid;
+  gap: 10px;
+  align-self: start;
+  margin: 12px 0 0;
+}
+
+.about-contact__item {
+  display: grid;
+  gap: 8px;
+  padding: 16px 18px;
+  color: rgba(245, 245, 247, 0.78);
+  text-decoration: none;
+  background:
+    linear-gradient(135deg, rgba(73, 166, 255, 0.08), transparent 42%),
+    rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 20px;
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.055);
+  transition:
+    transform 0.24s ease,
+    border-color 0.24s ease,
+    background 0.24s ease;
+}
+
+.about-contact__item:hover,
+.about-contact__item:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(73, 166, 255, 0.34);
+  background:
+    linear-gradient(135deg, rgba(73, 166, 255, 0.14), transparent 48%),
+    rgba(255, 255, 255, 0.055);
+  outline: none;
+}
+
+.about-contact__label {
+  color: rgba(245, 245, 247, 0.42);
+  font: 800 0.68rem/1 "IBM Plex Mono", ui-monospace, monospace;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.about-contact__item strong {
+  color: rgba(245, 245, 247, 0.82);
+  font-size: 0.98rem;
+  line-height: 1.45;
+  letter-spacing: -0.02em;
+}
+
+.about-contact__item--wechat strong {
+  color: rgba(87, 255, 205, 0.78);
+}
+
+@media (max-width: 860px) {
+  .about-contact {
+    grid-column: 1;
+  }
+}
+
+@media (max-width: 640px) {
+  .projects-grid--core .project-card,
+  .projects-grid--support .project-card {
+    width: 100%;
+  }
+
+  .projects-grid--support .project-card {
+    min-height: auto;
+  }
+}
