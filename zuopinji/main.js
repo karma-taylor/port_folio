@@ -19,7 +19,9 @@ import { setupScrollProgress } from "./interactions/scroll-progress.js?v=2026051
 import { setupMagneticTargets } from "./interactions/magnetic.js?v=20260517-case-study";
 import { setupProjectFocusOverlay } from "./interactions/focus-overlay.js?v=20260517-case-study";
 import { bindProjectCardDetailButtons } from "./interactions/project-card-actions.js?v=20260517-case-study";
-import { setupWorkbenchAvatar } from "./interactions/workbench-avatar.js?v=20260627-centered-capsule-svg";
+import { setupWorkbenchAvatar } from "./interactions/workbench-avatar.js?v=20260627-aipm-workbench-deck";
+import { setupWorkbenchScreens } from "./interactions/workbench-screens.js?v=20260627-aipm-workbench-deck";
+import { setupProjectDeckMotion } from "./interactions/project-deck-motion.js?v=20260627-aipm-workbench-deck";
 import {
   buildPersonJsonLd,
   injectJsonLd,
@@ -166,6 +168,8 @@ function bindInteractions() {
   setupMagneticTargets();
   setupProjectFocusOverlay();
   setupWorkbenchAvatar();
+  setupWorkbenchScreens();
+  setupProjectDeckMotion();
   setupWechatQrHover();
   const shell = document.getElementById("home");
   if (shell) bindProjectCardDetailButtons(shell);

@@ -3783,3 +3783,386 @@ body::after,
     transition: none !important;
   }
 }
+
+/* 2026-06-27 AIPM tool screens + project deck motion pass */
+
+.pm-workbench {
+  top: clamp(318px, 33vh, 410px);
+  height: clamp(460px, 52vh, 610px);
+}
+
+.pm-screen {
+  cursor: default;
+  will-change: transform, opacity;
+}
+
+.pm-screen--left {
+  width: clamp(270px, 28vw, 360px);
+  transform: rotate(-4deg) translate3d(-8px, 10px, 0) scale(0.92);
+}
+
+.pm-screen--center {
+  width: clamp(310px, 32vw, 430px);
+  transform: translateX(-50%) translate3d(0, -2px, 48px) scale(1);
+}
+
+.pm-screen--right {
+  width: clamp(270px, 28vw, 360px);
+  transform: rotate(4deg) translate3d(8px, 12px, 0) scale(0.92);
+}
+
+.pm-workbench[data-active-screen="design"] .pm-screen--left,
+.pm-screen--left:is(:hover, :focus-visible) {
+  opacity: 1;
+  transform: rotate(-1deg) translate3d(18px, -16px, 86px) scale(1.08);
+}
+
+.pm-workbench[data-active-screen="agent"] .pm-screen--center,
+.pm-screen--center:is(:hover, :focus-visible) {
+  opacity: 1;
+  transform: translateX(-50%) translate3d(0, -24px, 98px) scale(1.08);
+}
+
+.pm-workbench[data-active-screen="delivery"] .pm-screen--right,
+.pm-screen--right:is(:hover, :focus-visible) {
+  opacity: 1;
+  transform: rotate(1deg) translate3d(-18px, -16px, 86px) scale(1.08);
+}
+
+.pm-workbench[data-active-screen="design"] .pm-screen:not(.pm-screen--left),
+.pm-workbench[data-active-screen="agent"] .pm-screen:not(.pm-screen--center),
+.pm-workbench[data-active-screen="delivery"] .pm-screen:not(.pm-screen--right) {
+  opacity: 0.58;
+  filter: saturate(0.78) brightness(0.82);
+}
+
+.tool-screen {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 12px;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  padding: 18px;
+  overflow: hidden;
+  color: rgba(245, 245, 247, 0.78);
+  background:
+    radial-gradient(circle at 18% 20%, rgba(73, 166, 255, 0.18), transparent 34%),
+    radial-gradient(circle at 84% 78%, rgba(66, 230, 194, 0.14), transparent 34%),
+    linear-gradient(180deg, rgba(11, 16, 28, 0.96), rgba(4, 7, 12, 0.96));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+}
+
+.tool-screen__apps,
+.tool-queue,
+.tool-status {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.tool-screen__apps span,
+.tool-queue span,
+.tool-status i {
+  display: inline-flex;
+  align-items: center;
+  min-height: 22px;
+  padding: 0 8px;
+  color: rgba(245, 245, 247, 0.72);
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  font: 800 0.58rem/1 "IBM Plex Mono", ui-monospace, monospace;
+  letter-spacing: 0.03em;
+}
+
+.tool-screen__canvas {
+  position: relative;
+  min-height: 116px;
+  border-radius: 14px;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.flow-node {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 62px;
+  height: 34px;
+  color: rgba(245, 245, 247, 0.78);
+  background: rgba(73, 166, 255, 0.13);
+  border: 1px solid rgba(73, 166, 255, 0.24);
+  border-radius: 12px;
+  font: 800 0.62rem/1 "IBM Plex Mono", ui-monospace, monospace;
+}
+
+.flow-node--one {
+  top: 18px;
+  left: 18px;
+}
+
+.flow-node--two {
+  top: 62px;
+  left: 42%;
+}
+
+.flow-node--three {
+  right: 20px;
+  top: 26px;
+}
+
+.flow-line {
+  position: absolute;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(73, 166, 255, 0.08), rgba(66, 230, 194, 0.64));
+  transform-origin: left center;
+}
+
+.flow-line--one {
+  top: 53px;
+  left: 78px;
+  width: 120px;
+  transform: rotate(14deg);
+}
+
+.flow-line--two {
+  top: 74px;
+  left: 52%;
+  width: 100px;
+  transform: rotate(-23deg);
+}
+
+.tool-screen__notes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.tool-screen__notes i {
+  height: 9px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.34);
+}
+
+.tool-terminal {
+  display: grid;
+  gap: 8px;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.34);
+  border: 1px solid rgba(66, 230, 194, 0.18);
+  border-radius: 14px;
+}
+
+.tool-terminal p {
+  margin: 0;
+  color: rgba(245, 245, 247, 0.68);
+  font: 700 0.68rem/1.35 "IBM Plex Mono", ui-monospace, monospace;
+}
+
+.tool-terminal em {
+  color: #42e6c2;
+  font-style: normal;
+}
+
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.tool-grid span {
+  min-height: 36px;
+  background:
+    linear-gradient(90deg, rgba(73, 166, 255, 0.2), transparent 70%),
+    rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 10px;
+}
+
+.pm-desk {
+  bottom: 8px;
+  height: 292px;
+}
+
+.pm-avatar {
+  bottom: 5px;
+  width: 262px;
+}
+
+.pm-avatar__headset {
+  fill: none;
+  stroke: rgba(21, 29, 41, 0.78);
+  stroke-width: 7;
+  stroke-linecap: round;
+}
+
+.pm-avatar__headset-cup {
+  fill: #202838;
+}
+
+.pm-avatar__shoe {
+  fill: #f7f7f2;
+}
+
+.pm-desk__props {
+  position: absolute;
+  right: 42px;
+  bottom: 56px;
+  display: flex;
+  align-items: end;
+  gap: 10px;
+  opacity: 0.88;
+}
+
+.pm-prop {
+  display: block;
+  background: rgba(255, 255, 255, 0.26);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.pm-prop--cup {
+  width: 18px;
+  height: 26px;
+  border-radius: 4px 4px 9px 9px;
+}
+
+.pm-prop--pen {
+  width: 4px;
+  height: 34px;
+  background: #42e6c2;
+  border-radius: 999px;
+  transform: rotate(10deg);
+}
+
+.pm-prop--phone {
+  width: 34px;
+  height: 18px;
+  border-radius: 6px;
+  background: rgba(16, 22, 34, 0.8);
+}
+
+.featured-hero,
+.projects-grid--core {
+  perspective: 1400px;
+}
+
+.featured-hero .project-card,
+.projects-grid--core .project-card {
+  transform-origin: center center;
+  transition:
+    transform 0.48s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.28s ease,
+    filter 0.28s ease,
+    box-shadow 0.28s ease,
+    border-color 0.28s ease;
+}
+
+.featured-hero .project-card {
+  min-height: clamp(540px, 58vw, 680px);
+}
+
+.projects-grid--core {
+  grid-template-columns: repeat(2, minmax(390px, 1fr));
+  gap: clamp(22px, 3vw, 36px);
+}
+
+.projects-grid--core .project-card {
+  min-height: 520px;
+}
+
+.featured-hero .project-card.is-deck-active,
+.projects-grid--core .project-card.is-deck-active {
+  z-index: 4;
+  opacity: 1;
+  filter: saturate(1) brightness(1);
+  border-color: rgba(73, 166, 255, 0.3);
+  box-shadow:
+    0 38px 110px rgba(0, 0, 0, 0.36),
+    0 0 0 1px rgba(73, 166, 255, 0.12);
+  transform: translate3d(0, -16px, 80px) scale(1.045) rotateX(0deg);
+}
+
+.featured-hero .project-card.is-deck-muted,
+.projects-grid--core .project-card.is-deck-muted {
+  opacity: 0.58;
+  filter: saturate(0.72) brightness(0.84);
+  transform: translate3d(0, 12px, -70px) scale(0.94) rotateX(3deg);
+}
+
+.project-card.is-deck-active .project-cover img {
+  transform: scale(1.035);
+}
+
+@media (max-width: 980px) {
+  .pm-screen--left,
+  .pm-screen--right {
+    width: min(300px, 42vw);
+  }
+
+  .pm-screen--center {
+    width: min(360px, 50vw);
+  }
+
+  .projects-grid--core {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .pm-workbench {
+    height: 450px;
+  }
+
+  .pm-screen--center {
+    width: min(300px, 78vw);
+  }
+
+  .tool-screen {
+    padding: 14px;
+  }
+
+  .tool-screen__apps span,
+  .tool-queue span,
+  .tool-status i {
+    min-height: 20px;
+    padding-inline: 6px;
+    font-size: 0.52rem;
+  }
+
+  .pm-avatar {
+    bottom: 46px;
+    width: 212px;
+  }
+
+  .pm-desk {
+    bottom: 44px;
+  }
+
+  .pm-desk__props {
+    display: none;
+  }
+
+  .featured-hero .project-card,
+  .projects-grid--core .project-card {
+    min-height: auto;
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pm-screen,
+  .featured-hero .project-card,
+  .projects-grid--core .project-card,
+  .project-card.is-deck-active .project-cover img {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+  }
+}
