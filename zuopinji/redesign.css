@@ -4407,6 +4407,7 @@ body::after,
 }
 
 .about-contact__item {
+  position: relative;
   display: grid;
   gap: 8px;
   padding: 16px 18px;
@@ -4452,9 +4453,72 @@ body::after,
   color: rgba(87, 255, 205, 0.78);
 }
 
+.about-contact__qr {
+  position: absolute;
+  z-index: 8;
+  right: calc(100% + 16px);
+  top: 50%;
+  display: grid;
+  gap: 8px;
+  width: 168px;
+  padding: 10px;
+  color: rgba(245, 245, 247, 0.72);
+  text-align: center;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.035)),
+    rgba(7, 9, 12, 0.92);
+  border: 1px solid rgba(87, 255, 205, 0.2);
+  border-radius: 18px;
+  box-shadow:
+    0 28px 80px rgba(0, 0, 0, 0.5),
+    0 0 40px rgba(87, 255, 205, 0.08);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate3d(10px, -50%, 0) scale(0.94);
+  transform-origin: right center;
+  transition:
+    opacity 0.22s ease,
+    transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.about-contact__qr img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  background: #fff;
+  border-radius: 12px;
+}
+
+.about-contact__qr span {
+  font: 700 0.68rem/1.2 "IBM Plex Mono", ui-monospace, monospace;
+  letter-spacing: 0.08em;
+}
+
+.about-contact__item--wechat:hover .about-contact__qr,
+.about-contact__item--wechat:focus-visible .about-contact__qr,
+.about-contact__item--wechat:focus-within .about-contact__qr {
+  opacity: 1;
+  transform: translate3d(0, -50%, 0) scale(1);
+}
+
 @media (max-width: 860px) {
   .about-contact {
     grid-column: 1;
+  }
+
+  .about-contact__qr {
+    right: auto;
+    left: 0;
+    top: calc(100% + 12px);
+    transform: translate3d(0, -8px, 0) scale(0.96);
+    transform-origin: top left;
+  }
+
+  .about-contact__item--wechat:hover .about-contact__qr,
+  .about-contact__item--wechat:focus-visible .about-contact__qr,
+  .about-contact__item--wechat:focus-within .about-contact__qr {
+    transform: translate3d(0, 0, 0) scale(1);
   }
 }
 
@@ -4466,5 +4530,14 @@ body::after,
 
   .projects-grid--support .project-card {
     min-height: auto;
+  }
+
+  .about-contact__qr {
+    position: static;
+    width: min(150px, 48vw);
+    margin-top: 6px;
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
   }
 }
