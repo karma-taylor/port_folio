@@ -5472,35 +5472,65 @@ body::after,
 
 /* 2026-06-28: bitmap hero workspace replacement */
 .pm-workbench {
-  width: min(1040px, calc(100vw - 140px));
+  width: min(1000px, calc(100vw - 164px));
   height: clamp(470px, 53vh, 610px);
 }
 
 .pm-screen--left {
-  top: 132px;
-  left: -22px;
-  --workspace-final-transform: rotate(-6deg) translate3d(0, 8px, -30px) scale(0.74);
+  top: 142px;
+  left: 6px;
+  --workspace-final-transform: rotate(-6deg) translate3d(0, 8px, -30px) scale(0.66);
 }
 
 .pm-screen--center {
-  top: 26px;
-  --workspace-final-transform: translateX(-50%) translate3d(0, 0, 34px) scale(0.88);
+  top: 38px;
+  --workspace-final-transform: translateX(-50%) translate3d(0, 0, 30px) scale(0.82);
 }
 
 .pm-screen--right {
-  top: 132px;
-  right: -22px;
-  --workspace-final-transform: rotate(6deg) translate3d(0, 8px, -30px) scale(0.74);
+  top: 142px;
+  right: 6px;
+  --workspace-final-transform: rotate(6deg) translate3d(0, 8px, -30px) scale(0.66);
 }
 
 .pm-appbar--left {
-  top: 10px;
-  left: 92px;
+  top: 16px;
+  left: 118px;
 }
 
 .pm-appbar--right {
-  top: 10px;
-  right: 92px;
+  top: 16px;
+  right: 118px;
+}
+
+.pm-appbar {
+  gap: 8px;
+  padding: 9px 10px;
+  background: rgba(44, 45, 52, 0.84);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.pm-app {
+  width: auto;
+  min-width: 72px;
+  height: 34px;
+  padding: 0 12px;
+  color: rgba(234, 239, 247, 0.9);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  font: 600 0.72rem/1 "IBM Plex Mono", ui-monospace, monospace;
+  letter-spacing: 0.01em;
+}
+
+.pm-app::before {
+  content: none !important;
+}
+
+.pm-app--text {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .pm-wardrobe,
@@ -5515,7 +5545,7 @@ body::after,
 
 .pm-desk {
   position: absolute;
-  left: 50%;
+  left: 47.8%;
   bottom: 6px;
   z-index: 5;
   width: min(620px, 60vw);
@@ -5540,18 +5570,18 @@ body::after,
 
 @media (max-width: 980px) {
   .pm-workbench {
-    width: min(820px, calc(100vw - 52px));
+    width: min(790px, calc(100vw - 56px));
     height: 500px;
   }
 
   .pm-screen--left {
-    left: -8px;
-    --workspace-final-transform: rotate(-5deg) translate3d(0, 12px, -24px) scale(0.68);
+    left: 8px;
+    --workspace-final-transform: rotate(-5deg) translate3d(0, 12px, -24px) scale(0.62);
   }
 
   .pm-screen--right {
-    right: -8px;
-    --workspace-final-transform: rotate(5deg) translate3d(0, 12px, -24px) scale(0.68);
+    right: 8px;
+    --workspace-final-transform: rotate(5deg) translate3d(0, 12px, -24px) scale(0.62);
   }
 
   .pm-appbar--left,
@@ -5560,11 +5590,11 @@ body::after,
   }
 
   .pm-appbar--left {
-    left: 42px;
+    left: 52px;
   }
 
   .pm-appbar--right {
-    right: 42px;
+    right: 52px;
   }
 
   .pm-desk {
@@ -5589,7 +5619,7 @@ body::after,
   .pm-screen--center {
     top: 18px;
     width: min(328px, 84vw);
-    --workspace-final-transform: translateX(-50%) translate3d(0, 0, 18px) scale(0.98);
+    --workspace-final-transform: translateX(-50%) translate3d(0, 0, 18px) scale(0.94);
   }
 
   .pm-desk {
