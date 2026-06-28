@@ -5477,30 +5477,40 @@ body::after,
 }
 
 .pm-screen--left {
-  top: 142px;
-  left: 6px;
-  --workspace-final-transform: rotate(-6deg) translate3d(0, 8px, -30px) scale(0.66);
+  top: 144px;
+  left: 12px;
+  width: clamp(290px, 27vw, 340px);
+  --workspace-start-transform: translate3d(246px, 146px, -180px) scale(0.2) rotate(-1deg);
+  --workspace-final-transform: rotate(-6deg) translate3d(0, 0, 0) scale(0.74);
 }
 
 .pm-screen--center {
-  top: 38px;
-  --workspace-final-transform: translateX(-50%) translate3d(0, 0, 30px) scale(0.82);
+  top: 46px;
+  width: clamp(290px, 27vw, 340px);
+  --workspace-start-transform: translateX(-50%) translate3d(0, 202px, -180px) scale(0.2);
+  --workspace-final-transform: translateX(-50%) translate3d(0, 0, 0) scale(0.74);
 }
 
 .pm-screen--right {
-  top: 142px;
-  right: 6px;
-  --workspace-final-transform: rotate(6deg) translate3d(0, 8px, -30px) scale(0.66);
+  top: 144px;
+  right: 12px;
+  width: clamp(290px, 27vw, 340px);
+  --workspace-start-transform: translate3d(-246px, 146px, -180px) scale(0.2) rotate(1deg);
+  --workspace-final-transform: rotate(6deg) translate3d(0, 0, 0) scale(0.74);
 }
 
 .pm-appbar--left {
   top: 16px;
   left: 118px;
+  --workspace-start-transform: translate3d(180px, 228px, -180px) scale(0.18);
+  --workspace-final-transform: rotate(-1deg) translate3d(0, 0, 0) scale(1);
 }
 
 .pm-appbar--right {
   top: 16px;
   right: 118px;
+  --workspace-start-transform: translate3d(-180px, 228px, -180px) scale(0.18);
+  --workspace-final-transform: rotate(1deg) translate3d(0, 0, 0) scale(1);
 }
 
 .pm-appbar {
@@ -5511,26 +5521,138 @@ body::after,
 }
 
 .pm-app {
-  width: auto;
-  min-width: 72px;
-  height: 34px;
-  padding: 0 12px;
-  color: rgba(234, 239, 247, 0.9);
+  position: relative;
+  width: 38px;
+  min-width: 38px;
+  height: 38px;
+  padding: 0;
+  color: rgba(234, 239, 247, 0.94);
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 999px;
-  font: 600 0.72rem/1 "IBM Plex Mono", ui-monospace, monospace;
-  letter-spacing: 0.01em;
+  border-radius: 12px;
 }
 
-.pm-app::before {
-  content: none !important;
+.pm-app::before,
+.pm-app::after {
+  content: "";
+  position: absolute;
 }
 
-.pm-app--text {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+.pm-app--cursor::before {
+  inset: 9px 10px 9px 10px;
+  background: linear-gradient(135deg, #ffffff, #b2f0ff);
+  clip-path: polygon(0 0, 100% 50%, 54% 56%, 68% 100%, 48% 100%, 36% 61%, 0 82%);
+}
+
+.pm-app--codex::before {
+  inset: 8px;
+  border: 2px solid #d8e3ff;
+  border-radius: 10px;
+  transform: rotate(45deg);
+}
+
+.pm-app--codex::after {
+  left: 17px;
+  top: 9px;
+  width: 2px;
+  height: 20px;
+  background: #d8e3ff;
+  transform: rotate(45deg);
+}
+
+.pm-app--chatgpt::before {
+  inset: 8px;
+  border: 2px solid #dff7ea;
+  border-radius: 50%;
+  box-shadow:
+    0 -8px 0 -6px #dff7ea,
+    7px -4px 0 -6px #dff7ea,
+    7px 4px 0 -6px #dff7ea,
+    0 8px 0 -6px #dff7ea,
+    -7px 4px 0 -6px #dff7ea,
+    -7px -4px 0 -6px #dff7ea;
+}
+
+.pm-app--claude::before {
+  left: 10px;
+  top: 9px;
+  width: 18px;
+  height: 18px;
+  background: linear-gradient(135deg, #ffb671, #ff8453);
+  clip-path: polygon(15% 0, 100% 0, 68% 52%, 100% 100%, 18% 100%, 48% 51%);
+}
+
+.pm-app--figma {
+  background: #141417;
+}
+
+.pm-app--figma::before {
+  content: "";
+  width: 24px;
+  height: 32px;
+  left: 7px;
+  top: 3px;
+  background:
+    radial-gradient(circle at 25% 20%, #ff6250 0 18%, transparent 19%),
+    radial-gradient(circle at 75% 20%, #ff6250 0 18%, transparent 19%),
+    radial-gradient(circle at 25% 50%, #a259ff 0 18%, transparent 19%),
+    radial-gradient(circle at 75% 50%, #1abcfe 0 18%, transparent 19%),
+    radial-gradient(circle at 25% 80%, #0acf83 0 18%, transparent 19%);
+}
+
+.pm-app--notion {
+  background: #fff;
+  color: #111;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  font-family: Georgia, serif;
+  font-size: 1.15rem;
+}
+
+.pm-app--notion::before,
+.pm-app--notion::after {
+  content: none;
+}
+
+.pm-app--github::before {
+  left: 9px;
+  top: 10px;
+  width: 20px;
+  height: 16px;
+  background: #eff3ff;
+  border-radius: 12px 12px 8px 8px;
+  clip-path: polygon(0 45%, 22% 20%, 38% 0, 50% 12%, 62% 0, 78% 20%, 100% 45%, 84% 100%, 62% 82%, 50% 100%, 38% 82%, 16% 100%);
+}
+
+.pm-app--github::after {
+  left: 15px;
+  top: 21px;
+  width: 8px;
+  height: 6px;
+  border-bottom: 2px solid #1b1d25;
+  border-radius: 0 0 8px 8px;
+}
+
+.pm-app--sheets::before {
+  left: 10px;
+  top: 7px;
+  width: 18px;
+  height: 24px;
+  background: linear-gradient(180deg, #2bdb7c, #179d53);
+  border-radius: 4px;
+}
+
+.pm-app--sheets::after {
+  left: 14px;
+  top: 14px;
+  width: 10px;
+  height: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.84);
+  border-top: 0;
+  border-left: 0;
+  box-shadow:
+    -5px 0 0 -1px rgba(255, 255, 255, 0.84),
+    0 -5px 0 -1px rgba(255, 255, 255, 0.84),
+    -5px -5px 0 -1px rgba(255, 255, 255, 0.84);
 }
 
 .pm-wardrobe,
@@ -5548,7 +5670,7 @@ body::after,
   left: 47.8%;
   bottom: 6px;
   z-index: 5;
-  width: min(620px, 60vw);
+  width: min(560px, 54vw);
   height: auto;
   transform: translateX(-50%);
   pointer-events: none;
@@ -5568,6 +5690,44 @@ body::after,
     drop-shadow(0 10px 20px rgba(80, 195, 255, 0.06));
 }
 
+.pm-screen {
+  opacity: 0.82;
+  transition:
+    transform 0.42s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.28s ease,
+    filter 0.28s ease,
+    box-shadow 0.32s ease;
+}
+
+.pm-workbench[data-active-screen="design"] .pm-screen--left,
+.pm-screen--left:is(:hover, :focus-visible) {
+  opacity: 1;
+  z-index: 4;
+  transform: rotate(-4deg) translate3d(0, -20px, 64px) scale(0.9);
+  filter: saturate(1.04) brightness(1.04);
+}
+
+.pm-workbench[data-active-screen="agent"] .pm-screen--center,
+.pm-screen--center:is(:hover, :focus-visible) {
+  opacity: 1;
+  z-index: 4;
+  transform: translateX(-50%) translate3d(0, -22px, 64px) scale(0.9);
+  filter: saturate(1.04) brightness(1.04);
+}
+
+.pm-workbench[data-active-screen="delivery"] .pm-screen--right,
+.pm-screen--right:is(:hover, :focus-visible) {
+  opacity: 1;
+  z-index: 4;
+  transform: rotate(4deg) translate3d(0, -20px, 64px) scale(0.9);
+  filter: saturate(1.04) brightness(1.04);
+}
+
+.pm-workbench[data-active-screen] .pm-screen:not(.is-active) {
+  opacity: 0.62;
+  filter: saturate(0.78) brightness(0.82);
+}
+
 @media (max-width: 980px) {
   .pm-workbench {
     width: min(790px, calc(100vw - 56px));
@@ -5576,12 +5736,19 @@ body::after,
 
   .pm-screen--left {
     left: 8px;
-    --workspace-final-transform: rotate(-5deg) translate3d(0, 12px, -24px) scale(0.62);
+    width: min(292px, 36vw);
+    --workspace-final-transform: rotate(-5deg) translate3d(0, 12px, -24px) scale(0.68);
   }
 
   .pm-screen--right {
     right: 8px;
-    --workspace-final-transform: rotate(5deg) translate3d(0, 12px, -24px) scale(0.62);
+    width: min(292px, 36vw);
+    --workspace-final-transform: rotate(5deg) translate3d(0, 12px, -24px) scale(0.68);
+  }
+
+  .pm-screen--center {
+    width: min(292px, 36vw);
+    --workspace-final-transform: translateX(-50%) translate3d(0, 0, 0) scale(0.68);
   }
 
   .pm-appbar--left,
@@ -5598,7 +5765,7 @@ body::after,
   }
 
   .pm-desk {
-    width: min(520px, 76vw);
+    width: min(500px, 72vw);
     bottom: 10px;
   }
 }
@@ -5619,11 +5786,26 @@ body::after,
   .pm-screen--center {
     top: 18px;
     width: min(328px, 84vw);
-    --workspace-final-transform: translateX(-50%) translate3d(0, 0, 18px) scale(0.94);
+    --workspace-final-transform: translateX(-50%) translate3d(0, 0, 18px) scale(0.9);
   }
 
   .pm-desk {
-    width: min(360px, 92vw);
+    width: min(320px, 84vw);
     bottom: 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pm-screen,
+  .pm-appbar {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .pm-workbench[data-active-screen] .pm-screen,
+  .pm-screen:is(:hover, :focus-visible) {
+    transform: none !important;
+    filter: none !important;
+    opacity: 1 !important;
   }
 }
