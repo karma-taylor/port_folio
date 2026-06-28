@@ -5725,8 +5725,8 @@ body::after,
 
 .pm-desk {
   position: absolute;
-  left: 47.8%;
-  bottom: 6px;
+  left: 49.2%;
+  bottom: -22px;
   z-index: 5;
   width: min(560px, 54vw);
   height: auto;
@@ -5842,7 +5842,7 @@ body::after,
 
   .pm-desk {
     width: min(500px, 72vw);
-    bottom: 10px;
+    bottom: -6px;
   }
 }
 
@@ -5867,7 +5867,7 @@ body::after,
 
   .pm-desk {
     width: min(320px, 84vw);
-    bottom: 8px;
+    bottom: 0;
   }
 }
 
