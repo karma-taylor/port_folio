@@ -19,7 +19,7 @@ import { setupScrollProgress } from "./interactions/scroll-progress.js?v=2026051
 import { setupMagneticTargets } from "./interactions/magnetic.js?v=20260517-case-study";
 import { setupProjectFocusOverlay } from "./interactions/focus-overlay.js?v=20260517-case-study";
 import { bindProjectCardDetailButtons } from "./interactions/project-card-actions.js?v=20260517-case-study";
-import { setupWorkbenchAvatar } from "./interactions/workbench-avatar.js?v=20260627-aipm-workbench-deck";
+import { setupWorkbenchAvatar } from "./interactions/workbench-avatar.js?v=20260628-head-track";
 import { setupWorkbenchScreens } from "./interactions/workbench-screens.js?v=20260628-hero-hover-balance";
 import { setupProjectDeckMotion } from "./interactions/project-deck-motion.js?v=20260627-aipm-workbench-deck";
 import {
