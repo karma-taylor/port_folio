@@ -12,7 +12,7 @@ import { PROJECTS, PROFILE } from "./data/projects.js?v=20260517-case-study";
 import {
   renderAllProjects,
   renderFeaturedProject,
-} from "./render/project-card.js?v=20260627-featured-poster";
+} from "./render/project-card.js?v=20260628-case-refined";
 import { runBootLoader } from "./interactions/boot-loader.js?v=20260517-case-study";
 import { revealCards } from "./interactions/reveal.js?v=20260517-case-study";
 import { setupScrollProgress } from "./interactions/scroll-progress.js?v=20260517-case-study";
