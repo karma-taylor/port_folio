@@ -5073,3 +5073,85 @@ body::after,
     filter: none !important;
   }
 }
+
+/* 2026-06-28: adult AI PM avatar proportions */
+.pm-avatar {
+  left: 35%;
+  bottom: -10px;
+  width: 292px;
+}
+
+.pm-avatar__chair path,
+.pm-avatar__chair rect {
+  fill: url("#avatarChair");
+}
+
+.pm-avatar__shirt {
+  fill: #102646;
+}
+
+.pm-avatar__collar {
+  fill: #0b1a32;
+}
+
+.pm-avatar__legs path {
+  fill: #1a1718;
+}
+
+.pm-avatar__shoe {
+  fill: #f7f7f2;
+  filter: drop-shadow(0 4px 3px rgba(0, 0, 0, 0.24));
+}
+
+.pm-avatar__head {
+  transform-origin: 50% 78%;
+}
+
+.pm-avatar__face {
+  filter: none;
+}
+
+.pm-avatar__hair path {
+  fill: #121923;
+}
+
+.pm-avatar__hair .pm-avatar__hair-accent {
+  fill: #202b39;
+  opacity: 0.98;
+}
+
+.pm-avatar__laptop path:first-child {
+  fill: url("#avatarLaptop");
+}
+
+.pm-avatar__laptop path:nth-child(2) {
+  fill: #d6dde7;
+}
+
+.pm-avatar__headset {
+  stroke: rgba(8, 10, 14, 0.86);
+  stroke-width: 8;
+}
+
+.pm-avatar__headset-cup {
+  fill: #181d28;
+}
+
+.pm-desk__surface {
+  bottom: 8px;
+}
+
+@media (max-width: 980px) {
+  .pm-avatar {
+    left: 38%;
+    width: 260px;
+  }
+}
+
+@media (max-width: 640px) {
+  .pm-avatar {
+    left: 42%;
+    bottom: 8px;
+    width: 222px;
+  }
+}
