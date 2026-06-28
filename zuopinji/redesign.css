@@ -5734,6 +5734,7 @@ body::after,
   pointer-events: none;
   --head-yaw: 0;
   --head-pitch: 0;
+  --head-roll: 0;
 }
 
 .pm-desk > :not(.pm-hero-figure-wrap) {
@@ -5767,13 +5768,13 @@ body::after,
   width: 100%;
   height: auto;
   clip-path: ellipse(12% 11.5% at 36.4% 14.5%);
-  transform-origin: 36.4% 27%;
+  transform-origin: 36.4% 29.5%;
   transform:
-    perspective(700px)
-    rotateY(calc(var(--head-yaw) * 1deg))
-    rotateX(calc(var(--head-pitch) * 1deg))
-    rotateZ(calc(var(--head-yaw) * -0.16deg))
-    scale(1.012);
+    translate3d(0, 0, 0)
+    rotate(calc(var(--head-roll) * 1deg))
+    skewX(calc(var(--head-yaw) * -0.08deg))
+    translateY(calc(var(--head-pitch) * -0.18px))
+    scale(1.008);
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform;
   filter:
