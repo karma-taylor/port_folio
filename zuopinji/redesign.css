@@ -1335,7 +1335,7 @@ body::before {
 }
 
 .project-action--detail::after {
-  content: "→";
+  content: "?";
   margin-left: 8px;
 }
 
@@ -1802,7 +1802,7 @@ body::after,
 }
 
 .projects-masthead__title::before {
-  content: "郭伟南";
+  content: "???";
   display: block;
   color: rgba(245, 245, 247, 0.78);
   font-size: clamp(3rem, 5.6vw, 5.2rem);
@@ -1820,7 +1820,7 @@ body::after,
 }
 
 .projects-masthead__desc::before {
-  content: "把业务规则转译成可上线的 AI 产品。";
+  content: "???????????? AI ???";
   display: block;
   font-size: clamp(1.2rem, 2.2vw, 2rem);
   letter-spacing: -0.045em;
@@ -5250,5 +5250,222 @@ body::after,
 
   .projects-masthead__eyebrow {
     margin-top: 60vh;
+  }
+}
+
+/* 2026-06-28: realistic adult AI PM workspace refinement */
+.pm-workbench {
+  width: min(960px, calc(100vw - 120px));
+  height: clamp(460px, 52vh, 580px);
+}
+
+.pm-screen--left {
+  top: 124px;
+  left: 28px;
+  --workspace-final-transform: rotate(-5deg) translate3d(0, 4px, -18px) scale(0.8);
+}
+
+.pm-screen--center {
+  top: 34px;
+  --workspace-final-transform: translateX(-50%) translate3d(0, 0, 30px) scale(0.94);
+}
+
+.pm-screen--right {
+  top: 126px;
+  right: 28px;
+  --workspace-final-transform: rotate(5deg) translate3d(0, 4px, -18px) scale(0.8);
+}
+
+.pm-appbar--left {
+  top: 12px;
+  left: 78px;
+}
+
+.pm-appbar--right {
+  top: 14px;
+  right: 78px;
+}
+
+.pm-wardrobe,
+.pm-vr-table,
+.pm-geo-ball {
+  display: none;
+}
+
+.pm-desk {
+  bottom: 22px;
+  width: min(430px, 52vw);
+  height: 262px;
+}
+
+.pm-desk__monitor {
+  top: 18px;
+  width: 194px;
+  height: 122px;
+  border-width: 6px;
+  border-radius: 10px;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 18px 36px rgba(0, 0, 0, 0.28);
+}
+
+.pm-desk__monitor::after {
+  width: 24px;
+  height: 22px;
+}
+
+.pm-desk__surface {
+  bottom: 20px;
+  width: min(360px, 44vw);
+  height: 28px;
+  border-radius: 14px;
+  opacity: 0.62;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 12px 26px rgba(0, 0, 0, 0.18);
+}
+
+.pm-desk__props {
+  display: none;
+}
+
+.pm-avatar {
+  left: 50%;
+  bottom: 56px;
+  width: 182px;
+  transform: translateX(-50%);
+  z-index: 5;
+}
+
+.pm-avatar__chair rect {
+  fill: url("#avatarChair");
+}
+
+.pm-avatar__chair ellipse,
+.pm-avatar__legs {
+  display: none;
+}
+
+.pm-avatar__chair rect:first-child {
+  opacity: 0.96;
+}
+
+.pm-avatar__chair rect:last-child {
+  opacity: 0.88;
+}
+
+.pm-avatar__torso {
+  fill: url("#avatarJacket");
+}
+
+.pm-avatar__shirt {
+  fill: #0a213d;
+}
+
+.pm-avatar__collar {
+  fill: #081428;
+}
+
+.pm-avatar__zip,
+.pm-avatar__accent {
+  fill: none;
+  stroke: rgba(108, 244, 214, 0.18);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.pm-avatar__arm,
+.pm-avatar__neck path,
+.pm-avatar__face,
+.pm-avatar__ear {
+  fill: url("#avatarSkin");
+}
+
+.pm-avatar__hair path,
+.pm-avatar__hair-accent {
+  fill: #11161d;
+}
+
+.pm-avatar__headset {
+  fill: none;
+  stroke: #1f2531;
+  stroke-width: 7;
+  stroke-linecap: round;
+}
+
+.pm-avatar__headset-cup {
+  fill: #1b2230;
+}
+
+.pm-avatar__eyes circle {
+  fill: #171717;
+}
+
+.pm-avatar__nose,
+.pm-avatar__mouth {
+  fill: none;
+  stroke: rgba(71, 35, 29, 0.82);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pm-avatar__laptop path:first-child {
+  fill: url("#avatarLaptop");
+  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.18));
+}
+
+.pm-avatar__laptop path:nth-child(2) {
+  fill: #e6ebf1;
+}
+
+.pm-avatar__laptop circle {
+  fill: rgba(83, 91, 102, 0.56);
+}
+
+@media (max-width: 980px) {
+  .pm-workbench {
+    width: min(760px, calc(100vw - 48px));
+    height: 470px;
+  }
+
+  .pm-desk {
+    width: min(400px, 76vw);
+  }
+
+  .pm-desk__surface {
+    width: min(334px, 68vw);
+  }
+}
+
+@media (max-width: 640px) {
+  .pm-workbench {
+    width: min(100%, calc(100vw - 28px));
+    height: 420px;
+  }
+
+  .pm-screen--center {
+    top: 28px;
+    width: min(320px, 82vw);
+  }
+
+  .pm-desk {
+    width: min(330px, 88vw);
+    height: 228px;
+  }
+
+  .pm-desk__surface {
+    width: min(246px, 68vw);
+  }
+
+  .pm-desk__monitor {
+    top: 30px;
+    width: 164px;
+    height: 104px;
+  }
+
+  .pm-avatar {
+    bottom: 42px;
+    width: 154px;
   }
 }

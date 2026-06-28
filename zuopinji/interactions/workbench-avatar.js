@@ -10,6 +10,7 @@ function clamp(value, min, max) {
 
 export function setupWorkbenchAvatar() {
   const workbench = document.querySelector("[data-workbench]");
+  const trackingArea = document.querySelector(".projects-masthead");
   const head = document.querySelector("[data-workbench-head]");
   if (!(workbench instanceof HTMLElement) || !(head instanceof Element)) return;
 
@@ -57,7 +58,9 @@ export function setupWorkbenchAvatar() {
     if (!frame) frame = window.requestAnimationFrame(render);
   };
 
-  workbench.addEventListener("pointermove", (event) => update(event.clientX, event.clientY));
-  workbench.addEventListener("pointerleave", reset);
+  const area = trackingArea instanceof HTMLElement ? trackingArea : workbench;
+
+  area.addEventListener("pointermove", (event) => update(event.clientX, event.clientY));
+  area.addEventListener("pointerleave", reset);
   window.addEventListener("blur", reset);
 }
