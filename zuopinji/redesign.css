@@ -5732,9 +5732,8 @@ body::after,
   height: auto;
   transform: translateX(-50%);
   pointer-events: none;
-  --head-track-x: 0px;
-  --head-track-y: 0px;
-  --head-rotate: 0;
+  --head-yaw: 0;
+  --head-pitch: 0;
 }
 
 .pm-desk > :not(.pm-hero-figure-wrap) {
@@ -5768,12 +5767,14 @@ body::after,
   width: 100%;
   height: auto;
   clip-path: ellipse(12% 11.5% at 36.4% 14.5%);
-  transform-origin: 36.4% 18%;
+  transform-origin: 36.4% 27%;
   transform:
-    translate3d(var(--head-track-x), var(--head-track-y), 0)
-    rotate(calc(var(--head-rotate) * 1deg))
-    scale(1.015);
-  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    perspective(700px)
+    rotateY(calc(var(--head-yaw) * 1deg))
+    rotateX(calc(var(--head-pitch) * 1deg))
+    rotateZ(calc(var(--head-yaw) * -0.16deg))
+    scale(1.012);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform;
   filter:
     drop-shadow(0 2px 4px rgba(0, 0, 0, 0.16))
