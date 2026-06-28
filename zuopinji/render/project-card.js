@@ -131,7 +131,7 @@ function fillCardActions(card, data, layout) {
   const detailButton = document.createElement("button");
   detailButton.className = "project-action project-action--detail";
   detailButton.type = "button";
-  detailButton.textContent = "查看案例";
+  detailButton.textContent = "案例详情";
   wrap.appendChild(detailButton);
 
   const live = sortDetailLinks(data.detail?.links || []).find((link) => link.type === "live");
@@ -141,7 +141,7 @@ function fillCardActions(card, data, layout) {
     liveLink.href = live.href;
     liveLink.target = "_blank";
     liveLink.rel = "noopener noreferrer";
-    liveLink.textContent = "访问上线版本";
+    liveLink.textContent = "在线访问";
     wrap.appendChild(liveLink);
   }
 
@@ -535,22 +535,6 @@ export function renderFeaturedProject(mountEl, data) {
     p.className = "featured-hero__teaser";
     p.textContent = teaser;
     inner.appendChild(p);
-  }
-
-  const heroHighlights = (data.outcomes || []).slice(0, 3);
-  if (heroHighlights.length) {
-    const list = document.createElement("ul");
-    list.className = "featured-hero__highlights";
-    list.setAttribute("aria-label", `${data.title} 代表作结果`);
-
-    heroHighlights.forEach((item) => {
-      const li = document.createElement("li");
-      li.className = "featured-hero__highlight";
-      li.textContent = item;
-      list.appendChild(li);
-    });
-
-    inner.appendChild(list);
   }
 
   inner.appendChild(renderProjectCard(data, { layout: "hero" }));
