@@ -21,7 +21,7 @@ import { setupProjectFocusOverlay } from "./interactions/focus-overlay.js?v=2026
 import { bindProjectCardDetailButtons } from "./interactions/project-card-actions.js?v=20260517-case-study";
 import { setupWorkbenchAvatar } from "./interactions/workbench-avatar.js?v=20260628-neck-pivot-2";
 import { setupWorkbenchScreens } from "./interactions/workbench-screens.js?v=20260628-hero-hover-balance";
-import { setupProjectDeckMotion } from "./interactions/project-deck-motion.js?v=20260627-aipm-workbench-deck";
+import { setupProjectDeckMotion } from "./interactions/project-deck-motion.js?v=20260629-pointer-focus-deck";
 import {
   buildPersonJsonLd,
   injectJsonLd,
