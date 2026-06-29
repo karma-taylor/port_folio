@@ -7,6 +7,7 @@ function getDeckGroups() {
     .filter((group) => group instanceof HTMLElement)
     .map((group) => ({
       group,
+      trackingArea: group.closest(".projects-group") || group,
       cards: [...group.querySelectorAll(".project-card")].filter(
         (card) => card instanceof HTMLElement
       ),
@@ -43,11 +44,21 @@ function getNearestCard(cards, clientX, clientY) {
   return nearestCard;
 }
 
+function isWithinTrackingArea(area, clientX, clientY, padding = 140) {
+  const rect = area.getBoundingClientRect();
+  return (
+    clientX >= rect.left - padding &&
+    clientX <= rect.right + padding &&
+    clientY >= rect.top - padding &&
+    clientY <= rect.bottom + padding
+  );
+}
+
 export function setupProjectDeckMotion() {
   const groups = getDeckGroups();
   if (!groups.length) return;
 
-  groups.forEach(({ group, cards }) => {
+  groups.forEach(({ group, trackingArea, cards }) => {
     let activeCard = cards[0];
     let rafId = 0;
     let lastPoint = null;
@@ -70,10 +81,13 @@ export function setupProjectDeckMotion() {
 
     setActiveCard(cards, activeCard);
 
-    group.addEventListener("pointermove", (event) => {
+    const handlePointerMove = (event) => {
       if (event.pointerType === "touch") return;
+      if (!isWithinTrackingArea(trackingArea, event.clientX, event.clientY)) return;
       scheduleFromPointer(event.clientX, event.clientY);
-    });
+    };
+
+    window.addEventListener("pointermove", handlePointerMove);
 
     cards.forEach((card) => {
       card.addEventListener("pointerenter", () => applyActive(card));
