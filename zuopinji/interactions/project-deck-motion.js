@@ -7,7 +7,6 @@ function getDeckGroups() {
     .filter((group) => group instanceof HTMLElement)
     .map((group) => ({
       group,
-      trackingArea: group.closest(".projects-group") || group,
       cards: [...group.querySelectorAll(".project-card")].filter(
         (card) => card instanceof HTMLElement
       ),
@@ -23,17 +22,15 @@ function setActiveCard(cards, activeCard) {
   });
 }
 
-function getNearestCard(cards, clientX, clientY) {
+function getViewportFocusedCard(cards) {
+  const viewportCenterY = window.innerHeight * 0.5;
   let nearestCard = cards[0] || null;
   let nearestDistance = Number.POSITIVE_INFINITY;
 
   cards.forEach((card) => {
     const rect = card.getBoundingClientRect();
-    const centerX = rect.left + rect.width * 0.5;
     const centerY = rect.top + rect.height * 0.5;
-    const dx = clientX - centerX;
-    const dy = clientY - centerY;
-    const distance = dx * dx + dy * dy;
+    const distance = Math.abs(centerY - viewportCenterY);
 
     if (distance < nearestDistance) {
       nearestDistance = distance;
@@ -44,54 +41,42 @@ function getNearestCard(cards, clientX, clientY) {
   return nearestCard;
 }
 
-function isWithinTrackingArea(area, clientX, clientY, padding = 140) {
-  const rect = area.getBoundingClientRect();
-  return (
-    clientX >= rect.left - padding &&
-    clientX <= rect.right + padding &&
-    clientY >= rect.top - padding &&
-    clientY <= rect.bottom + padding
-  );
+function isGroupNearViewport(group, padding = 180) {
+  const rect = group.getBoundingClientRect();
+  return rect.bottom >= -padding && rect.top <= window.innerHeight + padding;
 }
 
 export function setupProjectDeckMotion() {
   const groups = getDeckGroups();
   if (!groups.length) return;
 
-  groups.forEach(({ group, trackingArea, cards }) => {
-    let activeCard = cards[0];
-    let rafId = 0;
-    let lastPoint = null;
+  let rafId = 0;
 
-    const applyActive = (nextCard) => {
-      if (!nextCard || nextCard === activeCard) return;
-      activeCard = nextCard;
-      setActiveCard(cards, activeCard);
-    };
+  const applyScrollFocus = () => {
+    groups.forEach(({ group, cards }) => {
+      if (!isGroupNearViewport(group)) return;
+      const nextCard = getViewportFocusedCard(cards);
+      if (nextCard) setActiveCard(cards, nextCard);
+    });
+  };
 
-    const scheduleFromPointer = (clientX, clientY) => {
-      lastPoint = { clientX, clientY };
-      if (rafId) return;
-      rafId = window.requestAnimationFrame(() => {
-        rafId = 0;
-        if (!lastPoint) return;
-        applyActive(getNearestCard(cards, lastPoint.clientX, lastPoint.clientY));
-      });
-    };
+  const schedule = () => {
+    if (rafId) return;
+    rafId = window.requestAnimationFrame(() => {
+      rafId = 0;
+      applyScrollFocus();
+    });
+  };
 
-    setActiveCard(cards, activeCard);
-
-    const handlePointerMove = (event) => {
-      if (event.pointerType === "touch") return;
-      if (!isWithinTrackingArea(trackingArea, event.clientX, event.clientY)) return;
-      scheduleFromPointer(event.clientX, event.clientY);
-    };
-
-    window.addEventListener("pointermove", handlePointerMove);
-
+  groups.forEach(({ cards }) => {
+    setActiveCard(cards, cards[0]);
     cards.forEach((card) => {
-      card.addEventListener("pointerenter", () => applyActive(card));
-      card.addEventListener("focusin", () => applyActive(card));
+      card.addEventListener("focusin", () => setActiveCard(cards, card));
     });
   });
+
+  window.addEventListener("scroll", schedule, { passive: true });
+  window.addEventListener("resize", schedule);
+
+  schedule();
 }
