@@ -18,6 +18,9 @@ export function setupWorkbenchScreens() {
   const screens = [...workbench.querySelectorAll("[data-workbench-screen]")];
   if (!screens.length) return;
 
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (prefersReducedMotion) return;
+
   setActiveScreen(workbench, "");
 
   screens.forEach((screen) => {
@@ -27,5 +30,7 @@ export function setupWorkbenchScreens() {
     screen.addEventListener("focus", () => setActiveScreen(workbench, key));
   });
 
-  workbench.addEventListener("pointerleave", () => setActiveScreen(workbench, ""));
+  workbench.addEventListener("pointerleave", () => {
+    window.setTimeout(() => setActiveScreen(workbench, ""), 90);
+  });
 }

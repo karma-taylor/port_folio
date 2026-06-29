@@ -22,6 +22,8 @@ import { bindProjectCardDetailButtons } from "./interactions/project-card-action
 import { setupWorkbenchAvatar } from "./interactions/workbench-avatar.js?v=20260628-neck-pivot-2";
 import { setupWorkbenchScreens } from "./interactions/workbench-screens.js?v=20260628-hero-hover-balance";
 import { setupProjectDeckMotion } from "./interactions/project-deck-motion.js?v=20260629-scroll-focus-deck-2";
+import { setupHeroOpening } from "./interactions/hero-opening.js?v=20260629-motion-system-1";
+import { setupNavCapsule } from "./interactions/nav-capsule.js?v=20260629-motion-system-1";
 import {
   buildPersonJsonLd,
   injectJsonLd,
@@ -163,6 +165,8 @@ function renderProjects() {
  * 渲染完成后绑定所有依赖 DOM 的交互。
  */
 function bindInteractions() {
+  setupHeroOpening();
+  setupNavCapsule();
   revealCards();
   setupScrollProgress();
   setupMagneticTargets();

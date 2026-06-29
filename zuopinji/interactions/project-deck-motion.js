@@ -20,14 +20,14 @@ function getDeckGroups() {
 
 function updateCardState(card, focus) {
   const clampedFocus = clamp(focus, 0, 1);
-  const scale = 0.94 + clampedFocus * 0.105;
-  const translateY = 14 - clampedFocus * 30;
-  const translateZ = -72 + clampedFocus * 152;
-  const rotateX = 3 - clampedFocus * 3;
-  const opacity = 0.56 + clampedFocus * 0.44;
-  const saturate = 0.72 + clampedFocus * 0.28;
-  const brightness = 0.84 + clampedFocus * 0.16;
-  const coverScale = 1 + clampedFocus * 0.035;
+  const scale = 0.92 + clampedFocus * 0.112;
+  const translateY = 18 - clampedFocus * 34;
+  const translateZ = -88 + clampedFocus * 176;
+  const rotateX = 4 - clampedFocus * 4.2;
+  const opacity = 0.5 + clampedFocus * 0.5;
+  const saturate = 0.66 + clampedFocus * 0.34;
+  const brightness = 0.78 + clampedFocus * 0.22;
+  const coverScale = 0.992 + clampedFocus * 0.055;
 
   card.style.setProperty("--deck-focus", clampedFocus.toFixed(4));
   card.style.setProperty("--deck-scale", scale.toFixed(4));
@@ -42,7 +42,7 @@ function updateCardState(card, focus) {
 
 function applyGroupFocus(cards) {
   const viewportCenterY = window.innerHeight * 0.5;
-  const falloff = Math.max(window.innerHeight * 0.5, 320);
+  const falloff = Math.max(window.innerHeight * 0.58, 360);
 
   let bestCard = cards[0] || null;
   let bestFocus = -1;
@@ -51,7 +51,13 @@ function applyGroupFocus(cards) {
     const rect = card.getBoundingClientRect();
     const centerY = rect.top + rect.height * 0.5;
     const distance = Math.abs(centerY - viewportCenterY);
-    const focus = clamp(1 - distance / falloff, 0, 1);
+    const distanceRatio = clamp(distance / falloff, 0, 1);
+    let focus = 1 - distanceRatio;
+    focus = 1 - Math.pow(1 - focus, 1.55);
+
+    if (card.matches(":hover, :focus-within")) {
+      focus = clamp(focus + 0.08, 0, 1);
+    }
 
     updateCardState(card, focus);
 
@@ -99,14 +105,9 @@ export function setupProjectDeckMotion() {
 
   groups.forEach(({ cards }) => {
     cards.forEach((card) => {
-      updateCardState(card, card === cards[0] ? 1 : 0.08);
-      card.addEventListener("focusin", () => {
-        cards.forEach((current) => {
-          updateCardState(current, current === card ? 1 : 0.12);
-          current.classList.toggle("is-deck-active", current === card);
-          current.classList.toggle("is-deck-muted", current !== card);
-        });
-      });
+      updateCardState(card, card === cards[0] ? 1 : 0.06);
+      card.addEventListener("focusin", schedule);
+      card.addEventListener("pointerenter", schedule);
     });
   });
 

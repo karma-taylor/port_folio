@@ -102,6 +102,10 @@ function fillOverlay(refs, cardData) {
 
   refs.links.innerHTML = "";
   cardData.links.forEach((link) => refs.links.appendChild(link.cloneNode(true)));
+
+  refs.overlay
+    .querySelectorAll(".focus-stage")
+    .forEach((node, index) => node.style.setProperty("--focus-stage-delay", `${index * 70}ms`));
 }
 
 /* -------------------------------------------------------------------------- */
@@ -169,6 +173,7 @@ function openOverlay(refs, trigger, cardData) {
   fillOverlay(refs, cardData);
 
   refs.overlay.classList.add("is-open", "is-animating");
+  refs.overlay.classList.remove("is-closing");
   refs.overlay.classList.remove("menu-ready");
   refs.overlay.setAttribute("aria-hidden", "false");
   document.body.classList.add("overlay-open");
@@ -186,15 +191,20 @@ function openOverlay(refs, trigger, cardData) {
  * @param {{ trigger: HTMLElement | null }} state
  */
 function closeOverlay(refs, state) {
-  refs.overlay.classList.remove("is-open", "is-animating", "menu-ready");
-  refs.overlay.setAttribute("aria-hidden", "true");
-  document.body.classList.remove("overlay-open");
+  refs.overlay.classList.add("is-closing");
+  refs.overlay.classList.remove("menu-ready", "is-animating");
 
-  if (state.trigger) {
-    state.trigger.setAttribute("aria-expanded", "false");
-    state.trigger.focus();
-    state.trigger = null;
-  }
+  window.setTimeout(() => {
+    refs.overlay.classList.remove("is-open", "is-closing");
+    refs.overlay.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("overlay-open");
+
+    if (state.trigger) {
+      state.trigger.setAttribute("aria-expanded", "false");
+      state.trigger.focus();
+      state.trigger = null;
+    }
+  }, 260);
 }
 
 /* -------------------------------------------------------------------------- */

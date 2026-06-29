@@ -1,23 +1,23 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
+    <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#E9EDF2" />
     <meta name="color-scheme" content="light" />
     <title>郭伟南 · AI 产品经理作品集</title>
-    <meta name="description" content="郭伟南的 AI 产品经理作品集，聚焦真实业务场景中的规则抽象、AI 工作流设计与产品落地，包含工作日历协同、HamHome 资讯日报、薪资分配策略、汇率换算 Agent 与日报自动化案例。" />
+    <meta name="description" content="郭伟南的 AI 产品经理作品集，聚焦真实业务规则产品化、AI 工作流设计与自动化落地案例。" />
 
     <meta property="og:type" content="profile" />
     <meta property="og:title" content="郭伟南 · AI 产品经理作品集" />
-    <meta property="og:description" content="真实业务规则产品化 · AI 工作流设计 · 自动化效率提升：从协同排期、资讯订阅到汇率换算与日报自动化的落地案例。" />
+    <meta property="og:description" content="真实业务规则产品化 · AI 工作流设计 · 自动化效率提升。" />
     <meta property="og:url" content="https://karma-taylor.github.io/port_folio/zuopinji/" />
     <meta property="og:image" content="https://karma-taylor.github.io/port_folio/zuopinji/fx-cover.jpg" />
     <meta property="og:locale" content="zh_CN" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="郭伟南 · AI 产品经理作品集" />
-    <meta name="twitter:description" content="真实业务规则产品化 · AI 工作流设计 · 自动化效率提升：从协同排期、资讯订阅到汇率换算与日报自动化的落地案例。" />
+    <meta name="twitter:description" content="真实业务规则产品化 · AI 工作流设计 · 自动化效率提升。" />
     <meta name="twitter:image" content="https://karma-taylor.github.io/port_folio/zuopinji/fx-cover.jpg" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -27,7 +27,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles.css?v=20260517-case-study" />
-    <link rel="stylesheet" href="./redesign.css?v=20260629-scroll-focus-2" />
+    <link rel="stylesheet" href="./redesign.css?v=20260629-motion-system-1" />
 
     <script>
       (function () {
@@ -47,39 +47,7 @@
         "alternateName": "Guo Weinan",
         "url": "https://karma-taylor.github.io/port_folio/",
         "jobTitle": "AI 产品经理",
-        "sameAs": ["https://github.com/karma-taylor"],
-        "hasPart": [
-          {
-            "@type": "CreativeWork",
-            "name": "工作日历协同系统（Work Calendar）",
-            "url": "https://work-calendar-52c.pages.dev",
-            "description": "面向多角色协同排期的可视化日历工具"
-          },
-          {
-            "@type": "CreativeWork",
-            "name": "HamHome Daily Digest（资讯日报订阅系统）",
-            "url": "https://hamhome-digest-web.pages.dev/digest",
-            "description": "基于 AIAgent + RAG 思路的自动化资讯订阅平台"
-          },
-          {
-            "@type": "CreativeWork",
-            "name": "轻松配钞（Money Distribute AI）",
-            "url": "https://karma-taylor.github.io/money_classify/",
-            "description": "贪心算法按可用面额自动拆分薪资现金张数与余数，网页 + 微信小程序双形态"
-          },
-          {
-            "@type": "CreativeWork",
-            "name": "weather-fx-agent（汇率换算 Agent）",
-            "url": "https://karmacat-weather-fx-agent.hf.space",
-            "description": "面向业务场景的汇率换算 Web 工具"
-          },
-          {
-            "@type": "CreativeWork",
-            "name": "企业业务日报自动化生成引擎（Business Daily Report Engine）",
-            "url": "https://github.com/karma-taylor/Daily_report",
-            "description": "Python 自动化日报，结算效率提升约 90%"
-          }
-        ]
+        "sameAs": ["https://github.com/karma-taylor"]
       }
     </script>
   </head>
@@ -90,9 +58,9 @@
           <span data-step="01">initializing portfolio&hellip;</span>
           <span data-step="02">loading agents&hellip;</span>
           <span data-step="03">fetching projects&hellip;</span>
-          <span data-step="04" class="boot-loader__ready">welcome, 郭伟南.</span>
+          <span data-step="04" class="boot-loader__ready">welcome, 閮紵鍗?</span>
         </div>
-        <div class="boot-loader__footer">karma-taylor · portfolio · 2026</div>
+        <div class="boot-loader__footer">karma-taylor 路 portfolio 路 2026</div>
       </div>
     </div>
     <div class="ambient-orbs" aria-hidden="true">
@@ -102,16 +70,16 @@
     <div class="scroll-progress" aria-hidden="true">
       <div class="scroll-progress__bar"></div>
     </div>
-    <header class="os-topbar" aria-label="作品集导航">
+        <header class="os-topbar" data-nav-capsule aria-label="作品集导航">
       <a class="os-mark" href="#home" aria-label="回到首页">
         <span class="os-mark__glyph" aria-hidden="true">K</span>
         <span class="os-mark__text">Karma Taylor</span>
       </a>
-      <nav class="os-nav" aria-label="主导航">
-        <a class="os-nav__item os-nav__side os-nav__side--left" href="https://github.com/karma-taylor" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a class="os-nav__item os-nav__primary" href="#projects">作品</a>
-        <a class="os-nav__item os-nav__side os-nav__side--right" href="#about">关于</a>
-        <a class="os-nav__item os-nav__side os-nav__side--right" href="./resume.pdf" download="郭伟南-简历.pdf">简历</a>
+      <nav class="os-nav" data-nav-pill aria-label="主导航">
+        <a class="os-nav__item os-nav__side os-nav__side--left" data-nav-item="github" href="https://github.com/karma-taylor" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a class="os-nav__item os-nav__primary" data-nav-item="projects" href="#projects">作品</a>
+        <a class="os-nav__item os-nav__side os-nav__side--right" data-nav-item="about" href="#about">关于</a>
+        <a class="os-nav__item os-nav__side os-nav__side--right" data-nav-item="resume" href="./resume.pdf" download="郭伟南 简历.pdf">简历</a>
       </nav>
       <div class="os-status" aria-label="当前状态">
         <span>AI PM</span>
@@ -124,60 +92,59 @@
           <aside class="profile-card" id="legacyAbout">
             <div class="profile-card-inner">
               <p class="profile-kicker">Product file / 2026</p>
-              <div class="profile-avatar" role="img" aria-label="郭伟南的头像"></div>
-              <h1 class="profile-name">郭伟南</h1>
-              <p class="profile-role">AI 产品经理 · AI 工作流 / Agent 应用</p>
-              <p class="profile-pitch">把复杂业务流程拆成能上线、能复用、能验证结果的 AI 工具。</p>
-              <p class="profile-proof">重点关注复杂业务规则产品化、AI 工作流设计与真实场景落地。</p>
-              <section class="profile-education profile-education--inline" aria-label="教育背景">
+              <div class="profile-avatar" role="img" aria-label="閮紵鍗楃殑澶村儚"></div>
+              <h1 class="profile-name">閮紵鍗?/h1>
+              <p class="profile-role">AI 浜у搧缁忕悊 路 AI 宸ヤ綔娴?/ Agent 搴旂敤</p>
+              <p class="profile-pitch">鎶婂鏉備笟鍔℃祦绋嬫媶鎴愯兘涓婄嚎銆佽兘澶嶇敤銆佽兘楠岃瘉缁撴灉鐨?AI 宸ュ叿銆?/p>
+              <p class="profile-proof">閲嶇偣鍏虫敞澶嶆潅涓氬姟瑙勫垯浜у搧鍖栥€丄I 宸ヤ綔娴佽璁′笌鐪熷疄鍦烘櫙钀藉湴銆?/p>
+              <section class="profile-education profile-education--inline" aria-label="鏁欒偛鑳屾櫙">
                 <div class="bio-block">
-                  <h3 class="bio-title">教育背景</h3>
+                  <h3 class="bio-title">鏁欒偛鑳屾櫙</h3>
                   <ul class="bio-list">
                     <li>
-                      <span class="bio-period">2018 — 2022</span>
-                      <span class="bio-main">本科 · 燕山大学</span>
+                      <span class="bio-period">2018 鈥?2022</span>
+                      <span class="bio-main">鏈 路 鐕曞北澶у</span>
                     </li>
                     <li>
-                      <span class="bio-period">2022 — 2025</span>
-                      <span class="bio-main">硕士 · 重庆大学</span>
+                      <span class="bio-period">2022 鈥?2025</span>
+                      <span class="bio-main">纭曞＋ 路 閲嶅簡澶у</span>
                     </li>
                   </ul>
                 </div>
               </section>
-              <ul class="bio-tags profile-target-tags" aria-label="目标岗位">
-                <li>AI 产品经理</li>
-                <li>Agent 产品经理</li>
-                <li>数据产品经理</li>
+              <ul class="bio-tags profile-target-tags" aria-label="鐩爣宀椾綅">
+                <li>AI 浜у搧缁忕悊</li>
+                <li>Agent 浜у搧缁忕悊</li>
+                <li>鏁版嵁浜у搧缁忕悊</li>
               </ul>
               <p class="profile-availability">
-                可接受：<strong>实习</strong> · <strong>全职</strong> · <strong>远程合作</strong>
+                鍙帴鍙楋細<strong>瀹炰範</strong> 路 <strong>鍏ㄨ亴</strong> 路 <strong>杩滅▼鍚堜綔</strong>
               </p>
               <a
                 class="profile-resume"
                 href="./resume.pdf"
-                download="郭伟南-简历.pdf"
+                download="閮紵鍗?绠€鍘?pdf"
                 data-magnetic
                 data-magnetic-strength="0.28"
-                aria-label="下载简历 PDF"
+                aria-label="涓嬭浇绠€鍘?PDF"
               >
                 <svg class="profile-resume__icon" viewBox="0 0 24 24" aria-hidden="true">
                   <path
                     d="M12 3a1 1 0 0 1 1 1v8.59l2.3-2.3a1 1 0 1 1 1.4 1.42l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.42L11 12.59V4a1 1 0 0 1 1-1Zm-6 14a1 1 0 0 1 1 1v1h10v-1a1 1 0 1 1 2 0v2a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-2a1 1 0 0 1 1-1Z"
                   />
                 </svg>
-                下载简历（PDF）
-              </a>
+                涓嬭浇绠€鍘嗭紙PDF锛?              </a>
               <p class="profile-meta">
                 <span class="profile-meta-item">
                   <svg class="meta-icon" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7Zm0 9.6a2.6 2.6 0 1 1 0-5.2 2.6 2.6 0 0 1 0 5.2Z" />
                   </svg>
-                  北京 / 上海 / 深圳
+                  鍖椾含 / 涓婃捣 / 娣卞湷
                 </span>
                 <span class="profile-meta-dot" aria-hidden="true"></span>
                 <span class="profile-meta-item profile-meta-status">
                   <span class="status-pulse" aria-hidden="true"></span>
-                  接受出差
+                  鎺ュ彈鍑哄樊
                 </span>
               </p>
               <div class="profile-contacts">
@@ -186,7 +153,7 @@
                     <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.85 10.91.57.11.78-.24.78-.55 0-.27-.01-1.16-.02-2.11-3.19.69-3.86-1.35-3.86-1.35-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.34.96.1-.74.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.14 1.18a10.88 10.88 0 0 1 5.72 0c2.18-1.49 3.14-1.18 3.14-1.18.62 1.59.23 2.76.11 3.05.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.39-5.25 5.67.41.36.77 1.07.77 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.2.67.79.55A11.51 11.51 0 0 0 23.5 12c0-6.35-5.15-11.5-11.5-11.5Z" />
                   </svg>
                 </a>
-                <a class="contact-link" data-magnetic data-magnetic-strength="0.35" href="mailto:taylorkarma@163.com" aria-label="邮箱">
+                <a class="contact-link" data-magnetic data-magnetic-strength="0.35" href="mailto:taylorkarma@163.com" aria-label="閭">
                   <svg viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm9 8.2L4.4 7H19.6L12 13.2ZM4 8.5V18h16V8.5l-7.45 6.1a1 1 0 0 1-1.1 0L4 8.5Z" />
                   </svg>
@@ -210,17 +177,16 @@
         </div>
 
         <div class="home-main">
-          <section class="projects-section" id="projects" aria-label="项目展示">
-            <div class="projects-masthead" aria-label="案例概览">
+          <section class="projects-section" id="projects" aria-label="椤圭洰灞曠ず">
+            <div class="projects-masthead" data-hero-stage="idle" aria-label="妗堜緥姒傝">
               <div class="projects-masthead__main">
-                <p class="projects-masthead__eyebrow">AI Product Portfolio · 2026</p>
-                <h2 class="projects-masthead__title">把业务规则，做成真正有人使用的 AI 产品。</h2>
+                <p class="projects-masthead__eyebrow">AI Product Portfolio 路 2026</p>
+                <h2 class="projects-masthead__title">鎶婁笟鍔¤鍒欙紝鍋氭垚鐪熸鏈変汉浣跨敤鐨?AI 浜у搧銆?/h2>
                 <p class="projects-masthead__desc">
-                  从问题拆解、规则建模到上线验证。这里记录的不是概念 Demo，而是我如何在真实约束下做判断、交付产品并复盘结果。
-                </p>
+                  浠庨棶棰樻媶瑙ｃ€佽鍒欏缓妯″埌涓婄嚎楠岃瘉銆傝繖閲岃褰曠殑涓嶆槸姒傚康 Demo锛岃€屾槸鎴戝浣曞湪鐪熷疄绾︽潫涓嬪仛鍒ゆ柇銆佷氦浠樹骇鍝佸苟澶嶇洏缁撴灉銆?                </p>
               </div>
-              <div class="pm-workbench" data-workbench aria-label="AI 产品经理工作台互动区">
-                <article class="pm-screen pm-screen--left" data-workbench-screen="design" tabindex="0" aria-label="Prototype / Design 工具屏">
+              <div class="pm-workbench" data-workbench aria-label="AI 浜у搧缁忕悊宸ヤ綔鍙颁簰鍔ㄥ尯">
+                <article class="pm-screen pm-screen--left reveal" data-reveal-group="hero" data-reveal-order="2" data-workbench-screen="design" tabindex="0" aria-label="Prototype / Design 工具屏">
                   <span class="pm-screen__toolbar">
                     <i></i>
                     <i></i>
@@ -250,7 +216,7 @@
                     <small>Figma / Notion / Flow</small>
                   </span>
                 </article>
-                <article class="pm-screen pm-screen--center is-active" data-workbench-screen="agent" tabindex="0" aria-label="AI Coding / Agent 工具屏">
+                <article class="pm-screen pm-screen--center is-active reveal" data-reveal-group="hero" data-reveal-order="1" data-workbench-screen="agent" tabindex="0" aria-label="AI Coding / Agent 工具屏">
                   <span class="pm-screen__toolbar">
                     <i></i>
                     <i></i>
@@ -263,9 +229,9 @@
                       <span>ChatGPT</span>
                     </div>
                     <div class="tool-terminal">
-                      <p><em>›</em> inspect product rules</p>
-                      <p><em>›</em> draft interaction states</p>
-                      <p><em>›</em> verify edge cases</p>
+                      <p><em>鈥?/em> inspect product rules</p>
+                      <p><em>鈥?/em> draft interaction states</p>
+                      <p><em>鈥?/em> verify edge cases</p>
                     </div>
                     <div class="tool-queue">
                       <span>Prompt</span>
@@ -278,7 +244,7 @@
                     <small>Cursor / Codex / ChatGPT</small>
                   </span>
                 </article>
-                <article class="pm-screen pm-screen--right" data-workbench-screen="delivery" tabindex="0" aria-label="Data / Delivery 工具屏">
+                <article class="pm-screen pm-screen--right reveal" data-reveal-group="hero" data-reveal-order="3" data-workbench-screen="delivery" tabindex="0" aria-label="Data / Delivery 工具屏">
                   <span class="pm-screen__toolbar">
                     <i></i>
                     <i></i>
@@ -310,13 +276,13 @@
                   </span>
                 </article>
 
-                <div class="pm-appbar pm-appbar--left" aria-hidden="true">
+                <div class="pm-appbar pm-appbar--left reveal" data-reveal-group="hero" data-reveal-order="4" aria-hidden="true">
                   <span class="pm-app pm-app--cursor" title="Cursor"></span>
                   <span class="pm-app pm-app--codex" title="Codex"></span>
                   <span class="pm-app pm-app--chatgpt" title="ChatGPT"></span>
                   <span class="pm-app pm-app--claude" title="Claude"></span>
                 </div>
-                <div class="pm-appbar pm-appbar--right" aria-hidden="true">
+                <div class="pm-appbar pm-appbar--right reveal" data-reveal-group="hero" data-reveal-order="5" aria-hidden="true">
                   <span class="pm-app pm-app--figma" title="Figma"></span>
                   <span class="pm-app pm-app--notion" title="Notion">N</span>
                   <span class="pm-app pm-app--github" title="GitHub"></span>
@@ -335,7 +301,7 @@
                 </div>
                 <div class="pm-geo-ball" aria-hidden="true"></div>
 
-                <div class="pm-desk" aria-hidden="true">
+                <div class="pm-desk reveal" data-reveal-group="hero-static" data-reveal-order="1" aria-hidden="true">
                   <div class="pm-hero-figure-wrap">
                     <img class="pm-hero-figure pm-hero-figure--base" src="./hero-person-workspace.png?v=20260628a" alt="" />
                     <img class="pm-hero-figure-head" src="./hero-person-workspace.png?v=20260628a" alt="" />
@@ -343,7 +309,7 @@
                   <div class="pm-desk__monitor">
                     <strong>hello</strong>
                   </div>
-                  <svg class="pm-avatar" data-workbench-person viewBox="0 0 300 420" role="img" aria-label="站立并抱着笔记本电脑的潮流年轻男性 AI 产品经理插画">
+                  <svg class="pm-avatar" data-workbench-person viewBox="0 0 300 420" role="img" aria-label="绔欑珛骞舵姳鐫€绗旇鏈數鑴戠殑娼祦骞磋交鐢锋€?AI 浜у搧缁忕悊鎻掔敾">
                     <defs>
                       <linearGradient id="avatarSkin" x1="0" x2="1" y1="0" y2="1">
                         <stop offset="0" stop-color="#f0b191" />
@@ -428,90 +394,89 @@
                 </div>
               </div>
               <div class="projects-masthead__meta">
-                <span class="projects-masthead__pill">05 个案例</span>
-                <span class="projects-masthead__pill">产品 / Agent / 自动化</span>
+                <span class="projects-masthead__pill">05 涓渚?/span>
+                <span class="projects-masthead__pill">浜у搧 / Agent / 鑷姩鍖?/span>
               </div>
             </div>
 
-            <section class="about-panel" id="about" aria-labelledby="aboutTitle">
-              <div class="about-panel__intro">
+            <section class="about-panel reveal" data-reveal-group="about" id="about" aria-labelledby="aboutTitle">
+              <div class="about-panel__intro reveal" data-reveal-group="about" data-reveal-order="1">
                 <p class="about-panel__eyebrow">ABOUT / PROFILE</p>
-                <h3 id="aboutTitle">我在做什么</h3>
+                <h3 id="aboutTitle">鎴戝湪鍋氫粈涔?/h3>
                 <p>
-                  我是郭伟南，方向是 AI 产品经理 / Agent 产品经理。比起只做概念 Demo，我更关注怎样把真实业务里的规则、流程和约束转译成可上线、可验证、可复用的 AI 产品。
-                </p>
+                  鎴戞槸閮紵鍗楋紝鏂瑰悜鏄?AI 浜у搧缁忕悊 / Agent 浜у搧缁忕悊銆傛瘮璧峰彧鍋氭蹇?Demo锛屾垜鏇村叧娉ㄦ€庢牱鎶婄湡瀹炰笟鍔￠噷鐨勮鍒欍€佹祦绋嬪拰绾︽潫杞瘧鎴愬彲涓婄嚎銆佸彲楠岃瘉銆佸彲澶嶇敤鐨?AI 浜у搧銆?                </p>
               </div>
-              <dl class="about-facts" aria-label="个人情况">
+              <dl class="about-facts reveal" data-reveal-group="about" data-reveal-order="2" aria-label="涓汉鎯呭喌">
                 <div>
-                  <dt>本科</dt>
-                  <dd>燕山大学 · 2018–2022</dd>
+                  <dt>鏈</dt>
+                  <dd>鐕曞北澶у 路 2018鈥?022</dd>
                 </div>
                 <div>
-                  <dt>硕士</dt>
-                  <dd>重庆大学 · 2022–2025</dd>
+                  <dt>纭曞＋</dt>
+                  <dd>閲嶅簡澶у 路 2022鈥?025</dd>
                 </div>
                 <div>
-                  <dt>目标方向</dt>
-                  <dd>AI 产品经理 / Agent 产品经理 / 数据产品经理</dd>
+                  <dt>鐩爣鏂瑰悜</dt>
+                  <dd>AI 浜у搧缁忕悊 / Agent 浜у搧缁忕悊 / 鏁版嵁浜у搧缁忕悊</dd>
                 </div>
               </dl>
-              <div class="about-contact" aria-label="联系方式">
+              <div class="about-contact reveal" data-reveal-group="about" data-reveal-order="3" aria-label="鑱旂郴鏂瑰紡">
                 <a class="about-contact__item" href="mailto:taylorkarma@163.com">
-                  <span class="about-contact__label">邮箱</span>
+                  <span class="about-contact__label">閭</span>
                   <strong>taylorkarma@163.com</strong>
                 </a>
                 <a class="about-contact__item" href="tel:+8615284339929">
-                  <span class="about-contact__label">电话</span>
+                  <span class="about-contact__label">鐢佃瘽</span>
                   <strong>+86 15284339929</strong>
                 </a>
                 <a class="about-contact__item about-contact__item--wechat" href="./wechat-qr.png" target="_blank" rel="noopener noreferrer">
-                  <span class="about-contact__label">微信</span>
-                  <strong>鼠标移入查看二维码</strong>
+                  <span class="about-contact__label">寰俊</span>
+                  <strong>榧犳爣绉诲叆鏌ョ湅浜岀淮鐮?/strong>
                   <span class="about-contact__qr" aria-hidden="true">
                     <img src="./wechat-qr.png" alt="" />
-                    <span>微信扫码添加</span>
+                    <span>寰俊鎵爜娣诲姞</span>
                   </span>
                 </a>
               </div>
-              <div class="about-strengths" aria-label="个人长处">
-                <article>
+              <div class="about-strengths reveal" data-reveal-group="about" data-reveal-order="4" aria-label="涓汉闀垮">
+                <article class="reveal" data-reveal-group="about-cards">
                   <span>01</span>
-                  <strong>规则抽象</strong>
-                  <p>能把排期、分配、校验、检索这类复杂业务约束拆成系统可执行的判断链路。</p>
+                  <strong>瑙勫垯鎶借薄</strong>
+                  <p>鑳芥妸鎺掓湡銆佸垎閰嶃€佹牎楠屻€佹绱㈣繖绫诲鏉備笟鍔＄害鏉熸媶鎴愮郴缁熷彲鎵ц鐨勫垽鏂摼璺€?/p>
                 </article>
-                <article>
+                <article class="reveal" data-reveal-group="about-cards">
                   <span>02</span>
-                  <strong>AI 工作流设计</strong>
-                  <p>关注可复核、可回退、可解释的 Agent / 自动化流程，而不是一次性输出。</p>
+                  <strong>AI 宸ヤ綔娴佽璁?/strong>
+                  <p>鍏虫敞鍙鏍搞€佸彲鍥為€€銆佸彲瑙ｉ噴鐨?Agent / 鑷姩鍖栨祦绋嬶紝鑰屼笉鏄竴娆℃€ц緭鍑恒€?/p>
                 </article>
-                <article>
+                <article class="reveal" data-reveal-group="about-cards">
                   <span>03</span>
-                  <strong>上线交付意识</strong>
-                  <p>习惯用真实链接、验收路径和结果复盘来证明产品，而不是只停留在原型层。</p>
+                  <strong>涓婄嚎浜や粯鎰忚瘑</strong>
+                  <p>涔犳儻鐢ㄧ湡瀹為摼鎺ャ€侀獙鏀惰矾寰勫拰缁撴灉澶嶇洏鏉ヨ瘉鏄庝骇鍝侊紝鑰屼笉鏄彧鍋滅暀鍦ㄥ師鍨嬪眰銆?/p>
                 </article>
               </div>
             </section>
 
-            <section class="evidence-rail" aria-labelledby="evidenceRailTitle">
-              <div class="evidence-rail__intro">
+            <section class="evidence-rail reveal" data-reveal-group="evidence" aria-labelledby="evidenceRailTitle">
+              <div class="evidence-rail__intro reveal" data-reveal-group="evidence" data-reveal-order="1">
                 <p class="evidence-rail__eyebrow">Verification log</p>
-                <h3 id="evidenceRailTitle">三个能力轴，一组可复核证据</h3>
+                <h3 id="evidenceRailTitle">涓変釜鑳藉姏杞达紝涓€缁勫彲澶嶆牳璇佹嵁</h3>
               </div>
               <div class="evidence-rail__items">
-                <article class="evidence-item">
+                <article class="evidence-item reveal" data-reveal-group="evidence-cards">
                   <span class="evidence-item__code">RULE</span>
-                  <strong>复杂规则产品化</strong>
-                  <p>把多人排期与分段参与规则前置为保存校验。</p>
+                  <strong>澶嶆潅瑙勫垯浜у搧鍖?/strong>
+                  <p>鎶婂浜烘帓鏈熶笌鍒嗘鍙備笌瑙勫垯鍓嶇疆涓轰繚瀛樻牎楠屻€?/p>
                 </article>
-                <article class="evidence-item">
+                <article class="evidence-item reveal" data-reveal-group="evidence-cards">
                   <span class="evidence-item__code">AGENT</span>
-                  <strong>AI 工作流设计</strong>
-                  <p>让检索、摘要、换算结果可解释、可回退、可复核。</p>
+                  <strong>AI 宸ヤ綔娴佽璁?/strong>
+                  <p>璁╂绱€佹憳瑕併€佹崲绠楃粨鏋滃彲瑙ｉ噴銆佸彲鍥為€€銆佸彲澶嶆牳銆?/p>
                 </article>
-                <article class="evidence-item">
+                <article class="evidence-item reveal" data-reveal-group="evidence-cards">
                   <span class="evidence-item__code">AUTO</span>
-                  <strong>自动化效率提升</strong>
-                  <p>企业日结由约 2 小时压缩至 10 分钟内。</p>
+                  <strong>鑷姩鍖栨晥鐜囨彁鍗?/strong>
+                  <p>浼佷笟鏃ョ粨鐢辩害 2 灏忔椂鍘嬬缉鑷?10 鍒嗛挓鍐呫€?/p>
                 </article>
               </div>
             </section>
@@ -523,8 +488,8 @@
             <section class="projects-group" aria-labelledby="coreGroupTitle">
               <div class="projects-group__header">
                 <p class="projects-group__eyebrow">Core Cases</p>
-                <h3 class="projects-group__title" id="coreGroupTitle">核心案例</h3>
-                <p class="projects-group__desc">继续展开我在 AI 工作流设计、规则型产品与双端落地上的能力。</p>
+                <h3 class="projects-group__title" id="coreGroupTitle">鏍稿績妗堜緥</h3>
+                <p class="projects-group__desc">缁х画灞曞紑鎴戝湪 AI 宸ヤ綔娴佽璁°€佽鍒欏瀷浜у搧涓庡弻绔惤鍦颁笂鐨勮兘鍔涖€?/p>
               </div>
               <div class="projects-grid projects-grid--core" id="coreProjectsGrid"></div>
             </section>
@@ -532,8 +497,8 @@
             <section class="projects-group" id="experiments" aria-labelledby="supportGroupTitle">
               <div class="projects-group__header">
                 <p class="projects-group__eyebrow">Supporting Cases</p>
-                <h3 class="projects-group__title" id="supportGroupTitle">补充案例</h3>
-                <p class="projects-group__desc">补充我在工具细节打磨、自动化效率提升与不同业务场景中的延展能力。</p>
+                <h3 class="projects-group__title" id="supportGroupTitle">琛ュ厖妗堜緥</h3>
+                <p class="projects-group__desc">琛ュ厖鎴戝湪宸ュ叿缁嗚妭鎵撶（銆佽嚜鍔ㄥ寲鏁堢巼鎻愬崌涓庝笉鍚屼笟鍔″満鏅腑鐨勫欢灞曡兘鍔涖€?/p>
               </div>
               <div class="projects-grid projects-grid--support" id="supportProjectsGrid"></div>
             </section>
@@ -550,18 +515,17 @@
       <div class="focus-backdrop" data-close-overlay="true"></div>
       <div class="focus-panel" role="dialog" aria-modal="true" aria-label="项目详情弹层">
         <button class="focus-close" id="focusClose" type="button" aria-label="关闭">
-          ×
+          脳
         </button>
         <img class="focus-image" id="focusImage" src="" alt="" />
-        <h3 class="focus-title" id="focusTitle"></h3>
-        <div class="focus-body-scroll" id="focusBodyScroll" tabindex="0"></div>
-        <div class="focus-links project-links" id="focusLinks"></div>
+        <h3 class="focus-title focus-stage" id="focusTitle"></h3>
+        <div class="focus-body-scroll focus-stage" id="focusBodyScroll" tabindex="0"></div>
+        <div class="focus-links project-links focus-stage" id="focusLinks"></div>
       </div>
     </div>
 
     <!-- ============================================================
-         模板定义（被 render/project-card.js 引用，不要修改类名 / data-slot 名称）
-         ============================================================ -->
+         妯℃澘瀹氫箟锛堣 render/project-card.js 寮曠敤锛屼笉瑕佷慨鏀圭被鍚?/ data-slot 鍚嶇О锛?         ============================================================ -->
 
     <template id="projectCardTemplate">
       <article class="project-card reveal">
@@ -575,7 +539,7 @@
         </button>
         <a class="hover-cta" data-slot="hover-cta" target="_blank" rel="noopener noreferrer">
           <span class="hover-cta-text" data-slot="hover-cta-label"></span>
-          <span class="hover-cta-arrow" aria-hidden="true">↗</span>
+          <span class="hover-cta-arrow" aria-hidden="true">→</span>
         </a>
         <div class="project-meta">
           <span class="project-index" data-slot="index"></span>
@@ -604,44 +568,44 @@
             <div class="focus-export-grid">
               <div class="focus-export-col">
                 <section class="focus-export-block">
-                  <h4 class="focus-export-h">解决的问题</h4>
+                  <h4 class="focus-export-h">瑙ｅ喅鐨勯棶棰?/h4>
                   <p class="focus-export-p" data-slot="focus-problem"></p>
                 </section>
                 <section class="focus-export-block">
-                  <h4 class="focus-export-h">我的负责</h4>
+                  <h4 class="focus-export-h">鎴戠殑璐熻矗</h4>
                   <p class="focus-export-p" data-slot="focus-ownership"></p>
                 </section>
                 <section class="focus-export-block">
-                  <h4 class="focus-export-h">核心流程</h4>
+                  <h4 class="focus-export-h">鏍稿績娴佺▼</h4>
                   <p class="focus-export-p" data-slot="focus-flow"></p>
                 </section>
               </div>
               <div class="focus-export-col">
                 <section class="focus-export-block">
-                  <h4 class="focus-export-h">产品判断</h4>
+                  <h4 class="focus-export-h">浜у搧鍒ゆ柇</h4>
                   <p class="focus-export-p" data-slot="focus-judgment"></p>
                 </section>
                 <section class="focus-export-highlights">
-                  <h4 class="focus-export-h">关键成果</h4>
+                  <h4 class="focus-export-h">鍏抽敭鎴愭灉</h4>
                   <ul class="focus-export-ul" data-slot="focus-highlights"></ul>
                 </section>
                 <section class="focus-export-block focus-export-prompt">
-                  <h4 class="focus-export-h">Prompt 设计</h4>
+                  <h4 class="focus-export-h">Prompt 璁捐</h4>
                   <dl class="focus-pd-dl">
-                    <dt>目标</dt>
+                    <dt>鐩爣</dt>
                     <dd data-slot="focus-pd-goal"></dd>
-                    <dt>输入</dt>
+                    <dt>杈撳叆</dt>
                     <dd data-slot="focus-pd-inputs"></dd>
-                    <dt>规则</dt>
+                    <dt>瑙勫垯</dt>
                     <dd data-slot="focus-pd-rules"></dd>
-                    <dt>输出</dt>
+                    <dt>杈撳嚭</dt>
                     <dd data-slot="focus-pd-output"></dd>
-                    <dt>防错</dt>
+                    <dt>闃查敊</dt>
                     <dd data-slot="focus-pd-safeguards"></dd>
                   </dl>
                 </section>
                 <section class="focus-export-block">
-                  <p class="focus-excerpt-label">脱敏节选</p>
+                  <p class="focus-excerpt-label">鑴辨晱鑺傞€?/p>
                   <pre class="focus-excerpt-pre" data-slot="focus-excerpt"></pre>
                 </section>
               </div>
@@ -687,18 +651,25 @@
 
     <noscript>
       <section class="noscript-fallback">
-        <h2>作品集（精简版）</h2>
-        <p>请开启 JavaScript 以获得完整体验。以下是项目清单的精简文本：</p>
+        <h2>浣滃搧闆嗭紙绮剧畝鐗堬級</h2>
+        <p>璇峰紑鍚?JavaScript 浠ヨ幏寰楀畬鏁翠綋楠屻€備互涓嬫槸椤圭洰娓呭崟鐨勭簿绠€鏂囨湰锛?/p>
         <ol>
-          <li><strong>工作日历协同系统</strong> — 冲突校验、Excel+云端 — <a href="https://work-calendar-52c.pages.dev">演示</a> · <a href="https://github.com/karma-taylor/work_calendar">GitHub</a></li>
-          <li><strong>HamHome Daily Digest</strong> — 多源抓取定时推送；RAG 摘要 — <a href="https://hamhome-digest-web.pages.dev/digest">演示</a> · <a href="https://github.com/karma-taylor/Daily_digest">GitHub</a></li>
-          <li><strong>轻松配钞（Money Distribute AI）</strong> — 批量配钞约 30 分钟→3 分钟级；Excel 批量 — <a href="https://karma-taylor.github.io/money_classify/">演示</a> · <a href="https://github.com/karma-taylor/money_classify">GitHub</a></li>
-          <li><strong>汇率换算 Agent</strong> — 多银行参考、防呆纠偏 — <a href="https://karmacat-weather-fx-agent.hf.space">演示</a> · <a href="https://github.com/karma-taylor/weather-fx-agent">GitHub</a></li>
-          <li><strong>日报自动化生成引擎</strong> — 日结约 2h→10min（约 ↓90%） — <a href="https://github.com/karma-taylor/Daily_report">GitHub</a></li>
+          <li><strong>宸ヤ綔鏃ュ巻鍗忓悓绯荤粺</strong> 鈥?鍐茬獊鏍￠獙銆丒xcel+浜戠 鈥?<a href="https://work-calendar-52c.pages.dev">婕旂ず</a> 路 <a href="https://github.com/karma-taylor/work_calendar">GitHub</a></li>
+          <li><strong>HamHome Daily Digest</strong> 鈥?澶氭簮鎶撳彇瀹氭椂鎺ㄩ€侊紱RAG 鎽樿 鈥?<a href="https://hamhome-digest-web.pages.dev/digest">婕旂ず</a> 路 <a href="https://github.com/karma-taylor/Daily_digest">GitHub</a></li>
+          <li><strong>杞绘澗閰嶉挒锛圡oney Distribute AI锛?/strong> 鈥?鎵归噺閰嶉挒绾?30 鍒嗛挓鈫? 鍒嗛挓绾э紱Excel 鎵归噺 鈥?<a href="https://karma-taylor.github.io/money_classify/">婕旂ず</a> 路 <a href="https://github.com/karma-taylor/money_classify">GitHub</a></li>
+          <li><strong>姹囩巼鎹㈢畻 Agent</strong> 鈥?澶氶摱琛屽弬鑰冦€侀槻鍛嗙籂鍋?鈥?<a href="https://karmacat-weather-fx-agent.hf.space">婕旂ず</a> 路 <a href="https://github.com/karma-taylor/weather-fx-agent">GitHub</a></li>
+          <li><strong>鏃ユ姤鑷姩鍖栫敓鎴愬紩鎿?/strong> 鈥?鏃ョ粨绾?2h鈫?0min锛堢害 鈫?0%锛?鈥?<a href="https://github.com/karma-taylor/Daily_report">GitHub</a></li>
         </ol>
       </section>
     </noscript>
 
-    <script type="module" src="./main.js?v=20260629-scroll-focus-2"></script>
+    <script type="module" src="./main.js?v=20260629-motion-system-1"></script>
   </body>
 </html>
+
+
+
+
+
+
+
