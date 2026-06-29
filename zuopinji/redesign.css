@@ -4047,12 +4047,14 @@ body::after,
 }
 
 .featured-hero,
-.projects-grid--core {
+.projects-grid--core,
+.projects-grid--support {
   perspective: 1400px;
 }
 
 .featured-hero .project-card,
-.projects-grid--core .project-card {
+.projects-grid--core .project-card,
+.projects-grid--support .project-card {
   transform-origin: center center;
   transition:
     transform 0.48s cubic-bezier(0.16, 1, 0.3, 1),
@@ -4076,7 +4078,8 @@ body::after,
 }
 
 .featured-hero .project-card.is-deck-active,
-.projects-grid--core .project-card.is-deck-active {
+.projects-grid--core .project-card.is-deck-active,
+.projects-grid--support .project-card.is-deck-active {
   z-index: 4;
   opacity: 1;
   filter: saturate(1) brightness(1);
@@ -4088,7 +4091,8 @@ body::after,
 }
 
 .featured-hero .project-card.is-deck-muted,
-.projects-grid--core .project-card.is-deck-muted {
+.projects-grid--core .project-card.is-deck-muted,
+.projects-grid--support .project-card.is-deck-muted {
   opacity: 0.58;
   filter: saturate(0.72) brightness(0.84);
   transform: translate3d(0, 12px, -70px) scale(0.94) rotateX(3deg);
@@ -4148,7 +4152,8 @@ body::after,
   }
 
   .featured-hero .project-card,
-  .projects-grid--core .project-card {
+  .projects-grid--core .project-card,
+  .projects-grid--support .project-card {
     min-height: auto;
     opacity: 1 !important;
     filter: none !important;
@@ -4160,6 +4165,7 @@ body::after,
   .pm-screen,
   .featured-hero .project-card,
   .projects-grid--core .project-card,
+  .projects-grid--support .project-card,
   .project-card.is-deck-active .project-cover img {
     transition: none !important;
     animation: none !important;
