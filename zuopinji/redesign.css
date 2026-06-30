@@ -2680,6 +2680,222 @@ body::after,
   letter-spacing: -0.035em;
 }
 
+.about-agent-map {
+  position: relative;
+  margin-top: 34px;
+  padding: 22px 24px 24px;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.018)),
+    radial-gradient(circle at 18% 20%, rgba(73, 166, 255, 0.12), transparent 28%),
+    radial-gradient(circle at 84% 72%, rgba(87, 255, 205, 0.08), transparent 24%),
+    rgba(255, 255, 255, 0.018);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 28px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 24px 70px rgba(0, 0, 0, 0.24);
+}
+
+.about-agent-map__glow {
+  position: absolute;
+  inset: auto;
+  width: 180px;
+  aspect-ratio: 1;
+  border-radius: 999px;
+  filter: blur(30px);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.about-agent-map__glow--blue {
+  top: -54px;
+  left: -28px;
+  background: radial-gradient(circle, rgba(73, 166, 255, 0.3), transparent 68%);
+}
+
+.about-agent-map__glow--mint {
+  right: -26px;
+  bottom: -48px;
+  background: radial-gradient(circle, rgba(87, 255, 205, 0.24), transparent 68%);
+}
+
+.about-agent-map__header {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 10px;
+}
+
+.about-agent-map__kicker {
+  color: rgba(73, 166, 255, 0.82);
+  font: 800 0.64rem/1 "IBM Plex Mono", ui-monospace, monospace;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.about-agent-map__title {
+  max-width: 28ch;
+  color: rgba(245, 245, 247, 0.86);
+  font-size: clamp(1rem, 1.3vw, 1.18rem);
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.03em;
+}
+
+.about-agent-map__canvas {
+  position: relative;
+  min-height: 300px;
+  margin-top: 22px;
+}
+
+.about-agent-map__node {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  gap: 8px;
+  min-width: 180px;
+  padding: 16px 18px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03)),
+    rgba(8, 11, 18, 0.86);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 22px;
+  backdrop-filter: blur(10px);
+  box-shadow:
+    0 16px 40px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.about-agent-map__node-label,
+.about-agent-map__card span {
+  color: rgba(245, 245, 247, 0.42);
+  font: 800 0.62rem/1 "IBM Plex Mono", ui-monospace, monospace;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.about-agent-map__node strong,
+.about-agent-map__card strong {
+  color: rgba(245, 245, 247, 0.88);
+  font-size: 0.94rem;
+  line-height: 1.3;
+  letter-spacing: -0.03em;
+}
+
+.about-agent-map__node small {
+  color: rgba(245, 245, 247, 0.5);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.about-agent-map__node--input {
+  top: 18px;
+  left: 0;
+}
+
+.about-agent-map__node--agent {
+  top: 104px;
+  left: 50%;
+  min-width: 230px;
+  transform: translateX(-50%);
+  border-color: rgba(73, 166, 255, 0.24);
+  box-shadow:
+    0 22px 50px rgba(0, 0, 0, 0.32),
+    0 0 26px rgba(73, 166, 255, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.about-agent-map__node--output {
+  top: 18px;
+  right: 0;
+}
+
+.about-agent-map__rail {
+  position: absolute;
+  z-index: 1;
+  top: 96px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(73, 166, 255, 0.06), rgba(73, 166, 255, 0.5), rgba(87, 255, 205, 0.12));
+  transform-origin: left center;
+}
+
+.about-agent-map__rail--one {
+  left: 150px;
+  width: calc(50% - 190px);
+  transform: rotate(12deg);
+}
+
+.about-agent-map__rail--two {
+  right: 150px;
+  width: calc(50% - 190px);
+  transform: rotate(-12deg);
+}
+
+.about-agent-map__pulse {
+  position: absolute;
+  z-index: 1;
+  width: 10px;
+  height: 10px;
+  margin-top: -5px;
+  border-radius: 999px;
+  background: #57ffcd;
+  box-shadow:
+    0 0 0 6px rgba(87, 255, 205, 0.08),
+    0 0 18px rgba(87, 255, 205, 0.36);
+  animation: aboutAgentPulse 3.4s linear infinite;
+}
+
+.about-agent-map__pulse--one {
+  top: 126px;
+  left: 33%;
+}
+
+.about-agent-map__pulse--two {
+  top: 126px;
+  right: 33%;
+  animation-delay: 1.4s;
+}
+
+.about-agent-map__card {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  gap: 6px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+}
+
+.about-agent-map__card--left {
+  left: 24px;
+  bottom: 18px;
+}
+
+.about-agent-map__card--center {
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+}
+
+.about-agent-map__card--right {
+  right: 24px;
+  bottom: 18px;
+}
+
+@keyframes aboutAgentPulse {
+  0%,
+  100% {
+    transform: scale(0.82);
+    opacity: 0.5;
+  }
+  48% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+}
+
 .about-facts {
   display: grid;
   gap: 12px;
@@ -2758,6 +2974,53 @@ body::after,
     margin-block: 40px 88px;
   }
 
+  .about-agent-map__canvas {
+    min-height: 430px;
+  }
+
+  .about-agent-map__node--input,
+  .about-agent-map__node--output {
+    top: auto;
+    left: auto;
+    right: auto;
+  }
+
+  .about-agent-map__node--input {
+    top: 0;
+    left: 0;
+  }
+
+  .about-agent-map__node--agent {
+    top: 140px;
+  }
+
+  .about-agent-map__node--output {
+    top: 280px;
+    right: 0;
+  }
+
+  .about-agent-map__rail--one {
+    top: 114px;
+    left: 112px;
+    width: calc(50% - 102px);
+  }
+
+  .about-agent-map__rail--two {
+    top: 260px;
+    right: 112px;
+    width: calc(50% - 102px);
+  }
+
+  .about-agent-map__pulse--one {
+    top: 144px;
+    left: 44%;
+  }
+
+  .about-agent-map__pulse--two {
+    top: 290px;
+    right: 42%;
+  }
+
   .about-strengths {
     grid-template-columns: 1fr;
   }
@@ -2775,6 +3038,84 @@ body::after,
 
   .about-panel__intro p {
     margin-top: 20px;
+  }
+
+  .about-agent-map {
+    margin-top: 26px;
+    padding: 18px;
+    border-radius: 22px;
+  }
+
+  .about-agent-map__title {
+    max-width: none;
+  }
+
+  .about-agent-map__canvas {
+    min-height: 500px;
+  }
+
+  .about-agent-map__node {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .about-agent-map__node--input,
+  .about-agent-map__node--agent,
+  .about-agent-map__node--output {
+    left: 0;
+    right: auto;
+    transform: none;
+  }
+
+  .about-agent-map__node--input {
+    top: 0;
+  }
+
+  .about-agent-map__node--agent {
+    top: 156px;
+  }
+
+  .about-agent-map__node--output {
+    top: 312px;
+  }
+
+  .about-agent-map__rail {
+    left: 50%;
+    width: 1px;
+    height: 42px;
+    background: linear-gradient(180deg, rgba(73, 166, 255, 0.08), rgba(87, 255, 205, 0.44), rgba(87, 255, 205, 0.08));
+    transform: translateX(-50%);
+  }
+
+  .about-agent-map__rail--one {
+    top: 114px;
+  }
+
+  .about-agent-map__rail--two {
+    top: 270px;
+  }
+
+  .about-agent-map__pulse--one {
+    top: 136px;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+  }
+
+  .about-agent-map__pulse--two {
+    top: 292px;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+  }
+
+  .about-agent-map__card {
+    position: static;
+    margin-top: 12px;
+  }
+
+  .about-agent-map__card--center {
+    transform: none;
   }
 
   .about-facts div,
@@ -4929,7 +5270,8 @@ body::after,
   .project-card,
   .project-card .project-trigger,
   .project-card .project-cover img,
-  .about-contact__qr {
+  .about-contact__qr,
+  .about-agent-map__pulse {
     transition: none !important;
     animation: none !important;
   }
