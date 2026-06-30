@@ -6707,11 +6707,11 @@ body::after,
 
 .projects-group__desc {
   max-width: 32ch;
-  margin: 0 0 3px auto;
+  margin: 0 0 3px;
   color: rgba(245, 245, 247, 0.46);
   font-size: 0.94rem;
   line-height: 1.72;
-  text-align: right;
+  text-align: left;
 }
 
 .featured-hero {
