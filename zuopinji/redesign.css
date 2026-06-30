@@ -2631,6 +2631,10 @@ body::after,
   z-index: 2;
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(260px, 0.58fr);
+  grid-template-areas:
+    "intro facts"
+    "map contact"
+    "strengths strengths";
   align-items: start;
   gap: clamp(22px, 3.6vw, 48px);
   width: min(1120px, calc(100vw - 96px));
@@ -2652,6 +2656,7 @@ body::after,
 }
 
 .about-panel__intro {
+  grid-area: intro;
   align-self: start;
 }
 
@@ -2682,8 +2687,9 @@ body::after,
 }
 
 .about-agent-map {
+  grid-area: map;
   position: relative;
-  margin-top: 34px;
+  margin-top: 0;
   padding: 22px 24px 24px;
   overflow: hidden;
   background:
@@ -2898,10 +2904,11 @@ body::after,
 }
 
 .about-facts {
+  grid-area: facts;
   display: grid;
   gap: 10px;
   align-self: start;
-  margin: 6px 0 0;
+  margin: 0;
 }
 
 .about-facts div {
@@ -2929,8 +2936,7 @@ body::after,
 }
 
 .about-strengths {
-  grid-column: 1;
-  grid-row: 2;
+  grid-area: strengths;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
@@ -2973,15 +2979,14 @@ body::after,
 @media (max-width: 860px) {
   .about-panel {
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "intro"
+      "facts"
+      "map"
+      "contact"
+      "strengths";
     width: min(100% - 40px, 680px);
     margin-block: 40px 88px;
-  }
-
-  .about-facts,
-  .about-contact,
-  .about-strengths {
-    grid-column: 1;
-    grid-row: auto;
   }
 
   .about-agent-map__canvas {
@@ -4767,8 +4772,7 @@ body::after,
 }
 
 .about-contact {
-  grid-column: 2;
-  grid-row: 2;
+  grid-area: contact;
   display: grid;
   gap: 10px;
   align-self: start;
