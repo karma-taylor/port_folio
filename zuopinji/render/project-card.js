@@ -1,59 +1,31 @@
-/**
- * 项目卡片渲染器
- *
- * 职责：把 projects.js 中的纯数据对象，转换成与 index.html 中 <template> 同构的 DOM 节点。
- * 不做任何业务判断、不绑定事件、不调用交互 setup。
- *
- * layout:
- *   - full（默认）：完整卡片，用于测试与兼容
- *   - compact：首页网格卡（无流程条、无 GitHub 条、技术栈最多 4、含演示/详情）
- *   - hero：精选大卡（同 compact 信息量 + 版式由 CSS 放大）
- */
-
-import {
-  cloneTemplate,
-  getSlot,
-  setSlotText,
-} from "./dom-helpers.js";
+import { cloneTemplate, getSlot, setSlotText } from "./dom-helpers.js";
 
 const CARD_TPL = "projectCardTemplate";
 const TECH_TPL = "techBadgeTemplate";
 const FLOW_TPL = "flowStepTemplate";
 const LINK_TPL = "detailLinkTemplate";
 
-/**
- * 拼出最终的 cover URL（带可选 cache-buster）。
- * @param {{src: string, version?: string}} cover
- * @returns {string}
- */
 export function buildCoverUrl(cover) {
   return cover.version ? `${cover.src}?v=${cover.version}` : cover.src;
 }
 
-/**
- * 详情链接排序：上线在前，GitHub 在后。
- * @param {Array<{ type: string }>} links
- */
-export function sortDetailLinks(links) {
-  const rank = (l) => (l.type === "live" ? 0 : l.type === "github" ? 1 : 2);
+export function sortDetailLinks(links = []) {
+  const rank = (item) => (item.type === "live" ? 0 : item.type === "github" ? 1 : 2);
   return [...links].sort((a, b) => rank(a) - rank(b));
 }
 
-/**
- * @param {object} options
- * @param {'full' | 'compact' | 'hero'} [options.layout]
- * @returns {'full' | 'compact' | 'hero'}
- */
 function normalizeLayout(options) {
-  const l = options?.layout;
-  if (l === "hero" || l === "compact" || l === "full") return l;
-  return "full";
+  const layout = options?.layout;
+  return layout === "compact" || layout === "hero" || layout === "full"
+    ? layout
+    : "full";
 }
 
 function fillCover(card, data) {
   const wrap = getSlot(card, "cover-bg");
   const img = getSlot(card, "cover-img");
   const url = buildCoverUrl(data.cover);
+
   if (wrap) wrap.style.setProperty("--cover-url", `url(${url})`);
   if (img) {
     img.src = url;
@@ -62,65 +34,48 @@ function fillCover(card, data) {
 }
 
 function fillHover(card, data) {
-  setSlotText(card, "hover-value", data.hoverValue);
+  setSlotText(card, "hover-value", data.hoverValue || "");
 
   const hoverCta = getSlot(card, "hover-cta");
-  if (hoverCta) {
-    hoverCta.removeAttribute("href");
-    hoverCta.setAttribute("hidden", "");
-    hoverCta.setAttribute("aria-hidden", "true");
-  }
+  if (!hoverCta) return;
+  hoverCta.removeAttribute("href");
+  hoverCta.setAttribute("hidden", "");
+  hoverCta.setAttribute("aria-hidden", "true");
   setSlotText(card, "hover-cta-label", "");
 }
 
-function fillMeta(card, data, layout) {
+function fillMeta(card, data) {
   setSlotText(card, "title", data.title);
   card.dataset.titleLong = data.titleLong || data.title;
+  setSlotText(card, "index", data.index);
+  setSlotText(card, "status-label", data.statusLabel);
 
-  const indexEl = getSlot(card, "index");
   const status = getSlot(card, "status");
-
-  if (layout === "full") {
-    setSlotText(card, "index", data.index);
-    if (indexEl) indexEl.removeAttribute("aria-hidden");
-    if (status) {
-      status.classList.add(`project-status--${data.status}`);
-      status.removeAttribute("hidden");
-    }
-    setSlotText(card, "status-label", data.statusLabel);
-  } else {
-    if (indexEl) {
-      indexEl.textContent = data.index;
-      indexEl.removeAttribute("aria-hidden");
-    }
-    if (status) {
-      status.removeAttribute("hidden");
-      status.classList.add(`project-status--${data.status}`);
-      status.classList.remove(
-        data.status === "live" ? "project-status--wip" : "project-status--live"
-      );
-    }
-    setSlotText(card, "status-label", data.statusLabel);
+  if (status) {
+    status.classList.remove("project-status--live", "project-status--wip");
+    status.classList.add(`project-status--${data.status}`);
+    status.removeAttribute("hidden");
   }
 }
 
 function fillLede(card, data, layout) {
   const el = getSlot(card, "lede");
   if (!el) return;
-  if (layout === "compact" || layout === "hero") {
-    const text =
-      data.detail?.focus?.tagline || data.hoverValue || "";
-    el.textContent = text;
-    el.removeAttribute("hidden");
-  } else {
+
+  if (layout === "full") {
     el.textContent = "";
     el.setAttribute("hidden", "");
+    return;
   }
+
+  el.textContent = data.detail?.focus?.tagline || data.hoverValue || "";
+  el.removeAttribute("hidden");
 }
 
 function fillCardActions(card, data, layout) {
   const wrap = getSlot(card, "card-actions");
   if (!wrap) return;
+
   wrap.replaceChildren();
 
   if (layout === "full") {
@@ -131,17 +86,17 @@ function fillCardActions(card, data, layout) {
   const detailButton = document.createElement("button");
   detailButton.className = "project-action project-action--detail";
   detailButton.type = "button";
-  detailButton.textContent = "案例详情";
+  detailButton.textContent = "查看案例";
   wrap.appendChild(detailButton);
 
-  const live = sortDetailLinks(data.detail?.links || []).find((link) => link.type === "live");
+  const live = sortDetailLinks(data.detail?.links || []).find((item) => item.type === "live");
   if (live) {
     const liveLink = document.createElement("a");
     liveLink.className = "project-action project-action--demo";
     liveLink.href = live.href;
     liveLink.target = "_blank";
     liveLink.rel = "noopener noreferrer";
-    liveLink.textContent = "在线访问";
+    liveLink.textContent = "访问上线版本";
     wrap.appendChild(liveLink);
   }
 
@@ -151,6 +106,7 @@ function fillCardActions(card, data, layout) {
 function fillOutcomes(card, data, layout) {
   const list = getSlot(card, "outcomes-list");
   if (!list) return;
+
   list.replaceChildren();
 
   const outcomes = Array.isArray(data.outcomes) ? data.outcomes.slice(0, 3) : [];
@@ -181,20 +137,21 @@ function fillOutcomes(card, data, layout) {
 function fillTech(card, data, layout) {
   const list = getSlot(card, "tech-list");
   if (!list) return;
+
   list.setAttribute("aria-label", `${data.titleLong || data.title} 技术栈`);
   list.replaceChildren();
 
   let techs = data.tech || [];
   if (layout !== "full") {
-    const aiTechs = techs.filter((t) => t.type === "ai");
-    const otherTechs = techs.filter((t) => t.type !== "ai");
+    const aiTechs = techs.filter((item) => item.type === "ai");
+    const otherTechs = techs.filter((item) => item.type !== "ai");
     techs = [...aiTechs, ...otherTechs].slice(0, 3);
   }
 
-  techs.forEach((t) => {
+  techs.forEach((item) => {
     const li = cloneTemplate(TECH_TPL);
-    li.dataset.techType = t.type;
-    li.textContent = t.label;
+    li.dataset.techType = item.type;
+    li.textContent = item.label;
     list.appendChild(li);
   });
 }
@@ -203,20 +160,18 @@ function fillFlow(card, data, layout) {
   const list = getSlot(card, "flow-list");
   if (!list) return;
 
-  if (layout !== "full") {
-    list.replaceChildren();
-    return;
-  }
+  list.replaceChildren();
+
+  if (layout !== "full" || !data.flow?.steps) return;
 
   list.setAttribute("aria-label", data.flow.ariaLabel);
-
-  data.flow.steps.forEach((s) => {
+  data.flow.steps.forEach((step) => {
     const li = cloneTemplate(FLOW_TPL);
-    if (s.accent) li.classList.add("flow-step--accent");
+    if (step.accent) li.classList.add("flow-step--accent");
     const idx = li.querySelector('[data-slot="flow-idx"]');
     const label = li.querySelector('[data-slot="flow-label"]');
-    if (idx) idx.textContent = s.idx;
-    if (label) label.textContent = s.label;
+    if (idx) idx.textContent = step.idx;
+    if (label) label.textContent = step.label;
     list.appendChild(li);
   });
 }
@@ -233,14 +188,15 @@ function fillGithubCta(card, data, layout) {
     return;
   }
 
-  cta.removeAttribute("hidden");
   cta.href = data.github.href;
+  cta.removeAttribute("hidden");
 
   if (data.github.magnetic === false) {
     cta.removeAttribute("data-magnetic");
   } else {
     cta.setAttribute("data-magnetic", "");
   }
+
   if (data.github.magneticStrength != null) {
     cta.dataset.magneticStrength = String(data.github.magneticStrength);
   }
@@ -253,9 +209,11 @@ function fillDetailLink(linkNode, linkData) {
   } else {
     linkNode.removeAttribute("download");
   }
+
   linkNode.querySelectorAll("[data-icon-for]").forEach((icon) => {
     if (icon.dataset.iconFor !== linkData.type) icon.remove();
   });
+
   const label = linkNode.querySelector('[data-slot="link-label"]');
   if (label) label.textContent = linkData.label;
 }
@@ -384,20 +342,18 @@ function fillFocusExport(card, data) {
   const root = getSlot(card, "focus-export");
   if (!root || !data.detail?.focus) return;
 
-  const f = data.detail.focus;
-  const pd = f.promptDesign || {};
-  const recruiting = data.detail?.recruiting || {};
-  const caseStudy = data.detail?.caseStudy;
+  const focus = data.detail.focus;
+  const recruiting = data.detail.recruiting || {};
 
   root.replaceChildren();
 
-  if (caseStudy) {
-    root.appendChild(buildCaseStudyHero(caseStudy));
+  if (data.detail.caseStudy) {
+    root.appendChild(buildCaseStudyHero(data.detail.caseStudy));
   }
 
   const lede = document.createElement("p");
   lede.className = "focus-export-lede";
-  lede.textContent = f.tagline || recruiting.background || data.detail.summary || "";
+  lede.textContent = focus.tagline || recruiting.background || data.detail.summary || "";
   root.appendChild(lede);
 
   const resultsSection = document.createElement("section");
@@ -410,24 +366,22 @@ function fillFocusExport(card, data) {
 
   const flow = document.createElement("div");
   flow.className = "focus-export-flow";
-
   flow.append(
     buildFocusSection("业务背景", recruiting.background || data.detail.summary || ""),
     buildFocusSection("谁在用 / 典型场景", recruiting.usersScene || ""),
-    buildFocusSection("核心问题", recruiting.coreProblem || f.problem || ""),
-    buildFocusSection("我的负责", f.ownership || ""),
-    buildFocusSection("关键产品判断", f.productJudgment || ""),
+    buildFocusSection("核心问题", recruiting.coreProblem || focus.problem || ""),
+    buildFocusSection("我的职责", focus.ownership || ""),
+    buildFocusSection("关键产品判断", focus.productJudgment || ""),
     buildFocusSection("风险与未做", recruiting.risks || "待补充"),
-    buildPromptSection(pd),
-    buildExcerptSection(pd.excerpt || "")
+    buildPromptSection(focus.promptDesign || {}),
+    buildExcerptSection(focus.promptDesign?.excerpt || "")
   );
-
   root.appendChild(flow);
 }
 
 function fillDetail(card, data) {
   fillFocusExport(card, data);
-  setSlotText(card, "summary", data.detail.summary);
+  setSlotText(card, "summary", data.detail.summary || "");
 
   const promptEl = getSlot(card, "prompt");
   if (promptEl) {
@@ -437,13 +391,12 @@ function fillDetail(card, data) {
 
   const linksHolder = getSlot(card, "detail-links");
   if (!linksHolder) return;
-
   linksHolder.replaceChildren();
 
-  sortDetailLinks(data.detail.links).forEach((l) => {
-    const a = cloneTemplate(LINK_TPL);
-    fillDetailLink(a, l);
-    linksHolder.appendChild(a);
+  sortDetailLinks(data.detail.links || []).forEach((item) => {
+    const node = cloneTemplate(LINK_TPL);
+    fillDetailLink(node, item);
+    linksHolder.appendChild(node);
   });
 
   const content = card.querySelector(".project-content");
@@ -480,17 +433,10 @@ function fillDetail(card, data) {
   content.appendChild(contactWrap);
 }
 
-/**
- * 渲染一张项目卡。
- * @param {object} data 单个项目对象
- * @param {object} [options]
- * @param {'full' | 'compact' | 'hero'} [options.layout='full']
- * @returns {HTMLElement}
- */
 export function renderProjectCard(data, options = {}) {
   const layout = normalizeLayout(options);
-
   const card = cloneTemplate(CARD_TPL);
+
   card.dataset.projectId = data.id;
   card.dataset.status = data.status;
   card.dataset.layout = layout;
@@ -498,7 +444,7 @@ export function renderProjectCard(data, options = {}) {
 
   fillCover(card, data);
   fillHover(card, data);
-  fillMeta(card, data, layout);
+  fillMeta(card, data);
   fillLede(card, data, layout);
   fillTech(card, data, layout);
   fillOutcomes(card, data, layout);
@@ -510,15 +456,11 @@ export function renderProjectCard(data, options = {}) {
   return card;
 }
 
-/**
- * 精选项目区：眉题 + 可选一句话 + 大卡。
- * @param {Element | null} mountEl
- * @param {object} data
- */
 export function renderFeaturedProject(mountEl, data) {
   if (!mountEl) return;
 
   mountEl.replaceChildren();
+
   const inner = document.createElement("div");
   inner.className = "featured-hero__inner";
 
@@ -526,7 +468,6 @@ export function renderFeaturedProject(mountEl, data) {
   eyebrow.className = "featured-hero__eyebrow";
   eyebrow.id = "featured-hero-label";
   eyebrow.textContent = "精选项目";
-
   inner.appendChild(eyebrow);
 
   const teaser = data.detail?.heroTeaser;
@@ -542,21 +483,15 @@ export function renderFeaturedProject(mountEl, data) {
   mountEl.setAttribute("aria-labelledby", "featured-hero-label");
 }
 
-/**
- * 把所有项目渲染到指定挂载点。
- * @param {Array<object>} projects
- * @param {Element} mountEl
- * @param {object} [options]
- * @param {'full' | 'compact'} [options.layout='full']
- */
 export function renderAllProjects(projects, mountEl, options = {}) {
   if (!mountEl) {
     throw new Error("[project-card] mountEl 不存在，渲染入口缺失");
   }
+
   const layout = options.layout === "compact" ? "compact" : "full";
   const frag = document.createDocumentFragment();
-  projects.forEach((p) =>
-    frag.appendChild(renderProjectCard(p, { layout }))
-  );
+  projects.forEach((item) => {
+    frag.appendChild(renderProjectCard(item, { layout }));
+  });
   mountEl.replaceChildren(frag);
 }
