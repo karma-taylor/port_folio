@@ -2630,13 +2630,13 @@ body::after,
   position: relative;
   z-index: 2;
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(260px, 0.58fr);
+  grid-template-columns: minmax(0, 1.16fr) minmax(280px, 0.52fr);
   grid-template-areas:
     "intro aside"
     "map aside"
     "strengths strengths";
   align-items: start;
-  gap: clamp(22px, 3.6vw, 48px);
+  gap: clamp(20px, 2.8vw, 34px);
   width: min(1120px, calc(100vw - 96px));
   margin: clamp(34px, 7vw, 88px) auto clamp(48px, 8vw, 96px);
   padding: clamp(26px, 4vw, 52px) 0;
@@ -2678,7 +2678,7 @@ body::after,
 }
 
 .about-panel__intro p {
-  max-width: 16.5em;
+  max-width: 24em;
   margin: 28px 0 0;
   color: rgba(245, 245, 247, 0.62);
   font-size: clamp(1rem, 1.6vw, 1.3rem);
@@ -6942,51 +6942,69 @@ body::after,
 
 .projects-grid--core .project-card,
 .projects-grid--support .project-card {
-  grid-template-columns: 58px minmax(0, 1.2fr) minmax(250px, 0.78fr);
-  gap: 18px clamp(20px, 3vw, 40px);
-  width: min(100%, 1220px);
+  grid-template-columns: 1fr;
+  gap: 0;
+  width: min(100%, 1080px);
   min-height: auto;
-  padding: 26px 0;
-  border-bottom-color: rgba(255, 255, 255, 0.09);
+  padding: 18px 0 26px;
+  border-bottom-color: rgba(255, 255, 255, 0.08);
 }
 
 .projects-grid--core .project-card > .project-trigger,
 .projects-grid--support .project-card > .project-trigger {
-  min-height: 164px;
-  border-radius: 18px;
-  opacity: 0.72;
-  transform: translateX(8px) scale(0.98);
+  grid-column: 1;
+  min-height: clamp(220px, 24vw, 310px);
+  border-radius: 22px;
+  opacity: 0.9;
+  transform: none;
 }
 
 .projects-grid--support .project-card > .project-trigger {
-  min-height: 150px;
-  opacity: 0.64;
+  min-height: clamp(210px, 22vw, 280px);
+  opacity: 0.88;
 }
 
 .projects-grid--core .project-card > .project-meta,
 .projects-grid--support .project-card > .project-meta {
-  grid-template-columns: 58px minmax(0, 1fr);
-  gap: 8px 18px;
+  grid-column: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    "index status"
+    "title title"
+    "tech actions"
+    "lede actions";
+  align-items: start;
+  gap: 10px 24px;
+  padding: 20px 4px 0;
 }
 
 .project-card[data-layout="compact"] .project-index {
+  grid-area: index;
+  align-self: center;
   color: rgba(73, 166, 255, 0.84);
   font-size: 0.68rem;
   letter-spacing: 0.16em;
 }
 
 .project-card[data-layout="compact"] .project-title {
-  max-width: 18ch;
+  grid-area: title;
+  max-width: none;
+  overflow: hidden;
   color: rgba(245, 245, 247, 0.9);
-  font-size: clamp(1.45rem, 2vw, 2rem);
+  font-size: clamp(1.4rem, 1.65vw, 1.8rem);
   font-weight: 520;
-  line-height: 1.08;
+  line-height: 1.14;
   letter-spacing: -0.055em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   transform: none !important;
 }
 
 .project-card[data-layout="compact"] .project-status {
-  margin-top: 2px;
+  grid-area: status;
+  justify-self: end;
+  margin-top: 0;
   padding: 0;
   color: rgba(245, 245, 247, 0.38);
   background: transparent;
@@ -7001,26 +7019,73 @@ body::after,
 }
 
 .project-card[data-layout="compact"] .project-lede {
-  max-width: 52ch;
-  margin-top: 2px;
+  grid-area: lede;
+  max-width: 56ch;
+  margin-top: 0;
   color: rgba(245, 245, 247, 0.54);
   font-size: 0.95rem;
-  line-height: 1.8;
+  line-height: 1.72;
   -webkit-line-clamp: 2;
 }
 
+.project-card[data-layout="compact"] .project-tech {
+  grid-area: tech;
+  margin-top: 2px;
+}
+
 .project-card[data-layout="compact"] .project-card-actions {
-  gap: 16px;
-  margin-top: 10px;
+  grid-area: actions;
+  align-self: stretch;
+  justify-self: end;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  min-width: 182px;
+  margin-top: 0;
+  padding: 10px 12px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.028)),
+    rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 16px 40px rgba(0, 0, 0, 0.22);
+}
+
+.project-card[data-layout="compact"] .project-action {
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  transform: none;
+}
+
+.project-card[data-layout="compact"] .project-action--detail {
+  color: rgba(245, 245, 247, 0.92);
+}
+
+.project-card[data-layout="compact"] .project-action--demo {
+  color: rgba(73, 166, 255, 0.96);
+}
+
+.project-card[data-layout="compact"] .project-action:hover,
+.project-card[data-layout="compact"] .project-action:focus-visible {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+  transform: translateY(-1px);
 }
 
 .projects-grid--support .project-card .project-title {
-  max-width: 19ch;
-  font-size: clamp(1.34rem, 1.7vw, 1.75rem);
+  font-size: clamp(1.32rem, 1.5vw, 1.64rem);
 }
 
 .projects-grid--support .project-card .project-lede {
-  max-width: 48ch;
+  max-width: 54ch;
   color: rgba(245, 245, 247, 0.48);
 }
 
@@ -7063,14 +7128,21 @@ body::after,
   .projects-grid--core .project-card,
   .projects-grid--support .project-card {
     grid-template-columns: 1fr;
-    gap: 16px;
-    padding: 22px 0;
+    gap: 0;
+    padding: 20px 0;
   }
 
   .projects-grid--core .project-card > .project-meta,
   .projects-grid--support .project-card > .project-meta {
     grid-column: 1;
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "index"
+      "title"
+      "tech"
+      "lede"
+      "actions"
+      "status";
     gap: 8px;
   }
 
@@ -7090,6 +7162,20 @@ body::after,
   .project-card[data-layout="compact"] .project-tech,
   .project-card[data-layout="compact"] .project-card-actions {
     grid-column: 1;
+  }
+
+  .project-card[data-layout="compact"] .project-title {
+    white-space: normal;
+    text-overflow: clip;
+  }
+
+  .project-card[data-layout="compact"] .project-card-actions {
+    justify-self: start;
+    min-width: min(100%, 260px);
+  }
+
+  .project-card[data-layout="compact"] .project-status {
+    justify-self: start;
   }
 }
 
