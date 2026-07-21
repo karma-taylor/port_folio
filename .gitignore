@@ -1,1 +1,5 @@
 .DS_Store
+.live-check-profile/
+.qa-os-profile/
+.qa-toolbar-profile/
+zuopinji/.chrome-qa-profile/
