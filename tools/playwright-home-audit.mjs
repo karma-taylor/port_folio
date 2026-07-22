@@ -1,0 +1,166 @@
+import { chromium } from "playwright";
+import fs from "node:fs/promises";
+import { createReadStream } from "node:fs";
+import http from "node:http";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const ROOT_DIR = path.resolve(__dirname, "..");
+const OUTPUT_DIR = path.resolve(ROOT_DIR, "tmp-playwright-audit");
+const CHROME_PATH = "C:/Program Files/Google/Chrome/Application/chrome.exe";
+const PORT = 4174;
+const HOST = "127.0.0.1";
+
+const MIME = {
+  ".html": "text/html; charset=utf-8",
+  ".js": "text/javascript; charset=utf-8",
+  ".css": "text/css; charset=utf-8",
+  ".json": "application/json; charset=utf-8",
+  ".png": "image/png",
+  ".jpg": "image/jpeg",
+  ".jpeg": "image/jpeg",
+  ".svg": "image/svg+xml",
+  ".pdf": "application/pdf",
+  ".woff": "font/woff",
+  ".woff2": "font/woff2",
+};
+
+async function ensureOutputDir() {
+  await fs.mkdir(OUTPUT_DIR, { recursive: true });
+}
+
+async function capture(page, name, locator = null) {
+  const target = locator ? page.locator(locator) : page;
+  await target.screenshot({
+    path: path.join(OUTPUT_DIR, `${name}.png`),
+  });
+}
+
+function resolveFilePath(requestUrl) {
+  const pathname = new URL(requestUrl, `http://${HOST}:${PORT}`).pathname;
+  const normalized = decodeURIComponent(pathname === "/" ? "/index.html" : pathname);
+  const resolved = path.resolve(ROOT_DIR, `.${normalized}`);
+  if (!resolved.startsWith(ROOT_DIR)) {
+    return null;
+  }
+  return resolved;
+}
+
+function createStaticServer() {
+  return http.createServer(async (req, res) => {
+    const filePath = resolveFilePath(req.url || "/");
+    if (!filePath) {
+      res.writeHead(403, { "Content-Type": "text/plain; charset=utf-8" });
+      res.end("forbidden");
+      return;
+    }
+
+    try {
+      const stat = await fs.stat(filePath);
+      if (!stat.isFile()) {
+        res.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
+        res.end("not found");
+        return;
+      }
+
+      const ext = path.extname(filePath).toLowerCase();
+      res.writeHead(200, {
+        "Content-Type": MIME[ext] || "application/octet-stream",
+        "Cache-Control": "no-cache",
+      });
+      createReadStream(filePath).pipe(res);
+    } catch {
+      res.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
+      res.end("not found");
+    }
+  });
+}
+
+async function startServer() {
+  const server = createStaticServer();
+  await new Promise((resolve, reject) => {
+    server.once("error", reject);
+    server.listen(PORT, HOST, () => resolve());
+  });
+  return server;
+}
+
+async function main() {
+  await ensureOutputDir();
+  const server = await startServer();
+
+  try {
+    const browser = await chromium.launch({
+      headless: true,
+      executablePath: CHROME_PATH,
+      args: ["--no-proxy-server"],
+    });
+
+    const page = await browser.newPage({
+      viewport: { width: 1512, height: 1400 },
+      deviceScaleFactor: 1,
+    });
+
+    const consoleMessages = [];
+    page.on("console", (message) => {
+      if (["error", "warning"].includes(message.type())) {
+        consoleMessages.push(`${message.type()}: ${message.text()}`);
+      }
+    });
+
+    await page.goto(`http://${HOST}:${PORT}/`, { waitUntil: "domcontentloaded" });
+    await page.waitForLoadState("networkidle");
+    await page.waitForTimeout(2200);
+
+    const heroStage = await page.locator(".projects-masthead").getAttribute("data-hero-stage");
+    const projectCount = await page.locator(".project-card").count();
+
+    await capture(page, "01-home-initial");
+
+    await page.mouse.move(760, 30);
+    await page.waitForTimeout(450);
+    await capture(page, "02-nav-expanded", ".os-topbar");
+
+    await page.mouse.move(760, 360);
+    await page.waitForTimeout(380);
+    await capture(page, "03-hero-settled", ".projects-masthead");
+
+    await page.locator("#coreProjectsGrid .project-card").nth(1).scrollIntoViewIfNeeded();
+    await page.waitForTimeout(900);
+    await capture(page, "04-core-scroll");
+
+    await page.mouse.move(780, 870);
+    await page.waitForTimeout(350);
+    await capture(page, "05-core-focus");
+
+    await page.locator(".featured-hero .project-trigger").click();
+    await page.waitForTimeout(950);
+    await capture(page, "06-overlay-open", ".focus-overlay");
+
+    await page.keyboard.press("Escape");
+    await page.waitForTimeout(500);
+    await capture(page, "07-overlay-closed");
+
+    console.log(`hero_stage=${heroStage}`);
+    console.log(`project_count=${projectCount}`);
+    console.log(
+      `console_messages=${consoleMessages.length ? consoleMessages.join(" || ") : "none"}`
+    );
+
+    await browser.close();
+  } finally {
+    await new Promise((resolve, reject) => {
+      server.close((error) => {
+        if (error) reject(error);
+        else resolve();
+      });
+    });
+  }
+}
+
+main().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});

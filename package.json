@@ -1,0 +1,28 @@
+{
+  "name": "port_folio",
+  "version": "1.0.0",
+  "description": "郭伟南的 AI 产品经理作品集静态站点，聚焦真实业务规则产品化、AI 工作流设计与自动化落地案例。",
+  "main": "main.js",
+  "type": "module",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "audit:home": "node ./tools/playwright-home-audit.mjs",
+    "test": "echo \"No automated test suite configured yet\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karma-taylor/port_folio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/karma-taylor/port_folio/issues"
+  },
+  "homepage": "https://github.com/karma-taylor/port_folio#readme",
+  "devDependencies": {
+    "playwright": "^1.61.1"
+  }
+}

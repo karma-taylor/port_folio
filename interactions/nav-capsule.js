@@ -22,7 +22,10 @@ export function setupNavCapsule() {
       topbar.dataset.navExpanded = "mobile";
       return;
     }
-    topbar.dataset.navExpanded = "true";
+    topbar.dataset.navExpanded = "arming";
+    window.requestAnimationFrame(() => {
+      topbar.dataset.navExpanded = "true";
+    });
   };
 
   const collapse = () => {
@@ -34,7 +37,7 @@ export function setupNavCapsule() {
     collapseTimer = window.setTimeout(() => {
       delete topbar.dataset.navExpanded;
       collapseTimer = 0;
-    }, 120);
+    }, 180);
   };
 
   const syncMode = () => {

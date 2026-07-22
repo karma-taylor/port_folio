@@ -3,3 +3,5 @@
 .qa-os-profile/
 .qa-toolbar-profile/
 zuopinji/.chrome-qa-profile/
+node_modules/
+tmp-playwright-audit/
