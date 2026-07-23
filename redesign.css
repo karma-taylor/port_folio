@@ -7791,3 +7791,180 @@ body::after,
     height: min(44vh, 380px);
   }
 }
+
+/* immersive case study — large visual first, long-form reading below */
+
+.focus-overlay {
+  display: block;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: clamp(12px, 2vw, 28px);
+  background: rgba(4, 5, 8, 0.2);
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+.focus-overlay.is-open {
+  padding: clamp(12px, 2vw, 28px);
+}
+
+.focus-backdrop {
+  position: fixed;
+  background: rgba(2, 3, 5, 0.86);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+}
+
+.focus-panel {
+  width: min(1240px, calc(100vw - clamp(24px, 4vw, 56px)));
+  height: auto;
+  max-height: none;
+  min-height: calc(100vh - clamp(24px, 4vw, 56px));
+  margin: 0 auto;
+  padding: clamp(18px, 2.4vw, 30px) 0 clamp(54px, 8vw, 96px);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  overflow: visible;
+  color: var(--os-text);
+  background:
+    radial-gradient(circle at 50% 6%, rgba(73, 166, 255, 0.08), transparent 28%),
+    rgba(9, 10, 13, 0.98);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: clamp(22px, 2.4vw, 34px);
+  transform: translate3d(0, 24px, 0);
+  transform-origin: 50% 0;
+}
+
+.focus-overlay.is-open .focus-panel {
+  transform: translate3d(0, 0, 0);
+}
+
+.focus-overlay.is-closing .focus-panel {
+  transform: translate3d(0, 16px, 0);
+}
+
+.focus-close {
+  position: fixed;
+  top: clamp(20px, 3vw, 34px);
+  right: clamp(20px, 3vw, 34px);
+  z-index: 1010;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  color: rgba(245, 245, 247, 0.88);
+  background: rgba(15, 16, 20, 0.76);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.34);
+  backdrop-filter: blur(14px);
+  font-size: 1.55rem;
+  font-weight: 300;
+}
+
+.focus-image {
+  order: 1;
+  width: calc(100% - clamp(28px, 5vw, 64px));
+  height: auto;
+  min-height: 0;
+  max-height: none;
+  margin: 0 auto;
+  padding: 0;
+  display: block;
+  object-fit: contain;
+  object-position: center top;
+  background: #05070b;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: clamp(16px, 2vw, 26px);
+  box-shadow: 0 34px 90px rgba(0, 0, 0, 0.42);
+  filter: none;
+}
+
+.focus-title {
+  order: 2;
+  width: min(860px, calc(100% - clamp(40px, 10vw, 128px)));
+  margin: clamp(44px, 7vw, 84px) auto 0;
+  padding: 0;
+  color: rgba(245, 245, 247, 0.98);
+  font-size: clamp(2.3rem, 5vw, 5rem);
+  line-height: 0.98;
+  letter-spacing: -0.072em;
+}
+
+.focus-body-scroll {
+  order: 3;
+  width: min(860px, calc(100% - clamp(40px, 10vw, 128px)));
+  max-height: none;
+  margin: clamp(26px, 4vw, 44px) auto 0;
+  padding: 0;
+  overflow: visible;
+  color: var(--os-muted);
+  font-size: 1rem;
+  line-height: 1.78;
+  scrollbar-gutter: auto;
+}
+
+.focus-links {
+  order: 4;
+  position: static;
+  width: min(860px, calc(100% - clamp(40px, 10vw, 128px)));
+  margin: clamp(28px, 5vw, 54px) auto 0;
+  padding: 22px 0 0;
+  background: transparent;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.focus-overlay .focus-stage {
+  filter: blur(5px);
+}
+
+.focus-overlay.is-open.menu-ready .focus-stage {
+  filter: blur(0);
+}
+
+.flying-image {
+  display: none !important;
+}
+
+@media (max-width: 760px) {
+  .focus-overlay,
+  .focus-overlay.is-open {
+    padding: 8px;
+  }
+
+  .focus-panel {
+    width: calc(100vw - 16px);
+    min-height: calc(100vh - 16px);
+    padding-top: 56px;
+    border-radius: 20px;
+  }
+
+  .focus-close {
+    top: 16px;
+    right: 16px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .focus-image {
+    width: calc(100% - 24px);
+    height: auto;
+    padding: 0;
+    border-radius: 14px;
+  }
+
+  .focus-title,
+  .focus-body-scroll,
+  .focus-links {
+    width: calc(100% - 36px);
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .focus-title {
+    margin-top: 34px;
+    font-size: clamp(2rem, 11vw, 3.4rem);
+  }
+}

@@ -139,12 +139,41 @@ async function main() {
     await page.waitForTimeout(950);
     await capture(page, "06-overlay-open", ".focus-overlay");
 
+    const detailMetrics = await page.locator("#focusImage").evaluate((image) => {
+      const rect = image.getBoundingClientRect();
+      const titleRect = document.getElementById("focusTitle")?.getBoundingClientRect();
+      return {
+        naturalRatio: image.naturalWidth / image.naturalHeight,
+        renderedRatio: rect.width / rect.height,
+        width: Math.round(rect.width),
+        imageBottom: Math.round(rect.bottom),
+        titleTop: Math.round(titleRect?.top || 0),
+      };
+    });
+
+    const ratioDelta = Math.abs(detailMetrics.naturalRatio - detailMetrics.renderedRatio);
+    if (detailMetrics.width < 900 || ratioDelta > 0.02) {
+      throw new Error(`detail hero image regression: ${JSON.stringify(detailMetrics)}`);
+    }
+    if (detailMetrics.titleTop <= detailMetrics.imageBottom) {
+      throw new Error(`detail content does not follow hero image: ${JSON.stringify(detailMetrics)}`);
+    }
+
     await page.keyboard.press("Escape");
     await page.waitForTimeout(500);
     await capture(page, "07-overlay-closed");
 
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.locator(".featured-hero .project-trigger").scrollIntoViewIfNeeded();
+    await page.locator(".featured-hero .project-trigger").click();
+    await page.waitForTimeout(650);
+    await capture(page, "08-overlay-mobile");
+    await page.keyboard.press("Escape");
+
     console.log(`hero_stage=${heroStage}`);
     console.log(`project_count=${projectCount}`);
+    console.log(`detail_image_width=${detailMetrics.width}`);
+    console.log(`detail_ratio_delta=${ratioDelta.toFixed(4)}`);
     console.log(
       `console_messages=${consoleMessages.length ? consoleMessages.join(" || ") : "none"}`
     );

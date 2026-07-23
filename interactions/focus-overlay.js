@@ -109,57 +109,6 @@ function fillOverlay(refs, cardData) {
 }
 
 /* -------------------------------------------------------------------------- */
-/*  Flying image FLIP animation                                               */
-/* -------------------------------------------------------------------------- */
-
-/**
- * 把节点定位到指定矩形。
- * @param {HTMLElement} el
- * @param {DOMRect} rect
- */
-function placeAt(el, rect) {
-  el.style.left = `${rect.left}px`;
-  el.style.top = `${rect.top}px`;
-  el.style.width = `${rect.width}px`;
-  el.style.height = `${rect.height}px`;
-}
-
-/**
- * 让源图片"飞"到目标位置，落地后调 onLanded。
- * @param {HTMLImageElement} sourceImg
- * @param {HTMLImageElement} targetImg
- * @param {() => void} onLanded
- */
-function flyImageIntoPlace(sourceImg, targetImg, onLanded) {
-  const startRect = sourceImg.getBoundingClientRect();
-  const endRect = targetImg.getBoundingClientRect();
-
-  const flying = sourceImg.cloneNode(true);
-  flying.classList.add("flying-image");
-  placeAt(flying, startRect);
-  document.body.appendChild(flying);
-
-  targetImg.style.visibility = "hidden";
-
-  // 双 rAF 确保浏览器先完成布局，再触发过渡
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      placeAt(flying, endRect);
-    });
-  });
-
-  flying.addEventListener(
-    "transitionend",
-    () => {
-      targetImg.style.visibility = "visible";
-      flying.remove();
-      onLanded();
-    },
-    { once: true }
-  );
-}
-
-/* -------------------------------------------------------------------------- */
 /*  Open / close                                                              */
 /* -------------------------------------------------------------------------- */
 
@@ -172,16 +121,20 @@ function flyImageIntoPlace(sourceImg, targetImg, onLanded) {
 function openOverlay(refs, trigger, cardData) {
   fillOverlay(refs, cardData);
 
-  refs.overlay.classList.add("is-open", "is-animating");
-  refs.overlay.classList.remove("is-closing");
-  refs.overlay.classList.remove("menu-ready");
+  refs.overlay.classList.add("is-open");
+  refs.overlay.classList.remove("is-closing", "is-animating", "menu-ready");
   refs.overlay.setAttribute("aria-hidden", "false");
   document.body.classList.add("overlay-open");
   trigger.setAttribute("aria-expanded", "true");
+  refs.overlay.scrollTop = 0;
+  refs.panel.scrollTop = 0;
+  refs.focusBodyScroll.scrollTop = 0;
 
-  flyImageIntoPlace(cardData.img, refs.image, () => {
-    refs.overlay.classList.remove("is-animating");
-    refs.overlay.classList.add("menu-ready");
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      refs.overlay.classList.add("menu-ready");
+      refs.closeButton.focus({ preventScroll: true });
+    });
   });
 }
 
