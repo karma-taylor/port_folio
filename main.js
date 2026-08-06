@@ -200,19 +200,27 @@ function renderProjects() {
 }
 
 function setupWechatQrHover() {
-  const icon = document.getElementById("wechatIcon");
   const floating = document.getElementById("wechatQrFloating");
-  if (!(icon instanceof HTMLElement) || !(floating instanceof HTMLElement)) return;
+  const triggers = [
+    document.getElementById("wechatIcon"),
+    document.querySelector(".about-contact__item--wechat"),
+  ].filter((node) => node instanceof HTMLElement);
+  if (!triggers.length || !(floating instanceof HTMLElement)) return;
 
   const floatingWidth = 260;
   const offsetY = 10;
 
-  const show = () => {
-    const rect = icon.getBoundingClientRect();
-    const rawLeft = rect.left + rect.width / 2 - floatingWidth / 2;
+  const show = (trigger) => {
+    const rect = trigger.getBoundingClientRect();
+    const isAboutContact = trigger.classList.contains("about-contact__item--wechat");
+    const rawLeft = isAboutContact
+      ? rect.left - floatingWidth - 14
+      : rect.left + rect.width / 2 - floatingWidth / 2;
     const maxLeft = window.innerWidth - floatingWidth - 12;
     const left = Math.min(Math.max(12, rawLeft), maxLeft);
-    const top = rect.bottom + offsetY;
+    const top = isAboutContact
+      ? Math.min(Math.max(12, rect.top + rect.height / 2 - floatingWidth / 2), window.innerHeight - floatingWidth - 12)
+      : rect.bottom + offsetY;
 
     floating.style.left = `${left}px`;
     floating.style.top = `${top}px`;
@@ -225,9 +233,12 @@ function setupWechatQrHover() {
     floating.style.transform = "translate3d(-9999px, -9999px, 0)";
   };
 
-  icon.addEventListener("mouseenter", show);
-  icon.addEventListener("mouseleave", hide);
-  icon.addEventListener("blur", hide);
+  triggers.forEach((trigger) => {
+    trigger.addEventListener("mouseenter", () => show(trigger));
+    trigger.addEventListener("mouseleave", hide);
+    trigger.addEventListener("focusin", () => show(trigger));
+    trigger.addEventListener("focusout", hide);
+  });
   window.addEventListener("scroll", hide, { passive: true });
   window.addEventListener("resize", hide);
 }

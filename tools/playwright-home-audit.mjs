@@ -119,6 +119,16 @@ async function main() {
 
     await capture(page, "01-home-initial");
 
+    const wechatTrigger = page.locator(".about-contact__item--wechat");
+    await wechatTrigger.scrollIntoViewIfNeeded();
+    await wechatTrigger.hover();
+    const qrLayer = page.locator("#wechatQrFloating");
+    if (!await qrLayer.evaluate((node) => node.classList.contains("is-visible") && Number(getComputedStyle(node).zIndex) > 1000000)) {
+      throw new Error("wechat QR top-layer regression");
+    }
+    await page.mouse.move(8, 8);
+    await page.evaluate(() => window.scrollTo(0, 0));
+
     await page.mouse.move(760, 30);
     await page.waitForTimeout(450);
     await capture(page, "02-nav-expanded", ".os-topbar");

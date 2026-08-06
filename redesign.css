@@ -8491,3 +8491,13 @@ body::after,
   .hero-proof div { grid-template-columns: 30px 1fr; align-items: baseline; gap: 10px; }
   .hero-proof dd { max-width: none; }
 }
+
+/* One fixed QR layer avoids clipping inside the about panel's stacking context. */
+.about-contact__qr {
+  display: none !important;
+}
+
+.wechat-qr-floating {
+  z-index: 2147483000 !important;
+  isolation: isolate;
+}
