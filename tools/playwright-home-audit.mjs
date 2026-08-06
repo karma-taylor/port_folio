@@ -153,8 +153,11 @@ async function main() {
     if (await page.locator("#experienceTimeline .experience-entry").count() !== 2) {
       throw new Error("experience timeline regression");
     }
-    if (await page.locator("#deliverySummary .delivery-summary__item").count() !== 4) {
-      throw new Error("delivery briefing regression");
+    if (await page.locator(".projects-masthead .hero-case").count() !== 1) {
+      throw new Error("flagship hero case regression");
+    }
+    if (await page.locator(".projects-masthead .hero-proof > div").count() !== 3) {
+      throw new Error("delivery method proof regression");
     }
     if (await page.locator("#focusBodyScroll .focus-management-meta").count() !== 1) {
       throw new Error("project management metadata regression");
