@@ -8039,3 +8039,9 @@ body::after,
     font-size: clamp(2rem, 11vw, 3.4rem);
   }
 }
+
+@media (min-width: 961px) {
+  .projects-masthead .pm-desk {
+    bottom: -142px;
+  }
+}
