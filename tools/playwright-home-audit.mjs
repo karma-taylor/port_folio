@@ -153,6 +153,20 @@ async function main() {
     if (await page.locator("#experienceTimeline .experience-entry").count() !== 2) {
       throw new Error("experience timeline regression");
     }
+    if (await page.locator("#deliverySummary .delivery-summary__item").count() !== 4) {
+      throw new Error("delivery briefing regression");
+    }
+    if (await page.locator("#focusBodyScroll .focus-management-meta").count() !== 1) {
+      throw new Error("project management metadata regression");
+    }
+    if (await page.locator("#focusBodyScroll .focus-evidence li").count() !== 4) {
+      throw new Error("flagship evidence flow regression");
+    }
+    const chapterNav = page.locator("#focusBodyScroll .focus-export-nav");
+    if (await chapterNav.locator("button").count() !== 5) {
+      throw new Error("case chapter navigation regression");
+    }
+    await chapterNav.locator("button").nth(3).press("Enter");
     if (await page.locator("#focusBodyScroll .focus-case-hero, #focusBodyScroll .focus-result-grid, #focusBodyScroll .focus-pd-dl").count()) {
       throw new Error("retired case-study module rendered");
     }

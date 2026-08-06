@@ -265,6 +265,53 @@ function buildFocusSection(title, content, className = "focus-export-block") {
   return section;
 }
 
+function buildFocusNavigation() {
+  const nav = document.createElement("nav");
+  nav.className = "focus-export-nav";
+  nav.setAttribute("aria-label", "\u6848\u4f8b\u7ae0\u8282\u5bfc\u822a");
+  ["\u4e1a\u52a1\u75db\u70b9", "\u8303\u56f4\u5b9a\u4e49", "\u65b9\u6848\u4e0e\u98ce\u9669", "\u4ea4\u4ed8\u9a8c\u6536", "\u8fb9\u754c\u4e0e\u4e0b\u4e00\u6b65"].forEach((label, index) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.dataset.focusTarget = String(index);
+    button.textContent = label;
+    nav.appendChild(button);
+  });
+  return nav;
+}
+
+function buildManagementMeta(meta) {
+  const entries = [["\u573a\u666f", meta.scenario], ["\u89d2\u8272", meta.role], ["\u72b6\u6001", meta.status], ["\u9a8c\u8bc1", meta.verification]].filter(([, value]) => value);
+  if (!entries.length) return null;
+  const list = document.createElement("dl");
+  list.className = "focus-management-meta";
+  entries.forEach(([label, value]) => {
+    const term = document.createElement("dt");
+    term.textContent = label;
+    const detail = document.createElement("dd");
+    detail.textContent = value;
+    list.append(term, detail);
+  });
+  return list;
+}
+
+function buildEvidenceFlow(evidence) {
+  if (!evidence?.steps?.length) return null;
+  const section = document.createElement("section");
+  section.className = "focus-evidence";
+  const heading = document.createElement("h4");
+  heading.textContent = evidence.title || "\u53ef\u590d\u6838\u7684\u4ea4\u4ed8\u8def\u5f84";
+  const list = document.createElement("ol");
+  evidence.steps.forEach((step, index) => {
+    const item = document.createElement("li");
+    const number = document.createElement("span");
+    number.textContent = String(index + 1).padStart(2, "0");
+    item.append(number, document.createTextNode(step));
+    list.appendChild(item);
+  });
+  section.append(heading, list);
+  return section;
+}
+
 function fillFocusExport(card, data) {
   const root = getSlot(card, "focus-export");
   if (!root || !data.detail?.focus) return;
@@ -286,6 +333,9 @@ function fillFocusExport(card, data) {
 
   const flow = document.createElement("div");
   flow.className = "focus-export-flow";
+  flow.appendChild(buildFocusNavigation());
+  const meta = buildManagementMeta(data.managementMeta || {});
+  if (meta) flow.appendChild(meta);
   flow.append(
     buildFocusSection("01 / 业务痛点", recruiting.coreProblem || focus.problem || ""),
     buildFocusSection("02 / 调研与范围定义", recruiting.researchScope || recruiting.usersScene || ""),
@@ -293,6 +343,10 @@ function fillFocusExport(card, data) {
     buildFocusSection("04 / 交付、上线与验收", delivery),
     buildFocusSection("05 / 边界与下一步", recruiting.risks || "待补充")
   );
+  const sections = flow.querySelectorAll(".focus-export-block");
+  sections.forEach((section, index) => section.dataset.caseSection = String(index));
+  const evidence = buildEvidenceFlow(data.managementMeta?.evidence);
+  if (evidence) flow.insertBefore(evidence, sections[3] || null);
   root.appendChild(flow);
 }
 

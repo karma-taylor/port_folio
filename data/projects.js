@@ -529,6 +529,27 @@ export const PROJECTS = [
   },
 ];
 
+export const DELIVERY_SUMMARY = [
+  { label: "业务场景", value: "海外重资产工程与跨国结算" },
+  { label: "负责范围", value: "需求、规则、交付与验收路径" },
+  { label: "交付方法", value: "流程拆解、前端原型、自动化验证" },
+  { label: "验证方式", value: "脱敏试跑、回放与边界复盘" },
+];
+
+export const PROJECT_MANAGEMENT_META = {
+  calendar: {
+    scenario: "钢结构遮阳棚施工班组协调",
+    role: "需求拆解、规则设计、前端交付",
+    status: "公开演示原型",
+    verification: "脱敏场景试排与冲突回归",
+    evidence: { title: "保存前的冲突拦截闭环", steps: ["原始排期", "焊工撞期拦截", "调整分段", "保存复核"] },
+  },
+  digest: { scenario: "多源行业资讯订阅与交付", role: "流程定义、信息结构与验证", status: "已上线", verification: "订阅链路试跑" },
+  money: { scenario: "薪资配钞与批量核对", role: "规则抽象、双端交付与验收", status: "已上线", verification: "单笔与批量模板回放" },
+  fx: { scenario: "跨币种换算与业务报价辅助", role: "边界定义、异常策略与交付", status: "已上线", verification: "多源交叉比对" },
+  report: { scenario: "业务日结与模板化日报", role: "自动化流程、异常清单与回放", status: "代码案例", verification: "历史模板回放" },
+};
+
 export const PROFILE = {
   name: "郭伟南",
   alternateName: "Guo Weinan",

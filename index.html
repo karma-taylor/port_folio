@@ -29,7 +29,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles.css?v=20260517-case-study" />
-    <link rel="stylesheet" href="./redesign.css?v=20260806-hero-desk-offset" />
+    <link rel="stylesheet" href="./redesign.css?v=20260806-delivery-briefing" />
 
     <script>
       (function () {
@@ -78,10 +78,10 @@
         <span class="os-mark__text">Karma Taylor</span>
       </a>
       <nav class="os-nav" data-nav-pill aria-label="主导航">
-        <a class="os-nav__item os-nav__side os-nav__side--left" data-nav-item="github" href="https://github.com/karma-taylor" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a class="os-nav__item os-nav__primary" data-nav-item="projects" href="#projects">作品</a>
-        <a class="os-nav__item os-nav__side os-nav__side--right" data-nav-item="about" href="#about">关于</a>
-        <a class="os-nav__item os-nav__side os-nav__side--right" data-nav-item="resume" href="./resume.pdf" download="郭伟南 简历.pdf">简历</a>
+        <a class="os-nav__item os-nav__side os-nav__side--left" data-nav-item="experience" href="#experience">交付底盘</a>
+        <a class="os-nav__item os-nav__primary" data-nav-item="featured" href="#featuredHero">旗舰案例</a>
+        <a class="os-nav__item os-nav__side os-nav__side--right" data-nav-item="projects" href="#projects">案例库</a>
+        <a class="os-nav__item os-nav__side os-nav__side--right" data-nav-item="contact" href="#about">联系方式</a>
       </nav>
       <div class="os-status" aria-label="当前状态">
         <span>AI PM</span>
@@ -182,11 +182,18 @@
           <section class="projects-section" id="projects" aria-label="项目展示">
             <div class="projects-masthead" data-hero-stage="idle" aria-label="案例概览">
               <div class="projects-masthead__main">
-                <p class="projects-masthead__eyebrow">AI Product Portfolio 路 2026</p>
+                <p class="projects-masthead__eyebrow">DELIVERY BRIEFING / 2026</p>
                 <h2 class="projects-masthead__title">从重资产工程交付，到 AI 业务流程重塑。</h2>
                 <p class="projects-masthead__desc">
                   用规则、自动化与严谨项目管理，解决复杂 B 端场景中的协同、合规与交付问题。
                 </p>
+                <div class="delivery-summary" id="deliverySummary" aria-label="交付总览"></div>
+                <ol class="delivery-chain" aria-label="能力链">
+                  <li>工程交付</li>
+                  <li>规则抽象</li>
+                  <li>AI 自动化</li>
+                  <li>可验收结果</li>
+                </ol>
               </div>
               <div class="pm-workbench" data-workbench aria-label="AI 产品经理工作台交互区">
                 <article class="pm-screen pm-screen--left reveal" data-reveal-group="hero" data-reveal-order="2" data-workbench-screen="design" tabindex="0" aria-label="Prototype / Design 工具屏">
@@ -396,9 +403,9 @@
                   <div class="pm-desk__surface"></div>
                 </div>
               </div>
-              <div class="projects-masthead__meta">
+              <div class="projects-masthead__meta" aria-label="案例概览">
                 <span class="projects-masthead__pill">05 个案例</span>
-                <span class="projects-masthead__pill">工程交付 / AI 产品 / 自动化</span>
+                <span class="projects-masthead__pill">旗舰：保存前冲突拦截</span>
               </div>
             </div>
 
@@ -729,7 +736,7 @@
       </section>
     </noscript>
 
-    <script type="module" src="./main.js?v=20260723-case-study-hero"></script>
+    <script type="module" src="./main.js?v=20260806-delivery-briefing"></script>
   </body>
 </html>
 

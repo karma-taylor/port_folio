@@ -1,10 +1,10 @@
-import { PROJECTS, PROFILE } from "./data/projects.js?v=20260806-b2-foundation";
-import { renderAllProjects, renderFeaturedProject } from "./render/project-card.js?v=20260806-b2-foundation";
+import { PROJECTS, PROFILE, DELIVERY_SUMMARY, PROJECT_MANAGEMENT_META } from "./data/projects.js?v=20260806-delivery-briefing";
+import { renderAllProjects, renderFeaturedProject } from "./render/project-card.js?v=20260806-delivery-briefing";
 import { runBootLoader } from "./interactions/boot-loader.js?v=20260517-case-study";
 import { revealCards } from "./interactions/reveal.js?v=20260517-case-study";
 import { setupScrollProgress } from "./interactions/scroll-progress.js?v=20260517-case-study";
 import { setupMagneticTargets } from "./interactions/magnetic.js?v=20260517-case-study";
-import { setupProjectFocusOverlay } from "./interactions/focus-overlay.js?v=20260723-case-study-hero";
+import { setupProjectFocusOverlay } from "./interactions/focus-overlay.js?v=20260806-delivery-briefing";
 import { bindProjectCardDetailButtons } from "./interactions/project-card-actions.js?v=20260517-case-study";
 import { setupWorkbenchAvatar } from "./interactions/workbench-avatar.js?v=20260628-neck-pivot-2";
 import { setupWorkbenchScreens } from "./interactions/workbench-screens.js?v=20260628-hero-hover-balance";
@@ -133,14 +133,20 @@ function renderExperience() {
 
     const context = document.createElement("p");
     context.className = "experience-entry__context";
-    context.textContent = item.context;
+    const contextLabel = document.createElement("span");
+    contextLabel.textContent = "场景";
+    context.append(contextLabel, document.createTextNode(item.context));
 
     const detail = document.createElement("p");
-    detail.textContent = item.detail;
+    const detailLabel = document.createElement("span");
+    detailLabel.textContent = "管理难点";
+    detail.append(detailLabel, document.createTextNode(item.detail));
 
     const proof = document.createElement("p");
     proof.className = "experience-entry__proof";
-    proof.textContent = item.proof;
+    const proofLabel = document.createElement("span");
+    proofLabel.textContent = "迁移动作 / 已识别边界";
+    proof.append(proofLabel, document.createTextNode(item.proof));
 
     article.append(period, title, context, detail, proof);
     fragment.appendChild(article);
@@ -148,7 +154,31 @@ function renderExperience() {
   mount.replaceChildren(fragment);
 }
 
-applyRecruitingEnhancements(PROJECTS);
+function renderDeliverySummary() {
+  const mount = document.getElementById("deliverySummary");
+  if (!mount || !Array.isArray(DELIVERY_SUMMARY)) return;
+
+  const fragment = document.createDocumentFragment();
+  DELIVERY_SUMMARY.forEach((item) => {
+    const article = document.createElement("article");
+    article.className = "delivery-summary__item";
+    const label = document.createElement("span");
+    label.textContent = item.label;
+    const value = document.createElement("strong");
+    value.textContent = item.value;
+    article.append(label, value);
+    fragment.appendChild(article);
+  });
+  mount.replaceChildren(fragment);
+}
+
+function buildProjectData(project) {
+  const managementMeta = PROJECT_MANAGEMENT_META[project.id] || {};
+  return { ...project, managementMeta };
+}
+
+const PROJECT_DATA = PROJECTS.map(buildProjectData);
+applyRecruitingEnhancements(PROJECT_DATA);
 
 function renderProjects() {
   const hero = document.getElementById("featuredHero");
@@ -160,7 +190,7 @@ function renderProjects() {
     return;
   }
 
-  const [featured, ...rest] = PROJECTS;
+  const [featured, ...rest] = PROJECT_DATA;
   const coreCases = rest.slice(0, 2);
   const supportCases = rest.slice(2);
 
@@ -223,6 +253,7 @@ function refreshStructuredData() {
 }
 
 function init() {
+  renderDeliverySummary();
   renderExperience();
   renderProjects();
   bindInteractions();
