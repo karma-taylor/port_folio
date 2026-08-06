@@ -1,10 +1,10 @@
-import { PROJECTS, PROFILE } from "./data/projects.js?v=20260718-project-route-1";
-import { renderAllProjects, renderFeaturedProject } from "./render/project-card.js?v=20260718-project-route-1";
+import { PROJECTS, PROFILE, DELIVERY_SUMMARY, PROJECT_MANAGEMENT_META } from "./data/projects.js?v=20260806-delivery-briefing";
+import { renderAllProjects, renderFeaturedProject } from "./render/project-card.js?v=20260806-delivery-briefing";
 import { runBootLoader } from "./interactions/boot-loader.js?v=20260517-case-study";
 import { revealCards } from "./interactions/reveal.js?v=20260517-case-study";
 import { setupScrollProgress } from "./interactions/scroll-progress.js?v=20260517-case-study";
 import { setupMagneticTargets } from "./interactions/magnetic.js?v=20260517-case-study";
-import { setupProjectFocusOverlay } from "./interactions/focus-overlay.js?v=20260723-case-study-hero";
+import { setupProjectFocusOverlay } from "./interactions/focus-overlay.js?v=20260806-delivery-briefing";
 import { bindProjectCardDetailButtons } from "./interactions/project-card-actions.js?v=20260517-case-study";
 import { setupWorkbenchAvatar } from "./interactions/workbench-avatar.js?v=20260628-neck-pivot-2";
 import { setupWorkbenchScreens } from "./interactions/workbench-screens.js?v=20260628-hero-hover-balance";
@@ -22,18 +22,22 @@ const CONTACT_CTA = [
 const CASE_ENHANCEMENTS = {
   calendar: {
     background:
-      "把原本依赖 Excel 和人工确认的协同排期流程，产品化为一个有规则约束、能真实落地的系统。",
+      "以脱敏的钢结构遮阳棚施工调度为例，把原本依赖 Excel 和人工确认的班组排期，产品化为有规则约束的系统。",
     usersScene:
       "适用于多人协同排期、资源分配和任务统筹场景，尤其是跨周任务安排、多角色参与与名单频繁变更的环境。",
+    researchScope:
+      "围绕钢构吊装、节点焊接与照明预埋的人员、角色、工期和分段参与梳理规则；本轮只处理保存前冲突，不扩展权限和多人并发编辑。",
     coreProblem:
-      "真正的问题不只是排期麻烦，而是人员、时间窗、角色、分段参与和冲突规则交织在一起，人工对齐效率低且容易漏错。",
+      "钢构吊装、节点焊接与照明预埋必须衔接；人员、时间窗、角色和分段参与交织，人工对齐容易让同一焊工被重复占用。",
     results: [
-      { label: "结果 01", value: "保存前完成冲突校验" },
-      { label: "结果 02", value: "任务状态支持跨设备恢复" },
-      { label: "结果 03", value: "分段参与替代整段默认参与" },
-      { label: "验证方式", value: "真实场景试跑" },
+      { label: "规则 01", value: "保存前阻断人员撞期" },
+      { label: "规则 02", value: "任务边界内的分段参与" },
+      { label: "交付方式", value: "月历 + 可复核详情" },
+      { label: "验证方式", value: "脱敏工程场景试排" },
     ],
-    risks: "多人并发编辑、权限分层与更复杂的排期规则仍可继续细化。",
+    delivery:
+      "交付月视图、人员分段表单、前端冲突阻断和可复核详情；用脱敏工程班组试排验证焊工撞期不可保存、调整后可保存，并发布至 Cloudflare Pages。",
+    risks: "公开演示只保留本地草稿；多人并发编辑、权限分层与更复杂的排期规则仍是后续方向。",
   },
   digest: {
     background:
@@ -105,11 +109,76 @@ function applyRecruitingEnhancements(projects) {
     project.detail.recruiting = {
       ...enhancement,
       contactCta: CONTACT_CTA,
+      ...project.detail.recruiting,
     };
   });
 }
 
-applyRecruitingEnhancements(PROJECTS);
+function renderExperience() {
+  const mount = document.getElementById("experienceTimeline");
+  if (!mount || !Array.isArray(PROFILE.experience)) return;
+
+  const fragment = document.createDocumentFragment();
+  PROFILE.experience.forEach((item) => {
+    const article = document.createElement("article");
+    article.className = "experience-entry reveal";
+    article.dataset.revealGroup = "experience-cards";
+
+    const period = document.createElement("p");
+    period.className = "experience-entry__period";
+    period.textContent = item.period;
+
+    const title = document.createElement("h4");
+    title.textContent = item.title;
+
+    const context = document.createElement("p");
+    context.className = "experience-entry__context";
+    const contextLabel = document.createElement("span");
+    contextLabel.textContent = "场景";
+    context.append(contextLabel, document.createTextNode(item.context));
+
+    const detail = document.createElement("p");
+    const detailLabel = document.createElement("span");
+    detailLabel.textContent = "管理难点";
+    detail.append(detailLabel, document.createTextNode(item.detail));
+
+    const proof = document.createElement("p");
+    proof.className = "experience-entry__proof";
+    const proofLabel = document.createElement("span");
+    proofLabel.textContent = "迁移动作 / 已识别边界";
+    proof.append(proofLabel, document.createTextNode(item.proof));
+
+    article.append(period, title, context, detail, proof);
+    fragment.appendChild(article);
+  });
+  mount.replaceChildren(fragment);
+}
+
+function renderDeliverySummary() {
+  const mount = document.getElementById("deliverySummary");
+  if (!mount || !Array.isArray(DELIVERY_SUMMARY)) return;
+
+  const fragment = document.createDocumentFragment();
+  DELIVERY_SUMMARY.forEach((item) => {
+    const article = document.createElement("article");
+    article.className = "delivery-summary__item";
+    const label = document.createElement("span");
+    label.textContent = item.label;
+    const value = document.createElement("strong");
+    value.textContent = item.value;
+    article.append(label, value);
+    fragment.appendChild(article);
+  });
+  mount.replaceChildren(fragment);
+}
+
+function buildProjectData(project) {
+  const managementMeta = PROJECT_MANAGEMENT_META[project.id] || {};
+  return { ...project, managementMeta };
+}
+
+const PROJECT_DATA = PROJECTS.map(buildProjectData);
+applyRecruitingEnhancements(PROJECT_DATA);
 
 function renderProjects() {
   const hero = document.getElementById("featuredHero");
@@ -121,7 +190,7 @@ function renderProjects() {
     return;
   }
 
-  const [featured, ...rest] = PROJECTS;
+  const [featured, ...rest] = PROJECT_DATA;
   const coreCases = rest.slice(0, 2);
   const supportCases = rest.slice(2);
 
@@ -184,6 +253,8 @@ function refreshStructuredData() {
 }
 
 function init() {
+  renderDeliverySummary();
+  renderExperience();
   renderProjects();
   bindInteractions();
   refreshStructuredData();

@@ -249,29 +249,6 @@ function fillDetailLink(linkNode, linkData) {
   if (label) label.textContent = linkData.label;
 }
 
-function renderResultCard(results = []) {
-  const grid = document.createElement("div");
-  grid.className = "focus-result-grid";
-
-  results.forEach((item) => {
-    const cell = document.createElement("div");
-    cell.className = "focus-result-cell";
-
-    const label = document.createElement("p");
-    label.className = "focus-result-label";
-    label.textContent = item.label;
-
-    const value = document.createElement("p");
-    value.className = "focus-result-value";
-    value.textContent = item.value;
-
-    cell.append(label, value);
-    grid.appendChild(cell);
-  });
-
-  return grid;
-}
-
 function buildFocusSection(title, content, className = "focus-export-block") {
   const section = document.createElement("section");
   section.className = className;
@@ -288,84 +265,50 @@ function buildFocusSection(title, content, className = "focus-export-block") {
   return section;
 }
 
-function buildPromptSection(promptDesign = {}) {
-  const section = document.createElement("section");
-  section.className = "focus-export-block focus-export-prompt";
-
-  const heading = document.createElement("h4");
-  heading.className = "focus-export-h";
-  heading.textContent = "Prompt 设计";
-
-  const dl = document.createElement("dl");
-  dl.className = "focus-pd-dl";
-
-  [
-    ["目标", promptDesign.goal],
-    ["输入", promptDesign.inputs],
-    ["规则", promptDesign.rules],
-    ["输出", promptDesign.output],
-    ["防错", promptDesign.safeguards],
-  ].forEach(([labelText, valueText]) => {
-    const dt = document.createElement("dt");
-    dt.textContent = labelText;
-    const dd = document.createElement("dd");
-    dd.textContent = valueText || "待补充";
-    dl.append(dt, dd);
+function buildFocusNavigation() {
+  const nav = document.createElement("nav");
+  nav.className = "focus-export-nav";
+  nav.setAttribute("aria-label", "\u6848\u4f8b\u7ae0\u8282\u5bfc\u822a");
+  ["\u4e1a\u52a1\u75db\u70b9", "\u8303\u56f4\u5b9a\u4e49", "\u65b9\u6848\u4e0e\u98ce\u9669", "\u4ea4\u4ed8\u9a8c\u6536", "\u8fb9\u754c\u4e0e\u4e0b\u4e00\u6b65"].forEach((label, index) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.dataset.focusTarget = String(index);
+    button.textContent = label;
+    nav.appendChild(button);
   });
-
-  section.append(heading, dl);
-  return section;
+  return nav;
 }
 
-function buildExcerptSection(excerpt = "") {
-  const section = document.createElement("section");
-  section.className = "focus-export-block";
-
-  const label = document.createElement("p");
-  label.className = "focus-excerpt-label";
-  label.textContent = "脱敏节选";
-
-  const pre = document.createElement("pre");
-  pre.className = "focus-excerpt-pre";
-  pre.textContent = excerpt || "待补充";
-
-  section.append(label, pre);
-  return section;
+function buildManagementMeta(meta) {
+  const entries = [["\u573a\u666f", meta.scenario], ["\u89d2\u8272", meta.role], ["\u72b6\u6001", meta.status], ["\u9a8c\u8bc1", meta.verification]].filter(([, value]) => value);
+  if (!entries.length) return null;
+  const list = document.createElement("dl");
+  list.className = "focus-management-meta";
+  entries.forEach(([label, value]) => {
+    const term = document.createElement("dt");
+    term.textContent = label;
+    const detail = document.createElement("dd");
+    detail.textContent = value;
+    list.append(term, detail);
+  });
+  return list;
 }
 
-function buildCaseStudyHero(caseStudy = {}) {
+function buildEvidenceFlow(evidence) {
+  if (!evidence?.steps?.length) return null;
   const section = document.createElement("section");
-  section.className = "focus-case-hero";
-
-  const eyebrow = document.createElement("p");
-  eyebrow.className = "focus-case-hero__eyebrow";
-  eyebrow.textContent = caseStudy.eyebrow || "代表作拆解";
-
-  const title = document.createElement("h4");
-  title.className = "focus-case-hero__title";
-  title.textContent = caseStudy.title || "复杂规则系统产品化";
-
-  const intro = document.createElement("p");
-  intro.className = "focus-case-hero__intro";
-  intro.textContent = caseStudy.intro || "待补充";
-
-  section.append(eyebrow, title, intro);
-
-  const bullets = Array.isArray(caseStudy.bullets) ? caseStudy.bullets : [];
-  if (bullets.length) {
-    const list = document.createElement("ul");
-    list.className = "focus-case-hero__bullets";
-
-    bullets.forEach((item) => {
-      const li = document.createElement("li");
-      li.className = "focus-case-hero__bullet";
-      li.textContent = item;
-      list.appendChild(li);
-    });
-
-    section.appendChild(list);
-  }
-
+  section.className = "focus-evidence";
+  const heading = document.createElement("h4");
+  heading.textContent = evidence.title || "\u53ef\u590d\u6838\u7684\u4ea4\u4ed8\u8def\u5f84";
+  const list = document.createElement("ol");
+  evidence.steps.forEach((step, index) => {
+    const item = document.createElement("li");
+    const number = document.createElement("span");
+    number.textContent = String(index + 1).padStart(2, "0");
+    item.append(number, document.createTextNode(step));
+    list.appendChild(item);
+  });
+  section.append(heading, list);
   return section;
 }
 
@@ -378,35 +321,32 @@ function fillFocusExport(card, data) {
 
   root.replaceChildren();
 
-  if (data.detail.caseStudy) {
-    root.appendChild(buildCaseStudyHero(data.detail.caseStudy));
-  }
+  const solution = [
+    focus.flowSummary,
+    focus.productJudgment,
+  ].filter(Boolean).join(" ");
 
-  const lede = document.createElement("p");
-  lede.className = "focus-export-lede";
-  lede.textContent = focus.tagline || recruiting.background || data.detail.summary || "";
-  root.appendChild(lede);
-
-  const resultsSection = document.createElement("section");
-  resultsSection.className = "focus-export-results";
-  const resultsHeading = document.createElement("h4");
-  resultsHeading.className = "focus-export-h";
-  resultsHeading.textContent = "结果与验证";
-  resultsSection.append(resultsHeading, renderResultCard(recruiting.results || []));
-  root.appendChild(resultsSection);
+  const delivery = recruiting.delivery || [
+    ...(recruiting.results || []).map((item) => `${item.label}：${item.value}`),
+    focus.ownership ? `负责范围：${focus.ownership}` : "",
+  ].filter(Boolean).join("；");
 
   const flow = document.createElement("div");
   flow.className = "focus-export-flow";
+  flow.appendChild(buildFocusNavigation());
+  const meta = buildManagementMeta(data.managementMeta || {});
+  if (meta) flow.appendChild(meta);
   flow.append(
-    buildFocusSection("业务背景", recruiting.background || data.detail.summary || ""),
-    buildFocusSection("谁在用 / 典型场景", recruiting.usersScene || ""),
-    buildFocusSection("核心问题", recruiting.coreProblem || focus.problem || ""),
-    buildFocusSection("我的职责", focus.ownership || ""),
-    buildFocusSection("关键产品判断", focus.productJudgment || ""),
-    buildFocusSection("风险与未做", recruiting.risks || "待补充"),
-    buildPromptSection(focus.promptDesign || {}),
-    buildExcerptSection(focus.promptDesign?.excerpt || "")
+    buildFocusSection("01 / 业务痛点", recruiting.coreProblem || focus.problem || ""),
+    buildFocusSection("02 / 调研与范围定义", recruiting.researchScope || recruiting.usersScene || ""),
+    buildFocusSection("03 / 方案、规则与风险处理", solution),
+    buildFocusSection("04 / 交付、上线与验收", delivery),
+    buildFocusSection("05 / 边界与下一步", recruiting.risks || "待补充")
   );
+  const sections = flow.querySelectorAll(".focus-export-block");
+  sections.forEach((section, index) => section.dataset.caseSection = String(index));
+  const evidence = buildEvidenceFlow(data.managementMeta?.evidence);
+  if (evidence) flow.insertBefore(evidence, sections[3] || null);
   root.appendChild(flow);
 }
 

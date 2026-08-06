@@ -189,6 +189,13 @@ function bindCloseHandlers(refs, state) {
   });
 
   refs.panel.addEventListener("click", (event) => event.stopPropagation());
+
+  refs.focusBodyScroll.addEventListener("click", (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLElement) || !target.matches("[data-focus-target]")) return;
+    const section = refs.focusBodyScroll.querySelector(`[data-case-section="${target.dataset.focusTarget}"]`);
+    if (section instanceof HTMLElement) section.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
 }
 
 /* -------------------------------------------------------------------------- */
