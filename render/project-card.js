@@ -249,29 +249,6 @@ function fillDetailLink(linkNode, linkData) {
   if (label) label.textContent = linkData.label;
 }
 
-function renderResultCard(results = []) {
-  const grid = document.createElement("div");
-  grid.className = "focus-result-grid";
-
-  results.forEach((item) => {
-    const cell = document.createElement("div");
-    cell.className = "focus-result-cell";
-
-    const label = document.createElement("p");
-    label.className = "focus-result-label";
-    label.textContent = item.label;
-
-    const value = document.createElement("p");
-    value.className = "focus-result-value";
-    value.textContent = item.value;
-
-    cell.append(label, value);
-    grid.appendChild(cell);
-  });
-
-  return grid;
-}
-
 function buildFocusSection(title, content, className = "focus-export-block") {
   const section = document.createElement("section");
   section.className = className;
@@ -288,87 +265,6 @@ function buildFocusSection(title, content, className = "focus-export-block") {
   return section;
 }
 
-function buildPromptSection(promptDesign = {}) {
-  const section = document.createElement("section");
-  section.className = "focus-export-block focus-export-prompt";
-
-  const heading = document.createElement("h4");
-  heading.className = "focus-export-h";
-  heading.textContent = "Prompt 设计";
-
-  const dl = document.createElement("dl");
-  dl.className = "focus-pd-dl";
-
-  [
-    ["目标", promptDesign.goal],
-    ["输入", promptDesign.inputs],
-    ["规则", promptDesign.rules],
-    ["输出", promptDesign.output],
-    ["防错", promptDesign.safeguards],
-  ].forEach(([labelText, valueText]) => {
-    const dt = document.createElement("dt");
-    dt.textContent = labelText;
-    const dd = document.createElement("dd");
-    dd.textContent = valueText || "待补充";
-    dl.append(dt, dd);
-  });
-
-  section.append(heading, dl);
-  return section;
-}
-
-function buildExcerptSection(excerpt = "") {
-  const section = document.createElement("section");
-  section.className = "focus-export-block";
-
-  const label = document.createElement("p");
-  label.className = "focus-excerpt-label";
-  label.textContent = "脱敏节选";
-
-  const pre = document.createElement("pre");
-  pre.className = "focus-excerpt-pre";
-  pre.textContent = excerpt || "待补充";
-
-  section.append(label, pre);
-  return section;
-}
-
-function buildCaseStudyHero(caseStudy = {}) {
-  const section = document.createElement("section");
-  section.className = "focus-case-hero";
-
-  const eyebrow = document.createElement("p");
-  eyebrow.className = "focus-case-hero__eyebrow";
-  eyebrow.textContent = caseStudy.eyebrow || "代表作拆解";
-
-  const title = document.createElement("h4");
-  title.className = "focus-case-hero__title";
-  title.textContent = caseStudy.title || "复杂规则系统产品化";
-
-  const intro = document.createElement("p");
-  intro.className = "focus-case-hero__intro";
-  intro.textContent = caseStudy.intro || "待补充";
-
-  section.append(eyebrow, title, intro);
-
-  const bullets = Array.isArray(caseStudy.bullets) ? caseStudy.bullets : [];
-  if (bullets.length) {
-    const list = document.createElement("ul");
-    list.className = "focus-case-hero__bullets";
-
-    bullets.forEach((item) => {
-      const li = document.createElement("li");
-      li.className = "focus-case-hero__bullet";
-      li.textContent = item;
-      list.appendChild(li);
-    });
-
-    section.appendChild(list);
-  }
-
-  return section;
-}
-
 function fillFocusExport(card, data) {
   const root = getSlot(card, "focus-export");
   if (!root || !data.detail?.focus) return;
@@ -378,34 +274,24 @@ function fillFocusExport(card, data) {
 
   root.replaceChildren();
 
-  if (data.detail.caseStudy) {
-    root.appendChild(buildCaseStudyHero(data.detail.caseStudy));
-  }
+  const solution = [
+    focus.flowSummary,
+    focus.productJudgment,
+  ].filter(Boolean).join(" ");
 
-  const lede = document.createElement("p");
-  lede.className = "focus-export-lede";
-  lede.textContent = focus.tagline || recruiting.background || data.detail.summary || "";
-  root.appendChild(lede);
-
-  const resultsSection = document.createElement("section");
-  resultsSection.className = "focus-export-results";
-  const resultsHeading = document.createElement("h4");
-  resultsHeading.className = "focus-export-h";
-  resultsHeading.textContent = "结果与验证";
-  resultsSection.append(resultsHeading, renderResultCard(recruiting.results || []));
-  root.appendChild(resultsSection);
+  const delivery = recruiting.delivery || [
+    ...(recruiting.results || []).map((item) => `${item.label}：${item.value}`),
+    focus.ownership ? `负责范围：${focus.ownership}` : "",
+  ].filter(Boolean).join("；");
 
   const flow = document.createElement("div");
   flow.className = "focus-export-flow";
   flow.append(
-    buildFocusSection("业务背景", recruiting.background || data.detail.summary || ""),
-    buildFocusSection("谁在用 / 典型场景", recruiting.usersScene || ""),
-    buildFocusSection("核心问题", recruiting.coreProblem || focus.problem || ""),
-    buildFocusSection("我的职责", focus.ownership || ""),
-    buildFocusSection("关键产品判断", focus.productJudgment || ""),
-    buildFocusSection("风险与未做", recruiting.risks || "待补充"),
-    buildPromptSection(focus.promptDesign || {}),
-    buildExcerptSection(focus.promptDesign?.excerpt || "")
+    buildFocusSection("01 / 业务痛点", recruiting.coreProblem || focus.problem || ""),
+    buildFocusSection("02 / 调研与范围定义", recruiting.researchScope || recruiting.usersScene || ""),
+    buildFocusSection("03 / 方案、规则与风险处理", solution),
+    buildFocusSection("04 / 交付、上线与验收", delivery),
+    buildFocusSection("05 / 边界与下一步", recruiting.risks || "待补充")
   );
   root.appendChild(flow);
 }

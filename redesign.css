@@ -7306,6 +7306,77 @@ body::after,
   }
 }
 
+/* Business foundation: compact delivery timeline for B-end project context. */
+.experience-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+  gap: clamp(24px, 4vw, 56px);
+  margin: clamp(42px, 7vw, 88px) 0;
+  padding: clamp(24px, 4vw, 44px);
+  border: 1px solid rgba(82, 99, 129, 0.22);
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(24, 34, 55, 0.9), rgba(15, 21, 35, 0.68));
+}
+
+.experience-panel__eyebrow,
+.experience-entry__period {
+  margin: 0 0 10px;
+  color: #8ed0c1;
+  font: 600 0.72rem/1.2 "IBM Plex Mono", monospace;
+  letter-spacing: 0.08em;
+}
+
+.experience-panel h3 {
+  margin: 0;
+  font-size: clamp(1.7rem, 3vw, 2.7rem);
+}
+
+.experience-panel__intro > p:last-child {
+  color: #b9c3d4;
+  line-height: 1.75;
+}
+
+.experience-timeline {
+  display: grid;
+  gap: 14px;
+}
+
+.experience-entry {
+  position: relative;
+  padding: 18px 20px 18px 24px;
+  border-left: 2px solid #8ed0c1;
+  border-radius: 0 14px 14px 0;
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.experience-entry h4 {
+  margin: 0 0 6px;
+  color: #f4f7fb;
+  font-size: 1.05rem;
+}
+
+.experience-entry p {
+  margin: 7px 0 0;
+  color: #c1cad9;
+  line-height: 1.65;
+}
+
+.experience-entry__context {
+  color: #9eacc2 !important;
+  font-size: 0.9rem;
+}
+
+.experience-entry__proof {
+  color: #d5f2eb !important;
+}
+
+@media (max-width: 780px) {
+  .experience-panel {
+    grid-template-columns: 1fr;
+    border-radius: 18px;
+  }
+}
+
 /* motion refresh — 2026-07-22 */
 
 :root {
