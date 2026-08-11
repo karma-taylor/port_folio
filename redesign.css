@@ -8548,3 +8548,33 @@ body::after,
 }
 
 .project-story-line[hidden] { display: none; }
+
+.focus-retrospective-block {
+  padding: clamp(20px, 3vw, 30px);
+}
+
+.focus-retrospective-summary {
+  margin-bottom: 16px;
+  color: #e4edf5;
+  font-size: clamp(1rem, 1.5vw, 1.12rem);
+  line-height: 1.7;
+}
+
+.focus-retrospective-summary strong,
+.focus-retrospective-points strong {
+  color: #b8ece3;
+  font-weight: 700;
+}
+
+.focus-retrospective-points {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 14px 0 0 20px;
+  border-top: 1px solid rgba(151, 178, 202, 0.18);
+  color: #c8d5e2;
+  font-size: 0.92rem;
+  line-height: 1.72;
+}
+
+.focus-retrospective-points li::marker { color: #70b8ad; }
