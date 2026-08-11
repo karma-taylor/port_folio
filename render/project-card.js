@@ -280,11 +280,11 @@ function buildFocusSection(title, content, className = "focus-export-block") {
   return section;
 }
 
-function buildFocusNavigation() {
+function buildFocusNavigation(labels) {
   const nav = document.createElement("nav");
   nav.className = "focus-export-nav";
   nav.setAttribute("aria-label", "\u6848\u4f8b\u7ae0\u8282\u5bfc\u822a");
-  ["\u4e1a\u52a1\u75db\u70b9", "\u8303\u56f4\u5b9a\u4e49", "\u65b9\u6848\u4e0e\u98ce\u9669", "\u4ea4\u4ed8\u9a8c\u6536", "\u8fb9\u754c\u4e0e\u4e0b\u4e00\u6b65"].forEach((label, index) => {
+  (labels || ["\u4e1a\u52a1\u75db\u70b9", "\u8303\u56f4\u5b9a\u4e49", "\u65b9\u6848\u4e0e\u98ce\u9669", "\u4ea4\u4ed8\u9a8c\u6536", "\u8fb9\u754c\u4e0e\u4e0b\u4e00\u6b65"]).forEach((label, index) => {
     const button = document.createElement("button");
     button.type = "button";
     button.dataset.focusTarget = String(index);
@@ -292,6 +292,43 @@ function buildFocusNavigation() {
     nav.appendChild(button);
   });
   return nav;
+}
+
+function appendRichText(element, fragments = []) {
+  fragments.forEach((fragment) => {
+    if (!fragment?.text) return;
+    if (fragment.strong) {
+      const strong = document.createElement("strong");
+      strong.textContent = fragment.text;
+      element.appendChild(strong);
+      return;
+    }
+    element.appendChild(document.createTextNode(fragment.text));
+  });
+}
+
+function buildRetrospectiveSection(sectionData, index) {
+  const section = document.createElement("section");
+  section.className = "focus-export-block focus-retrospective-block";
+
+  const heading = document.createElement("h4");
+  heading.className = "focus-export-h";
+  heading.textContent = `${String(index + 1).padStart(2, "0")} / ${sectionData.label}`;
+
+  const summary = document.createElement("p");
+  summary.className = "focus-export-p focus-retrospective-summary";
+  appendRichText(summary, sectionData.summary);
+
+  const points = document.createElement("ul");
+  points.className = "focus-retrospective-points";
+  (sectionData.points || []).forEach((fragments) => {
+    const item = document.createElement("li");
+    appendRichText(item, fragments);
+    points.appendChild(item);
+  });
+
+  section.append(heading, summary, points);
+  return section;
 }
 
 function buildManagementMeta(meta) {
@@ -360,6 +397,8 @@ function fillFocusExport(card, data) {
 
   const focus = data.detail.focus;
   const recruiting = data.detail.recruiting || {};
+  const retrospective = data.detail.retrospective?.sections;
+  const isRetrospective = Array.isArray(retrospective) && retrospective.length > 0;
 
   root.replaceChildren();
 
@@ -375,18 +414,26 @@ function fillFocusExport(card, data) {
 
   const flow = document.createElement("div");
   flow.className = "focus-export-flow";
-  flow.appendChild(buildFocusNavigation());
+  flow.appendChild(buildFocusNavigation(
+    isRetrospective ? retrospective.map((section) => section.label) : undefined,
+  ));
   const meta = buildManagementMeta(data.managementMeta || {});
   if (meta) flow.appendChild(meta);
   const userStory = buildUserStory(data.managementMeta?.userStory);
   if (userStory) flow.appendChild(userStory);
-  flow.append(
+  if (isRetrospective) {
+    retrospective.forEach((sectionData, index) => {
+      flow.appendChild(buildRetrospectiveSection(sectionData, index));
+    });
+  } else {
+    flow.append(
     buildFocusSection("01 / 业务痛点", recruiting.coreProblem || focus.problem || ""),
     buildFocusSection("02 / 调研与范围定义", recruiting.researchScope || recruiting.usersScene || ""),
     buildFocusSection("03 / 方案、规则与风险处理", solution),
     buildFocusSection("04 / 交付、上线与验收", delivery),
     buildFocusSection("05 / 边界与下一步", recruiting.risks || "待补充")
-  );
+    );
+  }
   const sections = flow.querySelectorAll(".focus-export-block");
   sections.forEach((section, index) => section.dataset.caseSection = String(index));
   const evidence = buildEvidenceFlow(data.managementMeta?.evidence);

@@ -1,5 +1,5 @@
-import { PROJECTS, PROFILE, DELIVERY_SUMMARY, PROJECT_MANAGEMENT_META } from "./data/projects.js?v=20260806-delivery-briefing";
-import { renderAllProjects, renderFeaturedProject } from "./render/project-card.js?v=20260806-delivery-briefing";
+import { PROJECTS, PROFILE, DELIVERY_SUMMARY, PROJECT_MANAGEMENT_META } from "./data/projects.js?v=20260811-retrospective";
+import { renderAllProjects, renderFeaturedProject } from "./render/project-card.js?v=20260811-retrospective";
 import { runBootLoader } from "./interactions/boot-loader.js?v=20260517-case-study";
 import { revealCards } from "./interactions/reveal.js?v=20260517-case-study";
 import { setupScrollProgress } from "./interactions/scroll-progress.js?v=20260517-case-study";
@@ -92,7 +92,7 @@ const CASE_ENHANCEMENTS = {
     coreProblem:
       "难点不是生成报表，而是既要保持模板格式不变，又要把多表清洗、规则勾稽和异常留痕串成可复核链路。",
     results: [
-      { label: "结果 01", value: "日结耗时压缩到 10 分钟内" },
+      { label: "日报耗时", value: "4h → 6min" },
       { label: "结果 02", value: "异常清单支持追溯" },
       { label: "结果 03", value: "模板口径稳定输出" },
       { label: "验证方式", value: "历史模板回放" },

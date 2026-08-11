@@ -154,11 +154,10 @@ async function main() {
 
     const caseHeadings = await page.locator("#focusBodyScroll .focus-export-h").allTextContents();
     const expectedHeadings = [
-      "01 / 业务痛点",
-      "02 / 调研与范围定义",
-      "03 / 方案、规则与风险处理",
-      "04 / 交付、上线与验收",
-      "05 / 边界与下一步",
+      "01 / 业务痛点溯源",
+      "02 / 需求拆解与产品方案",
+      "03 / 风险应对与落地交付",
+      "04 / 业务价值与验收闭环",
     ];
     if (caseHeadings.length !== expectedHeadings.length || caseHeadings.some((item, index) => item !== expectedHeadings[index])) {
       throw new Error(`case-study section regression: ${JSON.stringify(caseHeadings)}`);
@@ -182,7 +181,7 @@ async function main() {
       throw new Error("flagship evidence flow regression");
     }
     const chapterNav = page.locator("#focusBodyScroll .focus-export-nav");
-    if (await chapterNav.locator("button").count() !== 5) {
+    if (await chapterNav.locator("button").count() !== 4) {
       throw new Error("case chapter navigation regression");
     }
     await chapterNav.locator("button").nth(3).press("Enter");
@@ -220,11 +219,25 @@ async function main() {
     }
     for (let index = 0; index < projectCount; index += 1) {
       const trigger = projectTriggers.nth(index);
+      const projectId = await trigger.evaluate((node) => node.closest(".project-card")?.dataset.projectId);
       await trigger.scrollIntoViewIfNeeded();
       await trigger.click();
       await page.waitForTimeout(280);
       if (await page.locator("#focusBodyScroll .focus-user-story").count() !== 1) {
         throw new Error(`project user-story detail regression: ${index}`);
+      }
+      const expectedChapterCount = ["calendar", "report"].includes(projectId) ? 4 : 5;
+      if (await page.locator("#focusBodyScroll .focus-export-h").count() !== expectedChapterCount) {
+        throw new Error(`project chapter count regression: ${projectId}`);
+      }
+      if (await page.locator("#focusBodyScroll .focus-export-nav button").count() !== expectedChapterCount) {
+        throw new Error(`project chapter navigation regression: ${projectId}`);
+      }
+      if (projectId === "report") {
+        const reportText = await page.locator("#focusBodyScroll .focus-export-flow").innerText();
+        if (!reportText.includes("4h") || !reportText.includes("6min") || reportText.includes("10 分钟")) {
+          throw new Error("daily report outcome wording regression");
+        }
       }
       await page.keyboard.press("Escape");
       await page.waitForTimeout(180);
