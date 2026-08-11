@@ -8236,6 +8236,39 @@ body::after,
   margin: 0;
 }
 
+.focus-user-story {
+  padding: 20px;
+  border-left: 3px solid #70b8ad;
+  background: rgba(18, 40, 47, 0.42);
+}
+
+.focus-user-story h4 {
+  margin: 0 0 14px;
+  color: #e8faf5;
+  font-size: 1rem;
+}
+
+.focus-user-story dl {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 9px 16px;
+  margin: 0;
+}
+
+.focus-user-story dt,
+.focus-user-story dd { margin: 0; }
+
+.focus-user-story dt {
+  color: #91a7b8;
+  font: 600 0.7rem/1.5 "IBM Plex Mono", monospace;
+}
+
+.focus-user-story dd {
+  color: #dce7eb;
+  font-size: 0.91rem;
+  line-height: 1.6;
+}
+
 .focus-management-meta dt {
   align-self: center;
   color: #89a1bb;
@@ -8312,6 +8345,8 @@ body::after,
   .projects-masthead .pm-workbench { opacity: 0.11; }
   .projects-masthead .pm-desk { opacity: 0.32; }
   .focus-management-meta { grid-template-columns: max-content minmax(0, 1fr); }
+  .focus-user-story dl { grid-template-columns: 1fr; gap: 3px; }
+  .focus-user-story dt { margin-top: 8px; }
   .focus-evidence ol { grid-template-columns: 1fr; gap: 8px; }
   .focus-evidence li { min-height: 0; padding-right: 0; }
   .focus-evidence li:not(:last-child)::after { display: none; }
@@ -8501,3 +8536,15 @@ body::after,
   z-index: 2147483000 !important;
   isolation: isolate;
 }
+
+.project-story-line {
+  display: -webkit-box;
+  margin: 10px 0 0;
+  overflow: hidden;
+  color: #91a9bf;
+  font: 500 0.78rem/1.55 "IBM Plex Mono", monospace;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.project-story-line[hidden] { display: none; }

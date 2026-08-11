@@ -116,6 +116,9 @@ async function main() {
 
     const heroStage = await page.locator(".projects-masthead").getAttribute("data-hero-stage");
     const projectCount = await page.locator(".project-card").count();
+    if (await page.locator(".project-story-line").count() !== 5) {
+      throw new Error("project user-story card regression");
+    }
 
     await capture(page, "01-home-initial");
 
@@ -172,6 +175,9 @@ async function main() {
     if (await page.locator("#focusBodyScroll .focus-management-meta").count() !== 1) {
       throw new Error("project management metadata regression");
     }
+    if (await page.locator("#focusBodyScroll .focus-user-story").count() !== 1) {
+      throw new Error("flagship user-story regression");
+    }
     if (await page.locator("#focusBodyScroll .focus-evidence li").count() !== 4) {
       throw new Error("flagship evidence flow regression");
     }
@@ -207,6 +213,22 @@ async function main() {
     await page.keyboard.press("Escape");
     await page.waitForTimeout(500);
     await capture(page, "07-overlay-closed");
+
+    const projectTriggers = page.locator(".project-trigger");
+    if (await projectTriggers.count() !== projectCount) {
+      throw new Error("project detail trigger regression");
+    }
+    for (let index = 0; index < projectCount; index += 1) {
+      const trigger = projectTriggers.nth(index);
+      await trigger.scrollIntoViewIfNeeded();
+      await trigger.click();
+      await page.waitForTimeout(280);
+      if (await page.locator("#focusBodyScroll .focus-user-story").count() !== 1) {
+        throw new Error(`project user-story detail regression: ${index}`);
+      }
+      await page.keyboard.press("Escape");
+      await page.waitForTimeout(180);
+    }
 
     await page.setViewportSize({ width: 390, height: 844 });
     await page.locator(".featured-hero .project-trigger").scrollIntoViewIfNeeded();

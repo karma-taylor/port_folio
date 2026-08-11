@@ -72,6 +72,21 @@ function fillLede(card, data, layout) {
   el.removeAttribute("hidden");
 }
 
+function fillStoryLine(card, data, layout) {
+  const el = getSlot(card, "story-line");
+  if (!el) return;
+
+  const story = data.managementMeta?.userStory;
+  if (layout === "full" || !story?.actor || !story?.situation) {
+    el.textContent = "";
+    el.setAttribute("hidden", "");
+    return;
+  }
+
+  el.textContent = `用户：${story.actor} · 关键时刻：${story.situation}`;
+  el.removeAttribute("hidden");
+}
+
 function fillCardActions(card, data, layout) {
   const wrap = getSlot(card, "card-actions");
   if (!wrap) return;
@@ -294,6 +309,33 @@ function buildManagementMeta(meta) {
   return list;
 }
 
+function buildUserStory(story) {
+  if (!story) return null;
+  const entries = [
+    ["用户", story.actor],
+    ["情境", story.situation],
+    ["目标", story.need],
+    ["风险", story.risk],
+    ["系统处理", story.resolution],
+    ["证据", story.evidence],
+  ].filter(([, value]) => value);
+  if (!entries.length) return null;
+  const section = document.createElement("section");
+  section.className = "focus-user-story";
+  const heading = document.createElement("h4");
+  heading.textContent = "用户故事";
+  const list = document.createElement("dl");
+  entries.forEach(([label, value]) => {
+    const term = document.createElement("dt");
+    term.textContent = label;
+    const detail = document.createElement("dd");
+    detail.textContent = value;
+    list.append(term, detail);
+  });
+  section.append(heading, list);
+  return section;
+}
+
 function buildEvidenceFlow(evidence) {
   if (!evidence?.steps?.length) return null;
   const section = document.createElement("section");
@@ -336,6 +378,8 @@ function fillFocusExport(card, data) {
   flow.appendChild(buildFocusNavigation());
   const meta = buildManagementMeta(data.managementMeta || {});
   if (meta) flow.appendChild(meta);
+  const userStory = buildUserStory(data.managementMeta?.userStory);
+  if (userStory) flow.appendChild(userStory);
   flow.append(
     buildFocusSection("01 / 业务痛点", recruiting.coreProblem || focus.problem || ""),
     buildFocusSection("02 / 调研与范围定义", recruiting.researchScope || recruiting.usersScene || ""),
@@ -417,6 +461,7 @@ export function renderProjectCard(data, options = {}) {
   fillHover(card, data);
   fillMeta(card, data);
   fillLede(card, data, layout);
+  fillStoryLine(card, data, layout);
   fillTech(card, data, layout);
   fillRoute(card, data, layout);
   fillOutcomes(card, data, layout);
