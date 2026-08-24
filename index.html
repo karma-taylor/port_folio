@@ -53,20 +53,7 @@
 
       <section class="work shell" id="work" aria-labelledby="work-title">
         <div class="section-heading reveal"><p class="section-index">02 / SELECTED WORK</p><h2 id="work-title">值得被展开的<br />产品现场。</h2><p>每一个项目都从一个真实的工作瞬间开始。</p></div>
-        <article class="featured-case tilt-card reveal">
-          <a href="https://work-calendar-52c.pages.dev" target="_blank" rel="noreferrer" class="case-visual calendar-art" aria-label="访问 Work Calendar 上线版本">
-            <div class="browser-bar"><span></span><span></span><span></span><b>work calendar / project schedule</b></div>
-            <div class="calendar-body"><aside><i></i><i></i><i></i><i></i></aside><div class="calendar-grid"><div class="calendar-title">2026 · 08</div><div class="cells"></div><div class="event e1"></div><div class="event e2"></div><div class="event e3"></div><div class="event e4"></div></div></div>
-            <div class="art-caption"><span>FEATURED CASE</span><span>01 / 05</span></div>
-          </a>
-          <div class="case-content"><div><p class="case-type">WORK CALENDAR</p><h3>把班组撞期，<br />拦在保存之前。</h3></div><p>工程团队排期时，系统在保存前识别角色冲突，明确问题并留下可追溯的决策记录。</p><div class="case-footer"><span>React · Supabase · Rule validation</span><a class="arrow-link" href="https://work-calendar-52c.pages.dev" target="_blank" rel="noreferrer" aria-label="访问 Work Calendar">↗</a></div></div>
-        </article>
-
-        <div class="case-list">
-          <a class="project-row reveal" href="https://hamhome-digest-web.pages.dev/digest" target="_blank" rel="noreferrer"><span class="project-number">02</span><div class="project-art digest-art"><i></i><i></i><i></i></div><div class="project-title"><small>INFORMATION SYSTEM</small><h3>HamHome Daily Digest</h3></div><p>多源资讯抓取、主题编排与可消费的结构化日报。</p><span class="row-arrow">↗</span></a>
-          <a class="project-row reveal" href="https://karma-taylor.github.io/money_classify/" target="_blank" rel="noreferrer"><span class="project-number">03</span><div class="project-art money-art"><b>¥</b><i></i><i></i></div><div class="project-title"><small>UTILITY TOOL</small><h3>轻松配钞</h3></div><p>批量计算发薪配钞方案，并自动校验余数与拆分结果。</p><span class="row-arrow">↗</span></a>
-          <a class="project-row reveal" href="https://karmacat-weather-fx-agent.hf.space" target="_blank" rel="noreferrer"><span class="project-number">04</span><div class="project-art fx-art"><i></i><i></i><b>FX</b></div><div class="project-title"><small>AGENT</small><h3>Weather FX Agent</h3></div><p>提供多银行汇率参考，完成方向纠偏与可复核换算。</p><span class="row-arrow">↗</span></a>
-        </div>
+        <div id="caseCards" class="case-cards" aria-live="polite"></div>
       </section>
 
       <section class="about shell" id="about">
@@ -75,6 +62,6 @@
       </section>
     </main>
     <footer class="footer shell"><a class="brand" href="#top"><span class="brand-mark">K</span><span>Karma Taylor</span></a><p>© 2026 · Built around clear decisions.</p><a href="mailto:taylorkarma@163.com">taylorkarma@163.com</a></footer>
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
   </body>
 </html>
