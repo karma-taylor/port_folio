@@ -10,10 +10,23 @@ else {
 
 const dialog = document.querySelector('.image-dialog');
 const dialogImage = dialog?.querySelector('img');
+let dialogTrigger;
 document.querySelectorAll('[data-image-dialog]').forEach((button) => button.addEventListener('click', () => {
+  dialogTrigger = button;
   dialogImage.src = button.dataset.imageSrc;
   dialogImage.alt = button.dataset.imageAlt;
   dialog.showModal();
 }));
-document.querySelector('[data-image-close]')?.addEventListener('click', () => dialog.close());
-dialog?.addEventListener('click', (event) => { if (event.target === dialog) dialog.close(); });
+const closeDialog = () => {
+  dialog?.close();
+  dialogTrigger?.focus();
+};
+document.querySelector('[data-image-close]')?.addEventListener('click', closeDialog);
+dialog?.addEventListener('click', (event) => { if (event.target === dialog) closeDialog(); });
+dialog?.addEventListener('cancel', (event) => {
+  event.preventDefault();
+  closeDialog();
+});
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && dialog?.open) closeDialog();
+});

@@ -23,8 +23,26 @@ export const CASES = [
     }
   },
   {
-    "id": "digest",
+    "id": "enterprise-rag",
     "index": "02",
+    "slug": "enterprise-policy-rag",
+    "title": "企业制度 RAG：权限与证据可追溯问答",
+    "titleLong": "企业制度 RAG：权限与证据可追溯问答（Enterprise Policy RAG Demo）",
+    "statusLabel": "公开合成数据 Demo",
+    "summary": "面向公开合成企业制度数据的 RAG 作品：以 ACL-first、混合检索、证据溯源和 fail-closed，把“能回答”收束为可授权、可解释、可回归验证的问答路径。",
+    "tagline": "让企业问答只基于当前角色有权访问、且能够被逐条追溯的证据回答。",
+    "cover": "./assets/cases/enterprise-rag/qa.webp",
+    "coverAlt": "企业制度 RAG 员工问答界面",
+    "live": null,
+    "github": {
+      "type": "github",
+      "href": "https://github.com/karma-taylor/enterprise-policy-rag-demo",
+      "label": "查看 GitHub"
+    }
+  },
+  {
+    "id": "digest",
+    "index": "03",
     "slug": "daily-digest",
     "title": "资讯日报订阅系统（HamHome Daily Digest）",
     "titleLong": "资讯日报订阅系统（HamHome Daily Digest）",
@@ -46,7 +64,7 @@ export const CASES = [
   },
   {
     "id": "money",
-    "index": "03",
+    "index": "04",
     "slug": "money-distribute",
     "title": "轻松配钞（Money Distribute AI）",
     "titleLong": "轻松配钞：薪资分配策略工具（Money Distribute AI）",
@@ -68,7 +86,7 @@ export const CASES = [
   },
   {
     "id": "fx",
-    "index": "04",
+    "index": "05",
     "slug": "weather-fx-agent",
     "title": "汇率换算 Agent（Weather FX Agent）",
     "titleLong": "汇率换算 Agent（Weather FX Agent）",
@@ -90,7 +108,7 @@ export const CASES = [
   },
   {
     "id": "report",
-    "index": "05",
+    "index": "06",
     "slug": "daily-report-engine",
     "title": "日报自动化生成引擎（Business Daily Report Engine）",
     "titleLong": "日报自动化生成引擎（Business Daily Report Engine）",

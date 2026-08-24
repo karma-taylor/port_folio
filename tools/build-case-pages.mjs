@@ -9,6 +9,7 @@ const { PROJECTS, PROJECT_MANAGEMENT_META = {} } = await import(dataUrl);
 
 const routes = {
   calendar: "work-calendar",
+  "enterprise-rag": "enterprise-policy-rag",
   digest: "daily-digest",
   money: "money-distribute",
   fx: "weather-fx-agent",
@@ -16,12 +17,25 @@ const routes = {
 };
 const images = {
   calendar: ["calendar-cover-auto.png", "calendar-cover.jpg"],
+  "enterprise-rag": ["assets/cases/enterprise-rag/qa.webp", "assets/cases/enterprise-rag/xray.webp", "assets/cases/enterprise-rag/admin.webp"],
   digest: ["digest-cover-auto.png", "digest-cover.png"],
   money: ["money-cover-auto.png", "money-cover.png"],
   fx: ["fx-cover-auto.png", "fx-cover.jpg"],
   report: ["report-cover.png"],
 };
 const origin = "https://www.vinanverse.com";
+const isLocalAsset = (file) => file.startsWith("assets/");
+const rootAsset = (file) => isLocalAsset(file) ? `./${file}` : `${origin}/${file}`;
+const caseAsset = (file) => isLocalAsset(file) ? `../../${file}` : `${origin}/${file}`;
+const socialAsset = (file) => `${origin}/${file}`;
+const evidenceNotice = (project) => project.id === "enterprise-rag"
+  ? "公开合成数据界面；不包含真实企业文档、个人信息或私有评测数据。"
+  : "公开项目截图；仅用于展示产品界面与信息结构。";
+const ragShotMeta = [
+  { alt: "企业制度 RAG 员工问答页，展示财务角色的授权答案与引用证据", caption: "员工问答页" },
+  { alt: "企业制度 RAG X-Ray 页，展示权限范围、证据引用与检索轨迹", caption: "X-Ray 权限与证据轨迹页" },
+  { alt: "企业制度 RAG 只读知识治理页，展示公开合成制度资料的治理状态", caption: "只读知识治理页" },
+];
 const esc = (value = "") => String(value).replace(/[&<>\"]/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[char]);
 const richText = (parts = []) => (Array.isArray(parts) ? parts : [parts]).map((part) => {
   if (typeof part === "string") return esc(part);
@@ -37,7 +51,7 @@ const publicProject = (project) => ({
   statusLabel: project.statusLabel,
   summary: project.detail?.summary || project.hoverValue,
   tagline: project.detail?.focus?.tagline || project.hoverValue,
-  cover: `${origin}/${images[project.id][0]}`,
+  cover: rootAsset(images[project.id][0]),
   coverAlt: project.cover?.alt || `${project.title} 项目界面`,
   live: linkByType(project, "live") || null,
   github: linkByType(project, "github") || project.github || null,
@@ -52,7 +66,13 @@ function action(link, label, className = "case-button") {
 }
 function screenshots(project) {
   const files = images[project.id] || [];
-  return files.map((file, index) => `<figure class="case-shot case-shot--${index + 1}"><button type="button" data-image-dialog data-image-src="${origin}/${file}" data-image-alt="${esc(project.cover?.alt || project.title)} — ${index ? "补充界面" : "项目主界面"}"><img src="${origin}/${file}" alt="${esc(project.cover?.alt || project.title)} — ${index ? "补充界面" : "项目主界面"}" loading="lazy" /></button><figcaption>${index ? "补充界面 / 公开项目截图" : "产品主界面 / 公开项目截图"}</figcaption></figure>`).join("");
+  const synthetic = project.id === "enterprise-rag";
+  return files.map((file, index) => {
+    const shot = synthetic ? ragShotMeta[index] : null;
+    const alt = shot?.alt || `${project.cover?.alt || project.title} — ${index ? "补充界面" : "项目主界面"}`;
+    const caption = shot?.caption || (index ? "补充界面" : "产品主界面");
+    return `<figure class="case-shot case-shot--${index + 1}"><button type="button" data-image-dialog data-image-src="${caseAsset(file)}" data-image-alt="${esc(alt)}"><img src="${caseAsset(file)}" alt="${esc(alt)}" loading="lazy" /></button><figcaption>${esc(caption)} / ${synthetic ? "公开合成数据" : "公开项目截图"}</figcaption></figure>`;
+  }).join("");
 }
 function retrospective(project) {
   const sections = project.detail?.retrospective?.sections;
@@ -70,22 +90,24 @@ function page(project, position) {
   const meta = PROJECT_MANAGEMENT_META[project.id] || {};
   const previous = PROJECTS[(position + PROJECTS.length - 1) % PROJECTS.length];
   const next = PROJECTS[(position + 1) % PROJECTS.length];
-  const heroImage = `${origin}/${images[project.id][0]}`;
+  const heroImage = caseAsset(images[project.id][0]);
+  const socialImage = socialAsset(images[project.id][0]);
   const canonical = `${origin}/cases/${routes[project.id]}/`;
-  const external = linkByType(project, "live") || linkByType(project, "github") || project.github;
+  const github = linkByType(project, "github") || project.github;
+  const external = linkByType(project, "live") || github;
   const externalLabel = linkByType(project, "live") ? "访问上线版本" : "查看 GitHub";
   return `<!doctype html>
 <html lang="zh-CN"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>${esc(project.titleLong)} · Karma Taylor</title><meta name="description" content="${esc(details.summary || focus.tagline || project.hoverValue)}" />
-<link rel="canonical" href="${canonical}" /><meta property="og:type" content="article" /><meta property="og:title" content="${esc(project.titleLong)} · Karma Taylor" /><meta property="og:description" content="${esc(details.summary || focus.tagline || project.hoverValue)}" /><meta property="og:url" content="${canonical}" /><meta property="og:image" content="${heroImage}" />
+<link rel="canonical" href="${canonical}" /><meta property="og:type" content="article" /><meta property="og:title" content="${esc(project.titleLong)} · Karma Taylor" /><meta property="og:description" content="${esc(details.summary || focus.tagline || project.hoverValue)}" /><meta property="og:url" content="${canonical}" /><meta property="og:image" content="${socialImage}" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700;800&display=swap" rel="stylesheet" /><link rel="stylesheet" href="../../styles.css" />
-<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@type": "CreativeWork", name: project.titleLong, description: details.summary || focus.tagline, url: canonical, image: heroImage, author: { "@type": "Person", name: "郭伟南", alternateName: "Karma Taylor" } })}</script></head>
+<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@type": "CreativeWork", name: project.titleLong, description: details.summary || focus.tagline, url: canonical, image: socialImage, author: { "@type": "Person", name: "郭伟南", alternateName: "Karma Taylor" } })}</script></head>
 <body class="case-page"><div class="grain" aria-hidden="true"></div><header class="case-header"><a class="brand" href="../../" aria-label="返回作品集首页"><span class="brand-mark">K</span><span>Karma Taylor</span></a><a class="back-link" href="../../#work">返回项目列表 <span aria-hidden="true">←</span></a></header>
-<main><section class="case-hero shell"><div class="case-hero-copy reveal"><p class="case-kicker">${esc(project.index)} / ${esc(project.statusLabel || "PROJECT CASE")}</p><h1>${esc(project.titleLong)}</h1><p>${esc(focus.tagline || project.hoverValue)}</p><div class="case-actions">${action(external, externalLabel, "case-button case-button--dark")}${action(linkByType(project, "github") || project.github, "查看 GitHub", "case-button case-button--quiet")}</div></div><figure class="case-hero-media reveal"><img src="${heroImage}" alt="${esc(project.cover?.alt || project.title)}" /><figcaption>公开项目截图；仅用于展示产品界面与信息结构。</figcaption></figure></section>
+<main><section class="case-hero shell"><div class="case-hero-copy reveal"><p class="case-kicker">${esc(project.index)} / ${esc(project.statusLabel || "PROJECT CASE")}</p><h1>${esc(project.titleLong)}</h1><p>${esc(focus.tagline || project.hoverValue)}</p><div class="case-actions">${action(external, externalLabel, "case-button case-button--dark")}${external?.href !== github?.href ? action(github, "查看 GitHub", "case-button case-button--quiet") : ""}</div></div><figure class="case-hero-media reveal"><img src="${heroImage}" alt="${esc(project.cover?.alt || project.title)}" /><figcaption>${evidenceNotice(project)}</figcaption></figure></section>
 <section class="case-intro shell"><p>${esc(details.summary || project.hoverValue)}</p>${resultGrid(project)}</section>
 <section class="case-section shell case-context"><h2>为什么要做这件事</h2><div class="case-prose"><p><strong>使用场景</strong>${esc(recruiting.usersScene || meta.scenario || "脱敏业务场景")}</p><p><strong>核心问题</strong>${esc(recruiting.coreProblem || focus.problem)}</p><p><strong>负责范围</strong>${esc(focus.ownership)}</p><p><strong>产品判断</strong>${esc(focus.productJudgment)}</p></div></section>
 <section class="case-section shell case-system"><h2>把规则做成路径</h2><div class="flow-board" aria-label="${esc(project.flow?.ariaLabel || project.title)} 流程">${(project.flow?.steps || []).map((step, index) => `<div class="flow-step ${step.accent ? "is-accent" : ""}"><span>${esc(step.idx)}</span><strong>${esc(step.label)}</strong>${index < project.flow.steps.length - 1 ? "<i aria-hidden=\"true\"></i>" : ""}</div>`).join("")}</div><p>${esc(focus.flowSummary || "以明确规则收束输入、判断与输出。")}</p></section>
-<section class="case-section shell case-evidence"><h2>产品界面与交付证据</h2><p class="case-section-intro">以下内容均来自公开项目界面或公开运行输出，不包含客户、人员与财务敏感数据。</p><div class="case-gallery">${screenshots(project)}</div></section>
+<section class="case-section shell case-evidence"><h2>产品界面与交付证据</h2><p class="case-section-intro">${project.id === "enterprise-rag" ? "以下界面均来自本地公开合成数据 Demo；真实语料、私有评测与密钥均不进入作品集。" : "以下内容均来自公开项目界面或公开运行输出，不包含客户、人员与财务敏感数据。"}</p><div class="case-gallery">${screenshots(project)}</div></section>
 ${retrospective(project)}
 <section class="case-section shell case-delivery"><h2>交付与边界</h2><div class="delivery-grid"><p><strong>交付内容</strong>${esc(recruiting.delivery || "完成可复核的产品交付。")}</p><p><strong>验收方式</strong>${esc(meta.verification || "以公开版本和可复现流程进行核验。")}</p><p><strong>下一步与边界</strong>${esc(recruiting.risks || "持续在真实使用中迭代。")}</p></div></section>
 <nav class="case-pagination shell" aria-label="案例导航"><a href="../${routes[previous.id]}/"><small>上一案例</small><strong>${esc(previous.title)}</strong></a><a href="../${routes[next.id]}/"><small>下一案例</small><strong>${esc(next.title)}</strong></a></nav></main>

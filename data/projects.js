@@ -4,13 +4,13 @@ export const PROJECTS = [
     index: "01",
     size: "wide",
     status: "live",
-    statusLabel: "演示原型",
-    title: "工作日历协同系统（Work Calendar）",
-    titleLong: "工作日历协同系统（Work Calendar）",
+    statusLabel: "Skill 协同",
+    title: "工程排班协同系统（Work Calendar Skill）",
+    titleLong: "工程排班协同系统（Work Calendar Skill）",
     outcomes: [
-      "工程班组撞期在保存前拦截",
-      "钢构、焊接与照明预埋可按分段安排",
-      "示例试排仅保存到访客本地草稿",
+      "网页与 Codex Skill 共享同一受控排班接口",
+      "每次变更先预览冲突，再经用户确认写入",
+      "revision 校验拒绝多人协作时的静默覆盖",
     ],
     cover: {
       src: "./calendar-cover-auto.png",
@@ -18,33 +18,33 @@ export const PROJECTS = [
       alt: "工作日历协同系统项目封面",
     },
     hoverValue:
-      "把钢结构遮阳棚施工中的班组分段与焊工撞期，做成保存前可拦截、可复核的规则系统。",
+      "把自然语言排班纳入“读取状态 → 预览校验 → 确认写入”的受控流程，让 AI 协作可执行、可拒绝、可审计。",
     hoverCta: {
       href: "https://work-calendar-52c.pages.dev",
       label: "访问演示",
       aria: "访问工作日历协同系统演示",
     },
     tech: [
-      { type: "framework", label: "React" },
-      { type: "framework", label: "Vite" },
-      { type: "tool", label: "Supabase" },
-      { type: "ai", label: "Cursor" },
-      { type: "ai", label: "Codex" },
-      { type: "deploy", label: "Cloudflare Pages" },
+      { type: "ai", label: "Codex work-calendar Skill" },
+      { type: "api", label: "Supabase Edge Function" },
+      { type: "tool", label: "Supabase Auth / Postgres" },
+      { type: "framework", label: "React 19 / Vite" },
+      { type: "lang", label: "TypeScript / Deno" },
+      { type: "tool", label: "SheetJS 本地名单解析" },
     ],
     route: [
-      { label: "前端", value: "React / Vite / JavaScript" },
-      { label: "服务", value: "Supabase 实时同步" },
-      { label: "数据AI", value: "Excel 名单导入 / 分段参与 / 冲突校验" },
-      { label: "部署", value: "Cloudflare Pages" },
+      { label: "Skill", value: "自然语言解析 / 状态查询 / 变更预览" },
+      { label: "受控写入", value: "显式命令 + 用户确认 + expectedRevision" },
+      { label: "服务端", value: "鉴权 / Schema / 冲突校验 / 审计" },
+      { label: "身份数据", value: "Magic Link / 角色权限 / 匿名人员 ID" },
     ],
     flow: {
       ariaLabel: "工作日历协同系统业务流程",
       steps: [
-        { idx: "01", label: "名单导入" },
-        { idx: "02", label: "分段安排" },
-        { idx: "03", label: "冲突校验" },
-        { idx: "04", label: "云端同步", accent: true },
+        { idx: "01", label: "读取状态" },
+        { idx: "02", label: "解析意图" },
+        { idx: "03", label: "预览校验" },
+        { idx: "04", label: "确认写入", accent: true },
       ],
     },
     github: {
@@ -54,41 +54,41 @@ export const PROJECTS = [
     },
     detail: {
       heroTeaser:
-        "把工程现场靠 Excel 协调的施工排期，产品化为保存前拦截冲突的规则系统。",
+        "把工程排班从网页表单延伸到 Codex Skill：AI 只提出候选变更，服务端先验证，用户确认后才落库。",
       focus: {
         tagline:
-          "让工程班组“谁在什么时间参与、是否撞期”在保存前就被系统拦住。",
+          "让自然语言排班具备与网页端一致的权限、冲突规则、版本控制与审计边界。",
         problem:
-          "适用于需要多人协同排期、资源分配和任务统筹的团队。核心痛点是同一任务存在多人分段参与，Excel 名单又频繁变化，人工对齐时间窗很容易撞期。",
+          "工程排班既需要在月历中操作，也需要让 AI 协助查询和调整。若 AI 直接写库，人员撞期、越权和并发覆盖会从效率问题变成不可追溯的业务风险。",
         ownership:
-          "我负责需求拆解、流程建模、交互原型、冲突规则设计、名单导入策略、Supabase 数据结构设计与上线验证。",
+          "我负责将排班规则建模为网页与 Skill 共享的受控 API：定义命令边界、预览与确认协议、角色权限、revision 写入，以及隐私最小化的审计方式。",
         flowSummary:
-          "钢构吊装 → 节点焊接 → 照明预埋复核；以人员分段为粒度预检，冲突时阻断保存，访客草稿仅留在本机。",
+          "Skill 先读取最新项目、人员与 revision，再将自然语言收敛为一项明确变更；服务端返回冲突预览，用户确认后才以 expectedRevision 提交。",
         productJudgment:
-          "我没有把它做成自由编辑表格，而是先锁定任务边界、人员分段与冲突规则。冲突 Modal 在前端阻断保存，因此不会写入草稿或触发云端请求。",
+          "Skill 不拥有绕过规则的特权写入。它与网页端调用同一 Edge Function；身份、角色、冲突、Schema 和 revision 均由服务端裁决，安全性不依赖提示词。",
         promptDesign: {
-          goal: "生成一个可部署的协同日历系统，覆盖任务、分段、冲突规则与名单导入。",
-          inputs: "任务起止、参与人员、角色、分段起止时间，以及 Excel 名单映射关系。",
-          rules: "冲突粒度到人和分段；时间区间相交则禁止保存；所有分段必须落在任务总区间内。",
-          output: "可运行前端、冲突函数、Supabase SQL 以及部署说明。",
-          safeguards: "未选人员、非法日期、跨区间分段或同人撞期都直接阻止保存；公开演示只写入本地草稿，并对存储失败给出提示。",
+          goal: "让 Codex 用自然语言安全地查询、预览并管理工程排班，而不是让模型直接改数据库。",
+          inputs: "用户意图、日期范围、项目与人员标识；Skill 始终从云端读取当前状态与 revision。",
+          rules: "一次请求只收敛为 create / update / delete 一项明确命令；先预览，再等待用户明确确认。",
+          output: "包含项目、人员、日期范围、冲突结果与 revision 的变更摘要；写入结果可由服务端审计。",
+          safeguards: "不根据模糊姓名猜测人员；拒绝越权、撞期、非法日期和过期 revision；发生 revision 不一致时不自动重试或覆盖。",
           excerpt:
-            "你是复杂协同流程设计专家与资深前端工程师。目标是构建一个支持多人分段参与、保存前冲突校验、云端同步的月历型工作台。",
+            "先读取当前排班与 revision；将请求转化为单一明确变更，调用预览检查冲突。只有用户确认后，才携带 expectedRevision 写入。",
         },
       },
       recruiting: {
         background:
-          "我把排期这类高规则密度场景，从“人工协调”推进成“系统先判断、用户再确认”的产品模式。",
-        usersScene: "适用于项目协调、任务分配、多人协同参与与排期管理场景。",
-        coreProblem: "Excel 易撞期、状态易丢失、规则难沉淀。",
-        researchScope: "围绕工程排期中人员、角色、任务区间和分段参与四类信息梳理约束；本轮只解决保存前发现撞期，不扩展到权限和多人并发编辑。",
-        delivery: "交付月视图、人员分段表单、冲突拦截与可复核详情；以脱敏工程班组试排验证“撞期不可保存、调整后可保存”的闭环。",
-        risks: "后续仍可继续补充权限与历史审计能力。",
+          "我把高规则密度的工程排班，推进为“系统先判断、AI 提出候选、用户确认”的人机协同模式。",
+        usersScene: "适用于项目协调员既要在网页中查看月历，也要借助 AI 快速查询、预览和调整排班的场景。",
+        coreProblem: "自然语言很灵活，但排班写入必须面对人员撞期、角色权限、并发修改和隐私数据边界。",
+        researchScope: "围绕 Skill 的意图收敛、受影响日期读取、服务端预览、明确确认与 revision 写入设计闭环，不让模型承担最终业务裁决。",
+        delivery: "交付网页与 Skill 共用的 Edge Function、角色与 Key 鉴权、冲突校验、审计事件、历史快照及隐私安全的脱敏测试样例。",
+        risks: "生产环境仍需按部署清单完成白名单、Key 轮换、CORS、数据保留和分级验收。",
         results: [
-          { label: "规则前置", value: "保存前校验" },
-          { label: "协同方式", value: "支持分段参与" },
-          { label: "状态恢复", value: "跨设备可续接" },
-          { label: "上线形态", value: "Cloudflare Pages" },
+          { label: "AI 写入", value: "预览后需明确确认" },
+          { label: "并发保护", value: "expectedRevision" },
+          { label: "权限边界", value: "角色 + 可轮换 Key" },
+          { label: "隐私策略", value: "匿名 ID + 最小审计" },
         ],
       },
       retrospective: {
@@ -96,45 +96,45 @@ export const PROJECTS = [
           {
             label: "业务痛点溯源",
             summary: [
-              { text: "排期真正的风险不是排不出来，而是分包确认进场后才发现关键人员已被占用。", strong: true },
+              { text: "排班 Skill 的价值不在于替人点击，而在于让自然语言操作也遵守工程现场的业务约束。", strong: true },
             ],
             points: [
-              [{ text: "现场节点：" }, { text: "钢构吊装", strong: true }, { text: "结束后，需要确认檩条安装班组的进场安排。" }],
-              [{ text: "协同难点：同一焊工同时服务节点焊接与后续任务，Excel 很难稳定核对人员、角色与参与区间。" }],
-              [{ text: "业务后果：撞期若在分包确认后才暴露，只能重新协调人员和进场节点。" }],
+              [{ text: "业务约束：同一人员可分段参与多个工单，但相交的时间区间必须被阻止。" }],
+              [{ text: "AI 风险：如果模型绕过当前状态、权限与冲突校验直接写入，错误会被放大为跨端协作事故。" }],
+              [{ text: "产品判断：把 AI 定位为受控操作入口，而不是拥有数据库直写权限的自动化脚本。" }],
             ],
           },
           {
             label: "需求拆解与产品方案",
-            summary: [{ text: "先把现场口头约定拆成系统可判断的约束，再设计排期操作。", strong: true }],
+            summary: [{ text: "先将自然语言收敛为可预览的单一命令，再由服务端完成业务裁决。", strong: true }],
             points: [
-              [{ text: "以任务工期、人员角色、参与分段作为最小判断单元，明确每条排期需要回答的业务问题。" }],
-              [{ text: "用", }, { text: "分段参与", strong: true }, { text: "表达同一人员在不同施工节点的实际投入，而不是把人员粗放绑定到整项任务。" }],
-              [{ text: "将月历、人员安排与详情复核串成一条路径，让协调员能在确认前看到占用依据。" }],
+              [{ text: "Skill 先读云端状态与" }, { text: "expectedRevision", strong: true }, { text: "，而非依赖用户描述推断当前排班。" }],
+              [{ text: "请求只能映射为" }, { text: "create / update / delete", strong: true }, { text: "之一；变更对象、人员与日期范围在预览阶段完整展开。" }],
+              [{ text: "网页与 Skill 复用同一 Edge Function，使权限、Schema、冲突和审计规则不因入口不同而分叉。" }],
             ],
           },
           {
             label: "风险应对与落地交付",
-            summary: [{ text: "把最容易返工的人员撞期，前置为提交动作之前必须通过的校验。", strong: true }],
+            summary: [{ text: "把模型理解转化为可拒绝、可恢复、可追责的服务端协议。", strong: true }],
             points: [
-              [{ text: "通过", }, { text: "前置校验", strong: true }, { text: "检查同一人员的重叠日期、非法日期和分段越界。" }],
-              [{ text: "以", }, { text: "强阻断反馈", strong: true }, { text: "明确提示冲突人员、角色、已占用任务和重叠区间，并给出调整分段或更换成员的下一步。" }],
-              [{ text: "公开演示只保存访客本地草稿，避免脱敏示例写入共享数据。" }],
+              [{ text: "预览阶段由服务端检查身份、角色、人员重叠、非法日期和分段边界；冲突不会进入写入路径。" }],
+              [{ text: "写入必须等用户", }, { text: "明确确认", strong: true }, { text: "；过期 revision 返回 REVISION_MISMATCH，Skill 不自动覆盖或重试。" }],
+              [{ text: "审计事件只记录角色、动作、结果、耗时和摘要；名单与原始对话不进入日志。" }],
             ],
           },
           {
             label: "业务价值与验收闭环",
-            summary: [{ text: "用可复现的试排闭环验证规则，而不以未经证实的效率数据替代验收。", strong: true }],
+            summary: [{ text: "以安全契约与可复现变更流程验收 Skill，而不用未经验证的 AI 提效数字包装结果。", strong: true }],
             points: [
-              [{ text: "验收场景一：不同人员或不重叠分段可正常保存。" }],
-              [{ text: "验收场景二：同一焊工撞期时", }, { text: "不可保存", strong: true }, { text: "，且不写入草稿或共享数据。" }],
-              [{ text: "验收场景三：调整分段后可保存，并在任务详情中", }, { text: "可复核", strong: true }, { text: "人员、工种与参与区间。" }],
+              [{ text: "验收场景一：Skill 与网页端读取同一状态，且预览输出明确列出项目、人员、日期与冲突。" }],
+              [{ text: "验收场景二：越权、撞期、非法请求和过期 revision", }, { text: "均不可写入", strong: true }, { text: "。" }],
+              [{ text: "验收场景三：用户确认后才写入，结果可通过 revision 与审计记录", }, { text: "复核", strong: true }, { text: "。" }],
             ],
           },
         ],
       },
       summary:
-        "面向多人协同排期场景的可视化日历工具。真正解决的不是“做一个日历”，而是把人员、角色、时间窗和冲突约束抽象成系统可执行的规则。",
+        "面向工程排班的网页与 Codex Skill 协同系统。核心不是让 AI 直接操作数据，而是让每一项自然语言变更都经过读取、预览、确认、服务端裁决与审计。",
       links: [
         {
           type: "live",
@@ -150,8 +150,79 @@ export const PROJECTS = [
     },
   },
   {
-    id: "digest",
+    id: "enterprise-rag",
     index: "02",
+    size: "wide",
+    status: "public-demo",
+    statusLabel: "公开合成数据 Demo",
+    title: "企业制度 RAG：权限与证据可追溯问答",
+    titleLong: "企业制度 RAG：权限与证据可追溯问答（Enterprise Policy RAG Demo）",
+    outcomes: [
+      "ACL-first 让未授权制度不参与召回",
+      "BM25 与可选 BGE 通道经 RRF 融合、重排后输出授权证据",
+      "无证据、非法引用或服务异常时 fail-closed 拒答",
+    ],
+    cover: {
+      src: "./assets/cases/enterprise-rag/qa.webp",
+      version: "public-synthetic-demo",
+      alt: "企业制度 RAG 员工问答界面",
+    },
+    hoverValue:
+      "把企业问答从“能回答”做成“只对有权限的人、基于可追溯证据地回答”。",
+    tech: [
+      { type: "framework", label: "FastAPI" },
+      { type: "tool", label: "Docker / Render Blueprint" },
+      { type: "ai", label: "OpenAI-compatible LLM" },
+      { type: "framework", label: "BM25 + BGE + RRF" },
+      { type: "tool", label: "GitHub Actions / Pytest" },
+    ],
+    route: [
+      { label: "权限", value: "ACL-first / 未授权文档不参与召回" },
+      { label: "检索", value: "BM25 + 可选 BGE / RRF / 轻量重排" },
+      { label: "生成", value: "引用校验 / 无证据 fail-closed" },
+      { label: "评测", value: "Hit@1 / Hit@5 / MRR@10 / Protected Gate" },
+    ],
+    flow: {
+      ariaLabel: "企业制度 RAG 权限与证据检索流程",
+      steps: [
+        { idx: "01", label: "角色与问题" },
+        { idx: "02", label: "ACL-first" },
+        { idx: "03", label: "融合与重排" },
+        { idx: "04", label: "引用回答／拒答", accent: true },
+      ],
+    },
+    github: { href: "https://github.com/karma-taylor/enterprise-policy-rag-demo", magnetic: true, magneticStrength: 0.25 },
+    detail: {
+      heroTeaser: "面向公开合成企业制度的 RAG Demo：先做权限隔离与证据检索，再决定是否生成回答。",
+      focus: {
+        tagline: "让企业问答只基于当前角色有权访问、且能够被逐条追溯的证据回答。",
+        problem: "企业制度、合同与保险风险问答不仅要召回相关文本，还必须避免未授权内容进入召回与生成链路，并让使用者能核对答案依据。",
+        ownership: "我负责公开作品的权限边界、混合检索路径、证据引用与拒答策略、评测门禁和可解释界面设计。",
+        flowSummary: "用户问题与角色先进入 ACL 过滤；授权范围内再执行 BM25、可选 BGE、RRF 与轻量重排，最后以引用校验决定回答或拒答。",
+        productJudgment: "权限不是生成后的遮罩，而应当发生在召回之前；无证据、非法引用或服务异常时，系统应明确降级为受控回答，而不是补全猜测。",
+        promptDesign: { goal: "仅基于授权证据回答制度问题，并在每条事实后保留可核对的证据编号。", inputs: "用户问题、角色、已授权的检索证据包。", rules: "证据不足时拒答；不得引用未授权证据；事实必须对应有效证据编号。", output: "带证据编号的回答，或说明无法基于当前授权证据作答的受控回复。", safeguards: "ACL 在检索前执行；非法引用、无证据和服务失败均不生成未经支持的结论。", excerpt: "只根据提供的授权证据回答；若证据不足或引用不合法，明确说明不能作答，不得补充猜测。" },
+      },
+      recruiting: {
+        background: "我把 RAG 的评价从“是否生成答案”前移到“权限、证据和拒答边界是否可信”。",
+        usersScene: "适用于企业员工按角色查询制度、流程、合同与保险风险信息的公开合成数据演示场景。",
+        coreProblem: "纯召回或自由生成可能让未授权内容被检索、让答案失去证据来源，且难以在回归后识别保护问题是否退化。",
+        researchScope: "覆盖 ACL-first、混合检索、证据引用、fail-closed 和公开小规模评测；不宣称真实企业身份、审计或生产级限流能力。",
+        delivery: "交付员工问答、X-Ray 检索透视、只读知识治理页、FastAPI/Docker/Render 配置与 Protected Regression Gate。",
+        risks: "真实部署仍需企业 IdP、受控语料存储、集中脱敏日志、独立评测环境与生产级限流。",
+        results: [{ label: "权限顺序", value: "ACL-first" }, { label: "检索路径", value: "BM25 + 可选 BGE + RRF" }, { label: "可信边界", value: "引用校验 + fail-closed" }, { label: "回归门禁", value: "Protected Query Gate" }],
+      },
+      retrospective: { sections: [
+        { label: "先定义可信边界", summary: [{ text: "企业问答的风险不只在答错，也在未授权文本被带入检索和生成。", strong: true }], points: [[{ text: "将 ACL 放在所有检索通道之前，未知路径默认拒绝，不做全库回退。" }], [{ text: "公开版仅使用合成制度数据；真实文档、原始 chunk、私有 gold-set 和密钥不进入仓库或截图。" }]] },
+        { label: "让检索链路可解释", summary: [{ text: "把词法、向量、融合和重排从黑盒结果拆成可查看的证据轨迹。", strong: true }], points: [[{ text: "BM25 与可选 BGE 通道通过 RRF 融合，再由轻量重排输出授权证据包。" }], [{ text: "X-Ray 页展示 doc_id、分数、作用域与检索轨迹，方便对比访客与财务角色。" }]] },
+        { label: "把拒答和回归纳入交付", summary: [{ text: "证据不足时拒答，不把模型补全当作产品默认。", strong: true }], points: [[{ text: "引用校验、无证据和服务异常都降级为受控回答。" }], [{ text: "公开评测计算 Hit@1、Hit@5 与 MRR@10；Protected Query 失败会阻断发布测试。" }]] },
+      ] },
+      summary: "面向公开合成企业制度数据的 RAG 作品：以 ACL-first、混合检索、证据溯源和 fail-closed，把“能回答”收束为可授权、可解释、可回归验证的问答路径。",
+      links: [{ type: "github", href: "https://github.com/karma-taylor/enterprise-policy-rag-demo", label: "查看 GitHub" }],
+    },
+  },
+  {
+    id: "digest",
+    index: "03",
     size: "tall",
     status: "live",
     statusLabel: "已上线",
@@ -258,7 +329,7 @@ export const PROJECTS = [
   },
   {
     id: "money",
-    index: "03",
+    index: "04",
     size: "tall",
     status: "live",
     statusLabel: "已上线",
@@ -364,7 +435,7 @@ export const PROJECTS = [
   },
   {
     id: "fx",
-    index: "04",
+    index: "05",
     size: "featured",
     status: "live",
     statusLabel: "已上线",
@@ -470,7 +541,7 @@ export const PROJECTS = [
   },
   {
     id: "report",
-    index: "05",
+    index: "06",
     size: "small",
     status: "wip",
     statusLabel: "代码案例",
@@ -619,6 +690,21 @@ export const DELIVERY_SUMMARY = [
 ];
 
 export const PROJECT_MANAGEMENT_META = {
+  "enterprise-rag": {
+    scenario: "企业制度与风险问答（公开合成数据）",
+    role: "权限边界、检索链路、证据与评测设计",
+    status: "公开合成数据 Demo",
+    verification: "访客／财务角色对比、X-Ray 证据检查与 Protected Query Gate",
+    userStory: {
+      actor: "企业员工（公开合成角色）",
+      situation: "需要查询制度、报销或风险流程，但不同角色只能看到授权范围内的证据。",
+      need: "在得到答案时同时确认它来自哪些授权证据，并在无证据时获得明确拒答。",
+      risk: "未授权语料进入检索或生成，会把权限问题伪装成一次看似合理的回答。",
+      resolution: "先按角色执行 ACL，再做混合检索与引用校验；无法支持时受控拒答。",
+      evidence: "访客拒答、财务授权证据、X-Ray 检索轨迹、Protected Query 回归门禁。",
+    },
+    evidence: { title: "企业制度 RAG 的可信问答闭环", steps: ["角色识别", "ACL-first", "授权证据", "引用回答／拒答"] },
+  },
   calendar: {
     scenario: "钢结构遮阳棚施工班组协调",
     role: "需求拆解、规则设计、前端交付",

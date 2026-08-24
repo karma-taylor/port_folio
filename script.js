@@ -34,7 +34,7 @@ if (cardsRoot) {
     const externalLabel = project.live ? '访问产品' : '查看 GitHub';
     const primary = `<a class="project-cta project-cta--primary" href="./cases/${project.slug}/">查看案例 <span aria-hidden="true">→</span></a>`;
     const secondary = external ? `<a class="project-cta project-cta--secondary" href="${external.href}" target="_blank" rel="noopener noreferrer">${externalLabel} <span aria-hidden="true">↗</span></a>` : '';
-    if (index === 0) return `<article class="featured-case reveal is-visible"><img src="${project.cover}" alt="${project.coverAlt}" /><div class="featured-case__copy"><p>${project.index} / 05 · ${project.statusLabel}</p><h3>${project.title}</h3><p>${project.tagline}</p><div class="project-ctas">${primary}${secondary}</div></div></article>`;
+    if (index === 0) return `<article class="featured-case reveal is-visible"><img src="${project.cover}" alt="${project.coverAlt}" /><div class="featured-case__copy"><p>${project.index} / ${String(CASES.length).padStart(2, "0")} · ${project.statusLabel}</p><h3>${project.title}</h3><p>${project.tagline}</p><div class="project-ctas">${primary}${secondary}</div></div></article>`;
     return `<article class="project-row reveal is-visible"><span class="project-number">${project.index}</span><img src="${project.cover}" alt="${project.coverAlt}" loading="lazy" /><div class="project-title"><small>${project.statusLabel}</small><h3>${project.title}</h3></div><p>${project.summary}</p><div class="project-ctas">${primary}${secondary}</div></article>`;
   }).join('');
 }
