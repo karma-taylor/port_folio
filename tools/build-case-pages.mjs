@@ -7,7 +7,7 @@ const source = await readFile(join(root, "data/projects.js"), "utf8");
 const dataUrl = `data:text/javascript;base64,${Buffer.from(source).toString("base64")}`;
 const { PROJECTS: SOURCE_PROJECTS, PROJECT_MANAGEMENT_META = {} } = await import(dataUrl);
 
-const ASSET_VERSION = "20261025-vivid";
+const ASSET_VERSION = "20261025-quiet";
 const PROJECTS = [...SOURCE_PROJECTS]
   .sort((a, b) => (a.homeOrder ?? 99) - (b.homeOrder ?? 99))
   .map((project, position) => ({ ...project, index: String(position + 1).padStart(2, "0") }));
@@ -47,6 +47,14 @@ const richText = (parts = []) => (Array.isArray(parts) ? parts : [parts]).map((p
   return part?.strong ? `<strong>${esc(part.text)}</strong>` : esc(part?.text);
 }).join("");
 const linkByType = (project, type) => project.detail?.links?.find((link) => link.type === type);
+const splitTitle = (title = "") => {
+  const match = String(title).match(/^(.*?)[（(]([^（）()]+)[）)]\s*$/);
+  return match ? { zh: match[1].trim(), en: match[2].trim() } : { zh: title, en: "" };
+};
+const titleMarkup = (title) => {
+  const { zh, en } = splitTitle(title);
+  return `${esc(zh)}${en ? `<em class="serif">${esc(en)}</em>` : ""}`;
+};
 const publicProject = (project) => {
   const meta = PROJECT_MANAGEMENT_META[project.id] || {};
   return {
@@ -143,7 +151,7 @@ function retrospectiveSection(project, number) {
 }
 function contactSection(project) {
   const slug = routes[project.id];
-  return `<section class="case-contact shell"><div><p class="case-kicker">联系</p><h2>想进一步了解这个项目？</h2><p>我可以现场演示规则、校验和验收过程，也可以聊聊它在你们业务里怎么落地。</p></div><div class="case-contact__actions"><a class="case-button case-button--dark" href="../../resume.pdf" download="郭伟南-产品经理简历.pdf" data-track="resume_download" data-track-label="case-${esc(slug)}">下载简历 PDF <span aria-hidden="true">↓</span></a><a class="case-button" href="mailto:taylorkarma@163.com" data-track="email_click" data-track-label="case-${esc(slug)}">taylorkarma@163.com <span aria-hidden="true">↗</span></a><details class="qr-pop qr-pop--up"><summary class="case-button case-button--quiet" data-track="wechat_open" data-track-label="case-${esc(slug)}">微信</summary><div class="qr-pop__panel"><img src="../../wechat-qr.png" alt="郭伟南的微信二维码" width="180" height="180" loading="lazy" /><span>扫码添加微信</span></div></details></div></section>`;
+  return `<section class="case-contact"><p class="eyebrow"><b>+</b> 联系</p><h2>想进一步了解这个项目？</h2><p>我可以现场演示规则、校验和验收过程，也可以聊聊它在你们业务里怎么落地。</p><div class="case-contact__actions"><a class="pill pill--solid" href="../../resume.pdf" download="郭伟南-产品经理简历.pdf" data-track="resume_download" data-track-label="case-${esc(slug)}">下载简历 PDF <span aria-hidden="true">↓</span></a><a class="pill" href="mailto:taylorkarma@163.com" data-track="email_click" data-track-label="case-${esc(slug)}">taylorkarma@163.com <span aria-hidden="true">↗</span></a><details class="qr-pop qr-pop--up"><summary class="pill" data-track="wechat_open" data-track-label="case-${esc(slug)}">微信 <span aria-hidden="true">+</span></summary><div class="qr-pop__panel"><img src="../../wechat-qr.png" alt="郭伟南的微信二维码" width="180" height="180" loading="lazy" /><span>扫码添加微信</span></div></details></div></section>`;
 }
 
 function page(project, position) {
@@ -179,14 +187,16 @@ function page(project, position) {
 <html lang="zh-CN"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><script>document.documentElement.classList.add("js");</script>
 <title>${esc(project.titleLong)} · 郭伟南作品集</title><meta name="description" content="${esc(details.summary || focus.tagline || project.hoverValue)}" />
 <link rel="canonical" href="${canonical}" /><meta property="og:type" content="article" /><meta property="og:title" content="${esc(project.titleLong)} · 郭伟南作品集" /><meta property="og:description" content="${esc(details.summary || focus.tagline || project.hoverValue)}" /><meta property="og:url" content="${canonical}" /><meta property="og:image" content="${socialImage}" />
-<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700;800&display=swap" rel="stylesheet" /><link rel="stylesheet" href="../../styles.css?v=${ASSET_VERSION}" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet" /><link rel="stylesheet" href="../../styles.css?v=${ASSET_VERSION}" />
 <script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@type": "CreativeWork", name: project.titleLong, description: details.summary || focus.tagline, url: canonical, image: socialImage, author: { "@type": "Person", name: "郭伟南", alternateName: "Karma Taylor" } })}</script></head>
-<body class="case-page"><div class="grain" aria-hidden="true"></div><header class="case-header"><a class="brand" href="../../" aria-label="返回作品集首页"><span class="brand-mark">郭</span><span>郭伟南<small>Karma Taylor</small></span></a><div class="case-header__links"><a class="back-link" href="../../#work"><span aria-hidden="true">←</span> 全部案例</a><a class="header-resume" href="../../resume.pdf" download="郭伟南-产品经理简历.pdf" data-track="resume_download" data-track-label="case-header-${esc(slug)}">下载简历 <i aria-hidden="true">↓</i></a></div></header>
-<main><section class="case-hero shell"><div class="case-hero-copy reveal"><p class="case-kicker">${esc(project.index)} / ${esc(project.statusLabel || "PROJECT CASE")}</p><h1>${esc(project.titleLong)}</h1><p>${esc(focus.tagline || project.hoverValue)}</p><div class="case-actions">${action(external, live ? "访问上线版本" : "查看 GitHub", "case-button case-button--dark", live ? "live_open" : "github_open", slug)}${live && github?.href ? action(github, "查看 GitHub", "case-button case-button--quiet", "github_open", slug) : ""}</div></div><figure class="case-hero-media reveal"><img src="${heroImage}" alt="${esc(project.cover?.alt || project.title)}" /><figcaption>${evidenceNotice(project)}</figcaption></figure></section>
-<section class="case-intro shell" aria-label="案例速览"><div><p class="case-kicker">速览</p><p class="case-intro__summary">${esc(details.summary || project.hoverValue)}</p></div><dl class="case-snapshot">${snapshot.map(([label, value]) => `<div><dt>${label}</dt><dd>${esc(value)}</dd></div>`).join("")}</dl></section>
+<body class="case-page"><div class="grain" aria-hidden="true"></div><div class="bezel" aria-hidden="true"><a class="bezel__tab" href="../../" tabindex="-1">郭</a></div>
+<header class="top"><a class="top__name" href="../../" aria-label="返回作品集首页">郭伟南 <em>Karma Taylor</em></a><nav class="top__nav" aria-label="案例导航"><a href="../../#work"><span aria-hidden="true">←</span> 全部案例</a></nav><a class="top__resume" href="../../resume.pdf" download="郭伟南-产品经理简历.pdf" data-track="resume_download" data-track-label="case-header-${esc(slug)}">下载简历 <span aria-hidden="true">↓</span></a></header>
+<div class="page"><main><section class="case-hero"><div class="atmosphere" aria-hidden="true"></div><p class="eyebrow reveal"><b>${esc(project.index)}</b> &amp; ${esc(project.statusLabel || "PROJECT CASE")}</p><h1 class="reveal">${titleMarkup(project.titleLong)}</h1><p class="reveal">${esc(focus.tagline || project.hoverValue)}</p><div class="case-actions reveal">${action(external, live ? "访问上线版本" : "查看 GitHub", "pill pill--solid", live ? "live_open" : "github_open", slug)}${live && github?.href ? action(github, "查看 GitHub", "pill", "github_open", slug) : ""}</div><figure class="case-hero-media reveal"><img src="${heroImage}" alt="${esc(project.cover?.alt || project.title)}" /><figcaption>${evidenceNotice(project)}</figcaption></figure></section>
+<div class="sheet sheet--case"><section class="case-intro shell" aria-label="案例速览"><div><p class="eyebrow"><b>+</b> 速览</p><p class="case-intro__summary">${esc(details.summary || project.hoverValue)}</p></div><dl class="case-snapshot">${snapshot.map(([label, value]) => `<div><dt class="eyebrow">${label}</dt><dd>${esc(value)}</dd></div>`).join("")}</dl></section>
 ${bodySections}
+</div>
 ${contactSection(project)}
-<nav class="case-pagination shell" aria-label="案例导航"><a href="../${routes[previous.id]}/"><small>上一案例</small><strong>${esc(previous.title)}</strong></a><a href="../${routes[next.id]}/"><small>下一案例</small><strong>${esc(next.title)}</strong></a></nav></main>
+<nav class="case-pagination shell" aria-label="案例导航"><a href="../${routes[previous.id]}/"><small class="eyebrow">上一案例</small><strong>${esc(splitTitle(previous.title).zh)}</strong></a><a href="../${routes[next.id]}/"><small class="eyebrow">下一案例</small><strong>${esc(splitTitle(next.title).zh)}</strong></a></nav></main><footer class="foot"><span>©2026 郭伟南 <em>Karma Taylor</em></span><a href="../../">返回首页 ←</a><a href="https://github.com/karma-taylor" target="_blank" rel="noopener noreferrer" data-track="github_open" data-track-label="case-footer">GitHub ↗</a></footer></div>
 <dialog class="image-dialog" aria-label="查看项目截图"><button type="button" class="image-dialog-close" data-image-close aria-label="关闭截图">×</button><img src="${heroImage}" alt="${esc(project.cover?.alt || project.title)}" /></dialog><script type="module" src="../../analytics.js?v=${ASSET_VERSION}"></script><script type="module" src="../../case.js?v=${ASSET_VERSION}"></script></body></html>`;
 }
 
