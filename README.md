@@ -14,7 +14,7 @@
 
 ## 页面结构
 
-- 首页 `index.html` + `script.js`：深色首屏（身份一行 + 一句话定位 + 本地时钟）、浅色列表式分区（速览 / 证据 / 经历）、核心案例大面板（`tier: "core"`）与更多实验列表、交付物、联系方式；全站带固定黑色边框与顶部「郭」标签
+- 首页 `index.html` + `script.js`：一屏一节。开屏只有深色背景和一行身份；顶部导航平时隐藏，悬停（桌面）或点按（手机）顶部「郭」标签展开；点导航按 hash 切换到对应整屏（`#about` 速览 / `#proof` 证据 / `#experience` 经历 / `#work` 案例 / `#approach` 方法 / `#contact` 联系），`#top` 回开屏，支持 ← → 键。`nav.js` 为首页与案例页共用的导航开合逻辑
 - 案例页 `cases/*/index.html`：由 `tools/build-case-pages.mjs` 生成，统一为速览 → 背景与用户 → 方案与取舍 → 结果与指标 → 交付证据 → 风险与边界 → 复盘 → 联系
 
 修改 `data/projects.js`（内容、`tier`、`homeOrder`）后，重新生成案例页与首页清单：

@@ -1,3 +1,6 @@
+import { setupNav } from './nav.js?v=20261025-stage';
+
+setupNav();
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const reveal = document.querySelectorAll('.reveal, .case-section, .case-contact, .case-pagination');
 if (reducedMotion) reveal.forEach((element) => element.classList.add('is-visible'));

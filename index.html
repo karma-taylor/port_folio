@@ -17,7 +17,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=20261025-quiet" />
+    <link rel="stylesheet" href="styles.css?v=20261025-stage" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -38,49 +38,37 @@
   </head>
   <body>
     <div class="grain" aria-hidden="true"></div>
-    <div class="bezel" aria-hidden="true"><a class="bezel__tab" href="#top" tabindex="-1">郭</a></div>
+    <div class="bezel" aria-hidden="true"></div>
 
-    <header class="top">
-      <a class="top__name" href="#top">郭伟南 <em>Karma Taylor</em></a>
-      <nav class="top__nav" aria-label="主导航"><a href="#about">速览</a><a href="#experience">经历</a><a href="#work">案例</a><a href="#approach">方法</a><a href="#contact">联系</a></nav>
-      <a class="top__resume" href="./resume.pdf" download="郭伟南-产品经理简历.pdf" data-track="resume_download" data-track-label="header">下载简历 <span aria-hidden="true">↓</span></a>
-    </header>
+    <div class="navwrap" id="navwrap">
+      <button class="bezel__tab" type="button" aria-expanded="false" aria-controls="topnav" aria-label="打开导航">郭</button>
+      <header class="top" id="topnav">
+        <a class="top__name" href="#top">郭伟南 <em>Karma Taylor</em></a>
+        <nav class="top__nav" aria-label="主导航"><a href="#about">速览</a><a href="#proof">证据</a><a href="#experience">经历</a><a href="#work">案例</a><a href="#approach">方法</a><a href="#contact">联系</a></nav>
+        <a class="top__resume" href="./resume.pdf" download="郭伟南-产品经理简历.pdf" data-track="resume_download" data-track-label="header">下载简历 <span aria-hidden="true">↓</span></a>
+      </header>
+    </div>
 
     <div class="page">
       <main id="top">
-        <section class="hero" aria-labelledby="hero-title">
+        <section class="view view--home hero" id="home" data-view aria-label="开屏">
           <div class="atmosphere" aria-hidden="true"></div>
-          <div class="marks" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
-          <div class="hero__center reveal">
-            <p class="hero__line"><span>郭伟南</span><i aria-hidden="true"></i><span>产品经理 · 解决方案方向</span><b aria-hidden="true">|</b><em>Enterprise workflow &amp; AI tooling</em></p>
-            <h1 id="hero-title" class="hero__title">把复杂规则，变成可验证的产品。</h1>
-            <p class="hero__serif">Turning complex business rules into verifiable products — from the field, not from a demo.</p>
-            <div class="hero__actions">
-              <a class="tlink" href="./resume.pdf" download="郭伟南-产品经理简历.pdf" data-track="resume_download" data-track-label="hero">下载简历 PDF <span aria-hidden="true">↓</span></a>
-              <a class="tlink tlink--quiet" href="#work">查看核心案例 <span aria-hidden="true">→</span></a>
-            </div>
-          </div>
-          <div class="hero__foot">
-            <ul class="hero__bio">
-              <li>重庆大学 硕士 · 土木工程 · 985</li>
-              <li>现职 综合解决方案实施经理 · 海外重资产 B 端项目</li>
-              <li>企业流程提效 / 企业数字化 / AI 工具落地</li>
-            </ul>
-            <p class="hero__meta"><span class="live"><i aria-hidden="true"></i>正在看新机会</span><span>©2026 深圳, CN <time data-clock>--:--</time></span></p>
-          </div>
+          <a class="hero__line" href="#about" data-track="case_open" data-track-label="hero-line"><span>郭伟南</span><i aria-hidden="true"></i><span>产品经理 · 解决方案方向</span><b aria-hidden="true">|</b><em>Enterprise workflow &amp; AI tooling</em></a>
         </section>
 
-        <div class="sheet">
-          <section class="row-section" id="about" aria-labelledby="about-title">
+        <section class="view view--light" id="about" data-view aria-labelledby="about-title">
+          <div class="view__bar"><a href="#top" class="tlink tlink--back">← 开屏</a><span class="eyebrow">01 / 06</span></div>
+          <div class="row-section">
             <div class="row-head reveal">
               <p class="eyebrow"><b>01</b> &amp; 速览</p>
               <h2 id="about-title">先用 30 秒了解我。</h2>
               <p>海外重资产 B 端项目一线出身。我从审批、结算、排班、日报这些真实业务链路里找出值得自动化的环节，交付带规则、校验和验收口径的轻量化工具。</p>
+              <a class="tlink" href="./resume.pdf" download="郭伟南-产品经理简历.pdf" data-track="resume_download" data-track-label="about">下载简历 PDF <span aria-hidden="true">↓</span></a>
             </div>
             <div class="reveal">
               <div class="facts-avatar">
                 <img src="./avatar.png" alt="郭伟南" width="64" height="64" />
-                <p><strong>郭伟南 / Karma Taylor</strong><span>产品经理（解决方案方向）· 企业流程提效与 AI 工具落地</span></p>
+                <p><strong>郭伟南 / Karma Taylor</strong><span>产品经理（解决方案方向）· 企业流程提效与 AI 工具落地 · <span class="live"><i aria-hidden="true"></i>正在看新机会</span></span></p>
               </div>
               <dl class="facts">
                 <div><dt class="eyebrow">学历</dt><dd>重庆大学 硕士（985）<small>土木工程 · 2022—2025</small></dd></div>
@@ -90,9 +78,13 @@
                 <div><dt class="eyebrow">联系</dt><dd><a href="mailto:taylorkarma@163.com" data-track="email_click" data-track-label="facts">taylorkarma@163.com</a><details class="qr-pop"><summary data-track="wechat_open" data-track-label="facts">微信 +</summary><div class="qr-pop__panel"><img src="./wechat-qr.png" alt="郭伟南的微信二维码" width="180" height="180" loading="lazy" /><span>扫码添加微信</span></div></details></dd></div>
               </dl>
             </div>
-          </section>
+          </div>
+          <div class="view__next"><span class="eyebrow">下一节</span><a class="tlink" href="#proof">02 证据 <span aria-hidden="true">→</span></a></div>
+        </section>
 
-          <section class="row-section" id="proof" aria-labelledby="proof-title">
+        <section class="view view--light" id="proof" data-view aria-labelledby="proof-title">
+          <div class="view__bar"><a href="#top" class="tlink tlink--back">← 开屏</a><span class="eyebrow">02 / 06</span></div>
+          <div class="row-section">
             <div class="row-head reveal">
               <p class="eyebrow"><b>02</b> &amp; 证据</p>
               <h2 id="proof-title">可以复核的数字，<br />不是形容词。</h2>
@@ -103,9 +95,13 @@
               <article><strong><b data-count="4">4</b><small>个</small></strong><span>已上线、点开就能用的产品，附代码仓库。</span></article>
               <article><strong><b data-count="6">6</b><small>个</small></strong><span>完整案例，统一结构：背景 · 方案 · 结果 · 证据 · 边界 · 复盘。</span></article>
             </div>
-          </section>
+          </div>
+          <div class="view__next"><span class="eyebrow">下一节</span><a class="tlink" href="#experience">03 经历 <span aria-hidden="true">→</span></a></div>
+        </section>
 
-          <section class="row-section" id="experience" aria-labelledby="experience-title">
+        <section class="view view--light" id="experience" data-view aria-labelledby="experience-title">
+          <div class="view__bar"><a href="#top" class="tlink tlink--back">← 开屏</a><span class="eyebrow">03 / 06</span></div>
+          <div class="row-section">
             <div class="row-head reveal">
               <p class="eyebrow"><b>03</b> &amp; 经历</p>
               <h2 id="experience-title">经验来自现场，<br />不是来自 Demo。</h2>
@@ -139,37 +135,43 @@
                 <aside></aside>
               </li>
             </ol>
-          </section>
-        </div>
-
-        <section class="work shell" id="work" aria-labelledby="work-title">
-          <div class="work__head reveal">
-            <div>
-              <p class="eyebrow"><b>04</b> &amp; 核心案例</p>
-              <h2 id="work-title">三个最能说明<br />我怎么工作的项目。</h2>
-            </div>
-            <p>每个案例都按同一结构展开：背景、方案、结果、证据、边界、复盘。规模更小的实验放在下面的列表里。</p>
           </div>
-          <div id="coreCases" class="core-cases"></div>
-          <div class="more-head reveal">
-            <h3>更多实验</h3>
-            <p>规模更小，但同样上线可用的工具。</p>
-          </div>
-          <ol id="moreCases" class="more-cases"></ol>
-          <noscript>
-            <ul class="noscript-cases">
-              <li><a href="./cases/daily-report-engine/">日报自动化生成引擎</a></li>
-              <li><a href="./cases/work-calendar/">工程排班协同系统</a></li>
-              <li><a href="./cases/enterprise-policy-rag/">企业制度 RAG：权限与证据可追溯问答</a></li>
-              <li><a href="./cases/daily-digest/">资讯日报订阅系统</a></li>
-              <li><a href="./cases/money-distribute/">轻松配钞</a></li>
-              <li><a href="./cases/weather-fx-agent/">汇率换算 Agent</a></li>
-            </ul>
-          </noscript>
+          <div class="view__next"><span class="eyebrow">下一节</span><a class="tlink" href="#work">04 案例 <span aria-hidden="true">→</span></a></div>
         </section>
 
-        <div class="sheet">
-          <section class="row-section" id="approach" aria-labelledby="approach-title">
+        <section class="view view--dark" id="work" data-view aria-labelledby="work-title">
+          <div class="view__bar"><a href="#top" class="tlink tlink--back">← 开屏</a><span class="eyebrow">04 / 06</span></div>
+          <div class="work shell">
+            <div class="work__head reveal">
+              <div>
+                <p class="eyebrow"><b>04</b> &amp; 核心案例</p>
+                <h2 id="work-title">三个最能说明<br />我怎么工作的项目。</h2>
+              </div>
+              <p>每个案例都按同一结构展开：背景、方案、结果、证据、边界、复盘。规模更小的实验放在下面的列表里。</p>
+            </div>
+            <div id="coreCases" class="core-cases"></div>
+            <div class="more-head reveal">
+              <h3>更多实验</h3>
+              <p>规模更小，但同样上线可用的工具。</p>
+            </div>
+            <ol id="moreCases" class="more-cases"></ol>
+            <noscript>
+              <ul class="noscript-cases">
+                <li><a href="./cases/daily-report-engine/">日报自动化生成引擎</a></li>
+                <li><a href="./cases/work-calendar/">工程排班协同系统</a></li>
+                <li><a href="./cases/enterprise-policy-rag/">企业制度 RAG：权限与证据可追溯问答</a></li>
+                <li><a href="./cases/daily-digest/">资讯日报订阅系统</a></li>
+                <li><a href="./cases/money-distribute/">轻松配钞</a></li>
+                <li><a href="./cases/weather-fx-agent/">汇率换算 Agent</a></li>
+              </ul>
+            </noscript>
+          </div>
+          <div class="view__next"><span class="eyebrow">下一节</span><a class="tlink" href="#approach">05 方法 <span aria-hidden="true">→</span></a></div>
+        </section>
+
+        <section class="view view--light" id="approach" data-view aria-labelledby="approach-title">
+          <div class="view__bar"><a href="#top" class="tlink tlink--back">← 开屏</a><span class="eyebrow">05 / 06</span></div>
+          <div class="row-section">
             <div class="row-head reveal">
               <p class="eyebrow"><b>05</b> &amp; 我交付什么</p>
               <h2 id="approach-title">我不只设计一个界面，<br />我设计的是事情如何被可靠地完成。</h2>
@@ -201,30 +203,33 @@
                 </div>
               </li>
             </ol>
-          </section>
-        </div>
+          </div>
+          <div class="view__next"><span class="eyebrow">下一节</span><a class="tlink" href="#contact">06 联系 <span aria-hidden="true">→</span></a></div>
+        </section>
 
-        <section class="contact" id="contact" aria-labelledby="contact-title">
-          <div class="atmosphere" aria-hidden="true"></div>
-          <p class="eyebrow reveal"><b>06</b> &amp; 联系</p>
-          <h2 id="contact-title" class="reveal">如果你的团队在做流程提效或 AI 落地，<br />我们可以聊聊。</h2>
-          <p class="reveal">我可以现场演示任何一个案例的规则、校验和验收过程。</p>
-          <ul class="contact__links reveal">
-            <li><a class="pill pill--solid" href="./resume.pdf" download="郭伟南-产品经理简历.pdf" data-track="resume_download" data-track-label="contact">下载简历 PDF <span aria-hidden="true">↓</span></a></li>
-            <li><a class="pill" href="mailto:taylorkarma@163.com" data-track="email_click" data-track-label="contact">taylorkarma@163.com <span aria-hidden="true">↗</span></a></li>
-            <li><details class="qr-pop qr-pop--up"><summary class="pill" data-track="wechat_open" data-track-label="contact">微信 <span aria-hidden="true">+</span></summary><div class="qr-pop__panel"><img src="./wechat-qr.png" alt="郭伟南的微信二维码" width="180" height="180" loading="lazy" /><span>扫码添加微信</span></div></details></li>
-            <li><a class="pill" href="https://github.com/karma-taylor" target="_blank" rel="noopener noreferrer" data-track="github_open" data-track-label="contact">GitHub <span aria-hidden="true">↗</span></a></li>
-          </ul>
+        <section class="view view--dark" id="contact" data-view aria-labelledby="contact-title">
+          <div class="view__bar"><a href="#top" class="tlink tlink--back">← 开屏</a><span class="eyebrow">06 / 06</span></div>
+          <div class="contact">
+            <div class="atmosphere" aria-hidden="true"></div>
+            <p class="eyebrow reveal"><b>06</b> &amp; 联系</p>
+            <h2 id="contact-title" class="reveal">如果你的团队在做流程提效或 AI 落地，<br />我们可以聊聊。</h2>
+            <p class="reveal">我可以现场演示任何一个案例的规则、校验和验收过程。</p>
+            <ul class="contact__links reveal">
+              <li><a class="pill pill--solid" href="./resume.pdf" download="郭伟南-产品经理简历.pdf" data-track="resume_download" data-track-label="contact">下载简历 PDF <span aria-hidden="true">↓</span></a></li>
+              <li><a class="pill" href="mailto:taylorkarma@163.com" data-track="email_click" data-track-label="contact">taylorkarma@163.com <span aria-hidden="true">↗</span></a></li>
+              <li><details class="qr-pop qr-pop--up"><summary class="pill" data-track="wechat_open" data-track-label="contact">微信 <span aria-hidden="true">+</span></summary><div class="qr-pop__panel"><img src="./wechat-qr.png" alt="郭伟南的微信二维码" width="180" height="180" loading="lazy" /><span>扫码添加微信</span></div></details></li>
+              <li><a class="pill" href="https://github.com/karma-taylor" target="_blank" rel="noopener noreferrer" data-track="github_open" data-track-label="contact">GitHub <span aria-hidden="true">↗</span></a></li>
+            </ul>
+          </div>
+          <footer class="foot">
+            <span>©2026 郭伟南 <em>Karma Taylor</em></span>
+            <span>深圳, CN <time data-clock>--:--</time></span>
+            <a href="#top">回到开屏 ↑</a>
+          </footer>
         </section>
       </main>
-
-      <footer class="foot">
-        <span>©2026 郭伟南 <em>Karma Taylor</em></span>
-        <span>深圳, CN <time data-clock>--:--</time></span>
-        <a href="https://github.com/karma-taylor" target="_blank" rel="noopener noreferrer" data-track="github_open" data-track-label="footer">Built around clear decisions ↗</a>
-      </footer>
     </div>
-    <script type="module" src="analytics.js?v=20261025-quiet"></script>
-    <script type="module" src="script.js?v=20261025-quiet"></script>
+    <script type="module" src="analytics.js?v=20261025-stage"></script>
+    <script type="module" src="script.js?v=20261025-stage"></script>
   </body>
 </html>

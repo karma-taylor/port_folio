@@ -1,4 +1,5 @@
-import { CASES } from "./data/case-manifest.js?v=20261025-quiet";
+import { CASES } from "./data/case-manifest.js?v=20261025-stage";
+import { setupNav } from "./nav.js?v=20261025-stage";
 
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -153,7 +154,62 @@ function setupCounters() {
   nodes.forEach((node) => observer.observe(node));
 }
 
+// One screen at a time: the hash picks the active view, the opening screen is the default.
+function setupViews() {
+  const views = [...document.querySelectorAll("[data-view]")];
+  if (!views.length) return;
+  const ids = views.map((view) => view.id);
+  const navLinks = [...document.querySelectorAll('.top__nav a[href^="#"]')];
+  let current = null;
+  let leaveTimer = 0;
+
+  const resolve = () => {
+    const hash = decodeURIComponent(location.hash.replace(/^#/, ""));
+    return ids.includes(hash) ? hash : "home";
+  };
+
+  const activate = (id) => {
+    views.forEach((view) => {
+      const active = view.id === id;
+      view.classList.toggle("is-active", active);
+      view.classList.remove("is-leaving");
+      view.toggleAttribute("hidden", !active);
+    });
+    navLinks.forEach((link) => {
+      if (link.getAttribute("href") === `#${id}`) link.setAttribute("aria-current", "true");
+      else link.removeAttribute("aria-current");
+    });
+    document.body.dataset.view = id;
+    window.scrollTo({ top: 0, behavior: "instant" });
+    current = id;
+  };
+
+  const show = (id) => {
+    if (id === current) return;
+    const leaving = views.find((view) => view.id === current);
+    window.clearTimeout(leaveTimer);
+    if (!leaving || prefersReducedMotion) {
+      activate(id);
+      return;
+    }
+    leaving.classList.add("is-leaving");
+    leaveTimer = window.setTimeout(() => activate(id), 280);
+  };
+
+  // Hash links within the page (nav, "下一节", "← 开屏") drive the router natively.
+  window.addEventListener("hashchange", () => show(resolve()));
+  document.addEventListener("keydown", (event) => {
+    if (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement) return;
+    const index = ids.indexOf(current);
+    if (event.key === "ArrowRight" && index < ids.length - 1) location.hash = ids[index + 1];
+    if (event.key === "ArrowLeft" && index > 0) location.hash = index - 1 === 0 ? "top" : ids[index - 1];
+  });
+  activate(resolve());
+}
+
 renderCases();
+setupViews();
+setupNav();
 setupReveal();
 setupQrPopovers();
 setupClock();
