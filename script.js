@@ -1,40 +1,104 @@
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+import { CASES } from "./data/case-manifest.js?v=20261025-recruiter";
 
-const revealItems = document.querySelectorAll('.reveal');
-if (prefersReducedMotion) {
-  revealItems.forEach((item) => item.classList.add('is-visible'));
-} else {
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+const esc = (value = "") =>
+  String(value).replace(/[&<>"]/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[char]);
+
+function caseLinks(project) {
+  const href = `./cases/${project.slug}/`;
+  const external = project.live || project.github;
+  const externalLabel = project.live ? "访问产品" : "查看 GitHub";
+  const externalTrack = project.live ? "live_open" : "github_open";
+  const primary = `<a class="project-cta project-cta--primary" href="${href}" data-track="case_open" data-track-label="${esc(project.slug)}">查看案例 <span aria-hidden="true">→</span></a>`;
+  const secondary = external
+    ? `<a class="project-cta project-cta--secondary" href="${esc(external.href)}" target="_blank" rel="noopener noreferrer" data-track="${externalTrack}" data-track-label="${esc(project.slug)}">${externalLabel} <span aria-hidden="true">↗</span></a>`
+    : "";
+  return `<div class="project-ctas">${primary}${secondary}</div>`;
+}
+
+function coreCard(project, position) {
+  const href = `./cases/${project.slug}/`;
+  const results = (project.results || [])
+    .filter((item) => !(project.verification && item.label === "验证方式"))
+    .slice(0, 4)
+    .map((item) => `<li><small>${esc(item.label)}</small><strong>${esc(item.value)}</strong></li>`)
+    .join("");
+  const meta = [
+    ["我的角色", project.role],
+    ["验证方式", project.verification],
+  ]
+    .filter(([, value]) => value)
+    .map(([label, value]) => `<div><dt>${label}</dt><dd>${esc(value)}</dd></div>`)
+    .join("");
+  return `<article class="core-case reveal${position % 2 ? " core-case--flip" : ""}">
+    <a class="core-case__media" href="${href}" tabindex="-1" aria-hidden="true" data-track="case_open" data-track-label="${esc(project.slug)}-cover"><img src="${esc(project.cover)}" alt="" loading="${position ? "lazy" : "eager"}" /></a>
+    <div class="core-case__body">
+      <p class="case-type">${esc(project.index)} · ${esc(project.statusLabel)}</p>
+      <h3><a href="${href}" data-track="case_open" data-track-label="${esc(project.slug)}-title">${esc(project.title)}</a></h3>
+      <p class="core-case__tagline">${esc(project.tagline)}</p>
+      ${meta ? `<dl class="core-case__meta">${meta}</dl>` : ""}
+      ${results ? `<ul class="core-case__results" aria-label="关键结果">${results}</ul>` : ""}
+      ${caseLinks(project)}
+    </div>
+  </article>`;
+}
+
+function moreCard(project) {
+  const href = `./cases/${project.slug}/`;
+  return `<article class="more-case reveal">
+    <a class="more-case__media" href="${href}" tabindex="-1" aria-hidden="true" data-track="case_open" data-track-label="${esc(project.slug)}-cover"><img src="${esc(project.cover)}" alt="" loading="lazy" /></a>
+    <p class="case-type">${esc(project.index)} · ${esc(project.statusLabel)}</p>
+    <h4><a href="${href}" data-track="case_open" data-track-label="${esc(project.slug)}-title">${esc(project.title)}</a></h4>
+    <p>${esc(project.tagline)}</p>
+    ${caseLinks(project)}
+  </article>`;
+}
+
+function renderCases() {
+  const coreRoot = document.getElementById("coreCases");
+  const moreRoot = document.getElementById("moreCases");
+  if (!coreRoot || !moreRoot) return;
+  const core = CASES.filter((project) => project.tier === "core");
+  const more = CASES.filter((project) => project.tier !== "core");
+  coreRoot.innerHTML = core.map(coreCard).join("");
+  moreRoot.innerHTML = more.map(moreCard).join("");
+}
+
+function setupReveal() {
+  const items = document.querySelectorAll(".reveal");
+  if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+    items.forEach((item) => item.classList.add("is-visible"));
+    return;
+  }
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
         observer.unobserve(entry.target);
-      }
+      });
+    },
+    { threshold: 0.12 }
+  );
+  items.forEach((item) => observer.observe(item));
+}
+
+function setupQrPopovers() {
+  const popovers = document.querySelectorAll(".qr-pop");
+  document.addEventListener("click", (event) => {
+    popovers.forEach((popover) => {
+      if (popover.open && !popover.contains(event.target)) popover.open = false;
     });
-  }, { threshold: 0.14 });
-  revealItems.forEach((item) => observer.observe(item));
-}
-
-const heroSystem = document.querySelector('.hero-system');
-const variableWord = document.querySelector('.variable-word');
-if (heroSystem && variableWord && !prefersReducedMotion) {
-  heroSystem.addEventListener('pointermove', (event) => {
-    const bounds = heroSystem.getBoundingClientRect();
-    const ratio = Math.min(1, Math.max(0, (event.clientX - bounds.left) / bounds.width));
-    variableWord.style.setProperty('--word-weight', Math.round(500 + ratio * 300));
   });
-  heroSystem.addEventListener('pointerleave', () => variableWord.style.removeProperty('--word-weight'));
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    popovers.forEach((popover) => {
+      popover.open = false;
+    });
+  });
 }
 
-const cardsRoot = document.querySelector('#caseCards');
-if (cardsRoot) {
-  const { CASES } = await import('./data/case-manifest.js');
-  cardsRoot.innerHTML = CASES.map((project, index) => {
-    const external = project.live || project.github;
-    const externalLabel = project.live ? '访问产品' : '查看 GitHub';
-    const primary = `<a class="project-cta project-cta--primary" href="./cases/${project.slug}/">查看案例 <span aria-hidden="true">→</span></a>`;
-    const secondary = external ? `<a class="project-cta project-cta--secondary" href="${external.href}" target="_blank" rel="noopener noreferrer">${externalLabel} <span aria-hidden="true">↗</span></a>` : '';
-    if (index === 0) return `<article class="featured-case reveal is-visible"><img src="${project.cover}" alt="${project.coverAlt}" /><div class="featured-case__copy"><p>${project.index} / ${String(CASES.length).padStart(2, "0")} · ${project.statusLabel}</p><h3>${project.title}</h3><p>${project.tagline}</p><div class="project-ctas">${primary}${secondary}</div></div></article>`;
-    return `<article class="project-row reveal is-visible"><span class="project-number">${project.index}</span><img src="${project.cover}" alt="${project.coverAlt}" loading="lazy" /><div class="project-title"><small>${project.statusLabel}</small><h3>${project.title}</h3></div><p>${project.summary}</p><div class="project-ctas">${primary}${secondary}</div></article>`;
-  }).join('');
-}
+renderCases();
+setupReveal();
+setupQrPopovers();

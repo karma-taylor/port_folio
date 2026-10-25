@@ -2,6 +2,8 @@ export const PROJECTS = [
   {
     id: "calendar",
     index: "01",
+    tier: "core",
+    homeOrder: 2,
     size: "wide",
     status: "live",
     statusLabel: "Skill 协同",
@@ -152,6 +154,8 @@ export const PROJECTS = [
   {
     id: "enterprise-rag",
     index: "02",
+    tier: "core",
+    homeOrder: 3,
     size: "wide",
     status: "public-demo",
     statusLabel: "公开合成数据 Demo",
@@ -223,6 +227,8 @@ export const PROJECTS = [
   {
     id: "digest",
     index: "03",
+    tier: "more",
+    homeOrder: 4,
     size: "tall",
     status: "live",
     statusLabel: "已上线",
@@ -330,6 +336,8 @@ export const PROJECTS = [
   {
     id: "money",
     index: "04",
+    tier: "more",
+    homeOrder: 5,
     size: "tall",
     status: "live",
     statusLabel: "已上线",
@@ -436,6 +444,8 @@ export const PROJECTS = [
   {
     id: "fx",
     index: "05",
+    tier: "more",
+    homeOrder: 6,
     size: "featured",
     status: "live",
     statusLabel: "已上线",
@@ -542,6 +552,8 @@ export const PROJECTS = [
   {
     id: "report",
     index: "06",
+    tier: "core",
+    homeOrder: 1,
     size: "small",
     status: "wip",
     statusLabel: "代码案例",
@@ -781,13 +793,13 @@ export const PROJECT_MANAGEMENT_META = {
 export const PROFILE = {
   name: "郭伟南",
   alternateName: "Guo Weinan",
-  role: "AI 产品经理 · 重资产 B 端业务流程重塑",
-  jobTitle: "AI 产品经理",
+  role: "产品经理（解决方案方向）· 企业流程提效与 AI 工具落地",
+  jobTitle: "产品经理（解决方案方向）",
   siteUrl: "https://www.vinanverse.com/",
   pageUrl: "https://www.vinanverse.com/",
   sameAs: ["https://github.com/karma-taylor"],
   description:
-    "郭伟南的 AI 产品经理作品集，聚焦将重资产 B 端项目交付中的规则、合规与协同经验转化为可验证的 AI 自动化产品。",
+    "郭伟南的产品经理作品集（解决方案方向），聚焦将海外重资产 B 端项目交付中的规则、合规与协同经验，转化为可验证的流程提效与 AI 工具。",
   experience: [
     {
       period: "2025.07 — 至今",

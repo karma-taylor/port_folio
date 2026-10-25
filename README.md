@@ -1,6 +1,6 @@
 # port_folio
 
-郭伟南的 AI 产品经理作品集静态站点，聚焦真实业务规则产品化、AI 工作流设计与自动化落地案例。
+郭伟南的产品经理作品集静态站点（解决方案方向），聚焦企业流程提效、真实业务规则产品化与 AI 工具落地案例。
 
 ## 在线访问
 
@@ -11,6 +11,25 @@
 - 仓库根目录直接承载正式首页
 - `zuopinji/index.html` 仅保留为历史链接兼容跳转页
 - 自定义域名通过 GitHub Pages + `CNAME` 配置到 `www.vinanverse.com`
+
+## 页面结构
+
+- 首页 `index.html` + `script.js`：身份与速览卡、关键证据、经历、核心案例（`tier: "core"`）与更多实验、交付物、联系方式
+- 案例页 `cases/*/index.html`：由 `tools/build-case-pages.mjs` 生成，统一为速览 → 背景与用户 → 方案与取舍 → 结果与指标 → 交付证据 → 风险与边界 → 复盘 → 联系
+
+修改 `data/projects.js`（内容、`tier`、`homeOrder`）后，重新生成案例页与首页清单：
+
+```bash
+node tools/build-case-pages.mjs
+```
+
+## 访问统计
+
+`analytics.js` 接入 [Umami Cloud](https://cloud.umami.is/)：
+
+1. 在 Umami 新建站点 `www.vinanverse.com`，把 Website ID 填入 `analytics.js` 的 `UMAMI_WEBSITE_ID`。留空时不加载任何统计脚本，本地预览也不会上报。
+2. 投递时给不同渠道发带参数的链接，例如 `https://www.vinanverse.com/?utm_source=boss&utm_campaign=b`。来源会在本次访问内记住，跨页面附在点击事件上。
+3. 已埋点事件：`resume_download`、`email_click`、`wechat_open`、`case_open`、`live_open`、`github_open`。
 
 ## 本地预览
 
@@ -30,14 +49,14 @@ python -m http.server 5500
 ```text
 port_folio/
 ├─ index.html           # 正式首页
+├─ script.js            # 首页案例渲染与交互
+├─ case.js              # 案例页交互
+├─ analytics.js         # Umami 统计与渠道来源
+├─ styles.css           # 首页与案例页样式
 ├─ CNAME                # GitHub Pages 自定义域名
-├─ styles.css
-├─ redesign.css
-├─ main.js
-├─ data/
-├─ render/
-├─ interactions/
-├─ seo/
+├─ data/                # projects.js（内容源）与 case-manifest.js（生成）
+├─ cases/               # 生成的案例页
+├─ tools/               # 案例页生成、封面截图与审查脚本
 ├─ zuopinji/            # 旧路径兼容层
 └─ *.png / *.jpg / resume.pdf
 ```

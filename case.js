@@ -1,5 +1,5 @@
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const reveal = document.querySelectorAll('.reveal, .case-section, .case-pagination');
+const reveal = document.querySelectorAll('.reveal, .case-section, .case-contact, .case-pagination');
 if (reducedMotion) reveal.forEach((element) => element.classList.add('is-visible'));
 else {
   const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
@@ -27,6 +27,14 @@ dialog?.addEventListener('cancel', (event) => {
   event.preventDefault();
   closeDialog();
 });
+const qrPopovers = document.querySelectorAll('.qr-pop');
+document.addEventListener('click', (event) => {
+  qrPopovers.forEach((popover) => {
+    if (popover.open && !popover.contains(event.target)) popover.open = false;
+  });
+});
 document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape' && dialog?.open) closeDialog();
+  if (event.key !== 'Escape') return;
+  if (dialog?.open) closeDialog();
+  qrPopovers.forEach((popover) => { popover.open = false; });
 });
