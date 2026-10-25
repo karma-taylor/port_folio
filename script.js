@@ -1,4 +1,4 @@
-import { CASES } from "./data/case-manifest.js?v=20261025-recruiter";
+import { CASES } from "./data/case-manifest.js?v=20261025-vivid";
 
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -99,6 +99,76 @@ function setupQrPopovers() {
   });
 }
 
+function setupRotatingWord() {
+  const el = document.querySelector("[data-rotate]");
+  if (!el || prefersReducedMotion) return;
+  const words = el.dataset.rotate.split("|").filter(Boolean);
+  if (words.length < 2) return;
+  let index = 0;
+  setInterval(() => {
+    el.classList.add("is-swapping");
+    setTimeout(() => {
+      index = (index + 1) % words.length;
+      el.textContent = words[index];
+      el.classList.remove("is-swapping");
+    }, 260);
+  }, 2600);
+}
+
+function setupCounters() {
+  const nodes = document.querySelectorAll("[data-count]");
+  if (!nodes.length || prefersReducedMotion || !("IntersectionObserver" in window)) return;
+  const run = (node) => {
+    const target = Number(node.dataset.count) || 0;
+    const start = performance.now();
+    const duration = 900;
+    const tick = (now) => {
+      const t = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      node.textContent = String(Math.round(target * eased));
+      if (t < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      run(entry.target);
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.6 });
+  nodes.forEach((node) => observer.observe(node));
+}
+
+function setupMarquee() {
+  const track = document.querySelector(".marquee__track");
+  if (!track) return;
+  track.innerHTML += track.innerHTML;
+}
+
+function setupTilt() {
+  if (prefersReducedMotion || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+  document.querySelectorAll(".core-case").forEach((card) => {
+    const media = card.querySelector(".core-case__media img");
+    if (!media) return;
+    card.addEventListener("pointermove", (event) => {
+      const rect = card.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width - 0.5;
+      const y = (event.clientY - rect.top) / rect.height - 0.5;
+      media.style.transform = `scale(1.04) translate(${x * -10}px, ${y * -10}px)`;
+      card.style.setProperty("--glow-x", `${(x + 0.5) * 100}%`);
+      card.style.setProperty("--glow-y", `${(y + 0.5) * 100}%`);
+    });
+    card.addEventListener("pointerleave", () => {
+      media.style.transform = "";
+    });
+  });
+}
+
 renderCases();
 setupReveal();
 setupQrPopovers();
+setupRotatingWord();
+setupCounters();
+setupMarquee();
+setupTilt();
