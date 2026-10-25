@@ -1,0 +1,34 @@
+def translate_workforce(cn_text, exceptions, wo_no, wf_map):
+    if pd.isna(cn_text):
+        return ""
+    s = str(cn_text).strip()
+    if not s:
+        return ""
+
+    # 兼容「电工2人 / 中央空调工2人」这类文本：先剥掉人数
+    base = re.sub(r"\d+(\.\d+)?\s*人", "", s).strip()
+
+    # 业务规则写死在代码里，而不是靠模型猜
+    if "水处理操作工" in s:
+        return "2 R/O Water Treatment System Operators"
+    if "中央空调" in s:
+        return "2 Central Air Conditioning System Technicians"
+    ac_keywords = ["空调", "制冷", "氟利昂", "压缩机", "冷媒"]
+    if any(k in s for k in ac_keywords):
+        return "2 Split Air Conditioner Technicians"
+
+    eng = wf_map.get(base)                       # 工种表来自合同价格表，不手工维护第二份
+    if not eng:
+        for k, v in wf_map.items():
+            if k in s:
+                eng = v
+                break
+    if not eng:
+        exceptions.append({                      # 翻不出来就进异常清单，输出里打 [UNMAPPED] 标记
+            "type": "无工种翻译",
+            "wo": wo_no,
+            "code": "",
+            "message": f"未匹配工种: {s}",
+        })
+        return f"2 [UNMAPPED]{s}"
+    return f"2 {pluralize_workforce_title(eng)}"

@@ -204,12 +204,13 @@ export const CASES = [
       "定时推送替代高频手工汇总"
     ],
     "tech": [
-      "Python",
-      "RAG",
-      "定时任务",
-      "LLM API",
-      "Cursor",
-      "Codex",
+      "TypeScript",
+      "Cloudflare Workers · Cron · Queues",
+      "D1 / Drizzle ORM",
+      "Hono",
+      "Next.js",
+      "OpenAI-compatible LLM",
+      "Resend 邮件 / MQTT",
       "Cloudflare Pages"
     ],
     "status": "已上线",

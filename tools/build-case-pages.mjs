@@ -7,7 +7,7 @@ const source = await readFile(join(root, "data/projects.js"), "utf8");
 const dataUrl = `data:text/javascript;base64,${Buffer.from(source).toString("base64")}`;
 const { PROJECTS: SOURCE_PROJECTS, PROJECT_MANAGEMENT_META = {} } = await import(dataUrl);
 
-const ASSET_VERSION = "20261025-eng";
+const ASSET_VERSION = "20261025-eng3";
 const PROJECTS = [...SOURCE_PROJECTS]
   .sort((a, b) => (a.homeOrder ?? 99) - (b.homeOrder ?? 99))
   .map((project, position) => ({ ...project, index: String(position + 1).padStart(2, "0") }));

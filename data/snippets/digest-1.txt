@@ -1,0 +1,26 @@
+// 模型打分不可用时的确定性降级：关键词命中 + 一手来源 + 内容类型加权
+function fallbackScore(item: NormalizedContentItem, topic: TopicBucketConfig): ImportanceReview {
+  const relevanceScore = Math.max(keywordScore(item, topic), item.isWatchlistSource ? 80 : 0)
+  const typeBonus: Record<NormalizedContentType, number> = {
+    report: 25, paper: 25, video: 18, post: 16, article: 12, news: 8,
+  }
+  const primaryBonus = item.isWatchlistSource ? 30 : 0
+  const importanceScore = Math.min(100, relevanceScore + primaryBonus + typeBonus[item.contentType])
+  return {
+    itemId: item.id,
+    relevanceScore,
+    importanceScore,
+    contentType: item.contentType,
+    actor: item.actor || item.author,
+    keyClaims: [item.summary || item.title].filter(Boolean).slice(0, 1),
+    whyImportant: item.isWatchlistSource
+      ? '来自主题关注名单的一手来源，按确定性降级规则优先保留。'
+      : `${item.contentType} 内容按主题关键词匹配和类型优先级排序。`,
+    confidence: item.summary || item.body ? 70 : 45,
+    selected: relevanceScore > 0 || Boolean(item.isWatchlistSource),
+  }
+}
+
+// 模型漏评的条目不会丢：没出现在 reviews 里的，全部补上降级分
+const seen = new Set(reviewed.map((r) => r.itemId))
+return reviewed.concat(items.filter((it) => !seen.has(it.id)).map((it) => fallbackScore(it, topic)))

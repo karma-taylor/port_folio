@@ -1,0 +1,28 @@
+const DENOM_ORDER = [50000, 25000, 10000, 5000, 1000];
+
+// 贪心拆分：大面额优先，余数单独返回，由调用方决定是提示还是阻断
+function classify(amount, denominations) {
+  const sorted = [...denominations].sort((a, b) => b - a);
+  let remainder = Math.trunc(amount);
+  const parts = [];
+
+  sorted.forEach((d) => {
+    if (d <= 0 || !Number.isFinite(d)) return;
+    if (remainder >= d) {
+      const count = Math.floor(remainder / d);
+      remainder %= d;
+      if (count > 0) parts.push({ denom: d, count });
+    }
+  });
+
+  return { parts, remainder };
+}
+
+// 金额解析：容忍「12,000」「12 000」这类输入；解析不出来返回 NaN，不默默当 0
+function parseSalary(value) {
+  if (value === '' || value === null || value === undefined) return NaN;
+  if (typeof value === 'number' && !Number.isNaN(value)) return Math.round(value);
+  const s = String(value).trim().replace(/[,，\s]/g, '');
+  const n = parseFloat(s);
+  return Number.isFinite(n) ? Math.round(n) : NaN;
+}

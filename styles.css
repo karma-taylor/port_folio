@@ -373,7 +373,7 @@ ul, ol { padding: 0; list-style: none; }
 .arch-board { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
 .arch-lane { padding: 20px 16px 16px; border: 1px solid var(--ink-line); border-radius: 16px; background: rgba(255, 255, 255, .4); }
 .arch-lane--boundary { border: 1px dashed var(--ink); background: #fff; }
-.arch-lane__title { margin-bottom: 14px; color: var(--ink); font: 500 10px/1.5 var(--mono); letter-spacing: .18em; text-transform: uppercase; }
+.arch-lane__title { margin-bottom: 14px; color: var(--ink); font: 500 10px/1.5 var(--mono); letter-spacing: .14em; }
 .arch-lane--boundary .arch-lane__title { color: var(--accent); }
 .arch-lane ul { display: grid; }
 .arch-lane li { position: relative; padding: 10px 12px; border-radius: 10px; background: var(--paper-2); font-size: 13px; line-height: 1.55; color: var(--ink); }

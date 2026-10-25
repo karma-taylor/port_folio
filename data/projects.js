@@ -314,12 +314,13 @@ export const PROJECTS = [
       aria: "访问 HamHome Daily Digest 演示",
     },
     tech: [
-      { type: "lang", label: "Python" },
-      { type: "framework", label: "RAG" },
-      { type: "tool", label: "定时任务" },
-      { type: "ai", label: "LLM API" },
-      { type: "ai", label: "Cursor" },
-      { type: "ai", label: "Codex" },
+      { type: "lang", label: "TypeScript" },
+      { type: "framework", label: "Cloudflare Workers · Cron · Queues" },
+      { type: "tool", label: "D1 / Drizzle ORM" },
+      { type: "framework", label: "Hono" },
+      { type: "framework", label: "Next.js" },
+      { type: "ai", label: "OpenAI-compatible LLM" },
+      { type: "tool", label: "Resend 邮件 / MQTT" },
       { type: "deploy", label: "Cloudflare Pages" },
     ],
     route: [
@@ -341,6 +342,36 @@ export const PROJECTS = [
       href: "https://github.com/karma-taylor/Daily_digest",
       magnetic: true,
       magneticStrength: 0.25,
+    },
+    engineering: {
+      repo: "https://github.com/karma-taylor/Daily_digest",
+      architecture: {
+        lanes: [
+          { title: "触发与入口", nodes: ["Cloudflare Cron · 每 10 分钟", "订阅本地时间窗口判定（按时区）", "Hono API · 手动 / 测试触发", "Queue 生产者 → hamhome-digest"] },
+          { title: "流水线 · pipeline.ts", boundary: true, nodes: ["按用户读取启用的源与主题配置", "RSS / URL 适配器抓取 · 每源限额", "URL + 标题去重 → 当天过滤（本地日历日）", "主题分桶 → 重要性评审 Agent 打分", "LLM 结构化摘要 · 失败走确定性降级"] },
+          { title: "存储与投递", nodes: ["D1 (SQLite) · Drizzle ORM", "digest_runs 记录状态 / 错误 / HTML", "Resend 邮件 · MQTT 通知", "Next.js 页面展示同一份结果"] },
+        ],
+        caption: "每一步都有「拿不到就怎么办」：源抓取失败只记错误不中断；模型打分失败走关键词 + 来源类型的确定性降级；模型漏评的条目补降级分而不是丢弃。运行状态和错误写回 digest_runs，邮件和页面读的是同一份 HTML。",
+      },
+      modules: [
+        { path: "packages/api/src/lib/pipeline.ts", what: "主流水线：源抓取、去重、当天过滤、主题分桶、LLM 摘要与降级、邮件 / MQTT 投递、运行状态写回" },
+        { path: "packages/api/src/lib/importance-agent.ts", what: "重要性评审 Agent：只输出 JSON 打分；模型不可用或漏评时按关键词、一手来源、内容类型确定性降级" },
+        { path: "packages/api/src/lib/schedule.ts · queue/digest-consumer.ts", what: "按订阅者时区判定投递窗口，扫描整个 cron 间隔避免漏分钟；Queue 消费端串行跑流水线" },
+        { path: "packages/api/src/lib/topic-buckets.ts · dedup.ts · digest-recency.ts", what: "关键词分桶与关注名单、URL + 标题去重、按本地日历日过滤" },
+        { path: "packages/db/migrations/d1/*.sql · wrangler.toml", what: "digest_sources / runs / subscriptions 表；Workers、D1、Cron、Queues 绑定" },
+      ],
+      snippets: [
+        { title: "模型打分失败时的确定性降级", lang: "ts", src: "digest-1.txt", file: "packages/api/src/lib/importance-agent.ts", lines: "44-94", note: "节选 fallbackScore 与 normalizeReviews 的合并逻辑，去掉了类型声明。" },
+        { title: "按订阅者本地时间触发，不漏分钟", lang: "ts", src: "digest-2.txt", file: "packages/api/src/lib/schedule.ts", lines: "52-80" },
+      ],
+      metrics: [
+        { value: "10 min", label: "Cron 间隔", note: "每次触发扫描整个间隔内的本地分钟，订阅者填 HH:mm 即可" },
+        { value: "3", label: "摘要降级层级", note: "LLM 结构化摘要 → 主题桶标题降级 → 全部标题降级，任何一层失败都有输出" },
+        { value: "6", label: "内容类型权重", note: "report / paper 25 · video 18 · post 16 · article 12 · news 8，一手来源再 +30" },
+        { value: "0", label: "条目因模型漏评而丢失", note: "normalizeReviews 对未评审条目补确定性分，再统一排序" },
+        { value: "2", label: "投递通道", note: "Resend 邮件 + MQTT；失败分别记入 digest_runs.error，不影响另一通道" },
+      ],
+      metricsNote: "以上为代码里的设计参数与行为，不是运营数据；订阅人数、打开率等没有公开，不写。",
     },
     detail: {
       focus: {
@@ -449,6 +480,35 @@ export const PROJECTS = [
       href: "https://github.com/karma-taylor/money_classify",
       magnetic: true,
       magneticStrength: 0.25,
+    },
+    engineering: {
+      repo: "https://github.com/karma-taylor/money_classify",
+      architecture: {
+        lanes: [
+          { title: "入口", nodes: ["网页 · web/index.html（GitHub Pages）", "微信小程序 · miniapp/", "Python CLI · money_classify.py"] },
+          { title: "共用规则", boundary: true, nodes: ["classify(amount, denominations) 贪心拆分", "parseSalary 金额解析 · 非法返回 NaN", "isHeaderRow / isEmptyRow 表格识别", "余数单独返回，由界面决定提示或阻断"] },
+          { title: "批量与导出", nodes: ["SheetJS 读 xlsx / xls / csv（本地解析，不上传）", "rowsToBatchRows · 坏行记 Excel 行号", "buildWorkbook 固定列导出 · 配钞结果"] },
+        ],
+        caption: "三个入口共用同一份拆分与解析规则，规则改一处三端一致。名单只在设备本地解析，不经过任何服务器；坏行记录行号而不是整表失败，操作员能直接回去改。",
+      },
+      modules: [
+        { path: "miniapp/utils/classify.js · web/index.html", what: "贪心拆分、金额解析、表头 / 空行识别；网页端内联同一套函数" },
+        { path: "miniapp/utils/excel.js", what: "SheetJS 读写、批量行解析与坏行记录、固定列导出" },
+        { path: "miniapp/pages/index · pages/batch", what: "单笔配钞与面额勾选；批量导入、重算、导出并用 wx.openDocument 打开" },
+        { path: "web/money_classify.py", what: "同一拆分规则的 Python 命令行版本，用于快速核对" },
+        { path: ".github/workflows/pages.yml · miniapp/docs/*.md", what: "GitHub Pages 自动部署；小程序的 setup / qa / release 三份检查清单" },
+      ],
+      snippets: [
+        { title: "拆分与解析：余数和 NaN 都显式返回", lang: "js", src: "money-1.txt", file: "miniapp/utils/classify.js", lines: "1-37" },
+        { title: "批量名单：坏行记行号，不整表失败", lang: "js", src: "money-2.txt", file: "miniapp/utils/excel.js", lines: "21-50" },
+      ],
+      metrics: [
+        { value: "3", label: "入口共用一套规则", note: "网页 · 小程序 · Python CLI，拆分与解析逻辑一致" },
+        { value: "5", label: "默认面额档", note: "50000 / 25000 / 10000 / 5000 / 1000，可勾选子集" },
+        { value: "0", label: "名单上传", note: "xlsx 在浏览器或小程序本地用 SheetJS 解析，不经服务器" },
+        { value: "7", label: "固定导出列", note: "姓名、薪水与 5 个面额张数，口径不随操作人变化" },
+      ],
+      metricsNote: "以上为代码里的设计参数；没有使用量统计，不写效率提升数字。",
     },
     detail: {
       focus: {
@@ -695,6 +755,35 @@ export const PROJECTS = [
       href: "https://github.com/karma-taylor/Daily_report",
       magnetic: true,
       magneticStrength: 0.25,
+    },
+    engineering: {
+      repo: "https://github.com/karma-taylor/Daily_report",
+      architecture: {
+        lanes: [
+          { title: "输入", nodes: ["当日输入表 A（按 mm.dd 文件夹自动定位）", "前一日的 B / C / D 三份报表作为模板", "合同价格表 → 工种映射", "location.xlsx → 地点关键词替换", "translation_memory.csv → 人工维护词库"] },
+          { title: "引擎 · daily_report_mvp.py", boundary: true, nodes: ["pandas 读表 · 列名归一 · 工单号规范", "模板固定区同步（样式 / 合并单元格 / 边框）", "动态区按模板行样式填充", "工种与作业描述规则翻译 · 最长匹配", "翻不出来 → exceptions 列表 · [UNMAPPED]"] },
+          { title: "输出", nodes: ["B / C / D 三份当日报表（openpyxl）", "Exceptions_YYYYMMDD.xlsx 异常清单", "Streamlit 界面：校验输入 → 一键运行 → 日志"] },
+        ],
+        caption: "引擎不做 OCR、不调模型：所有翻译和映射都来自合同表、地点表和人工维护的词库，最长匹配优先；匹配不到的原样保留并进异常清单。这正是 PDF 账单 PoC 叫停后定下的范围——只做模板化、可回放的部分。",
+      },
+      modules: [
+        { path: "daily_report_mvp.py", what: "主流程：源文件定位、读表清洗、模板固定区同步、动态区填充、样式修复、异常收集（约 1,300 行）" },
+        { path: "job_translation.py", what: "JobSummaryTranslator：CSV 多列词库 + 默认规则，最长匹配优先的规则翻译，词库只由人工维护" },
+        { path: "report_engine.py", what: "统一入口 run_daily_report(base_dir, template_day)：按日期推导输入 / 模板 / 输出路径，返回 ReportResult" },
+        { path: "streamlit_app.py", what: "本地界面：选模板日、校验目录、全量或仅日报模式、运行日志与输出路径" },
+      ],
+      snippets: [
+        { title: "规则翻译：最长匹配，匹配不到不猜", lang: "py", src: "report-1.txt", file: "job_translation.py", lines: "84-130", note: "压缩了几处单行分支，逻辑未改。" },
+        { title: "工种映射与异常清单", lang: "py", src: "report-2.txt", file: "daily_report_mvp.py", lines: "1231-1266" },
+      ],
+      metrics: [
+        { value: "4h → 6min", label: "单次日报耗时", note: "用历史模板回放得到，不是演示环境" },
+        { value: "4", label: "输入文件", note: "当日输入表 + 前一日三份模板，按日期自动定位" },
+        { value: "3 + 1", label: "输出文件", note: "三份当日报表 + 一份异常清单，异常不混进报表" },
+        { value: "0", label: "模型 / OCR 调用", note: "全部规则化：合同表、地点表、人工词库" },
+        { value: "4 列", label: "词库容量结构", note: "translation_memory.csv 支持 4 组中英对照列，人工维护" },
+      ],
+      metricsNote: "4h → 6min 来自历史模板回放；其余为代码里的结构参数，不是运营统计。",
     },
     detail: {
       focus: {

@@ -1,0 +1,31 @@
+// 批量名单 → 逐行拆分；坏行记行号而不是整表失败
+function rowsToBatchRows(rows, selectedDenoms) {
+  let start = 0;
+  if (rows.length && isHeaderRow(rows[0])) start = 1;   // 识别「姓名 / 薪水」表头，自动跳过
+
+  const result = [];
+  const badLines = [];
+  for (let i = start; i < rows.length; i += 1) {
+    const row = rows[i];
+    if (isEmptyRow(row)) continue;
+
+    const name = String(row[0] ?? '').trim();
+    const salary = parseSalary(row[1]);
+    if (!name && !Number.isFinite(salary)) continue;
+
+    if (!Number.isFinite(salary) || salary < 0) {
+      badLines.push(i + 1);                              // Excel 行号，直接能回去改
+      continue;
+    }
+
+    const { parts, remainder } = classify(salary, selectedDenoms);
+    result.push({
+      name: name || '（未命名）',
+      salary,
+      counts: partsToCounts(parts),
+      remainder,
+    });
+  }
+
+  return { rows: result, badLines };
+}

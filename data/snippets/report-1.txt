@@ -1,0 +1,41 @@
+def _rule_translate(self, text):
+    s = normalize_cn(text)
+    if not s:
+        return ""
+    keys = sorted(self.rules.keys(), key=len, reverse=True)   # 最长匹配优先：「更换化粪池」先于「更换」
+    i = 0
+    pieces = []
+    raw_buf = []
+
+    def flush_raw():
+        if raw_buf:
+            pieces.append("".join(raw_buf))
+            raw_buf.clear()
+
+    while i < len(s):
+        ch = s[i]
+        if ch.isspace():
+            flush_raw(); i += 1; continue
+
+        hit = None
+        for k in keys:
+            if s.startswith(k, i):
+                hit = k
+                break
+
+        if hit:
+            flush_raw()
+            pieces.append(self.rules[hit])
+            i += len(hit)
+            continue
+
+        if ch in ",，;；/|、":          # 标点作为分隔，不进入结果
+            flush_raw(); i += 1; continue
+
+        raw_buf.append(ch)              # 词库没有的片段原样保留，不猜翻译
+        i += 1
+
+    flush_raw()
+    out = " ".join(p.strip() for p in pieces if str(p).strip())
+    out = re.sub(r"\s+", " ", out).strip()
+    return out if out else s
