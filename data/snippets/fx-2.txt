@@ -1,0 +1,30 @@
+TOOLS = [
+    {
+        "type": "function",
+        "function": {
+            "name": "get_weather",
+            "description": "查询城市当前天气，返回温度、湿度、风速等信息。",
+            "parameters": {
+                "type": "object",
+                "properties": {"city": {"type": "string", "description": "城市名，如北京、Shanghai、Baghdad"}},
+                "required": ["city"],
+            },
+        },
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "get_exchange_rate",
+            "description": "查询两种货币之间的实时汇率与换算值。",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "base": {"type": "string", "description": "基准货币代码，如 CNY"},
+                    "target": {"type": "string", "description": "目标货币代码，如 IQD"},
+                    "amount": {"type": "number", "description": "兑换金额，默认 1"},
+                },
+                "required": ["base", "target"],
+            },
+        },
+    },
+]

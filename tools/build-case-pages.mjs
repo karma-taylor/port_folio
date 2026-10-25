@@ -7,7 +7,7 @@ const source = await readFile(join(root, "data/projects.js"), "utf8");
 const dataUrl = `data:text/javascript;base64,${Buffer.from(source).toString("base64")}`;
 const { PROJECTS: SOURCE_PROJECTS, PROJECT_MANAGEMENT_META = {} } = await import(dataUrl);
 
-const ASSET_VERSION = "20261025-role";
+const ASSET_VERSION = "20261025-eng";
 const PROJECTS = [...SOURCE_PROJECTS]
   .sort((a, b) => (a.homeOrder ?? 99) - (b.homeOrder ?? 99))
   .map((project, position) => ({ ...project, index: String(position + 1).padStart(2, "0") }));
@@ -132,10 +132,47 @@ function solutionSection(project, number) {
   ])}</section>
 <section class="case-section case-system"><p class="case-system__label">方案路径</p><div class="flow-board" aria-label="${esc(project.flow?.ariaLabel || project.title)} 流程">${steps.map((step, index) => `<div class="flow-step ${step.accent ? "is-accent" : ""}"><span>${esc(step.idx)}</span><strong>${esc(step.label)}</strong>${index < steps.length - 1 ? "<i aria-hidden=\"true\"></i>" : ""}</div>`).join("")}</div><p>${esc(focus.flowSummary || "以明确规则收束输入、判断与输出。")}</p></section>`;
 }
+const KEYWORDS = {
+  ts: "const|let|var|function|return|if|else|for|of|in|await|async|throw|new|typeof|true|false|null|undefined|import|export|from|while|break|continue|try|catch|class",
+  py: "def|return|if|elif|else|for|in|not|and|or|is|None|True|False|raise|lambda|with|as|pass|try|except|while|break|continue|import|from|class",
+};
+function highlight(code, lang) {
+  const comment = lang === "py" ? "#[^\\n]*" : "\\/\\/[^\\n]*";
+  const re = new RegExp(`("(?:[^"\\\\\\n]|\\\\.)*"|'(?:[^'\\\\\\n]|\\\\.)*'|\`(?:[^\`\\\\]|\\\\.)*\`)|(${comment})|\\b(${KEYWORDS[lang] || KEYWORDS.ts})\\b`, "g");
+  const lines = code.replace(/\r\n/g, "\n").replace(/\n+$/, "").split("\n");
+  return lines.map((line) => {
+    let out = "", last = 0;
+    for (const match of line.matchAll(re)) {
+      out += esc(line.slice(last, match.index));
+      const cls = match[1] ? "tk-s" : match[2] ? "tk-c" : "tk-k";
+      out += `<span class="${cls}">${esc(match[0])}</span>`;
+      last = match.index + match[0].length;
+    }
+    return `<span class="code-line">${out + esc(line.slice(last)) || " "}</span>`;
+  }).join("\n");
+}
+async function engineeringSection(project, number) {
+  const eng = project.engineering;
+  if (!eng) return "";
+  const arch = eng.architecture || {};
+  const lanes = (arch.lanes || []).map((lane) => `<div class="arch-lane${lane.boundary ? " arch-lane--boundary" : ""}"><p class="arch-lane__title">${esc(lane.title)}</p><ul>${(lane.nodes || []).map((node) => `<li>${esc(node)}</li>`).join("")}</ul></div>`).join("");
+  const modules = (eng.modules || []).map((item) => `<div><dt><code>${esc(item.path)}</code></dt><dd>${esc(item.what)}</dd></div>`).join("");
+  const snippets = await Promise.all((eng.snippets || []).map(async (snippet) => {
+    const code = await readFile(join(root, "data/snippets", snippet.src), "utf8");
+    const [from, to] = String(snippet.lines || "").split("-");
+    const href = `${eng.repo}/blob/main/${snippet.file}${from ? `#L${from}${to ? `-L${to}` : ""}` : ""}`;
+    return `<figure class="code-block"><figcaption><span>${esc(snippet.title)}</span><a href="${esc(href)}" target="_blank" rel="noopener noreferrer" data-track="github_open" data-track-label="snippet-${esc(routes[project.id])}">${esc(snippet.file)}${from ? ` · L${esc(from)}${to ? `–${esc(to)}` : ""}` : ""} <span aria-hidden="true">↗</span></a></figcaption><pre><code class="lang-${esc(snippet.lang || "txt")}">${highlight(code, snippet.lang)}</code></pre>${snippet.note ? `<p class="code-block__note">${esc(snippet.note)}</p>` : ""}</figure>`;
+  }));
+  return `<section class="case-section shell case-engineering">${sectionHeading(number, "架构与代码")}${lanes ? `<div class="arch-board" role="img" aria-label="${esc(project.title)} 架构图">${lanes}</div>` : ""}${arch.caption ? `<p class="case-section-intro arch-caption">${esc(arch.caption)}</p>` : ""}${modules ? `<h3 class="eng-sub">我写的模块</h3><dl class="module-list">${modules}</dl>` : ""}${snippets.length ? `<h3 class="eng-sub">关键代码</h3><div class="code-list">${snippets.join("")}</div>` : ""}</section>`;
+}
 function resultSection(project, number) {
   const results = project.detail?.recruiting?.results || [];
   const outcomes = project.outcomes || [];
-  return `<section class="case-section shell case-results">${sectionHeading(number, "结果与指标")}<dl class="result-grid result-grid--large">${results.map((item) => `<div><dt>${esc(item.label)}</dt><dd>${esc(item.value)}</dd></div>`).join("")}</dl>${outcomes.length ? `<ul class="outcome-list">${outcomes.map((item) => `<li>${esc(item)}</li>`).join("")}</ul>` : ""}</section>`;
+  const metrics = project.engineering?.metrics || [];
+  const metricBlock = metrics.length
+    ? `<dl class="metric-grid">${metrics.map((item) => `<div><dt>${esc(item.label)}</dt><dd class="metric-grid__value">${esc(item.value)}</dd>${item.note ? `<dd class="metric-grid__note">${esc(item.note)}</dd>` : ""}</div>`).join("")}</dl>${project.engineering.metricsNote ? `<p class="case-section-intro metric-note">${esc(project.engineering.metricsNote)}</p>` : ""}`
+    : `<dl class="result-grid result-grid--large">${results.map((item) => `<div><dt>${esc(item.label)}</dt><dd>${esc(item.value)}</dd></div>`).join("")}</dl>`;
+  return `<section class="case-section shell case-results">${sectionHeading(number, "结果与指标")}${metricBlock}${outcomes.length ? `<ul class="outcome-list">${outcomes.map((item) => `<li>${esc(item)}</li>`).join("")}</ul>` : ""}</section>`;
 }
 function evidenceSection(project, number) {
   const intro = project.id === "enterprise-rag"
@@ -157,7 +194,7 @@ function contactSection(project) {
   return `<section class="case-contact"><p class="eyebrow"><b>+</b> 联系</p><h2>想进一步了解这个项目？</h2><p>我可以现场演示规则、校验和验收过程，也可以聊聊它在你们业务里怎么落地。</p><div class="case-contact__actions"><a class="pill pill--solid" href="../../resume.pdf" download="郭伟南-简历.pdf" data-track="resume_download" data-track-label="case-${esc(slug)}">下载简历 PDF <span aria-hidden="true">↓</span></a><a class="pill" href="mailto:taylorkarma@163.com" data-track="email_click" data-track-label="case-${esc(slug)}">taylorkarma@163.com <span aria-hidden="true">↗</span></a><details class="qr-pop qr-pop--up"><summary class="pill" data-track="wechat_open" data-track-label="case-${esc(slug)}">微信 <span aria-hidden="true">+</span></summary><div class="qr-pop__panel"><img src="../../wechat-qr.png" alt="郭伟南的微信二维码" width="180" height="180" loading="lazy" /><span>扫码添加微信</span></div></details></div></section>`;
 }
 
-function page(project, position) {
+async function page(project, position) {
   const details = project.detail || {};
   const focus = details.focus || {};
   const meta = PROJECT_MANAGEMENT_META[project.id] || {};
@@ -177,14 +214,16 @@ function page(project, position) {
     ["验证方式", meta.verification],
   ].filter(([, value]) => value);
 
-  const bodySections = [
+  const bodySectionTasks = [
     (n) => contextSection(project, meta, n),
     (n) => solutionSection(project, n),
+    project.engineering ? (n) => engineeringSection(project, n) : null,
     (n) => resultSection(project, n),
     (n) => evidenceSection(project, n),
     (n) => boundarySection(project, meta, n),
     project.detail?.retrospective?.sections?.length ? (n) => retrospectiveSection(project, n) : null,
-  ].filter(Boolean).map((render, index) => render(String(index + 1).padStart(2, "0"))).join("\n");
+  ].filter(Boolean).map((render, index) => render(String(index + 1).padStart(2, "0")));
+  const bodySections = (await Promise.all(bodySectionTasks)).join("\n");
 
   return `<!doctype html>
 <html lang="zh-CN"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><script>document.documentElement.classList.add("js");</script>
@@ -206,7 +245,7 @@ ${contactSection(project)}
 for (const [position, project] of PROJECTS.entries()) {
   const directory = join(root, "cases", routes[project.id]);
   await mkdir(directory, { recursive: true });
-  await writeFile(join(directory, "index.html"), page(project, position), "utf8");
+  await writeFile(join(directory, "index.html"), await page(project, position), "utf8");
 }
 
 console.log(`Generated ${PROJECTS.length} case pages and data/case-manifest.js.`);

@@ -1,0 +1,15 @@
+# 任一条件命中即 fail closed：候选配置不得发布
+failures = []
+if experiment.get("acl_preflight_failures"):
+    failures.append("acl_preflight_failures")
+if experiment.get("acl_unauthorized_return_count", 0):
+    failures.append("acl_unauthorized_return_count")
+for question_id in sorted(PROTECTED):                      # 保护题：基线命中、候选不命中 = 回退
+    if baseline_items.get(question_id, {}).get("hit") and not experiment_items.get(question_id, {}).get("hit"):
+        failures.append(f"protected_regression:{question_id}")
+for group, score in baseline.get("by_type", {}).items():   # 已满分的题型不允许掉分
+    if score == 100 and experiment.get("by_type", {}).get(group, 0) < 100:
+        failures.append(f"perfect_type_regression:{group}")
+if experiment.get("hit_rate", 0) < 95:
+    failures.append("hit_rate_below_95")
+raise SystemExit(0 if not failures else 1)

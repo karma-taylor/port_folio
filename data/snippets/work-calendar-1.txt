@@ -1,0 +1,28 @@
+// 预览与写入走同一条路径：p_dry_run 决定是否落库，规则完全一致
+if ((schedulePath && req.method === 'PATCH') || schedulePreviewPath) {
+  if (!can(principal, 'scheduler')) {
+    await audit(false, 'FORBIDDEN')
+    return reply({ error: 'FORBIDDEN' }, 403, origin)
+  }
+  const { expectedRevision, patches } = parseSchedulePatch(body)
+  const { data, error } = await admin.rpc('apply_schedule_patch', {
+    p_workspace_id: workspaceId,
+    p_expected_revision: expectedRevision,   // 客户端读到的版本
+    p_patches: patches,                      // 每条带 old 断言
+    p_dry_run: schedulePreviewPath,          // 预览 = 不写
+  })
+  if (error) throw error
+  const result = Array.isArray(data) ? data[0] : data
+  if (!result || result.status !== 'OK') {
+    const code = result?.status || 'INTERNAL_ERROR'
+    const status =
+      code === 'REVISION_MISMATCH' || code === 'PATCH_PRECONDITION_FAILED' ? 409
+      : code === 'SHIFT_NOT_FOUND' ? 404
+      : code === 'FORBIDDEN' ? 403
+      : 422
+    await audit(false, code, { revision: result?.revision || null })
+    return reply({ error: code, revision: result?.revision || null }, status, origin)
+  }
+  await audit(true, undefined, { revision: result.revision, returned_records: patches.length })
+  return reply({ ok: true, revision: result.revision, applied: result.applied || [] }, 200, origin)
+}

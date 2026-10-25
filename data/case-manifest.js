@@ -120,39 +120,41 @@ export const CASES = [
     "title": "企业制度 RAG：权限与证据可追溯问答",
     "titleLong": "企业制度 RAG：权限与证据可追溯问答（Enterprise Policy RAG Demo）",
     "statusLabel": "公开合成数据 Demo",
-    "summary": "面向公开合成企业制度数据的 RAG 作品：以 ACL-first、混合检索、证据溯源和 fail-closed，把“能回答”收束为可授权、可解释、可回归验证的问答路径。",
+    "summary": "面向公开合成企业制度数据的 RAG 作品：以 ACL-first、混合检索、证据溯源和 fail-closed，把“能回答”收束为可授权、可解释、可回归验证的问答路径。私有评测集 Hit@5 97.5%，ACL 越权为 0。",
     "tagline": "让企业问答只基于当前角色有权访问、且能够被逐条追溯的证据回答。",
     "role": "权限边界、检索链路、证据与评测设计",
     "scenario": "企业制度与风险问答（公开合成数据）",
-    "verification": "访客／财务角色对比、X-Ray 证据检查与 Protected Query Gate",
+    "verification": "私有 40 题评测（Hit@5 97.5%）、访客／财务角色对比、X-Ray 证据检查与回归门禁",
     "results": [
       {
-        "label": "权限顺序",
-        "value": "ACL-first"
+        "label": "Hit@5",
+        "value": "97.5%（39 / 40）"
       },
       {
-        "label": "检索路径",
-        "value": "BM25 + 可选 BGE + RRF"
+        "label": "Hit@1 / MRR@10",
+        "value": "85.0% / 88.9"
       },
       {
-        "label": "可信边界",
-        "value": "引用校验 + fail-closed"
+        "label": "ACL 越权",
+        "value": "0 候选 · 0 结果"
       },
       {
         "label": "回归门禁",
-        "value": "Protected Query Gate"
+        "value": "Hit@5 < 95% 即阻断"
       }
     ],
     "outcomes": [
-      "ACL-first 让未授权制度不参与召回",
-      "BM25 与可选 BGE 通道经 RRF 融合、重排后输出授权证据",
+      "私有 40 题评测 Hit@5 从 dense 基线 67.5% 提到 97.5%",
+      "ACL-first 让未授权制度不参与召回：越权候选与越权结果均为 0",
       "无证据、非法引用或服务异常时 fail-closed 拒答"
     ],
     "tech": [
+      "Python 3.12",
       "FastAPI",
+      "BM25 + BGE-M3 + RRF",
+      "DeepSeek / OpenAI-compatible",
+      "JWT fail-closed 边界",
       "Docker / Render Blueprint",
-      "OpenAI-compatible LLM",
-      "BM25 + BGE + RRF",
       "GitHub Actions / Pytest"
     ],
     "status": "公开合成数据 Demo",
@@ -161,7 +163,7 @@ export const CASES = [
     "live": null,
     "github": {
       "type": "github",
-      "href": "https://github.com/karma-taylor/enterprise-policy-rag-demo",
+      "href": "https://github.com/karma-taylor/hybrid-rag-mvp",
       "label": "查看 GitHub"
     }
   },
@@ -287,48 +289,49 @@ export const CASES = [
     "index": "06",
     "slug": "weather-fx-agent",
     "tier": "more",
-    "title": "汇率换算 Agent（Weather FX Agent）",
-    "titleLong": "汇率换算 Agent（Weather FX Agent）",
+    "title": "汇率 / 天气工具调用 Agent（Weather FX Agent）",
+    "titleLong": "汇率 / 天气工具调用 Agent（Weather FX Agent）",
     "statusLabel": "已上线",
-    "summary": "面向业务场景的汇率换算 Web 工具，支持多银行参考、固定汇率、防呆纠偏与弱网可用。重点在于结果的可信度与可追溯性。",
-    "tagline": "多银行汇率参考与防呆纠偏，输出可复核的换算结果。",
-    "role": "边界定义、异常策略与交付",
-    "scenario": "跨币种换算与业务报价辅助",
-    "verification": "多源交叉比对",
+    "summary": "一个最小但完整的 function calling Agent（天气 + 汇率两个工具，模型可换），加一个独立的 FastAPI / PWA 汇率换算 Web 端。重点是工具契约、失败处理与结果可复核。",
+    "tagline": "模型决定何时查天气、何时查汇率；换算结果附来源与口径，弱网也能出数。",
+    "role": "工具契约、调用循环、换算口径与弱网策略",
+    "scenario": "终端内查汇率 / 天气，以及跨币种换算与报价辅助",
+    "verification": "工具调用回放与多源交叉比对",
     "results": [
       {
-        "label": "结果可信度",
-        "value": "可复核"
+        "label": "工具",
+        "value": "2 个 · JSON Schema"
       },
       {
-        "label": "参考方式",
-        "value": "多源汇率"
+        "label": "模型来源",
+        "value": "OpenAI / DeepSeek / Ollama"
       },
       {
-        "label": "异常处理",
-        "value": "防呆纠偏"
+        "label": "失败处理",
+        "value": "回传模型解释"
       },
       {
-        "label": "网络策略",
-        "value": "缓存降级"
+        "label": "Web 端",
+        "value": "PWA 离线 · 缓存降级"
       }
     ],
     "outcomes": [
-      "多银行参考与防呆纠偏，结果可复核",
-      "弱网 / 缓存降级策略保证可用性",
-      "把换算过程做成可交付而非黑盒结果"
+      "CLI Agent：OpenAI function calling 循环，两个工具按需调用，模型可换（OpenAI / DeepSeek / Ollama）",
+      "Web 换算器：FastAPI + PWA，多银行参考、固定汇率方向取倒数、弱网缓存降级",
+      "工具失败回传给模型解释，而不是让会话崩溃"
     ],
     "tech": [
-      "JavaScript",
-      "HTML / CSS",
+      "Python",
+      "OpenAI function calling",
+      "Ollama 本地模型",
+      "FastAPI",
+      "PWA / Service Worker",
       "汇率 API",
-      "Hugging Face",
-      "Cursor",
-      "Codex"
+      "Hugging Face Spaces"
     ],
     "status": "已上线",
     "cover": "https://www.vinanverse.com/fx-cover-auto.png",
-    "coverAlt": "汇率换算 Agent 项目封面",
+    "coverAlt": "汇率换算 Web 端项目封面",
     "live": {
       "type": "live",
       "href": "https://karmacat-weather-fx-agent.hf.space",

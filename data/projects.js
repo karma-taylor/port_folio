@@ -54,6 +54,36 @@ export const PROJECTS = [
       magnetic: true,
       magneticStrength: 0.25,
     },
+    engineering: {
+      repo: "https://github.com/karma-taylor/work_calendar",
+      architecture: {
+        lanes: [
+          { title: "入口", nodes: ["网页 · React 19 / Vite", "Codex work-calendar Skill", "本地名单 · SheetJS（只在浏览器）"] },
+          { title: "受控接口 · 服务端裁决", boundary: true, nodes: ["Supabase Edge Function（Deno / TS）", "JWT 或 Skill Key 鉴权 · 角色", "Schema 校验 · 冲突检测", "预览 = dry run · 确认后 PATCH", "expectedRevision 乐观锁 · 审计"] },
+          { title: "数据", nodes: ["Postgres · apply_schedule_patch RPC", "work_calendar_events 审计（90 天）", "历史快照（365 天）· 保留期清理"] },
+        ],
+        caption: "网页和 Skill 都不直接读写数据库表。两条入口调用同一个 Edge Function，预览与写入走同一段校验代码，只差一个 p_dry_run；因此规则不会因入口不同而分叉。",
+      },
+      modules: [
+        { path: "supabase/functions/work-calendar/index.ts", what: "鉴权、Patch 校验、冲突检测、revision 写入、脱敏审计（单文件 Edge Function）" },
+        { path: "supabase/migrations/*.sql", what: "4 个迁移：成员与角色、Key 哈希与限流、schedule delta 与 apply_schedule_patch、Skill 质量观测" },
+        { path: "src/App.jsx · src/lib/cloudStore.js", what: "月历、人员选择、Patch 预览确认 UI，以及只经 Edge Function 访问的云端存储层" },
+        { path: "tests/*-contract.mjs", what: "security / patch / skill-quality 三个契约测试，CI 全过才部署 staging" },
+        { path: "evals/ · scripts/run-skill-evals.mjs · skillopt_pipeline.py", what: "冻结评测集、Skill 失败轨迹脱敏记录、候选规则有界编辑与人工发布门禁" },
+      ],
+      snippets: [
+        { title: "预览与写入共用一条路径", lang: "ts", src: "work-calendar-1.txt", file: "supabase/functions/work-calendar/index.ts", lines: "167-180", note: "为便于阅读做了换行与裁剪，逻辑未改。" },
+        { title: "保存前的冲突阻断", lang: "ts", src: "work-calendar-2.txt", file: "supabase/functions/work-calendar/index.ts", lines: "85-90" },
+      ],
+      metrics: [
+        { value: "9", label: "冻结评测用例", note: "8 条标为安全关键：歧义、未知人员、撞期、超工时、revision 过期不重试、删除需确认" },
+        { value: "5", label: "中文意图解析用例", note: "意图、人员、日期、项目、变更类型字段需完全匹配" },
+        { value: "3", label: "CI 契约测试", note: "security · patch · skill-quality，任一失败不部署" },
+        { value: "3", label: "允许的 Patch 动作", note: "replace_assignee · update_window · cancel_shift，每条带 old 断言，单次 ≤ 20 条" },
+        { value: "≤ 1s", label: "端到端 P95 目标", note: "服务端记录每次请求耗时；这是设计目标，不是上线实测" },
+      ],
+      metricsNote: "以上数字来自公开仓库的 evals/、tests/ 与 README，用例使用化名与合成项目；没有生产流量数据，因此不写采纳率或节省工时。",
+    },
     detail: {
       heroTeaser:
         "把项目排班从网页表单延伸到 Codex Skill：AI 只提出候选变更，服务端先验证，用户确认后才落库。",
@@ -162,8 +192,8 @@ export const PROJECTS = [
     title: "企业制度 RAG：权限与证据可追溯问答",
     titleLong: "企业制度 RAG：权限与证据可追溯问答（Enterprise Policy RAG Demo）",
     outcomes: [
-      "ACL-first 让未授权制度不参与召回",
-      "BM25 与可选 BGE 通道经 RRF 融合、重排后输出授权证据",
+      "私有 40 题评测 Hit@5 从 dense 基线 67.5% 提到 97.5%",
+      "ACL-first 让未授权制度不参与召回：越权候选与越权结果均为 0",
       "无证据、非法引用或服务异常时 fail-closed 拒答",
     ],
     cover: {
@@ -174,17 +204,19 @@ export const PROJECTS = [
     hoverValue:
       "把企业问答从“能回答”做成“只对有权限的人、基于可追溯证据地回答”。",
     tech: [
+      { type: "lang", label: "Python 3.12" },
       { type: "framework", label: "FastAPI" },
+      { type: "framework", label: "BM25 + BGE-M3 + RRF" },
+      { type: "ai", label: "DeepSeek / OpenAI-compatible" },
+      { type: "tool", label: "JWT fail-closed 边界" },
       { type: "tool", label: "Docker / Render Blueprint" },
-      { type: "ai", label: "OpenAI-compatible LLM" },
-      { type: "framework", label: "BM25 + BGE + RRF" },
       { type: "tool", label: "GitHub Actions / Pytest" },
     ],
     route: [
       { label: "权限", value: "ACL-first / 未授权文档不参与召回" },
-      { label: "检索", value: "BM25 + 可选 BGE / RRF / 轻量重排" },
+      { label: "检索", value: "BM25 + 可选 BGE-M3 / RRF / 轻量重排" },
       { label: "生成", value: "引用校验 / 无证据 fail-closed" },
-      { label: "评测", value: "Hit@1 / Hit@5 / MRR@10 / Protected Gate" },
+      { label: "评测", value: "Hit@5 97.5% / MRR@10 88.9 / 回归门禁" },
     ],
     flow: {
       ariaLabel: "企业制度 RAG 权限与证据检索流程",
@@ -195,7 +227,37 @@ export const PROJECTS = [
         { idx: "04", label: "引用回答／拒答", accent: true },
       ],
     },
-    github: { href: "https://github.com/karma-taylor/enterprise-policy-rag-demo", magnetic: true, magneticStrength: 0.25 },
+    github: { href: "https://github.com/karma-taylor/hybrid-rag-mvp", magnetic: true, magneticStrength: 0.25 },
+    engineering: {
+      repo: "https://github.com/karma-taylor/hybrid-rag-mvp",
+      architecture: {
+        lanes: [
+          { title: "入口", nodes: ["FastAPI 演示端 · app/（问答 / X-Ray / 治理页）", "enterprise_api.py · 生产 API 边界", "JWT 校验 fail-closed（issuer / audience / JWK）"] },
+          { title: "安全编排 · harness.py", boundary: true, nodes: ["受限证据包 · 不传整库", "提示注入隔离（入库时切分并隔离）", "引用校验 · 非法 [n] 拒答", "并发上限 · 超时 · 熔断", "Trace 脱敏：只记 request ID 与阶段耗时"] },
+          { title: "检索与生成", nodes: ["ACL 过滤 → BM25 → 可选 BGE-M3 dense", "RRF 融合 → 轻量重排 → Top-k 证据", "DeepSeek / OpenAI-compatible 生成，带 [n] 引用", "无 Key 时降级为标注的检索演示"] },
+        ],
+        caption: "权限在候选生成之前执行，不是生成后的遮罩。guest 角色直接返回空候选，不进入任何打分；检索的每一步都保留可解释轨迹，X-Ray 页能对比不同角色看到的证据。",
+      },
+      modules: [
+        { path: "hybrid_retrieval.py · app/retrieval.py", what: "ACL-first 混合检索核心：BM25、BGE-M3 dense、RRF 融合、重排；实验版与演示版接口一致" },
+        { path: "harness.py · security.py", what: "可接生产边界的编排层：证据包限制、注入检测、引用校验、并发 / 超时 / 熔断、Trace 脱敏" },
+        { path: "app/auth.py · enterprise_api.py", what: "本地演示的注册 → 首次改密 → 管理员分配角色；生产版 Bearer JWT 校验，缺任一配置项即启动失败" },
+        { path: "eval_pipeline.py · tune_fusion.py · validate_regression_gate.py", what: "Hit@K / MRR / nDCG 评测、融合参数搜索（只用确定性指标）、回归门禁" },
+        { path: "chunking_mac.py · test_*.py", what: "文档切分与注入 chunk 隔离清单；ACL、引用、注入、JWT、并发与隔离的回归测试" },
+      ],
+      snippets: [
+        { title: "ACL 先于任何打分", lang: "py", src: "rag-1.txt", file: "app/retrieval.py", lines: "60-108", note: "节选并加了步骤注释，逻辑未改。" },
+        { title: "回归门禁：任一失败即不发布", lang: "py", src: "rag-2.txt", file: "validate_regression_gate.py", lines: "24-37" },
+      ],
+      metrics: [
+        { value: "97.5%", label: "Hit@5", note: "39 / 40，私有评测集；dense 基线 67.5% → 混合 95.0% → 重排 + 门禁 97.5%" },
+        { value: "85.0%", label: "Hit@1", note: "Hit@3 92.5% · MRR@10 88.92 · nDCG@10 77.22" },
+        { value: "0", label: "ACL 越权", note: "preflight 异常 0 · 越权候选 0 · 越权最终结果 0" },
+        { value: "4 / 5", label: "题型满分", note: "单文档、实体消歧、表格对账、跨文档 100%；精确字段或表格 75%，是当前短板" },
+        { value: "95%", label: "门禁下限", note: "Hit@5 低于 95%、保护题回退、满分题型掉分、ACL 异常，任一即 fail" },
+      ],
+      metricsNote: "指标来自仓库内 evaluation_summary.json 与 EVALUATION_HISTORY.md，是私有 40 题评测集上的聚合结果；公开仓库只含合成制度数据，原始语料、gold set 与逐题报告不公开，因此这里不展示逐题明细。",
+    },
     detail: {
       heroTeaser: "面向公开合成企业制度的 RAG Demo：先做权限隔离与证据检索，再决定是否生成回答。",
       focus: {
@@ -213,15 +275,15 @@ export const PROJECTS = [
         researchScope: "覆盖 ACL-first、混合检索、证据引用、fail-closed 和公开小规模评测；不宣称真实企业身份、审计或生产级限流能力。",
         delivery: "交付员工问答、X-Ray 检索透视、只读知识治理页、FastAPI/Docker/Render 配置与 Protected Regression Gate。",
         risks: "真实部署仍需企业 IdP、受控语料存储、集中脱敏日志、独立评测环境与生产级限流。",
-        results: [{ label: "权限顺序", value: "ACL-first" }, { label: "检索路径", value: "BM25 + 可选 BGE + RRF" }, { label: "可信边界", value: "引用校验 + fail-closed" }, { label: "回归门禁", value: "Protected Query Gate" }],
+        results: [{ label: "Hit@5", value: "97.5%（39 / 40）" }, { label: "Hit@1 / MRR@10", value: "85.0% / 88.9" }, { label: "ACL 越权", value: "0 候选 · 0 结果" }, { label: "回归门禁", value: "Hit@5 < 95% 即阻断" }],
       },
       retrospective: { sections: [
         { label: "先定义可信边界", summary: [{ text: "企业问答的风险不只在答错，也在未授权文本被带入检索和生成。", strong: true }], points: [[{ text: "将 ACL 放在所有检索通道之前，未知路径默认拒绝，不做全库回退。" }], [{ text: "公开版仅使用合成制度数据；真实文档、原始 chunk、私有 gold-set 和密钥不进入仓库或截图。" }]] },
         { label: "让检索链路可解释", summary: [{ text: "把词法、向量、融合和重排从黑盒结果拆成可查看的证据轨迹。", strong: true }], points: [[{ text: "BM25 与可选 BGE 通道通过 RRF 融合，再由轻量重排输出授权证据包。" }], [{ text: "X-Ray 页展示 doc_id、分数、作用域与检索轨迹，方便对比访客与财务角色。" }]] },
-        { label: "把拒答和回归纳入交付", summary: [{ text: "证据不足时拒答，不把模型补全当作产品默认。", strong: true }], points: [[{ text: "引用校验、无证据和服务异常都降级为受控回答。" }], [{ text: "公开评测计算 Hit@1、Hit@5 与 MRR@10；Protected Query 失败会阻断发布测试。" }]] },
+        { label: "把拒答和回归纳入交付", summary: [{ text: "证据不足时拒答，不把模型补全当作产品默认。", strong: true }], points: [[{ text: "引用校验、无证据和服务异常都降级为受控回答。" }], [{ text: "私有 40 题评测 Hit@5 从 67.5% 提到 97.5%；参数选择只看确定性检索指标，答案质量评判与参数搜索分离；保护题回退或 ACL 异常会阻断发布。" }]] },
       ] },
-      summary: "面向公开合成企业制度数据的 RAG 作品：以 ACL-first、混合检索、证据溯源和 fail-closed，把“能回答”收束为可授权、可解释、可回归验证的问答路径。",
-      links: [{ type: "github", href: "https://github.com/karma-taylor/enterprise-policy-rag-demo", label: "查看 GitHub" }],
+      summary: "面向公开合成企业制度数据的 RAG 作品：以 ACL-first、混合检索、证据溯源和 fail-closed，把“能回答”收束为可授权、可解释、可回归验证的问答路径。私有评测集 Hit@5 97.5%，ACL 越权为 0。",
+      links: [{ type: "github", href: "https://github.com/karma-taylor/hybrid-rag-mvp", label: "查看 GitHub" }],
     },
   },
   {
@@ -449,46 +511,47 @@ export const PROJECTS = [
     size: "featured",
     status: "live",
     statusLabel: "已上线",
-    title: "汇率换算 Agent（Weather FX Agent）",
-    titleLong: "汇率换算 Agent（Weather FX Agent）",
+    title: "汇率 / 天气工具调用 Agent（Weather FX Agent）",
+    titleLong: "汇率 / 天气工具调用 Agent（Weather FX Agent）",
     outcomes: [
-      "多银行参考与防呆纠偏，结果可复核",
-      "弱网 / 缓存降级策略保证可用性",
-      "把换算过程做成可交付而非黑盒结果",
+      "CLI Agent：OpenAI function calling 循环，两个工具按需调用，模型可换（OpenAI / DeepSeek / Ollama）",
+      "Web 换算器：FastAPI + PWA，多银行参考、固定汇率方向取倒数、弱网缓存降级",
+      "工具失败回传给模型解释，而不是让会话崩溃",
     ],
     cover: {
       src: "./fx-cover-auto.png",
       version: "20260625-live-capture",
-      alt: "汇率换算 Agent 项目封面",
+      alt: "汇率换算 Web 端项目封面",
     },
     hoverValue:
-      "把“今天哪家汇率更合适”变成可执行、可复核的换算结果，兼顾弱网可用。",
+      "一个最小但完整的工具调用 Agent：模型决定何时查天气、何时查汇率，结果可复核；Web 端单独承担换算与弱网可用。",
     hoverCta: {
       href: "https://karmacat-weather-fx-agent.hf.space",
-      label: "访问演示",
-      aria: "访问汇率换算 Agent 演示",
+      label: "访问 Web 端",
+      aria: "访问汇率换算 Web 端演示",
     },
     tech: [
-      { type: "lang", label: "JavaScript" },
-      { type: "lang", label: "HTML / CSS" },
+      { type: "lang", label: "Python" },
+      { type: "ai", label: "OpenAI function calling" },
+      { type: "ai", label: "Ollama 本地模型" },
+      { type: "framework", label: "FastAPI" },
+      { type: "tool", label: "PWA / Service Worker" },
       { type: "tool", label: "汇率 API" },
-      { type: "ai", label: "Hugging Face" },
-      { type: "ai", label: "Cursor" },
-      { type: "ai", label: "Codex" },
+      { type: "tool", label: "Hugging Face Spaces" },
     ],
     route: [
-      { label: "前端", value: "原生 HTML / CSS / JavaScript" },
-      { label: "服务", value: "Hugging Face Space" },
-      { label: "数据AI", value: "多银行汇率参考 / 防呆纠偏 / 缓存降级" },
-      { label: "部署", value: "Hugging Face Spaces" },
+      { label: "Agent", value: "agent.py · chat.completions + tools · tool_choice auto" },
+      { label: "工具", value: "get_weather / get_exchange_rate · JSON Schema 参数" },
+      { label: "Web", value: "webapp.py · /api/convert · 银行系数 · PWA 离线" },
+      { label: "部署", value: "Docker · Hugging Face Spaces" },
     ],
     flow: {
-      ariaLabel: "汇率换算 Agent 业务流程",
+      ariaLabel: "工具调用 Agent 业务流程",
       steps: [
-        { idx: "01", label: "输入金额" },
-        { idx: "02", label: "多源汇率" },
-        { idx: "03", label: "防呆纠偏" },
-        { idx: "04", label: "换算输出", accent: true },
+        { idx: "01", label: "用户自然语言" },
+        { idx: "02", label: "模型选工具" },
+        { idx: "03", label: "执行并回填" },
+        { idx: "04", label: "生成可复核回答", accent: true },
       ],
     },
     github: {
@@ -496,45 +559,74 @@ export const PROJECTS = [
       magnetic: true,
       magneticStrength: 0.25,
     },
+    engineering: {
+      repo: "https://github.com/karma-taylor/weather-fx-agent",
+      architecture: {
+        lanes: [
+          { title: "CLI Agent · agent.py", boundary: true, nodes: ["读取 .env：API Key / BASE_URL / MODEL", "chat.completions(tools=TOOLS, tool_choice=auto)", "tool_calls → 本地执行 → role: tool 回填", "无 tool_calls 时输出最终回答", "401 / 429 / 404 / 断网分别给可操作提示"] },
+          { title: "工具", nodes: ["get_weather(city) · 公开天气 API", "get_exchange_rate(base, target, amount)", "返回结构化 JSON，失败也带 ok:false"] },
+          { title: "Web 换算器 · webapp.py", nodes: ["FastAPI /api/convert · 银行系数表", "固定汇率：方向互换自动取倒数", "PWA + Service Worker 离线可用", "访问统计与每日 Excel 导出", "Docker → Hugging Face Spaces"] },
+        ],
+        caption: "两层各自独立：Agent 层只负责「什么时候调哪个工具、怎么把结果说清楚」，模型可在 OpenAI、DeepSeek 与本机 Ollama 之间切换；Web 层不走模型，保证弱网和离线时换算仍可用。",
+      },
+      modules: [
+        { path: "agent.py", what: "function calling 主循环、两个工具的 JSON Schema 定义、Ollama 模型存在性检查、针对 401 / 429 / 404 的诊断提示" },
+        { path: "webapp.py", what: "FastAPI 换算接口、银行汇率系数、历史曲线接口、访问统计与定时 Excel 导出" },
+        { path: "templates/index.html · static/sw.js", what: "换算 UI、固定汇率快照与人民币多档预设（localStorage）、Service Worker 离线缓存" },
+        { path: "Dockerfile · render.yaml", what: "容器化与 Hugging Face Spaces / Render 部署配置" },
+      ],
+      snippets: [
+        { title: "工具调用循环", lang: "py", src: "fx-1.txt", file: "agent.py", lines: "312-369", note: "去掉了错误分支的提示文案，结构未改。" },
+        { title: "工具定义：参数即契约", lang: "py", src: "fx-2.txt", file: "agent.py", lines: "94-123" },
+      ],
+      metrics: [
+        { value: "2", label: "可调用工具", note: "天气与汇率，参数用 JSON Schema 约束，required 字段缺失由模型补问" },
+        { value: "3", label: "可切换模型来源", note: "OpenAI 官方 · OpenAI-compatible（如 DeepSeek）· 本机 Ollama，改 .env 即可" },
+        { value: "4", label: "失败类型分别处理", note: "鉴权失败、额度不足、模型不存在、网络异常，各给一条能照着做的提示" },
+        { value: "离线", label: "Web 端可用性", note: "PWA 缓存页面与最近一次实时汇率；固定汇率完全本地计算" },
+      ],
+      metricsNote: "这个项目没有评测集，不写准确率或耗时数字。它的价值是一个能读完的最小工具调用 Agent 实现，以及 Web 端对结果可复核与弱网可用的处理。",
+    },
     detail: {
+      heroTeaser: "最小但完整的工具调用 Agent：模型决定调什么工具，工具结果回填后再回答；Web 端独立提供弱网可用的换算。",
       focus: {
         tagline:
-          "多银行汇率参考与防呆纠偏，输出可复核的换算结果。",
+          "模型决定何时查天气、何时查汇率；换算结果附来源与口径，弱网也能出数。",
         problem:
-          "面向跨境结算、差旅报销和柜台咨询场景。痛点在于多来源汇率不一致、手算容易出错、弱网环境下仍需快速出数。",
+          "面向跨境结算、差旅报销和柜台咨询场景。痛点在于多来源汇率不一致、手算容易出错、弱网环境下仍需快速出数；同时想验证一个最小 function calling 循环要处理哪些边角。",
         ownership:
-          "我负责场景拆解、汇率口径定义、换算纠偏规则、异常提示设计，以及缓存与弱网策略验证。",
+          "我负责 Agent 的工具契约与调用循环、模型来源切换与失败诊断，以及 Web 端的汇率口径、换算纠偏规则、缓存与弱网策略。",
         flowSummary:
-          "输入币种和金额 → 选择参考汇率 → 方向互换时做倒数修正 → 输出结果与口径说明。",
+          "用户自然语言 → 模型判断是否需要工具 → 执行 get_weather / get_exchange_rate → 结果以 role: tool 回填 → 模型生成带来源的回答；Web 端则是 输入币种金额 → 选择参考汇率 → 方向互换取倒数 → 输出结果与口径说明。",
         productJudgment:
-          "我不做“黑盒换算结果”，而是明确展示所用来源和汇率口径，优先保证结果可复核与可交付。",
+          "工具失败不中断会话，而是把 ok:false 回传给模型解释；Web 端不做“黑盒换算结果”，明确展示所用来源和汇率口径。",
         promptDesign: {
-          goal: "根据 base / target / amount / rate 返回可审计的换算结果。",
-          inputs: "base、target、amount 及可选 rate，必要时回退缓存汇率。",
-          rules: "固定模式下使用 amount × rate；方向互换先取倒数；禁止输出营销化语言。",
-          output: "结果数值、rate_used 文案与来源说明。",
-          safeguards: "非法币种、负数金额或缺失汇率时拒绝计算并给出明确提示。",
+          goal: "让模型在需要事实数据时调用工具，并基于工具返回值回答，而不是凭记忆给汇率。",
+          inputs: "用户自然语言；工具返回的结构化 JSON（含 ok、来源、时间戳）。",
+          rules: "tool_choice 为 auto；一次回复中可多次调用；工具报错时解释原因并建议下一步。",
+          output: "带来源与时间的换算或天气结论；Web 端输出结果数值、rate_used 文案与来源说明。",
+          safeguards: "非法币种、负数金额或缺失汇率时拒绝计算；未知工具名返回错误而不是猜测执行。",
           excerpt:
-            "你是汇率换算助手。请根据 base、target、amount 和可选 rate 返回结果、汇率说明和来源标签。",
+            "你是汇率与天气助手。需要实时数据时调用工具；回答时说明数据来源与更新时间。",
         },
       },
       recruiting: {
         background:
-          "这个项目更像一次‘结果可信度设计’练习，而不是单纯做一个换算器。",
-        usersScene: "适用于报销、差旅、柜台咨询和跨境结算场景。",
-        coreProblem: "汇率来源不一致、人工换算易错、弱网场景仍需出数。",
-        researchScope: "围绕币种方向、金额、汇率来源与弱网回退定义输入输出口径；不覆盖交易执行、实时行情承诺或合规报价。",
-        delivery: "交付多源汇率参考、防呆纠偏、缓存降级和来源说明；通过多源交叉比对与异常输入验证结果可复核。",
-        risks: "后续可继续增强历史汇率与银行对比视图。",
+          "这个项目是一次“最小工具调用 Agent + 结果可信度设计”的练习，而不是单纯做一个换算器。",
+        usersScene: "适用于报销、差旅、柜台咨询和跨境结算场景；Agent 层适合在终端里快速问汇率与天气。",
+        coreProblem: "汇率来源不一致、人工换算易错、弱网场景仍需出数；Agent 层要处理模型切换、工具失败与配置错误。",
+        researchScope: "围绕工具契约、调用循环、模型来源切换、币种方向、汇率来源与弱网回退定义口径；不覆盖交易执行、实时行情承诺或合规报价。",
+        delivery: "交付 CLI Agent（两个工具、模型可换、失败诊断）与 Web 换算器（多银行参考、固定汇率、PWA 离线、访问统计导出）。",
+        risks: "Agent 层没有评测集与多轮状态管理；后续可加工具调用日志、历史汇率与银行对比视图。",
         results: [
-          { label: "结果可信度", value: "可复核" },
-          { label: "参考方式", value: "多源汇率" },
-          { label: "异常处理", value: "防呆纠偏" },
-          { label: "网络策略", value: "缓存降级" },
+          { label: "工具", value: "2 个 · JSON Schema" },
+          { label: "模型来源", value: "OpenAI / DeepSeek / Ollama" },
+          { label: "失败处理", value: "回传模型解释" },
+          { label: "Web 端", value: "PWA 离线 · 缓存降级" },
         ],
       },
-      summary:
-        "面向业务场景的汇率换算 Web 工具，支持多银行参考、固定汇率、防呆纠偏与弱网可用。重点在于结果的可信度与可追溯性。",
+    summary:
+        "一个最小但完整的 function calling Agent（天气 + 汇率两个工具，模型可换），加一个独立的 FastAPI / PWA 汇率换算 Web 端。重点是工具契约、失败处理与结果可复核。",
       links: [
         {
           type: "live",
@@ -706,7 +798,7 @@ export const PROJECT_MANAGEMENT_META = {
     scenario: "企业制度与风险问答（公开合成数据）",
     role: "权限边界、检索链路、证据与评测设计",
     status: "公开合成数据 Demo",
-    verification: "访客／财务角色对比、X-Ray 证据检查与 Protected Query Gate",
+    verification: "私有 40 题评测（Hit@5 97.5%）、访客／财务角色对比、X-Ray 证据检查与回归门禁",
     userStory: {
       actor: "企业员工（公开合成角色）",
       situation: "需要查询制度、报销或风险流程，但不同角色只能看到授权范围内的证据。",
@@ -761,10 +853,10 @@ export const PROJECT_MANAGEMENT_META = {
     },
   },
   fx: {
-    scenario: "跨币种换算与业务报价辅助",
-    role: "边界定义、异常策略与交付",
+    scenario: "终端内查汇率 / 天气，以及跨币种换算与报价辅助",
+    role: "工具契约、调用循环、换算口径与弱网策略",
     status: "已上线",
-    verification: "多源交叉比对",
+    verification: "工具调用回放与多源交叉比对",
     userStory: {
       actor: "跨境结算／报价协助人员（脱敏角色）",
       situation: "提交报价或报销前，需要确认汇率换算方向、来源和结果。",

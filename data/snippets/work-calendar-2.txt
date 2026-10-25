@@ -1,0 +1,15 @@
+const overlap = (aStart: string, aEnd: string, bStart: string, bEnd: string) =>
+  aStart <= bEnd && bStart <= aEnd
+
+// 同一人员可以分段参与多个工单，但区间不能相交
+for (const [personId, entries] of byPerson) {
+  entries.sort((a, b) =>
+    a.assignment.segmentStart.localeCompare(b.assignment.segmentStart) ||
+    a.assignment.segmentEnd.localeCompare(b.assignment.segmentEnd))
+  for (let index = 1; index < entries.length; index += 1) {
+    const prev = entries[index - 1].assignment, cur = entries[index].assignment
+    if (overlap(prev.segmentStart, prev.segmentEnd, cur.segmentStart, cur.segmentEnd))
+      throw new Error(`SCHEDULING_CONFLICT:${personId}`)   // 422，不进入写入路径
+  }
+}
+return projects

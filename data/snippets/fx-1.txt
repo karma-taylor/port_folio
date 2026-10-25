@@ -1,0 +1,35 @@
+messages.append({"role": "user", "content": user_input})
+
+while True:                                   # 一轮用户输入里可能有多次工具调用
+    response = client.chat.completions.create(
+        model=model,                          # OpenAI / DeepSeek / 本机 Ollama 均可
+        messages=messages,
+        tools=TOOLS,
+        tool_choice="auto",
+        temperature=0.2,
+    )
+    msg = response.choices[0].message
+
+    if not msg.tool_calls:                    # 模型不再要工具 → 这就是最终回答
+        final_text = msg.content or "我暂时没有得到结果。"
+        messages.append({"role": "assistant", "content": final_text})
+        break
+
+    messages.append(msg.model_dump())         # 先把带 tool_calls 的 assistant 消息放回上下文
+    for tool_call in msg.tool_calls:
+        name = tool_call.function.name
+        args = json.loads(tool_call.function.arguments or "{}")
+        try:
+            if name == "get_weather":
+                result = get_weather(**args)
+            elif name == "get_exchange_rate":
+                result = get_exchange_rate(**args)
+            else:
+                result = {"ok": False, "error": f"未知工具: {name}"}
+        except Exception as exc:
+            result = {"ok": False, "error": str(exc)}   # 工具失败也回传，让模型解释而不是崩溃
+        messages.append({
+            "role": "tool",
+            "tool_call_id": tool_call.id,
+            "content": json.dumps(result, ensure_ascii=False),
+        })

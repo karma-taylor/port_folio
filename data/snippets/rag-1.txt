@@ -1,0 +1,23 @@
+def _authorized(self, role: str) -> list[int]:
+    # guest 不享有任何内部制度阅读权；这里必须先于任何召回或分数计算。
+    if role == "guest":
+        return []
+    return [i for i, d in enumerate(self.documents) if role in d["allowed_roles"]]
+
+def search(self, query: str, user_role: str, top_k: int = 5) -> list[Evidence]:
+    if user_role not in ROLE_LABELS:
+        raise ValueError("未知角色")
+    allowed = self._authorized(user_role)      # 1. ACL 先过滤候选集
+    if not allowed:
+        return []
+    q = tokenize(query)
+    bm25 = sorted(allowed, key=lambda i: self._bm25(q, i), reverse=True)   # 2. 词法通道
+    dense = self._dense_rank(query, allowed)                                # 3. 可选 BGE 通道
+    rrf: defaultdict[int, float] = defaultdict(float)
+    for ranking in (bm25, dense):                                           # 4. RRF 融合
+        for rank, idx in enumerate(ranking, 1):
+            rrf[idx] += 1 / (60 + rank)
+    # 5. 轻量重排：按问题词覆盖率微调，方便在 X-Ray 中解释最后排序
+    final = sorted(rrf, key=lambda i: (rrf[i] + .002 * len(set(q) & set(self._doc_tokens[i])),
+                                       self._bm25(q, i)), reverse=True)[:top_k]
+    ...
