@@ -17,7 +17,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=20261025-stage" />
+    <link rel="stylesheet" href="styles.css?v=20261025-notch" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -41,23 +41,26 @@
     <div class="bezel" aria-hidden="true"></div>
 
     <div class="navwrap" id="navwrap">
-      <button class="bezel__tab" type="button" aria-expanded="false" aria-controls="topnav" aria-label="打开导航">郭</button>
-      <header class="top" id="topnav">
-        <a class="top__name" href="#top">郭伟南 <em>Karma Taylor</em></a>
-        <nav class="top__nav" aria-label="主导航"><a href="#about">速览</a><a href="#proof">证据</a><a href="#experience">经历</a><a href="#work">案例</a><a href="#approach">方法</a><a href="#contact">联系</a></nav>
-        <a class="top__resume" href="./resume.pdf" download="郭伟南-产品经理简历.pdf" data-track="resume_download" data-track-label="header">下载简历 <span aria-hidden="true">↓</span></a>
-      </header>
+      <nav class="notch" id="topnav" aria-label="主导航">
+        <div class="notch__side notch__side--left"><a href="#about">速览</a><a href="#experience">经历</a><a href="#work">案例</a></div>
+        <a class="logo" href="#top" aria-expanded="false" aria-controls="topnav" aria-label="Vinan · 回到开屏 / 打开导航"><span>Vinan</span></a>
+        <div class="notch__side notch__side--right"><a href="#approach">方法</a><a href="#proof">证据</a><a href="#contact">联系</a></div>
+      </nav>
     </div>
 
     <div class="page">
       <main id="top">
         <section class="view view--home hero" id="home" data-view aria-label="开屏">
           <div class="atmosphere" aria-hidden="true"></div>
-          <a class="hero__line" href="#about" data-track="case_open" data-track-label="hero-line"><span>郭伟南</span><i aria-hidden="true"></i><span>产品经理 · 解决方案方向</span><b aria-hidden="true">|</b><em>Enterprise workflow &amp; AI tooling</em></a>
+          <a class="hero__line" href="#about" data-track="case_open" data-track-label="hero-line"><span>郭伟南</span><i aria-hidden="true"></i><span>产品经理 · 解决方案方向</span><b aria-hidden="true">|</b><span>企业流程提效 / AI 工具落地</span></a>
+          <div class="hero__foot">
+            <p class="hero__bio"><span>重庆大学硕士，现任海外重资产 B 端项目综合解决方案实施经理</span><span>交付日报自动化、工程排班协同、企业制度 RAG 等 6 个流程提效工具</span></p>
+            <p class="hero__meta">©2026 深圳, CN <time data-clock>--:--</time></p>
+          </div>
         </section>
 
         <section class="view view--light" id="about" data-view aria-labelledby="about-title">
-          <div class="view__bar"><a href="#top" class="tlink tlink--back">← 开屏</a><span class="eyebrow">01 / 06</span></div>
+          <div class="view__bar"><a href="#top" class="tlink tlink--back">← 开屏</a><span class="view__bar-right"><span class="eyebrow">01 / 06</span><a class="tlink tlink--back" href="./resume.pdf" download="郭伟南-产品经理简历.pdf" data-track="resume_download" data-track-label="bar">下载简历 <span aria-hidden="true">↓</span></a></span></div>
           <div class="row-section">
             <div class="row-head reveal">
               <p class="eyebrow"><b>01</b> &amp; 速览</p>
@@ -83,7 +86,7 @@
         </section>
 
         <section class="view view--light" id="proof" data-view aria-labelledby="proof-title">
-          <div class="view__bar"><a href="#top" class="tlink tlink--back">← 开屏</a><span class="eyebrow">02 / 06</span></div>
+          <div class="view__bar"><a href="#top" class="tlink tlink--back">← 开屏</a><span class="view__bar-right"><span class="eyebrow">02 / 06</span><a class="tlink tlink--back" href="./resume.pdf" download="郭伟南-产品经理简历.pdf" data-track="resume_download" data-track-label="bar">下载简历 <span aria-hidden="true">↓</span></a></span></div>
           <div class="row-section">
             <div class="row-head reveal">
               <p class="eyebrow"><b>02</b> &amp; 证据</p>
@@ -100,7 +103,7 @@
         </section>
 
         <section class="view view--light" id="experience" data-view aria-labelledby="experience-title">
-          <div class="view__bar"><a href="#top" class="tlink tlink--back">← 开屏</a><span class="eyebrow">03 / 06</span></div>
+          <div class="view__bar"><a href="#top" class="tlink tlink--back">← 开屏</a><span class="view__bar-right"><span class="eyebrow">03 / 06</span><a class="tlink tlink--back" href="./resume.pdf" download="郭伟南-产品经理简历.pdf" data-track="resume_download" data-track-label="bar">下载简历 <span aria-hidden="true">↓</span></a></span></div>
           <div class="row-section">
             <div class="row-head reveal">
               <p class="eyebrow"><b>03</b> &amp; 经历</p>
@@ -140,7 +143,7 @@
         </section>
 
         <section class="view view--dark" id="work" data-view aria-labelledby="work-title">
-          <div class="view__bar"><a href="#top" class="tlink tlink--back">← 开屏</a><span class="eyebrow">04 / 06</span></div>
+          <div class="view__bar"><a href="#top" class="tlink tlink--back">← 开屏</a><span class="view__bar-right"><span class="eyebrow">04 / 06</span><a class="tlink tlink--back" href="./resume.pdf" download="郭伟南-产品经理简历.pdf" data-track="resume_download" data-track-label="bar">下载简历 <span aria-hidden="true">↓</span></a></span></div>
           <div class="work shell">
             <div class="work__head reveal">
               <div>
@@ -170,7 +173,7 @@
         </section>
 
         <section class="view view--light" id="approach" data-view aria-labelledby="approach-title">
-          <div class="view__bar"><a href="#top" class="tlink tlink--back">← 开屏</a><span class="eyebrow">05 / 06</span></div>
+          <div class="view__bar"><a href="#top" class="tlink tlink--back">← 开屏</a><span class="view__bar-right"><span class="eyebrow">05 / 06</span><a class="tlink tlink--back" href="./resume.pdf" download="郭伟南-产品经理简历.pdf" data-track="resume_download" data-track-label="bar">下载简历 <span aria-hidden="true">↓</span></a></span></div>
           <div class="row-section">
             <div class="row-head reveal">
               <p class="eyebrow"><b>05</b> &amp; 我交付什么</p>
@@ -208,7 +211,7 @@
         </section>
 
         <section class="view view--dark" id="contact" data-view aria-labelledby="contact-title">
-          <div class="view__bar"><a href="#top" class="tlink tlink--back">← 开屏</a><span class="eyebrow">06 / 06</span></div>
+          <div class="view__bar"><a href="#top" class="tlink tlink--back">← 开屏</a><span class="view__bar-right"><span class="eyebrow">06 / 06</span><a class="tlink tlink--back" href="./resume.pdf" download="郭伟南-产品经理简历.pdf" data-track="resume_download" data-track-label="bar">下载简历 <span aria-hidden="true">↓</span></a></span></div>
           <div class="contact">
             <div class="atmosphere" aria-hidden="true"></div>
             <p class="eyebrow reveal"><b>06</b> &amp; 联系</p>
@@ -229,7 +232,7 @@
         </section>
       </main>
     </div>
-    <script type="module" src="analytics.js?v=20261025-stage"></script>
-    <script type="module" src="script.js?v=20261025-stage"></script>
+    <script type="module" src="analytics.js?v=20261025-notch"></script>
+    <script type="module" src="script.js?v=20261025-notch"></script>
   </body>
 </html>

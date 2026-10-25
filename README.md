@@ -14,7 +14,7 @@
 
 ## 页面结构
 
-- 首页 `index.html` + `script.js`：一屏一节。开屏只有深色背景和一行身份；顶部导航平时隐藏，悬停（桌面）或点按（手机）顶部「郭」标签展开；点导航按 hash 切换到对应整屏（`#about` 速览 / `#proof` 证据 / `#experience` 经历 / `#work` 案例 / `#approach` 方法 / `#contact` 联系），`#top` 回开屏，支持 ← → 键。`nav.js` 为首页与案例页共用的导航开合逻辑
+- 首页 `index.html` + `script.js`：一屏一节。开屏是深色背景、居中一行身份、底部两行简介与本地时间；顶部居中黑色凹槽平时只显示「Vinan」（带扫光），悬停（桌面）时向两侧横向撑开露出 3+3 入口，点 Vinan 回开屏；手机上点按 Vinan 展开/收起；点导航按 hash 切换到对应整屏（`#about` 速览 / `#proof` 证据 / `#experience` 经历 / `#work` 案例 / `#approach` 方法 / `#contact` 联系），`#top` 回开屏，支持 ← → 键。`nav.js` 为首页与案例页共用的导航开合逻辑
 - 案例页 `cases/*/index.html`：由 `tools/build-case-pages.mjs` 生成，统一为速览 → 背景与用户 → 方案与取舍 → 结果与指标 → 交付证据 → 风险与边界 → 复盘 → 联系
 
 修改 `data/projects.js`（内容、`tier`、`homeOrder`）后，重新生成案例页与首页清单：

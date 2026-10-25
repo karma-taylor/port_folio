@@ -1,5 +1,5 @@
-import { CASES } from "./data/case-manifest.js?v=20261025-stage";
-import { setupNav } from "./nav.js?v=20261025-stage";
+import { CASES } from "./data/case-manifest.js?v=20261025-notch";
+import { setupNav } from "./nav.js?v=20261025-notch";
 
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -116,7 +116,7 @@ function setupQrPopovers() {
 function setupClock() {
   const nodes = document.querySelectorAll("[data-clock]");
   if (!nodes.length) return;
-  const formatter = new Intl.DateTimeFormat("zh-CN", { hour: "2-digit", minute: "2-digit", hour12: false, timeZone: "Asia/Shanghai" });
+  const formatter = new Intl.DateTimeFormat("zh-CN", { hour: "numeric", minute: "2-digit", hour12: true, timeZone: "Asia/Shanghai" });
   const tick = () => {
     const now = new Date();
     const text = formatter.format(now);
@@ -159,7 +159,7 @@ function setupViews() {
   const views = [...document.querySelectorAll("[data-view]")];
   if (!views.length) return;
   const ids = views.map((view) => view.id);
-  const navLinks = [...document.querySelectorAll('.top__nav a[href^="#"]')];
+  const navLinks = [...document.querySelectorAll('.notch__side a[href^="#"]')];
   let current = null;
   let leaveTimer = 0;
 
