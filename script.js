@@ -1,5 +1,5 @@
-import { CASES } from "./data/case-manifest.js?v=20261025-dense";
-import { setupNav } from "./nav.js?v=20261025-dense";
+import { CASES } from "./data/case-manifest.js?v=20261025-role";
+import { setupNav } from "./nav.js?v=20261025-role";
 
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 

@@ -7,8 +7,8 @@ export const PROJECTS = [
     size: "wide",
     status: "live",
     statusLabel: "Skill 协同",
-    title: "工程排班协同系统（Work Calendar Skill）",
-    titleLong: "工程排班协同系统（Work Calendar Skill）",
+    title: "项目排班协同系统（Work Calendar Skill）",
+    titleLong: "项目排班协同系统（Work Calendar Skill）",
     outcomes: [
       "网页与 Codex Skill 共享同一受控排班接口",
       "每次变更先预览冲突，再经用户确认写入",
@@ -56,12 +56,12 @@ export const PROJECTS = [
     },
     detail: {
       heroTeaser:
-        "把工程排班从网页表单延伸到 Codex Skill：AI 只提出候选变更，服务端先验证，用户确认后才落库。",
+        "把项目排班从网页表单延伸到 Codex Skill：AI 只提出候选变更，服务端先验证，用户确认后才落库。",
       focus: {
         tagline:
           "让自然语言排班具备与网页端一致的权限、冲突规则、版本控制与审计边界。",
         problem:
-          "工程排班既需要在月历中操作，也需要让 AI 协助查询和调整。若 AI 直接写库，人员撞期、越权和并发覆盖会从效率问题变成不可追溯的业务风险。",
+          "项目排班既需要在月历中操作，也需要让 AI 协助查询和调整。若 AI 直接写库，人员撞期、越权和并发覆盖会从效率问题变成不可追溯的业务风险。",
         ownership:
           "我负责将排班规则建模为网页与 Skill 共享的受控 API：定义命令边界、预览与确认协议、角色权限、revision 写入，以及隐私最小化的审计方式。",
         flowSummary:
@@ -69,7 +69,7 @@ export const PROJECTS = [
         productJudgment:
           "Skill 不拥有绕过规则的特权写入。它与网页端调用同一 Edge Function；身份、角色、冲突、Schema 和 revision 均由服务端裁决，安全性不依赖提示词。",
         promptDesign: {
-          goal: "让 Codex 用自然语言安全地查询、预览并管理工程排班，而不是让模型直接改数据库。",
+          goal: "让 Codex 用自然语言安全地查询、预览并管理项目排班，而不是让模型直接改数据库。",
           inputs: "用户意图、日期范围、项目与人员标识；Skill 始终从云端读取当前状态与 revision。",
           rules: "一次请求只收敛为 create / update / delete 一项明确命令；先预览，再等待用户明确确认。",
           output: "包含项目、人员、日期范围、冲突结果与 revision 的变更摘要；写入结果可由服务端审计。",
@@ -80,7 +80,7 @@ export const PROJECTS = [
       },
       recruiting: {
         background:
-          "我把高规则密度的工程排班，推进为“系统先判断、AI 提出候选、用户确认”的人机协同模式。",
+          "我把高规则密度的项目排班，推进为“系统先判断、AI 提出候选、用户确认”的人机协同模式。",
         usersScene: "适用于项目协调员既要在网页中查看月历，也要借助 AI 快速查询、预览和调整排班的场景。",
         coreProblem: "自然语言很灵活，但排班写入必须面对人员撞期、角色权限、并发修改和隐私数据边界。",
         researchScope: "围绕 Skill 的意图收敛、受影响日期读取、服务端预览、明确确认与 revision 写入设计闭环，不让模型承担最终业务裁决。",
@@ -98,7 +98,7 @@ export const PROJECTS = [
           {
             label: "业务痛点溯源",
             summary: [
-              { text: "排班 Skill 的价值不在于替人点击，而在于让自然语言操作也遵守工程现场的业务约束。", strong: true },
+              { text: "排班 Skill 的价值不在于替人点击，而在于让自然语言操作也遵守真实业务约束。", strong: true },
             ],
             points: [
               [{ text: "业务约束：同一人员可分段参与多个工单，但相交的时间区间必须被阻止。" }],
@@ -136,7 +136,7 @@ export const PROJECTS = [
         ],
       },
       summary:
-        "面向工程排班的网页与 Codex Skill 协同系统。核心不是让 AI 直接操作数据，而是让每一项自然语言变更都经过读取、预览、确认、服务端裁决与审计。",
+        "面向项目排班的网页与 Codex Skill 协同系统。核心不是让 AI 直接操作数据，而是让每一项自然语言变更都经过读取、预览、确认、服务端裁决与审计。",
       links: [
         {
           type: "live",
@@ -695,9 +695,9 @@ export const PROJECTS = [
 ];
 
 export const DELIVERY_SUMMARY = [
-  { label: "业务场景", value: "海外重资产工程与跨国结算" },
+  { label: "业务场景", value: "海外 B 端项目交付与跨国结算" },
   { label: "负责范围", value: "需求、规则、交付与验收路径" },
-  { label: "交付方法", value: "流程拆解、前端原型、自动化验证" },
+  { label: "交付方法", value: "规则建模、全栈原型、自动化验证" },
   { label: "验证方式", value: "脱敏试跑、回放与边界复盘" },
 ];
 
@@ -718,19 +718,19 @@ export const PROJECT_MANAGEMENT_META = {
     evidence: { title: "企业制度 RAG 的可信问答闭环", steps: ["角色识别", "ACL-first", "授权证据", "引用回答／拒答"] },
   },
   calendar: {
-    scenario: "钢结构遮阳棚施工班组协调",
+    scenario: "多班组项目排期协调（脱敏）",
     role: "需求拆解、规则设计、前端交付",
     status: "公开演示原型",
     verification: "脱敏场景试排与冲突回归",
     userStory: {
-      actor: "总包协调员（脱敏角色）",
-      situation: "钢构吊装完成后，需确认檩条安装班组的进场安排。",
-      need: "在确认前看清焊工的参与区间是否已被节点焊接占用。",
-      risk: "若撞期在分包确认后才发现，需要重新协调人员与进场节点。",
+      actor: "项目协调员（脱敏角色）",
+      situation: "上一道工序完成后，需确认下一班组的进场安排。",
+      need: "在确认前看清关键人员的参与区间是否已被其他工单占用。",
+      risk: "若撞期在对方确认后才发现，需要重新协调人员与进场节点。",
       resolution: "系统在保存前拦截冲突；调整分段或更换班组成员后再保存复核。",
-      evidence: "脱敏试排：排期请求、焊工撞期、调整分段、保存复核。",
+      evidence: "脱敏试排：排期请求、人员撞期、调整分段、保存复核。",
     },
-    evidence: { title: "总包协调员的冲突处理闭环", steps: ["排期请求", "焊工撞期", "调整分段", "保存复核"] },
+    evidence: { title: "项目协调员的冲突处理闭环", steps: ["排期请求", "人员撞期", "调整分段", "保存复核"] },
   },
   digest: {
     scenario: "多源行业资讯订阅与交付",
@@ -755,7 +755,7 @@ export const PROJECT_MANAGEMENT_META = {
       actor: "发薪协助人员／柜台操作人员（脱敏角色）",
       situation: "批量发薪前，需要按固定票面拆分金额并核对名单。",
       need: "确认每笔拆分无余数、批量结果口径一致，并可直接导出。",
-      risk: "现场分发时容易出现余数、漏项或不同操作人员口径不一致。",
+      risk: "分发时容易出现余数、漏项或不同操作人员口径不一致。",
       resolution: "让单笔和批量输入共用拆分规则，并在导出前提示异常。",
       evidence: "规则用例：单笔与批量输入、余数校验、固定列导出、异常提示。",
     },
@@ -793,20 +793,20 @@ export const PROJECT_MANAGEMENT_META = {
 export const PROFILE = {
   name: "郭伟南",
   alternateName: "Guo Weinan",
-  role: "产品经理（解决方案方向）· 企业流程提效与 AI 工具落地",
-  jobTitle: "产品经理（解决方案方向）",
+  role: "解决方案工程师 / Agent 开发工程师 · 企业流程提效与 AI 工具落地",
+  jobTitle: "解决方案工程师 / Agent 开发工程师",
   siteUrl: "https://www.vinanverse.com/",
   pageUrl: "https://www.vinanverse.com/",
   sameAs: ["https://github.com/karma-taylor"],
   description:
-    "郭伟南的产品经理作品集（解决方案方向），聚焦将海外重资产 B 端项目交付中的规则、合规与协同经验，转化为可验证的流程提效与 AI 工具。",
+    "郭伟南的作品集（解决方案工程师 / Agent 开发工程师），聚焦将海外 B 端项目交付中的规则、合规与协同经验，转化为可验证的流程提效工具与 Agent。",
   experience: [
     {
       period: "2025.07 — 至今",
-      title: "海外重资产 B 端项目交付",
+      title: "海外 B 端项目交付",
       context: "Halfaya 11kV 项目 · 综合解决方案实施经理",
-      detail: "推进复杂节点、跨文化协同与现场安全合规；同时梳理跨国结算中的计价、审批与审计口径。",
-      proof: "将工程现场的范围、规则和验收方法迁移到 AI 产品设计。",
+      detail: "推进复杂节点交付、跨文化协同与合规验收；同时梳理跨国结算中的计价、审批与审计口径。",
+      proof: "将一线交付的范围、规则和验收方法迁移到系统与 Agent 设计。",
     },
     {
       period: "PoC 复盘",

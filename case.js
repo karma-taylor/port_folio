@@ -1,4 +1,4 @@
-import { setupNav } from './nav.js?v=20261025-dense';
+import { setupNav } from './nav.js?v=20261025-role';
 
 setupNav();
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

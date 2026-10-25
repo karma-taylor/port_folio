@@ -1,7 +1,7 @@
 {
   "name": "port_folio",
   "version": "1.0.0",
-  "description": "郭伟南的 AI 产品经理作品集静态站点，聚焦真实业务规则产品化、AI 工作流设计与自动化落地案例。",
+  "description": "郭伟南的作品集静态站点（解决方案工程师 / Agent 开发工程师），聚焦真实业务规则系统化、Agent 工作流与自动化落地案例。",
   "main": "main.js",
   "type": "module",
   "directories": {

@@ -59,13 +59,13 @@ export const CASES = [
     "index": "02",
     "slug": "work-calendar",
     "tier": "core",
-    "title": "工程排班协同系统（Work Calendar Skill）",
-    "titleLong": "工程排班协同系统（Work Calendar Skill）",
+    "title": "项目排班协同系统（Work Calendar Skill）",
+    "titleLong": "项目排班协同系统（Work Calendar Skill）",
     "statusLabel": "Skill 协同",
-    "summary": "面向工程排班的网页与 Codex Skill 协同系统。核心不是让 AI 直接操作数据，而是让每一项自然语言变更都经过读取、预览、确认、服务端裁决与审计。",
+    "summary": "面向项目排班的网页与 Codex Skill 协同系统。核心不是让 AI 直接操作数据，而是让每一项自然语言变更都经过读取、预览、确认、服务端裁决与审计。",
     "tagline": "让自然语言排班具备与网页端一致的权限、冲突规则、版本控制与审计边界。",
     "role": "需求拆解、规则设计、前端交付",
-    "scenario": "钢结构遮阳棚施工班组协调",
+    "scenario": "多班组项目排期协调（脱敏）",
     "verification": "脱敏场景试排与冲突回归",
     "results": [
       {
