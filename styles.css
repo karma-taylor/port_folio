@@ -36,7 +36,7 @@ ul, ol { padding: 0; list-style: none; }
 /* ---------- Notch navigation (collapsed: logo only; hover/tap: widens sideways) ---------- */
 .navwrap { position: fixed; top: var(--bezel); left: 50%; z-index: 65; transform: translateX(-50%); }
 .notch { position: relative; display: flex; align-items: center; height: 34px; padding: 0 22px; border-radius: 0 0 16px 16px; background: #000; color: #fff; font: 500 11px/1 var(--sans); letter-spacing: .08em; white-space: nowrap; }
-.notch::before, .notch::after { content: ""; position: absolute; top: 0; width: 16px; height: 16px; background: radial-gradient(circle at 100% 100%, transparent 15.5px, #000 16px); }
+.notch::before, .notch::after { content: ""; position: absolute; top: 0; width: 16px; height: 16px; background: radial-gradient(circle at 0 100%, transparent 15.5px, #000 16px); }
 .notch::before { left: -16px; }
 .notch::after { right: -16px; transform: scaleX(-1); }
 .notch__side { display: flex; align-items: center; gap: 26px; max-width: 0; margin: 0; overflow: hidden; opacity: 0; transition: max-width .55s var(--ease) .12s, margin .55s var(--ease) .12s, opacity .3s .12s; }
