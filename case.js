@@ -1,4 +1,4 @@
-import { setupNav } from './nav.js?v=20261025-notch';
+import { setupNav } from './nav.js?v=20261025-dense';
 
 setupNav();
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

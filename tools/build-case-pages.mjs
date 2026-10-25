@@ -7,7 +7,7 @@ const source = await readFile(join(root, "data/projects.js"), "utf8");
 const dataUrl = `data:text/javascript;base64,${Buffer.from(source).toString("base64")}`;
 const { PROJECTS: SOURCE_PROJECTS, PROJECT_MANAGEMENT_META = {} } = await import(dataUrl);
 
-const ASSET_VERSION = "20261025-notch";
+const ASSET_VERSION = "20261025-dense";
 const PROJECTS = [...SOURCE_PROJECTS]
   .sort((a, b) => (a.homeOrder ?? 99) - (b.homeOrder ?? 99))
   .map((project, position) => ({ ...project, index: String(position + 1).padStart(2, "0") }));
@@ -71,6 +71,9 @@ const publicProject = (project) => {
     scenario: meta.scenario || "",
     verification: meta.verification || "",
     results: project.detail?.recruiting?.results || [],
+    outcomes: project.outcomes || [],
+    tech: (project.tech || []).map((item) => item.label),
+    status: meta.status || project.statusLabel,
     cover: rootAsset(images[project.id][0]),
     coverAlt: project.cover?.alt || `${project.title} 项目界面`,
     live: linkByType(project, "live") || null,

@@ -31,6 +31,20 @@ export const CASES = [
         "value": "保留模板格式"
       }
     ],
+    "outcomes": [
+      "单次日报生成从约 4 小时压缩至 6 分钟",
+      "多维数据自动清洗并按模板秒级生成日报",
+      "异常清单随结果一起输出，便于复核"
+    ],
+    "tech": [
+      "Python",
+      "pandas",
+      "openpyxl",
+      "Cursor",
+      "Codex",
+      "Streamlit"
+    ],
+    "status": "代码案例",
     "cover": "https://www.vinanverse.com/report-cover.png",
     "coverAlt": "日报自动化生成引擎项目封面",
     "live": null,
@@ -71,6 +85,20 @@ export const CASES = [
         "value": "匿名 ID + 最小审计"
       }
     ],
+    "outcomes": [
+      "网页与 Codex Skill 共享同一受控排班接口",
+      "每次变更先预览冲突，再经用户确认写入",
+      "revision 校验拒绝多人协作时的静默覆盖"
+    ],
+    "tech": [
+      "Codex work-calendar Skill",
+      "Supabase Edge Function",
+      "Supabase Auth / Postgres",
+      "React 19 / Vite",
+      "TypeScript / Deno",
+      "SheetJS 本地名单解析"
+    ],
+    "status": "公开演示原型",
     "cover": "https://www.vinanverse.com/calendar-cover-auto.png",
     "coverAlt": "工作日历协同系统项目封面",
     "live": {
@@ -115,6 +143,19 @@ export const CASES = [
         "value": "Protected Query Gate"
       }
     ],
+    "outcomes": [
+      "ACL-first 让未授权制度不参与召回",
+      "BM25 与可选 BGE 通道经 RRF 融合、重排后输出授权证据",
+      "无证据、非法引用或服务异常时 fail-closed 拒答"
+    ],
+    "tech": [
+      "FastAPI",
+      "Docker / Render Blueprint",
+      "OpenAI-compatible LLM",
+      "BM25 + BGE + RRF",
+      "GitHub Actions / Pytest"
+    ],
+    "status": "公开合成数据 Demo",
     "cover": "./assets/cases/enterprise-rag/qa.webp",
     "coverAlt": "企业制度 RAG 员工问答界面",
     "live": null,
@@ -155,6 +196,21 @@ export const CASES = [
         "value": "定时自动推送"
       }
     ],
+    "outcomes": [
+      "多源信息自动整理成结构化日报",
+      "摘要结果可复用到邮件模板与前端页面",
+      "定时推送替代高频手工汇总"
+    ],
+    "tech": [
+      "Python",
+      "RAG",
+      "定时任务",
+      "LLM API",
+      "Cursor",
+      "Codex",
+      "Cloudflare Pages"
+    ],
+    "status": "已上线",
     "cover": "https://www.vinanverse.com/digest-cover-auto.png",
     "coverAlt": "HamHome Daily Digest 项目封面",
     "live": {
@@ -199,6 +255,20 @@ export const CASES = [
         "value": "Web + 小程序"
       }
     ],
+    "outcomes": [
+      "单笔与批量输入复用同一拆分口径",
+      "网页端与小程序端复用同一拆分口径",
+      "Excel 批量导入导出结果可复核"
+    ],
+    "tech": [
+      "JavaScript",
+      "Excel 导入导出",
+      "微信小程序",
+      "Cursor",
+      "Codex",
+      "GitHub Pages"
+    ],
+    "status": "已上线",
     "cover": "https://www.vinanverse.com/money-cover-auto.png",
     "coverAlt": "轻松配钞项目封面",
     "live": {
@@ -243,6 +313,20 @@ export const CASES = [
         "value": "缓存降级"
       }
     ],
+    "outcomes": [
+      "多银行参考与防呆纠偏，结果可复核",
+      "弱网 / 缓存降级策略保证可用性",
+      "把换算过程做成可交付而非黑盒结果"
+    ],
+    "tech": [
+      "JavaScript",
+      "HTML / CSS",
+      "汇率 API",
+      "Hugging Face",
+      "Cursor",
+      "Codex"
+    ],
+    "status": "已上线",
     "cover": "https://www.vinanverse.com/fx-cover-auto.png",
     "coverAlt": "汇率换算 Agent 项目封面",
     "live": {

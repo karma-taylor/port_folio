@@ -1,5 +1,5 @@
-import { CASES } from "./data/case-manifest.js?v=20261025-notch";
-import { setupNav } from "./nav.js?v=20261025-notch";
+import { CASES } from "./data/case-manifest.js?v=20261025-dense";
+import { setupNav } from "./nav.js?v=20261025-dense";
 
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -154,6 +154,55 @@ function setupCounters() {
   nodes.forEach((node) => observer.observe(node));
 }
 
+function renderToolCloud() {
+  const root = document.getElementById("toolCloud");
+  if (!root) return;
+  const counts = new Map();
+  CASES.forEach((project) => (project.tech || []).forEach((label) => {
+    const key = label.split(/\s*\/\s*|\s+本地/)[0].trim();
+    counts.set(key, (counts.get(key) || 0) + 1);
+  }));
+  const tools = [...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "zh"));
+  root.innerHTML = tools.map(([label, count]) => `<li>${esc(label)}${count > 1 ? `<small>×${count}</small>` : ""}</li>`).join("");
+}
+
+function renderEvidenceTable() {
+  const root = document.getElementById("evidenceTable");
+  if (!root) return;
+  root.innerHTML = CASES.map((project) => {
+    const results = (project.results || [])
+      .filter((item) => !(project.verification && item.label === "验证方式"))
+      .map((item) => `<li><small>${esc(item.label)}</small>${esc(item.value)}</li>`)
+      .join("");
+    const outcomes = (project.outcomes || []).slice(0, 2).map((item) => `<li>${esc(item)}</li>`).join("");
+    return `<article class="evidence__row">
+      <div class="evidence__head">
+        <span class="eyebrow">${esc(project.index)} · ${esc(project.status || project.statusLabel)}</span>
+        <h4><a href="./cases/${esc(project.slug)}/" data-track="case_open" data-track-label="${esc(project.slug)}-evidence">${titleMarkup(project.title)}</a></h4>
+      </div>
+      <ul class="evidence__results">${results}</ul>
+      <div class="evidence__verify">
+        <span class="eyebrow">验证方式</span>
+        <p>${esc(project.verification || "以公开版本和可复现流程核验")}</p>
+        ${outcomes ? `<ul class="evidence__outcomes">${outcomes}</ul>` : ""}
+      </div>
+    </article>`;
+  }).join("");
+}
+
+function renderDemoList() {
+  const root = document.getElementById("demoList");
+  if (!root) return;
+  root.innerHTML = CASES.map((project) => {
+    const live = project.live?.href;
+    const github = project.github?.href;
+    const primary = live
+      ? `<a href="${esc(live)}" target="_blank" rel="noopener noreferrer" data-track="live_open" data-track-label="${esc(project.slug)}-contact">打开产品 ↗</a>`
+      : github ? `<a href="${esc(github)}" target="_blank" rel="noopener noreferrer" data-track="github_open" data-track-label="${esc(project.slug)}-contact">查看仓库 ↗</a>` : "";
+    return `<li><span class="eyebrow">${esc(project.index)}</span><a href="./cases/${esc(project.slug)}/" data-track="case_open" data-track-label="${esc(project.slug)}-contact">${esc(splitTitle(project.title).zh)}</a><span class="demo-list__status">${esc(project.status || project.statusLabel)}</span>${primary}</li>`;
+  }).join("");
+}
+
 // One screen at a time: the hash picks the active view, the opening screen is the default.
 function setupViews() {
   const views = [...document.querySelectorAll("[data-view]")];
@@ -208,6 +257,9 @@ function setupViews() {
 }
 
 renderCases();
+renderToolCloud();
+renderEvidenceTable();
+renderDemoList();
 setupViews();
 setupNav();
 setupReveal();
